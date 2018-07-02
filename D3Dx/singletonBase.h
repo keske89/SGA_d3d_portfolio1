@@ -1,0 +1,45 @@
+#pragma once
+
+template <typename T>
+class singletonBase
+{
+protected:
+	static T* singleton;
+
+	singletonBase(){};
+	~singletonBase(){};
+
+public:
+
+	static T* getSingleton(void);
+
+	void releaseSingleton(void);
+
+};
+
+//ΩÃ±€≈Ê √ ±‚»≠
+template <typename T>
+T* singletonBase<T>::singleton = 0;
+
+//ΩÃ±€≈Ê ∫“∑Øø¿¥¬ «‘ºˆ
+template <typename T>
+T* singletonBase<T>::getSingleton()
+{
+	//ΩÃ±€≈Ê¿Ã æ¯¿∏∏È ΩÃ±€≈Ê¿ª ª˝º∫«ÿ∂Û
+	if (!singleton) singleton = new T;
+
+	return singleton;
+}
+
+//ΩÃ±€≈Ê «ÿ¡¶ «‘ºˆ
+
+template <typename T>
+void singletonBase<T>::releaseSingleton(void)
+{
+	if (singleton)
+	{
+		delete singleton;
+
+		singleton = 0;
+	}
+}
