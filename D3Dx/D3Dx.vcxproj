@@ -156,8 +156,13 @@
     <ClInclude Include="cIngameObj.h" />
     <ClInclude Include="cKeyManager.h" />
     <ClInclude Include="cMainGame.h" />
+<<<<<<< HEAD
     <ClInclude Include="cOnion.h" />
+=======
+    <ClInclude Include="cObjLoader.h" />
+>>>>>>> d890da0201b60b6cb5d3efa65c598817a666e2f3
     <ClInclude Include="cSceneManager.h" />
+    <ClInclude Include="cTextManager.h" />
     <ClInclude Include="cTextureManager.h" />
     <ClInclude Include="cTimeManager.h" />
     <ClInclude Include="cTimer.h" />
@@ -175,8 +180,13 @@
     <ClCompile Include="cIngameObj.cpp" />
     <ClCompile Include="cKeyManager.cpp" />
     <ClCompile Include="cMainGame.cpp" />
+<<<<<<< HEAD
     <ClCompile Include="cOnion.cpp" />
+=======
+    <ClCompile Include="cObjLoader.cpp" />
+>>>>>>> d890da0201b60b6cb5d3efa65c598817a666e2f3
     <ClCompile Include="cSceneManager.cpp" />
+    <ClCompile Include="cTextManager.cpp" />
     <ClCompile Include="cTextureManager.cpp" />
     <ClCompile Include="cTimeManager.cpp" />
     <ClCompile Include="cTimer.cpp" />

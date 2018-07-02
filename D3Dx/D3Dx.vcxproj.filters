@@ -13,14 +13,16 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="ObjLoader">
-      <UniqueIdentifier>{16bad9ea-5eb5-4bb3-bab8-a5bf4e8bb108}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Manager">
+    <Filter Include="소스 파일\Manager">
       <UniqueIdentifier>{800f371d-22c9-46cd-8f96-c0d4f1c4e075}</UniqueIdentifier>
     </Filter>
+<<<<<<< HEAD
     <Filter Include="IngameObject">
       <UniqueIdentifier>{1359f31f-d24e-4abe-b83e-1422c9d2df32}</UniqueIdentifier>
+=======
+    <Filter Include="소스 파일\ObjLoader">
+      <UniqueIdentifier>{16bad9ea-5eb5-4bb3-bab8-a5bf4e8bb108}</UniqueIdentifier>
+>>>>>>> d890da0201b60b6cb5d3efa65c598817a666e2f3
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -34,16 +36,16 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="cFontManager.h">
-      <Filter>Manager</Filter>
+      <Filter>소스 파일\Manager</Filter>
     </ClInclude>
     <ClInclude Include="cDeviceManager.h">
-      <Filter>Manager</Filter>
+      <Filter>소스 파일\Manager</Filter>
     </ClInclude>
     <ClInclude Include="cKeyManager.h">
-      <Filter>Manager</Filter>
+      <Filter>소스 파일\Manager</Filter>
     </ClInclude>
     <ClInclude Include="cTextureManager.h">
-      <Filter>Manager</Filter>
+      <Filter>소스 파일\Manager</Filter>
     </ClInclude>
     <ClInclude Include="singletonBase.h">
       <Filter>헤더 파일</Filter>
@@ -55,13 +57,13 @@
       <Filter>소스 파일</Filter>
     </ClInclude>
     <ClInclude Include="cSceneManager.h">
-      <Filter>Manager</Filter>
+      <Filter>소스 파일\Manager</Filter>
     </ClInclude>
     <ClInclude Include="cTimeManager.h">
-      <Filter>Manager</Filter>
+      <Filter>소스 파일\Manager</Filter>
     </ClInclude>
     <ClInclude Include="cTimer.h">
-      <Filter>Manager</Filter>
+      <Filter>소스 파일\Manager</Filter>
     </ClInclude>
     <ClInclude Include="cMainGame.h">
       <Filter>소스 파일</Filter>
@@ -69,11 +71,19 @@
     <ClInclude Include="D3Dx.h">
       <Filter>소스 파일</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="cIngameObj.h">
       <Filter>IngameObject</Filter>
     </ClInclude>
     <ClInclude Include="cOnion.h">
       <Filter>IngameObject</Filter>
+=======
+    <ClInclude Include="cObjLoader.h">
+      <Filter>소스 파일\ObjLoader</Filter>
+    </ClInclude>
+    <ClInclude Include="cTextManager.h">
+      <Filter>소스 파일\Manager</Filter>
+>>>>>>> d890da0201b60b6cb5d3efa65c598817a666e2f3
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -90,28 +100,34 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="cDeviceManager.cpp">
-      <Filter>Manager</Filter>
+      <Filter>소스 파일\Manager</Filter>
     </ClCompile>
     <ClCompile Include="cFontManager.cpp">
-      <Filter>Manager</Filter>
+      <Filter>소스 파일\Manager</Filter>
     </ClCompile>
     <ClCompile Include="cKeyManager.cpp">
-      <Filter>Manager</Filter>
+      <Filter>소스 파일\Manager</Filter>
     </ClCompile>
     <ClCompile Include="cTextureManager.cpp">
-      <Filter>Manager</Filter>
+      <Filter>소스 파일\Manager</Filter>
     </ClCompile>
     <ClCompile Include="cGameNode.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="cSceneManager.cpp">
-      <Filter>Manager</Filter>
+      <Filter>소스 파일\Manager</Filter>
     </ClCompile>
     <ClCompile Include="cTimeManager.cpp">
-      <Filter>Manager</Filter>
+      <Filter>소스 파일\Manager</Filter>
     </ClCompile>
     <ClCompile Include="cTimer.cpp">
-      <Filter>Manager</Filter>
+      <Filter>소스 파일\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="cObjLoader.cpp">
+      <Filter>소스 파일\ObjLoader</Filter>
+    </ClCompile>
+    <ClCompile Include="cTextManager.cpp">
+      <Filter>소스 파일\Manager</Filter>
     </ClCompile>
     <ClCompile Include="cIngameObj.cpp">
       <Filter>IngameObject</Filter>
