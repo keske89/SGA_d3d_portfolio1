@@ -66,6 +66,9 @@
     <ClInclude Include="D3Dx.h">
       <Filter>소스 파일</Filter>
     </ClInclude>
+    <ClInclude Include="cObjLoader.h">
+      <Filter>ObjLoader</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -103,6 +106,9 @@
     </ClCompile>
     <ClCompile Include="cTimer.cpp">
       <Filter>Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="cObjLoader.cpp">
+      <Filter>ObjLoader</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

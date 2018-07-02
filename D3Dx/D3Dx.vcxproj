@@ -155,6 +155,7 @@
     <ClInclude Include="cGameNode.h" />
     <ClInclude Include="cKeyManager.h" />
     <ClInclude Include="cMainGame.h" />
+    <ClInclude Include="cObjLoader.h" />
     <ClInclude Include="cSceneManager.h" />
     <ClInclude Include="cTextureManager.h" />
     <ClInclude Include="cTimeManager.h" />
@@ -172,6 +173,7 @@
     <ClCompile Include="cGameNode.cpp" />
     <ClCompile Include="cKeyManager.cpp" />
     <ClCompile Include="cMainGame.cpp" />
+    <ClCompile Include="cObjLoader.cpp" />
     <ClCompile Include="cSceneManager.cpp" />
     <ClCompile Include="cTextureManager.cpp" />
     <ClCompile Include="cTimeManager.cpp" />
