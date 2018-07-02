@@ -21,7 +21,6 @@ public:
 	void WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 	void SetLight();
 
-	void RenderObj();
-	void RenderMesh();
+	
 };
 
