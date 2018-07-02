@@ -16,6 +16,9 @@
     <Filter Include="ObjLoader">
       <UniqueIdentifier>{16bad9ea-5eb5-4bb3-bab8-a5bf4e8bb108}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Manager">
+      <UniqueIdentifier>{800f371d-22c9-46cd-8f96-c0d4f1c4e075}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -33,16 +36,22 @@
     <ClInclude Include="cMainGame.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="cDeviceManager.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="cCamera.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="cTextureManager.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>Manager</Filter>
     </ClInclude>
     <ClInclude Include="cFontManager.h">
+      <Filter>Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="cDeviceManager.h">
+      <Filter>Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="cKeyManager.h">
+      <Filter>Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="cTextureManager.h">
+      <Filter>Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="singletonBase.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
@@ -56,17 +65,20 @@
     <ClCompile Include="cMainGame.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="cDeviceManager.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="cCamera.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="cTextureManager.cpp">
-      <Filter>소스 파일</Filter>
+    <ClCompile Include="cDeviceManager.cpp">
+      <Filter>Manager</Filter>
     </ClCompile>
     <ClCompile Include="cFontManager.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="cKeyManager.cpp">
+      <Filter>Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="cTextureManager.cpp">
+      <Filter>Manager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

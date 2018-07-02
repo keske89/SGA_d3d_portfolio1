@@ -19,10 +19,9 @@ cMainGame::~cMainGame()
 
 void cMainGame::Setup()
 {
-	
-
 	SetLight();
 
+	
 
 	g_pD3DDevice->SetRenderState(D3DRS_LIGHTING, true);
 
