@@ -36,9 +36,6 @@
     <ClInclude Include="cMainGame.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="cCamera.h">
-      <Filter>Manager</Filter>
-    </ClInclude>
     <ClInclude Include="cFontManager.h">
       <Filter>Manager</Filter>
     </ClInclude>
@@ -53,6 +50,9 @@
     </ClInclude>
     <ClInclude Include="singletonBase.h">
       <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="cCamera.h">
+      <Filter>소스 파일</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

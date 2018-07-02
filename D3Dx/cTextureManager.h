@@ -6,10 +6,10 @@ class cTextureManager
 {
 private:
 	SINGLETONE(cTextureManager);
-	std::map<std::string, LPDIRECT3DTEXTURE9>	m_mapTexture;
+	map<wstring, LPDIRECT3DTEXTURE9>	m_mapTexture;
 
 public:
-	LPDIRECT3DTEXTURE9 GetTexture(const char* szFullPath);
+	LPDIRECT3DTEXTURE9 GetTexture(const WCHAR* szFullPath);
 	void Destroy();
 };
 

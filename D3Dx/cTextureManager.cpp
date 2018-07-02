@@ -11,7 +11,7 @@ cTextureManager::~cTextureManager()
 {
 }
 
-LPDIRECT3DTEXTURE9 cTextureManager::GetTexture(const char * szFullPath)
+LPDIRECT3DTEXTURE9 cTextureManager::GetTexture(const WCHAR* szFullPath)
 {
 	//std::string sFullPath = std::string(szFullPath);
 	if (m_mapTexture.find(szFullPath) == m_mapTexture.end())
