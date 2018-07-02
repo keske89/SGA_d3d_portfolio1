@@ -156,8 +156,7 @@
     <ClInclude Include="cIngameObj.h" />
     <ClInclude Include="cKeyManager.h" />
     <ClInclude Include="cMainGame.h" />
-<<<<<<< HEAD
-    <ClInclude Include="cOnion.h" />
+
 =======
     <ClInclude Include="cObjLoader.h" />
 >>>>>>> d890da0201b60b6cb5d3efa65c598817a666e2f3
@@ -180,8 +179,7 @@
     <ClCompile Include="cIngameObj.cpp" />
     <ClCompile Include="cKeyManager.cpp" />
     <ClCompile Include="cMainGame.cpp" />
-<<<<<<< HEAD
-    <ClCompile Include="cOnion.cpp" />
+
 =======
     <ClCompile Include="cObjLoader.cpp" />
 >>>>>>> d890da0201b60b6cb5d3efa65c598817a666e2f3
