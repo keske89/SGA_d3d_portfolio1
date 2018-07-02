@@ -19,6 +19,15 @@
     <Filter Include="소스 파일\ObjLoader">
       <UniqueIdentifier>{16bad9ea-5eb5-4bb3-bab8-a5bf4e8bb108}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\IngameObj">
+      <UniqueIdentifier>{ba060946-8079-4f5d-9cb8-94486437b1a1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\IngameObj\ActionObj">
+      <UniqueIdentifier>{41f5dee3-82a6-49eb-a6e6-572232983e65}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\IngameObj\FoodObj">
+      <UniqueIdentifier>{1be9953f-217c-4e87-a861-42cbb606d0fe}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -69,6 +78,21 @@
     <ClInclude Include="cTextManager.h">
       <Filter>소스 파일\Manager</Filter>
     </ClInclude>
+    <ClInclude Include="cIGObj.h">
+      <Filter>소스 파일\IngameObj</Filter>
+    </ClInclude>
+    <ClInclude Include="cKnife.h">
+      <Filter>소스 파일\IngameObj\ActionObj</Filter>
+    </ClInclude>
+    <ClInclude Include="cActionObj.h">
+      <Filter>소스 파일\IngameObj</Filter>
+    </ClInclude>
+    <ClInclude Include="cFoodObj.h">
+      <Filter>소스 파일\IngameObj</Filter>
+    </ClInclude>
+    <ClInclude Include="cTomato.h">
+      <Filter>소스 파일\IngameObj\FoodObj</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -109,6 +133,21 @@
     </ClCompile>
     <ClCompile Include="cTextManager.cpp">
       <Filter>소스 파일\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="cIGObj.cpp">
+      <Filter>소스 파일\IngameObj</Filter>
+    </ClCompile>
+    <ClCompile Include="cKnife.cpp">
+      <Filter>소스 파일\IngameObj\ActionObj</Filter>
+    </ClCompile>
+    <ClCompile Include="cActionObj.cpp">
+      <Filter>소스 파일\IngameObj</Filter>
+    </ClCompile>
+    <ClCompile Include="cFoodObj.cpp">
+      <Filter>소스 파일\IngameObj</Filter>
+    </ClCompile>
+    <ClCompile Include="cTomato.cpp">
+      <Filter>소스 파일\IngameObj\FoodObj</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

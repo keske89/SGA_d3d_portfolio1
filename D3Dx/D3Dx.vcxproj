@@ -151,17 +151,22 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="cActionObj.h" />
     <ClInclude Include="cCamera.h" />
     <ClInclude Include="cDeviceManager.h" />
     <ClInclude Include="cFontManager.h" />
+    <ClInclude Include="cFoodObj.h" />
     <ClInclude Include="cGameNode.h" />
+    <ClInclude Include="cIGObj.h" />
     <ClInclude Include="cKeyManager.h" />
+    <ClInclude Include="cKnife.h" />
     <ClInclude Include="cMainGame.h" />
     <ClInclude Include="cSceneManager.h" />
     <ClInclude Include="cTextManager.h" />
     <ClInclude Include="cTextureManager.h" />
     <ClInclude Include="cTimeManager.h" />
     <ClInclude Include="cTimer.h" />
+    <ClInclude Include="cTomato.h" />
     <ClInclude Include="D3Dx.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="singletonBase.h" />
@@ -169,17 +174,22 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="cActionObj.cpp" />
     <ClCompile Include="cCamera.cpp" />
     <ClCompile Include="cDeviceManager.cpp" />
     <ClCompile Include="cFontManager.cpp" />
+    <ClCompile Include="cFoodObj.cpp" />
     <ClCompile Include="cGameNode.cpp" />
+    <ClCompile Include="cIGObj.cpp" />
     <ClCompile Include="cKeyManager.cpp" />
+    <ClCompile Include="cKnife.cpp" />
     <ClCompile Include="cMainGame.cpp" />
     <ClCompile Include="cSceneManager.cpp" />
     <ClCompile Include="cTextManager.cpp" />
     <ClCompile Include="cTextureManager.cpp" />
     <ClCompile Include="cTimeManager.cpp" />
     <ClCompile Include="cTimer.cpp" />
+    <ClCompile Include="cTomato.cpp" />
     <ClCompile Include="D3Dx.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
