@@ -30,12 +30,6 @@
     <ClInclude Include="Resource.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="D3Dx.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="cMainGame.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="cFontManager.h">
       <Filter>Manager</Filter>
     </ClInclude>
@@ -52,6 +46,24 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="cCamera.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="cGameNode.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="cSceneManager.h">
+      <Filter>Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="cTimeManager.h">
+      <Filter>Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="cTimer.h">
+      <Filter>Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="cMainGame.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="D3Dx.h">
       <Filter>소스 파일</Filter>
     </ClInclude>
   </ItemGroup>
@@ -78,6 +90,18 @@
       <Filter>Manager</Filter>
     </ClCompile>
     <ClCompile Include="cTextureManager.cpp">
+      <Filter>Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="cGameNode.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="cSceneManager.cpp">
+      <Filter>Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="cTimeManager.cpp">
+      <Filter>Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="cTimer.cpp">
       <Filter>Manager</Filter>
     </ClCompile>
   </ItemGroup>

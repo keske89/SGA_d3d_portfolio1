@@ -14,16 +14,19 @@ cMainGame::cMainGame()
 cMainGame::~cMainGame()
 {
 	delete m_pCamera;
+
+	TIMEMANAGER->Destroy();
+	SCENEMANAGER->Destroy();
 	g_pDeviceManager->Destroy();
 }
 
 void cMainGame::Setup()
 {
 	SetLight();
+	g_pD3DDevice->SetRenderState(D3DRS_LIGHTING, true);
 
 	
 
-	g_pD3DDevice->SetRenderState(D3DRS_LIGHTING, true);
 
 	m_pCamera = new cCamera;
 	m_pCamera->Setup();
