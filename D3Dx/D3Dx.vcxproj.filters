@@ -93,6 +93,9 @@
     <ClInclude Include="cTomato.h">
       <Filter>소스 파일\IngameObj\FoodObj</Filter>
     </ClInclude>
+    <ClInclude Include="cObjLoader.h">
+      <Filter>소스 파일\ObjLoader</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -148,6 +151,9 @@
     </ClCompile>
     <ClCompile Include="cTomato.cpp">
       <Filter>소스 파일\IngameObj\FoodObj</Filter>
+    </ClCompile>
+    <ClCompile Include="cObjLoader.cpp">
+      <Filter>소스 파일\ObjLoader</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

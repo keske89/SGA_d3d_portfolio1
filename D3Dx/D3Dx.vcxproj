@@ -161,6 +161,7 @@
     <ClInclude Include="cKeyManager.h" />
     <ClInclude Include="cKnife.h" />
     <ClInclude Include="cMainGame.h" />
+    <ClInclude Include="cObjLoader.h" />
     <ClInclude Include="cSceneManager.h" />
     <ClInclude Include="cTextManager.h" />
     <ClInclude Include="cTextureManager.h" />
@@ -184,6 +185,7 @@
     <ClCompile Include="cKeyManager.cpp" />
     <ClCompile Include="cKnife.cpp" />
     <ClCompile Include="cMainGame.cpp" />
+    <ClCompile Include="cObjLoader.cpp" />
     <ClCompile Include="cSceneManager.cpp" />
     <ClCompile Include="cTextManager.cpp" />
     <ClCompile Include="cTextureManager.cpp" />
