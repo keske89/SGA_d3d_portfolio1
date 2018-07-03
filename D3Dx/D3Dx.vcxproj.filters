@@ -102,21 +102,6 @@
     <ClInclude Include="cObjLoader.h">
       <Filter>소스 파일\ObjLoader</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\Desktop\SGA_d3d_portfolio1\D3Dx\ChefBody.h">
-      <Filter>소스 파일\ObjLoader\Chef\ChefPatrs</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\Desktop\SGA_d3d_portfolio1\D3Dx\ChefHead.h">
-      <Filter>소스 파일\ObjLoader\Chef\ChefPatrs</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\Desktop\SGA_d3d_portfolio1\D3Dx\ChefLeftHand.h">
-      <Filter>소스 파일\ObjLoader\Chef\ChefPatrs</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\Desktop\SGA_d3d_portfolio1\D3Dx\ChefRightHand.h">
-      <Filter>소스 파일\ObjLoader\Chef\ChefPatrs</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\Desktop\SGA_d3d_portfolio1\D3Dx\ChefRoot.h">
-      <Filter>소스 파일\ObjLoader\Chef</Filter>
-    </ClInclude>
     <ClInclude Include="cCharactor.h">
       <Filter>소스 파일\ObjLoader\Chef</Filter>
     </ClInclude>
@@ -178,21 +163,6 @@
     </ClCompile>
     <ClCompile Include="cObjLoader.cpp">
       <Filter>소스 파일\ObjLoader</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Desktop\SGA_d3d_portfolio1\D3Dx\ChefBody.cpp">
-      <Filter>소스 파일\ObjLoader\Chef\ChefPatrs</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Desktop\SGA_d3d_portfolio1\D3Dx\ChefHead.cpp">
-      <Filter>소스 파일\ObjLoader\Chef\ChefPatrs</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Desktop\SGA_d3d_portfolio1\D3Dx\ChefLeftHand.cpp">
-      <Filter>소스 파일\ObjLoader\Chef\ChefPatrs</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Desktop\SGA_d3d_portfolio1\D3Dx\ChefRightHand.cpp">
-      <Filter>소스 파일\ObjLoader\Chef\ChefPatrs</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Desktop\SGA_d3d_portfolio1\D3Dx\ChefRoot.cpp">
-      <Filter>소스 파일\ObjLoader\Chef</Filter>
     </ClCompile>
     <ClCompile Include="cCharactor.cpp">
       <Filter>소스 파일\ObjLoader\Chef</Filter>
