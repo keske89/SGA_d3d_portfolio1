@@ -151,8 +151,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\..\Desktop\SGA_d3d_portfolio1\D3Dx\ChefBody.h" />
+    <ClInclude Include="..\..\..\..\Desktop\SGA_d3d_portfolio1\D3Dx\ChefHead.h" />
+    <ClInclude Include="..\..\..\..\Desktop\SGA_d3d_portfolio1\D3Dx\ChefLeftHand.h" />
+    <ClInclude Include="..\..\..\..\Desktop\SGA_d3d_portfolio1\D3Dx\ChefRightHand.h" />
+    <ClInclude Include="..\..\..\..\Desktop\SGA_d3d_portfolio1\D3Dx\ChefRoot.h" />
     <ClInclude Include="cActionObj.h" />
     <ClInclude Include="cCamera.h" />
+    <ClInclude Include="cCharactor.h" />
     <ClInclude Include="cDeviceManager.h" />
     <ClInclude Include="cFontManager.h" />
     <ClInclude Include="cFoodObj.h" />
@@ -175,8 +181,14 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\..\Desktop\SGA_d3d_portfolio1\D3Dx\ChefBody.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\SGA_d3d_portfolio1\D3Dx\ChefHead.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\SGA_d3d_portfolio1\D3Dx\ChefLeftHand.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\SGA_d3d_portfolio1\D3Dx\ChefRightHand.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\SGA_d3d_portfolio1\D3Dx\ChefRoot.cpp" />
     <ClCompile Include="cActionObj.cpp" />
     <ClCompile Include="cCamera.cpp" />
+    <ClCompile Include="cCharactor.cpp" />
     <ClCompile Include="cDeviceManager.cpp" />
     <ClCompile Include="cFontManager.cpp" />
     <ClCompile Include="cFoodObj.cpp" />
