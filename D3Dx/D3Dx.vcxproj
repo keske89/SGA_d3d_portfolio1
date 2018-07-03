@@ -164,6 +164,7 @@
     <ClInclude Include="ChefRightHand.h" />
     <ClInclude Include="ChefRoot.h" />
     <ClInclude Include="cIGObj.h" />
+    <ClInclude Include="cIGObjManager.h" />
     <ClInclude Include="cKeyManager.h" />
     <ClInclude Include="cKnife.h" />
     <ClInclude Include="cMainGame.h" />
@@ -194,6 +195,7 @@
     <ClCompile Include="ChefRightHand.cpp" />
     <ClCompile Include="ChefRoot.cpp" />
     <ClCompile Include="cIGObj.cpp" />
+    <ClCompile Include="cIGObjManager.cpp" />
     <ClCompile Include="cKeyManager.cpp" />
     <ClCompile Include="cKnife.cpp" />
     <ClCompile Include="cMainGame.cpp" />

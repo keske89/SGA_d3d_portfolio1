@@ -1,7 +1,7 @@
 #pragma once
 #include "cActionObj.h"
 
-class cKnife : protected cActionObj
+class cKnife : public cActionObj
 {
 public:
 	cKnife();

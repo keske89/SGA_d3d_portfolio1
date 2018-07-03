@@ -37,6 +37,7 @@ void cMainGame::Setup()
 
 void cMainGame::Update()
 {
+	m_pCamera->Update();
 	
 }
 

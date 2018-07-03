@@ -120,6 +120,9 @@
     <ClInclude Include="ChefRoot.h">
       <Filter>소스 파일\Chef</Filter>
     </ClInclude>
+    <ClInclude Include="cIGObjManager.h">
+      <Filter>소스 파일\IngameObj</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -196,6 +199,9 @@
     </ClCompile>
     <ClCompile Include="ChefRoot.cpp">
       <Filter>소스 파일\Chef</Filter>
+    </ClCompile>
+    <ClCompile Include="cIGObjManager.cpp">
+      <Filter>소스 파일\IngameObj</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

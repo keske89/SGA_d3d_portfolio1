@@ -1,7 +1,7 @@
 #pragma once
 class cIGObj
 {
-protected:
+public:
 
 	bool				m_bInteraction;
 	LPDIRECT3DTEXTURE9	m_pTexture;

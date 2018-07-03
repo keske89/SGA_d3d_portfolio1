@@ -29,4 +29,5 @@ void cIGObj::Update()
 
 void cIGObj::Render()
 {
+	
 }

@@ -1,7 +1,7 @@
 #pragma once
 #include "cIGObj.h"
 
-class cFoodObj : protected cIGObj
+class cFoodObj : public cIGObj
 {
 public:
 	cFoodObj();

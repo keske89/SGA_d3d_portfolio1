@@ -1,7 +1,7 @@
 #pragma once
 #include "cIGObj.h"
 
-class cActionObj : protected cIGObj
+class cActionObj : public cIGObj
 {
 public:
 	cActionObj();
