@@ -29,7 +29,7 @@ void cTestScene0::Render()
 	RECT rc;
 	SetRect(&rc, 10, 200, 1000, 1000);
 
-	m_pFont->DrawText(NULL, L"TestScene0", strlen("TestScene0"), &rc,
+	m_pFont->DrawText(NULL, L"진중한 테스트씬0", strlen("진중한 테스트씬0"), &rc,
 		DT_LEFT | DT_TOP | DT_NOCLIP, D3DCOLOR_XRGB(255, 0, 0));
 
 }
