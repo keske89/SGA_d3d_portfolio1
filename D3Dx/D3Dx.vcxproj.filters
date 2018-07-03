@@ -102,9 +102,6 @@
     <ClInclude Include="cObjLoader.h">
       <Filter>소스 파일\ObjLoader</Filter>
     </ClInclude>
-    <ClInclude Include="cCharactor.h">
-      <Filter>소스 파일\Chef</Filter>
-    </ClInclude>
     <ClInclude Include="ChefHead.h">
       <Filter>소스 파일\Chef\ChefPatrs</Filter>
     </ClInclude>
@@ -118,6 +115,9 @@
       <Filter>소스 파일\Chef\ChefPatrs</Filter>
     </ClInclude>
     <ClInclude Include="ChefRoot.h">
+      <Filter>소스 파일\Chef</Filter>
+    </ClInclude>
+    <ClInclude Include="cCharacter.h">
       <Filter>소스 파일\Chef</Filter>
     </ClInclude>
   </ItemGroup>
@@ -179,9 +179,6 @@
     <ClCompile Include="cObjLoader.cpp">
       <Filter>소스 파일\ObjLoader</Filter>
     </ClCompile>
-    <ClCompile Include="cCharactor.cpp">
-      <Filter>소스 파일\Chef</Filter>
-    </ClCompile>
     <ClCompile Include="ChefHead.cpp">
       <Filter>소스 파일\Chef\ChefPatrs</Filter>
     </ClCompile>
@@ -195,6 +192,9 @@
       <Filter>소스 파일\Chef\ChefPatrs</Filter>
     </ClCompile>
     <ClCompile Include="ChefRoot.cpp">
+      <Filter>소스 파일\Chef</Filter>
+    </ClCompile>
+    <ClCompile Include="cCharacter.cpp">
       <Filter>소스 파일\Chef</Filter>
     </ClCompile>
   </ItemGroup>
