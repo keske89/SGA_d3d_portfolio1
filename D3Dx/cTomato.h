@@ -3,11 +3,15 @@
 
 class cTomato : public cFoodObj
 {
+
 public:
 	cTomato();
-	~cTomato();
+	virtual ~cTomato();
 
 	virtual void Setup();
+	virtual void Update();
+	virtual void Render();
+
 
 };
 
