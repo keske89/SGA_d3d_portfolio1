@@ -27,8 +27,7 @@ void cGameNode::Destroy()
 {
 }
 
-LRESULT cGameNode::WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
+void cGameNode::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 
-	return DefWindowProc(hWnd, iMessage, wParam, lParam);
 }

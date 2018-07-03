@@ -1,18 +1,9 @@
 #pragma once
 #include "cGameNode.h"
 
-
-
-class cCamera;
-
-
-
-
-
 class cMainGame : public cGameNode
 {
 private:
-	cCamera *	m_pCamera;
 
 
 public:

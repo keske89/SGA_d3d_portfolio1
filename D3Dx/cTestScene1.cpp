@@ -1,15 +1,18 @@
 #include "stdafx.h"
 #include "cTestScene1.h"
+#include "cCamera.h"
 #include "cIGObj.h"
 
 
 cTestScene1::cTestScene1()
+	: m_pCamera(NULL)
 {
 }
 
 
 cTestScene1::~cTestScene1()
 {
+	delete m_pCamera;
 	delete m_IGObj;
 	SAFE_RELEASE(m_pFont);
 
@@ -24,11 +27,15 @@ void cTestScene1::Setup()
 	m_IGObj = new cIGObj;
 	m_IGObj->Setup();
 
+	m_pCamera = new cCamera;
+	m_pCamera->Setup();
 	
 }
 
 void cTestScene1::Update()
 {
+	if (m_pCamera)
+		m_pCamera->Update();
 	m_IGObj->Update();
 }
 
@@ -41,4 +48,10 @@ void cTestScene1::Render()
 		DT_LEFT | DT_TOP | DT_NOCLIP, D3DCOLOR_XRGB(255, 0, 0));
 
 	m_IGObj->Render();
+}
+
+void cTestScene1::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
+{
+	if (m_pCamera)
+		m_pCamera->WndProc(hWnd, message, wParam, lParam);
 }

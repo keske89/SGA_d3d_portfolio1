@@ -28,6 +28,8 @@ public:
 	void Update();
 	void Render();
 
+	void WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
+
 	//¾À Ãß°¡ ÇÔ¼ö
 	cGameNode* AddScene(string sceneName, cGameNode* scene);
 	cGameNode* AddLoadingScene(string loadingSceneName, cGameNode* scene);

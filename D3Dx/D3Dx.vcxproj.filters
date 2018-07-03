@@ -120,9 +120,6 @@
     <ClInclude Include="cIGObjManager.h">
       <Filter>소스 파일\IngameObj</Filter>
     </ClInclude>
-    <ClInclude Include="cCharacter.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="cTestScene0.h">
       <Filter>소스 파일</Filter>
     </ClInclude>
@@ -133,6 +130,9 @@
       <Filter>소스 파일</Filter>
     </ClInclude>
     <ClInclude Include="cTestScene3.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="cCharacter.h">
       <Filter>소스 파일</Filter>
     </ClInclude>
   </ItemGroup>

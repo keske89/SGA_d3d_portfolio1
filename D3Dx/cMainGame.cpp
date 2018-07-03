@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "cMainGame.h"
-#include "cCamera.h"
 
 #include "cTestScene0.h"
 #include "cTestScene1.h"
@@ -9,15 +8,12 @@
 
 
 cMainGame::cMainGame()
-	: m_pCamera(NULL)
-
 {
 }
 
 
 cMainGame::~cMainGame()
 {
-	delete m_pCamera;
 
 	TIMEMANAGER->Destroy();
 	SCENEMANAGER->Destroy();
@@ -42,15 +38,12 @@ void cMainGame::Setup()
 
 
 
-	m_pCamera = new cCamera;
-	m_pCamera->Setup();
 
 
 }
 
 void cMainGame::Update()
 {
-	m_pCamera->Update();
 	SCENEMANAGER->Update();
 
 }
@@ -74,9 +67,7 @@ void cMainGame::Render()
 
 void cMainGame::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
-	if (m_pCamera)
-		m_pCamera->WndProc(hWnd, message, wParam, lParam);
-
+	SCENEMANAGER->WndProc(hWnd, message, wParam, lParam);
 	
 }
 

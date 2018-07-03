@@ -74,6 +74,12 @@ void cSceneManager::Render()
 		m_pCurrentScene->Render();
 }
 
+void cSceneManager::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
+{
+	if (m_pCurrentScene)
+		m_pCurrentScene->WndProc(hWnd, message, wParam, lParam);
+}
+
 cGameNode* cSceneManager::AddScene(string sceneName, cGameNode * scene)
 {
 	//씬이 없다면 널값 반환

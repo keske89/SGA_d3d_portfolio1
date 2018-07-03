@@ -10,6 +10,6 @@ public:
 	virtual void Render();
 	virtual void Destroy();
 
-	LRESULT WndProc(HWND, UINT, WPARAM, LPARAM);
+	virtual void WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 };
 
