@@ -169,6 +169,7 @@
     <ClInclude Include="cKnife.h" />
     <ClInclude Include="cMainGame.h" />
     <ClInclude Include="cObjLoader.h" />
+    <ClInclude Include="cProgressbar.h" />
     <ClInclude Include="cSceneManager.h" />
     <ClInclude Include="cTestScene1.h" />
     <ClInclude Include="cTestScene2.h" />
@@ -204,6 +205,7 @@
     <ClCompile Include="cKnife.cpp" />
     <ClCompile Include="cMainGame.cpp" />
     <ClCompile Include="cObjLoader.cpp" />
+    <ClCompile Include="cProgressbar.cpp" />
     <ClCompile Include="cSceneManager.cpp" />
     <ClCompile Include="cTestScene1.cpp" />
     <ClCompile Include="cTestScene2.cpp" />
