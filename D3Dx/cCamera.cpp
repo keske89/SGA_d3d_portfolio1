@@ -102,10 +102,10 @@ void cCamera::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			m_fRotX += (ptCurrMouse.y - m_ptPrevMouse.y) / 100.0f;
 
 			// X축 회전은 위아래 90도 제한한다.
-			if (m_fRotX <= -D3DX_PI * 0.5f + FLT_EPSILON)
-				m_fRotX = -D3DX_PI * 0.5f + FLT_EPSILON;
-			else if (m_fRotX >= D3DX_PI * 0.5f + FLT_EPSILON)
-				m_fRotX = D3DX_PI * 0.5f + FLT_EPSILON;
+			if (m_fRotX <= -D3DX_PI * 0.5f + 0.0001f)
+				m_fRotX = -D3DX_PI * 0.5f + 0.0001f;
+			else if (m_fRotX >= D3DX_PI * 0.5f + 0.0001f)
+				m_fRotX = D3DX_PI * 0.5f + 0.0001f;
 
 			m_ptPrevMouse = ptCurrMouse;
 		}
