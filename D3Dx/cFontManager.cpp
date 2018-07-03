@@ -31,6 +31,17 @@ LPD3DXFONT cFontManager::GetFont(eFontType type)
 		fd.OutputPrecision = OUT_DEFAULT_PRECIS;
 		fd.PitchAndFamily = FF_DONTCARE;
 	}
+	else if (type == FT_TIME)
+	{
+		fd.Height = 20;
+		fd.Width = 10;
+		fd.Weight = FW_MEDIUM;
+		fd.Italic = false;
+		fd.CharSet = DEFAULT_CHARSET;
+		fd.OutputPrecision = OUT_DEFAULT_PRECIS;
+		fd.PitchAndFamily = FF_DONTCARE;
+		fd.FaceName, TEXT("timesnewroman");
+	}
 	else if(type == FT_QUEST)
 	{
 		fd.Height = 25;

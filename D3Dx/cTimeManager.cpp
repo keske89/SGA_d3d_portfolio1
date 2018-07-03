@@ -32,31 +32,30 @@ void cTimeManager::Update(float lock)
 	}
 }
 
-void cTimeManager::Render(HDC hdc)
+void cTimeManager::Render()
 {
-	TCHAR str[256];
+	char buffer[256];
 	string frameRate;
-	//font 백그라운드 모드는 2개가 있다
-	//TRANSPARENT : 투명
-	//OPAQUE : 불투명
-	SetBkMode(hdc, TRANSPARENT);
 
 
 #ifdef _DEBUG
 	{
-		wsprintf(str, L"framePerSec (FPS) : %d", m_pTimer->getFrameRate());
-		TextOut(hdc, 0, 0, str, _tcslen(str));
+		sprintf_s(buffer, sizeof(buffer), "framePerSec (FPS) : %d", m_pTimer->getFrameRate());
+		TEXTMANAGER->DrawMessage(g_pFontManager->GetFont(FT_TIME), 0, 0, 500, 20, D3DCOLOR_ARGB(255, 0, 0, 0), buffer);
+		//TextOut(hdc, 0, 0, str, _tcslen(str));
 
-		wsprintf(str, L"worldTime : %f", m_pTimer->getWorldTime());
-		TextOut(hdc, 0, 20, str, _tcslen(str));
+		sprintf_s(buffer, sizeof(buffer), "worldTime : %f", m_pTimer->getWorldTime());
+		TEXTMANAGER->DrawMessage(g_pFontManager->GetFont(FT_TIME), 0, 20, 500, 20, D3DCOLOR_ARGB(255, 0, 0, 0), buffer);
+		//TextOut(hdc, 0, 20, str, _tcslen(str));
 
-		wsprintf(str, L"elapsedTime : %f", m_pTimer->getElapsedTime());
-		TextOut(hdc, 0, 40, str, _tcslen(str));
+		sprintf_s(buffer, sizeof(buffer), "elapsedTime : %f", m_pTimer->getElapsedTime());
+		TEXTMANAGER->DrawMessage(g_pFontManager->GetFont(FT_TIME), 0, 40, 500, 20, D3DCOLOR_ARGB(255, 0, 0, 0), buffer);
+		//TextOut(hdc, 0, 40, str, _tcslen(str));
 	}
 #else
 	{
-		wsprintf(str, L"framePerSec (FPS) : %d", _timer->getFrameRate());
-		TextOut(hdc, 0, 0, str, _tcslen(str));
+		sprintf_s(buffer, sizeof(buffer), "framePerSec (FPS) : %d", m_pTimer->getFrameRate());
+		TEXTMANAGER->DrawMessage(g_pFontManager->GetFont(FT_TIME), 0, 0, 500, 20, D3DCOLOR_ARGB(255, 0, 0, 0), buffer);
 	}
 #endif
 }

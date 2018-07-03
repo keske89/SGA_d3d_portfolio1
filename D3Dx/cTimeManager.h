@@ -13,7 +13,7 @@ public:
 	void Setup();
 	void Destroy();
 	void Update(float lock = 0.0f);
-	void Render(HDC hdc);
+	void Render();
 
 	inline float getElapsedTime(void) const { return m_pTimer->getElapsedTime(); }
 	inline float getWorldTime(void) const { return m_pTimer->getWorldTime(); }

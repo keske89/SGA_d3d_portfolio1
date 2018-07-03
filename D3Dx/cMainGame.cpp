@@ -17,6 +17,7 @@ cMainGame::~cMainGame()
 
 	TIMEMANAGER->Destroy();
 	SCENEMANAGER->Destroy();
+	g_pFontManager->Destroy();
 	g_pDeviceManager->Destroy();
 }
 
@@ -46,7 +47,7 @@ void cMainGame::Render()
 
 	g_pD3DDevice->BeginScene();
 
-	
+	TIMEMANAGER->Render();
 
 
 	g_pD3DDevice->EndScene();

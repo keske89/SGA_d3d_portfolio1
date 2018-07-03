@@ -4,13 +4,6 @@
 
 class cFontManager
 {
-public:
-	enum eFontType
-	{
-		FT_DEFAULT,
-		FT_QUEST,
-	};
-
 private:
 	SINGLETONE(cFontManager);
 	std::map<eFontType, LPD3DXFONT>	m_mapFont;
