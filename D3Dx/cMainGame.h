@@ -2,7 +2,7 @@
 #include "cGameNode.h"
 
 class cCamera;
-class cTestScene0;
+
 
 
 class cMainGame : public cGameNode

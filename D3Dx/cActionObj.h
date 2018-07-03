@@ -4,6 +4,7 @@
 class cActionObj : public cIGObj
 {
 public:
+	bool			m_bIsUse;
 
 public:
 	cActionObj();

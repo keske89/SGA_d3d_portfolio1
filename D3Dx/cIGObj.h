@@ -13,8 +13,9 @@ public:
 	LPDIRECT3DTEXTURE9	m_pTexture;
 	LPD3DXMESH			m_pMesh;
 	D3DXVECTOR3			m_vPos;
+	D3DXVECTOR3			m_vDir;
 	D3DXMATRIX			m_matT;
-	std::string			m_Name;
+	
 	
 
 
