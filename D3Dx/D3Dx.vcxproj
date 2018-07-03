@@ -158,6 +158,11 @@
     <ClInclude Include="cFontManager.h" />
     <ClInclude Include="cFoodObj.h" />
     <ClInclude Include="cGameNode.h" />
+    <ClInclude Include="ChefBody.h" />
+    <ClInclude Include="ChefHead.h" />
+    <ClInclude Include="ChefLeftHand.h" />
+    <ClInclude Include="ChefRightHand.h" />
+    <ClInclude Include="ChefRoot.h" />
     <ClInclude Include="cIGObj.h" />
     <ClInclude Include="cKeyManager.h" />
     <ClInclude Include="cKnife.h" />
@@ -183,6 +188,11 @@
     <ClCompile Include="cFontManager.cpp" />
     <ClCompile Include="cFoodObj.cpp" />
     <ClCompile Include="cGameNode.cpp" />
+    <ClCompile Include="ChefBody.cpp" />
+    <ClCompile Include="ChefHead.cpp" />
+    <ClCompile Include="ChefLeftHand.cpp" />
+    <ClCompile Include="ChefRightHand.cpp" />
+    <ClCompile Include="ChefRoot.cpp" />
     <ClCompile Include="cIGObj.cpp" />
     <ClCompile Include="cKeyManager.cpp" />
     <ClCompile Include="cKnife.cpp" />
