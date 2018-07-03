@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "cMainGame.h"
 #include "cCamera.h"
+
+#include "cTestScene3.h"
 #include "cTestScene0.h"
 #include "cTestScene1.h"
 #include "cTestScene2.h"
@@ -29,12 +31,18 @@ void cMainGame::Setup()
 	SetLight();
 	g_pD3DDevice->SetRenderState(D3DRS_LIGHTING, true);
 
+	SCENEMANAGER->AddScene("TestScene3", new cTestScene3);
 	SCENEMANAGER->AddScene("TestScene0", new cTestScene0);
+<<<<<<< HEAD
 	SCENEMANAGER->AddScene("TestScene1", new cTestScene1);
 	SCENEMANAGER->AddScene("TestScene2", new cTestScene2);
 	SCENEMANAGER->AddScene("TestScene3", new cTestScene3);
 	
 	SCENEMANAGER->ChangeScene("TestScene1");
+=======
+	SCENEMANAGER->ChangeScene("TestScene3");
+
+>>>>>>> 445e560e1e64f13ec5bf15aa0ff98005c21d0744
 
 	m_pCamera = new cCamera;
 	m_pCamera->Setup();
@@ -59,6 +67,7 @@ void cMainGame::Render()
 	TIMEMANAGER->Render();
 	SCENEMANAGER->Render();
 
+	SCENEMANAGER->Render();
 
 	g_pD3DDevice->EndScene();
 
