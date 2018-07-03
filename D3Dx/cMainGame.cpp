@@ -1,12 +1,9 @@
 #include "stdafx.h"
 #include "cMainGame.h"
 #include "cCamera.h"
-<<<<<<< HEAD
 
 #include "cTestScene3.h"
-=======
 #include "cTestScene0.h"
->>>>>>> 32e50b91153d5dfd75d33d1dc06af75a5d4cc272
 
 
 cMainGame::cMainGame()
@@ -31,14 +28,9 @@ void cMainGame::Setup()
 	SetLight();
 	g_pD3DDevice->SetRenderState(D3DRS_LIGHTING, true);
 
-<<<<<<< HEAD
 	SCENEMANAGER->AddScene("TestScene3", new cTestScene3);
-
-	SCENEMANAGER->ChangeScene("TestScene3");
-=======
 	SCENEMANAGER->AddScene("TestScene0", new cTestScene0);
-	SCENEMANAGER->ChangeScene("TestScene0");
->>>>>>> 32e50b91153d5dfd75d33d1dc06af75a5d4cc272
+	SCENEMANAGER->ChangeScene("TestScene3");
 
 
 	m_pCamera = new cCamera;
