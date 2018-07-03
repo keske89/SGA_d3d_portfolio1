@@ -169,6 +169,10 @@
     <ClInclude Include="cMainGame.h" />
     <ClInclude Include="cObjLoader.h" />
     <ClInclude Include="cSceneManager.h" />
+    <ClInclude Include="cTestScene1.h" />
+    <ClInclude Include="cTestScene2.h" />
+    <ClInclude Include="cTestScene3.h" />
+    <ClInclude Include="cTestScene0.h" />
     <ClInclude Include="cTextManager.h" />
     <ClInclude Include="cTextureManager.h" />
     <ClInclude Include="cTimeManager.h" />
@@ -199,6 +203,10 @@
     <ClCompile Include="cMainGame.cpp" />
     <ClCompile Include="cObjLoader.cpp" />
     <ClCompile Include="cSceneManager.cpp" />
+    <ClCompile Include="cTestScene1.cpp" />
+    <ClCompile Include="cTestScene2.cpp" />
+    <ClCompile Include="cTestScene3.cpp" />
+    <ClCompile Include="cTestScene0.cpp" />
     <ClCompile Include="cTextManager.cpp" />
     <ClCompile Include="cTextureManager.cpp" />
     <ClCompile Include="cTimeManager.cpp" />
