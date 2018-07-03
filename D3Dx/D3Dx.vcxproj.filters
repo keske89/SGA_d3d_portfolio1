@@ -102,9 +102,6 @@
     <ClInclude Include="cObjLoader.h">
       <Filter>소스 파일\ObjLoader</Filter>
     </ClInclude>
-    <ClInclude Include="cCharactor.h">
-      <Filter>소스 파일\Chef</Filter>
-    </ClInclude>
     <ClInclude Include="ChefHead.h">
       <Filter>소스 파일\Chef\ChefPatrs</Filter>
     </ClInclude>
@@ -122,6 +119,21 @@
     </ClInclude>
     <ClInclude Include="cIGObjManager.h">
       <Filter>소스 파일\IngameObj</Filter>
+    </ClInclude>
+    <ClInclude Include="cCharacter.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="cTestScene0.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="cTestScene1.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="cTestScene2.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="cTestScene3.h">
+      <Filter>소스 파일</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -182,9 +194,6 @@
     <ClCompile Include="cObjLoader.cpp">
       <Filter>소스 파일\ObjLoader</Filter>
     </ClCompile>
-    <ClCompile Include="cCharactor.cpp">
-      <Filter>소스 파일\Chef</Filter>
-    </ClCompile>
     <ClCompile Include="ChefHead.cpp">
       <Filter>소스 파일\Chef\ChefPatrs</Filter>
     </ClCompile>
@@ -202,6 +211,21 @@
     </ClCompile>
     <ClCompile Include="cIGObjManager.cpp">
       <Filter>소스 파일\IngameObj</Filter>
+    </ClCompile>
+    <ClCompile Include="cCharacter.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="cTestScene1.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="cTestScene2.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="cTestScene3.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="cTestScene0.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -15,10 +15,6 @@ cIGObjManager::~cIGObjManager()
 
 void cIGObjManager::Setup()
 {
-	m_Tomato = new cTomato;
-	m_Tomato->Setup();
-
-	m_vecObj.push_back(m_Tomato);
 	
 }
 

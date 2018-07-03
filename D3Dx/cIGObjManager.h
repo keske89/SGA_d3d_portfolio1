@@ -7,7 +7,7 @@ class cTomato;
 
 class cIGObjManager
 {
-private:
+public:
 	cIGObj*					m_Knife;
 	cIGObj*					m_Tomato;
 	std::vector<cIGObj*>	m_vecObj;

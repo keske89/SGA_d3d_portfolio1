@@ -5,6 +5,6 @@ class cFoodObj : public cIGObj
 {
 public:
 	cFoodObj();
-	~cFoodObj();
+	virtual ~cFoodObj();
 };
 

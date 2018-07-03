@@ -4,7 +4,7 @@
 
 
 class cCamera;
-class cMtlTex;
+class cTestScene0;
 
 
 class cMainGame : public cGameNode

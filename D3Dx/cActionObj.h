@@ -4,7 +4,9 @@
 class cActionObj : public cIGObj
 {
 public:
+
+public:
 	cActionObj();
-	~cActionObj();
+	virtual ~cActionObj();
 };
 

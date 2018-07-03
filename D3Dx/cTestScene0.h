@@ -4,7 +4,6 @@
 class cTestScene0 : public cGameNode
 {
 private:
-	LPD3DXFONT				m_pFont;
 
 public:
 	cTestScene0();

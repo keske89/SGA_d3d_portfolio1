@@ -5,6 +5,6 @@ class cKnife : public cActionObj
 {
 public:
 	cKnife();
-	~cKnife();
+	virtual ~cKnife();
 };
 

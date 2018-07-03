@@ -1,10 +1,14 @@
 #pragma once
 #include "cGameNode.h"
 
+class cIGObj;
+
+
 class cTestScene1 : public cGameNode
 {
 private:
 	LPD3DXFONT				m_pFont;
+	cIGObj*					m_IGObj;
 
 public:
 	cTestScene1();
