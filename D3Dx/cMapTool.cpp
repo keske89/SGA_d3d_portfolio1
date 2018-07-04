@@ -34,7 +34,6 @@ void cMapTool::Update()
 		m_pCamera->Update();
 		if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 		{
-			m_pCamera->
 		}
 	}
 }

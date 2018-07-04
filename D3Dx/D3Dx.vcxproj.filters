@@ -150,6 +150,9 @@
     <ClInclude Include="cMapToolUI.h">
       <Filter>소스 파일\Stage</Filter>
     </ClInclude>
+    <ClInclude Include="cGrid.h">
+      <Filter>소스 파일\Stage</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -252,6 +255,9 @@
       <Filter>소스 파일\Stage</Filter>
     </ClCompile>
     <ClCompile Include="cMapToolUI.cpp">
+      <Filter>소스 파일\Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="cGrid.cpp">
       <Filter>소스 파일\Stage</Filter>
     </ClCompile>
   </ItemGroup>
