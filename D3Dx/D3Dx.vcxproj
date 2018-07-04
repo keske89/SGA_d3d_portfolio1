@@ -168,9 +168,12 @@
     <ClInclude Include="cKeyManager.h" />
     <ClInclude Include="cKnife.h" />
     <ClInclude Include="cMainGame.h" />
+    <ClInclude Include="cMapTool.h" />
+    <ClInclude Include="cMapToolUI.h" />
     <ClInclude Include="cObjLoader.h" />
     <ClInclude Include="cProgressbar.h" />
     <ClInclude Include="cSceneManager.h" />
+    <ClInclude Include="cStage.h" />
     <ClInclude Include="cTestScene1.h" />
     <ClInclude Include="cTestScene2.h" />
     <ClInclude Include="cTestScene3.h" />
@@ -204,9 +207,12 @@
     <ClCompile Include="cKeyManager.cpp" />
     <ClCompile Include="cKnife.cpp" />
     <ClCompile Include="cMainGame.cpp" />
+    <ClCompile Include="cMapTool.cpp" />
+    <ClCompile Include="cMapToolUI.cpp" />
     <ClCompile Include="cObjLoader.cpp" />
     <ClCompile Include="cProgressbar.cpp" />
     <ClCompile Include="cSceneManager.cpp" />
+    <ClCompile Include="cStage.cpp" />
     <ClCompile Include="cTestScene1.cpp" />
     <ClCompile Include="cTestScene2.cpp" />
     <ClCompile Include="cTestScene3.cpp" />

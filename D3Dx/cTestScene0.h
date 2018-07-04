@@ -1,12 +1,10 @@
 #pragma once
 #include "cGameNode.h"
 
-class cCamera;
 
 class cTestScene0 : public cGameNode
 {
 private:
-	cCamera * m_pCamera;
 
 public:
 	cTestScene0();

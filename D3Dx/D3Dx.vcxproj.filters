@@ -34,6 +34,9 @@
     <Filter Include="소스 파일\Chef\ChefPatrs">
       <UniqueIdentifier>{195eec45-ac32-4d59-9ef1-fdf443dea7e8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\Stage">
+      <UniqueIdentifier>{9eaa807a-dea1-4f1b-89ca-85148dde2fc0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -138,6 +141,15 @@
     <ClInclude Include="cProgressbar.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="cStage.h">
+      <Filter>소스 파일\Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="cMapTool.h">
+      <Filter>소스 파일\Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="cMapToolUI.h">
+      <Filter>소스 파일\Stage</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -232,6 +244,15 @@
     </ClCompile>
     <ClCompile Include="cProgressbar.cpp">
       <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="cStage.cpp">
+      <Filter>소스 파일\Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="cMapTool.cpp">
+      <Filter>소스 파일\Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="cMapToolUI.cpp">
+      <Filter>소스 파일\Stage</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
