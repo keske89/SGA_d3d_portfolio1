@@ -47,6 +47,16 @@ void cTestScene1::Render()
 	m_pFont->DrawText(NULL, L"TestScene1", strlen("TestScene1"), &rc,
 		DT_LEFT | DT_TOP | DT_NOCLIP, D3DCOLOR_XRGB(255, 0, 0));
 
+	
+	SetRect(&rc, 60, 200, 1000, 1000);
+	m_pFont->DrawText(NULL, L"_ptMouse.x", _ptMouse.x, &rc, DT_LEFT | DT_TOP | DT_NOCLIP, D3DCOLOR_XRGB(255, 0, 0));
+
+	
+	SetRect(&rc, 100, 200, 1000, 1000);
+	m_pFont->DrawText(NULL, L"Y", _ptMouse.y, &rc, DT_LEFT | DT_TOP | DT_NOCLIP, D3DCOLOR_XRGB(255, 0, 0));
+
+	
+
 	m_IGObj->Render();
 }
 

@@ -67,6 +67,8 @@ void cMainGame::Render()
 
 void cMainGame::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
+	cGameNode::WndProc(hWnd, message, wParam, lParam);
+
 	SCENEMANAGER->WndProc(hWnd, message, wParam, lParam);
 	
 }
