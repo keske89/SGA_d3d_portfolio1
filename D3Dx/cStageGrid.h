@@ -2,7 +2,7 @@
 
 #define GRID_MAX 25
 
-class cGrid
+class cStageGrid
 {
 private:
 	vector<ST_PC_VERTEX>	m_vecVertex;
@@ -10,8 +10,8 @@ private:
 	D3DXMATRIX				m_matWorld;
 
 public:
-	cGrid();
-	~cGrid();
+	cStageGrid();
+	~cStageGrid();
 
 	void Setup();
 	void Update();

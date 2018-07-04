@@ -123,15 +123,6 @@
     <ClInclude Include="cStage.h">
       <Filter>소스 파일\Stage</Filter>
     </ClInclude>
-    <ClInclude Include="cMapTool.h">
-      <Filter>소스 파일\Stage</Filter>
-    </ClInclude>
-    <ClInclude Include="cMapToolUI.h">
-      <Filter>소스 파일\Stage</Filter>
-    </ClInclude>
-    <ClInclude Include="cGrid.h">
-      <Filter>소스 파일\Stage</Filter>
-    </ClInclude>
     <ClInclude Include="cRay.h">
       <Filter>소스 파일</Filter>
     </ClInclude>
@@ -158,6 +149,15 @@
     </ClInclude>
     <ClInclude Include="cChefRoot.h">
       <Filter>소스 파일\Chef</Filter>
+    </ClInclude>
+    <ClInclude Include="cStageGrid.h">
+      <Filter>소스 파일\Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="cStageMapTool.h">
+      <Filter>소스 파일\Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="cStageMapToolUI.h">
+      <Filter>소스 파일\Stage</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -239,15 +239,6 @@
     <ClCompile Include="cStage.cpp">
       <Filter>소스 파일\Stage</Filter>
     </ClCompile>
-    <ClCompile Include="cMapTool.cpp">
-      <Filter>소스 파일\Stage</Filter>
-    </ClCompile>
-    <ClCompile Include="cMapToolUI.cpp">
-      <Filter>소스 파일\Stage</Filter>
-    </ClCompile>
-    <ClCompile Include="cGrid.cpp">
-      <Filter>소스 파일\Stage</Filter>
-    </ClCompile>
     <ClCompile Include="cRay.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
@@ -271,6 +262,15 @@
     </ClCompile>
     <ClCompile Include="cChefRoot.cpp">
       <Filter>소스 파일\Chef</Filter>
+    </ClCompile>
+    <ClCompile Include="cStageGrid.cpp">
+      <Filter>소스 파일\Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="cStageMapTool.cpp">
+      <Filter>소스 파일\Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="cStageMapToolUI.cpp">
+      <Filter>소스 파일\Stage</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

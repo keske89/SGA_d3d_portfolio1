@@ -159,7 +159,7 @@
     <ClInclude Include="cFontManager.h" />
     <ClInclude Include="cFoodObj.h" />
     <ClInclude Include="cGameNode.h" />
-    <ClInclude Include="cGrid.h" />
+    <ClInclude Include="cStageGrid.h" />
     <ClInclude Include="cChefBody.h" />
     <ClInclude Include="cChefHead.h" />
     <ClInclude Include="cChefLeftHand.h" />
@@ -170,8 +170,8 @@
     <ClInclude Include="cKeyManager.h" />
     <ClInclude Include="cKnife.h" />
     <ClInclude Include="cMainGame.h" />
-    <ClInclude Include="cMapTool.h" />
-    <ClInclude Include="cMapToolUI.h" />
+    <ClInclude Include="cStageMapTool.h" />
+    <ClInclude Include="cStageMapToolUI.h" />
     <ClInclude Include="cObjLoader.h" />
     <ClInclude Include="cProgressbar.h" />
     <ClInclude Include="cRay.h" />
@@ -201,7 +201,7 @@
     <ClCompile Include="cFontManager.cpp" />
     <ClCompile Include="cFoodObj.cpp" />
     <ClCompile Include="cGameNode.cpp" />
-    <ClCompile Include="cGrid.cpp" />
+    <ClCompile Include="cStageGrid.cpp" />
     <ClCompile Include="cChefBody.cpp" />
     <ClCompile Include="cChefHead.cpp" />
     <ClCompile Include="cChefLeftHand.cpp" />
@@ -212,8 +212,8 @@
     <ClCompile Include="cKeyManager.cpp" />
     <ClCompile Include="cKnife.cpp" />
     <ClCompile Include="cMainGame.cpp" />
-    <ClCompile Include="cMapTool.cpp" />
-    <ClCompile Include="cMapToolUI.cpp" />
+    <ClCompile Include="cStageMapTool.cpp" />
+    <ClCompile Include="cStageMapToolUI.cpp" />
     <ClCompile Include="cObjLoader.cpp" />
     <ClCompile Include="cProgressbar.cpp" />
     <ClCompile Include="cRay.cpp" />

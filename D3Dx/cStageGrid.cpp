@@ -1,26 +1,26 @@
 #include "stdafx.h"
-#include "cGrid.h"
+#include "cStageGrid.h"
 
 
-cGrid::cGrid()
+cStageGrid::cStageGrid()
 {
 	D3DXMatrixIdentity(&m_matWorld);
 }
 
 
-cGrid::~cGrid()
+cStageGrid::~cStageGrid()
 {
 }
 
-void cGrid::Setup()
+void cStageGrid::Setup()
 {
 }
 
-void cGrid::Update()
+void cStageGrid::Update()
 {
 }
 
-void cGrid::Render()
+void cStageGrid::Render()
 {
 	for (int i = 0; i <= GRID_MAX; ++i)
 	{
@@ -29,7 +29,7 @@ void cGrid::Render()
 	}
 }
 
-void cGrid::Draw3DLine(D3DXVECTOR3 p1, D3DXVECTOR3 p2, D3DCOLOR color)
+void cStageGrid::Draw3DLine(D3DXVECTOR3 p1, D3DXVECTOR3 p2, D3DCOLOR color)
 {
 	ST_PC_VERTEX lines[2];
 	lines[0].p = p1;

@@ -9,20 +9,20 @@ struct ST_TILE
 };
 
 class cCamera;
-class cGrid;
+class cStageGrid;
 
-class cMapTool : public cGameNode
+class cStageMapTool : public cGameNode
 {
 private:
-	cCamera*	m_pCamera;
-	cGrid*		m_pGrid;
+	cCamera*		m_pCamera;
+	cStageGrid*		m_pGrid;
 
 	map<pair<int, int>, ST_TILE> m_mapFloorTiles;
 	map<pair<int, int>, ST_TILE> m_mapObjectTiles;
 
 public:
-	cMapTool();
-	~cMapTool();
+	cStageMapTool();
+	~cStageMapTool();
 
 	void Setup();
 	void Update();
