@@ -105,21 +105,6 @@
     <ClInclude Include="cObjLoader.h">
       <Filter>소스 파일\ObjLoader</Filter>
     </ClInclude>
-    <ClInclude Include="ChefHead.h">
-      <Filter>소스 파일\Chef\ChefPatrs</Filter>
-    </ClInclude>
-    <ClInclude Include="ChefLeftHand.h">
-      <Filter>소스 파일\Chef\ChefPatrs</Filter>
-    </ClInclude>
-    <ClInclude Include="ChefRightHand.h">
-      <Filter>소스 파일\Chef\ChefPatrs</Filter>
-    </ClInclude>
-    <ClInclude Include="ChefBody.h">
-      <Filter>소스 파일\Chef\ChefPatrs</Filter>
-    </ClInclude>
-    <ClInclude Include="ChefRoot.h">
-      <Filter>소스 파일\Chef</Filter>
-    </ClInclude>
     <ClInclude Include="cIGObjManager.h">
       <Filter>소스 파일\IngameObj</Filter>
     </ClInclude>
@@ -153,8 +138,26 @@
     <ClInclude Include="cProgressbar.h">
       <Filter>소스 파일</Filter>
     </ClInclude>
+    <ClInclude Include="cCharacterControl.h">
+      <Filter>소스 파일\Chef</Filter>
+    </ClInclude>
     <ClInclude Include="cCharacter.h">
-      <Filter>소스 파일</Filter>
+      <Filter>소스 파일\Chef</Filter>
+    </ClInclude>
+    <ClInclude Include="cChefBody.h">
+      <Filter>소스 파일\Chef\ChefPatrs</Filter>
+    </ClInclude>
+    <ClInclude Include="cChefHead.h">
+      <Filter>소스 파일\Chef\ChefPatrs</Filter>
+    </ClInclude>
+    <ClInclude Include="cChefLeftHand.h">
+      <Filter>소스 파일\Chef\ChefPatrs</Filter>
+    </ClInclude>
+    <ClInclude Include="cChefRightHand.h">
+      <Filter>소스 파일\Chef\ChefPatrs</Filter>
+    </ClInclude>
+    <ClInclude Include="cChefRoot.h">
+      <Filter>소스 파일\Chef</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -215,26 +218,8 @@
     <ClCompile Include="cObjLoader.cpp">
       <Filter>소스 파일\ObjLoader</Filter>
     </ClCompile>
-    <ClCompile Include="ChefHead.cpp">
-      <Filter>소스 파일\Chef\ChefPatrs</Filter>
-    </ClCompile>
-    <ClCompile Include="ChefLeftHand.cpp">
-      <Filter>소스 파일\Chef\ChefPatrs</Filter>
-    </ClCompile>
-    <ClCompile Include="ChefRightHand.cpp">
-      <Filter>소스 파일\Chef\ChefPatrs</Filter>
-    </ClCompile>
-    <ClCompile Include="ChefBody.cpp">
-      <Filter>소스 파일\Chef\ChefPatrs</Filter>
-    </ClCompile>
-    <ClCompile Include="ChefRoot.cpp">
-      <Filter>소스 파일\Chef</Filter>
-    </ClCompile>
     <ClCompile Include="cIGObjManager.cpp">
       <Filter>소스 파일\IngameObj</Filter>
-    </ClCompile>
-    <ClCompile Include="cCharacter.cpp">
-      <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="cTestScene1.cpp">
       <Filter>소스 파일</Filter>
@@ -265,6 +250,27 @@
     </ClCompile>
     <ClCompile Include="cRay.cpp">
       <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="cCharacterControl.cpp">
+      <Filter>소스 파일\Chef</Filter>
+    </ClCompile>
+    <ClCompile Include="ccCharacter.cpp">
+      <Filter>소스 파일\Chef</Filter>
+    </ClCompile>
+    <ClCompile Include="cChefBody.cpp">
+      <Filter>소스 파일\Chef\ChefPatrs</Filter>
+    </ClCompile>
+    <ClCompile Include="cChefHead.cpp">
+      <Filter>소스 파일\Chef\ChefPatrs</Filter>
+    </ClCompile>
+    <ClCompile Include="cChefLeftHand.cpp">
+      <Filter>소스 파일\Chef\ChefPatrs</Filter>
+    </ClCompile>
+    <ClCompile Include="cChefRightHand.cpp">
+      <Filter>소스 파일\Chef\ChefPatrs</Filter>
+    </ClCompile>
+    <ClCompile Include="cChefRoot.cpp">
+      <Filter>소스 파일\Chef</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
