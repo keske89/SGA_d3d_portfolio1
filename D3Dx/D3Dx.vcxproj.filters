@@ -123,9 +123,6 @@
     <ClInclude Include="cIGObjManager.h">
       <Filter>소스 파일\IngameObj</Filter>
     </ClInclude>
-    <ClInclude Include="cCharacter.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="cTestScene0.h">
       <Filter>소스 파일</Filter>
     </ClInclude>
@@ -138,9 +135,6 @@
     <ClInclude Include="cTestScene3.h">
       <Filter>소스 파일</Filter>
     </ClInclude>
-    <ClInclude Include="cProgressbar.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="cStage.h">
       <Filter>소스 파일\Stage</Filter>
     </ClInclude>
@@ -152,6 +146,15 @@
     </ClInclude>
     <ClInclude Include="cGrid.h">
       <Filter>소스 파일\Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="cRay.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="cProgressbar.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="cCharacter.h">
+      <Filter>소스 파일</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -259,6 +262,9 @@
     </ClCompile>
     <ClCompile Include="cGrid.cpp">
       <Filter>소스 파일\Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="cRay.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

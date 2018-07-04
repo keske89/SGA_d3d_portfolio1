@@ -173,6 +173,7 @@
     <ClInclude Include="cMapToolUI.h" />
     <ClInclude Include="cObjLoader.h" />
     <ClInclude Include="cProgressbar.h" />
+    <ClInclude Include="cRay.h" />
     <ClInclude Include="cSceneManager.h" />
     <ClInclude Include="cStage.h" />
     <ClInclude Include="cTestScene1.h" />
@@ -213,6 +214,7 @@
     <ClCompile Include="cMapToolUI.cpp" />
     <ClCompile Include="cObjLoader.cpp" />
     <ClCompile Include="cProgressbar.cpp" />
+    <ClCompile Include="cRay.cpp" />
     <ClCompile Include="cSceneManager.cpp" />
     <ClCompile Include="cStage.cpp" />
     <ClCompile Include="cTestScene1.cpp" />

@@ -10,7 +10,6 @@ cCamera::cCamera()
 	, m_fRotY(0)
 	, m_fDistance(20.0f)
 	, m_isRButtonDown(false)
-	, m_isLButtonDown(false)
 {
 }
 
@@ -46,38 +45,6 @@ void cCamera::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message)
 	{
-	case WM_LBUTTONDOWN:
-	{
-		D3DVIEWPORT9	VP;
-		D3DXMATRIX		matProj;
-		D3DXMATRIX		matView;
-		D3DXMATRIX		matInvV;
-		D3DXVECTOR3		vecTemp;
-		D3DXVECTOR3		PickRayDir;
-		D3DXVECTOR3		PickRayOrg;
-		m_ptMouse.x = LOWORD(lParam);
-		m_ptMouse.y = HIWORD(lParam);
-		g_pD3DDevice->GetViewport(&VP);
-		g_pD3DDevice->GetTransform(D3DTS_PROJECTION, &matProj);
-		g_pD3DDevice->GetTransform(D3DTS_VIEW, &matView);
-		D3DXMatrixInverse(&matInvV, NULL, &matView);
-		vecTemp.x = ((((m_ptMouse.x - VP.X) * 2.0f / VP.Width) - 1.0f) - matProj._31) / matProj._11;
-		vecTemp.y = (-(((m_ptMouse.y - VP.Y) * 2.0f / VP.Height) - 1.0f) - matProj._32) / matProj._22;
-		vecTemp.z = 1.0f;
-		m_vecPickRayDir.x = vecTemp.x * matInvV._11 + vecTemp.y * matInvV._21 + vecTemp.z * matInvV._31;
-		m_vecPickRayDir.y = vecTemp.x * matInvV._12 + vecTemp.y * matInvV._22 + vecTemp.z * matInvV._32;
-		m_vecPickRayDir.z = vecTemp.x * matInvV._13 + vecTemp.y * matInvV._23 + vecTemp.z * matInvV._33;
-		m_vecPickRayOrg.x = matInvV._41;
-		m_vecPickRayOrg.y = matInvV._42;
-		m_vecPickRayOrg.z = matInvV._43;
-		m_isLButtonDown = true;
-	}
-	break;
-	case WM_LBUTTONUP:
-	{
-		m_isLButtonDown = false;
-	}
-	break;
 	case WM_RBUTTONDOWN:
 	{
 		m_ptPrevMouse.x = LOWORD(lParam);
