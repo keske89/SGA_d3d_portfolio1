@@ -159,6 +159,8 @@
     <ClInclude Include="cFontManager.h" />
     <ClInclude Include="cFoodObj.h" />
     <ClInclude Include="cGameNode.h" />
+    <ClInclude Include="cPot.h" />
+    <ClInclude Include="cSink.h" />
     <ClInclude Include="cStageGrid.h" />
     <ClInclude Include="cChefBody.h" />
     <ClInclude Include="cChefHead.h" />
@@ -201,6 +203,8 @@
     <ClCompile Include="cFontManager.cpp" />
     <ClCompile Include="cFoodObj.cpp" />
     <ClCompile Include="cGameNode.cpp" />
+    <ClCompile Include="cPot.cpp" />
+    <ClCompile Include="cSink.cpp" />
     <ClCompile Include="cStageGrid.cpp" />
     <ClCompile Include="cChefBody.cpp" />
     <ClCompile Include="cChefHead.cpp" />

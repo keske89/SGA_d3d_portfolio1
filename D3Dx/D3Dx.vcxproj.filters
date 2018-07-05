@@ -159,6 +159,12 @@
     <ClInclude Include="cStageMapToolUI.h">
       <Filter>소스 파일\Stage</Filter>
     </ClInclude>
+    <ClInclude Include="cPot.h">
+      <Filter>소스 파일\IngameObj\ActionObj</Filter>
+    </ClInclude>
+    <ClInclude Include="cSink.h">
+      <Filter>소스 파일\IngameObj\ActionObj</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -271,6 +277,12 @@
     </ClCompile>
     <ClCompile Include="cStageMapToolUI.cpp">
       <Filter>소스 파일\Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="cPot.cpp">
+      <Filter>소스 파일\IngameObj\ActionObj</Filter>
+    </ClCompile>
+    <ClCompile Include="cSink.cpp">
+      <Filter>소스 파일\IngameObj\ActionObj</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

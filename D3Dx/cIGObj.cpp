@@ -11,7 +11,7 @@ cIGObj::cIGObj()
 	,m_vPos(0.0f, 0.0f, 0.0f)
 	, m_VecObj(NULL)
 {
-	D3DXMatrixIdentity(&m_matT);
+	D3DXMatrixIdentity(&m_matWorld);
 }
 
 
@@ -30,18 +30,21 @@ void cIGObj::Setup()
 	ObjLoader = new cObjLoader;
 
 	m_Tomato = new cTomato;
-	m_Tomato->m_pMesh = ObjLoader->LoadMesh(_T("./Resources/Mesh/IngameObj"), _T("/Tomato_Whole.obj"), &m_matT);
+	m_Tomato->Setup();
+	m_Tomato->m_pMesh = ObjLoader->LoadMesh(_T("./Resources/Mesh/IngameObj"), _T("/Tomato_Whole.obj"), &m_matWorld);
 	D3DXCreateTextureFromFile(g_pD3DDevice, L"Resources/Texture2D/Tomato.png", &m_Tomato->m_pTexture);
 	m_VecObj.push_back(m_Tomato);
 
 	m_Knife = new cKnife;
-	m_Knife->m_pMesh = ObjLoader->LoadMesh(_T("./Resources/Mesh/IngameObj"), _T("/Knife.obj"), &m_matT);
+	m_Knife->Setup();
+	m_Knife->m_pMesh = ObjLoader->LoadMesh(_T("./Resources/Mesh/IngameObj"), _T("/Knife.obj"), &m_matWorld);
 	D3DXCreateTextureFromFile(g_pD3DDevice, L"Resources/Texture2D/Knife.png", &m_Knife->m_pTexture);
 	m_VecObj.push_back(m_Knife);
 }
 
 void cIGObj::Update()
 {
+	m_Knife->Update();
 }
 
 void cIGObj::Render()
@@ -59,5 +62,7 @@ void cIGObj::Render()
 			//p->Render();
 		}
 	}
+
+	m_Knife->Render();
 	
 }

@@ -14,11 +14,8 @@ public:
 	LPD3DXMESH			m_pMesh;
 	D3DXVECTOR3			m_vPos;
 	D3DXVECTOR3			m_vDir;
-	D3DXMATRIX			m_matT;
+	D3DXMATRIX			m_matWorld;
 	
-	
-
-
 	cIGObj*			m_Tomato;
 	cIGObj*			m_Knife;
 
