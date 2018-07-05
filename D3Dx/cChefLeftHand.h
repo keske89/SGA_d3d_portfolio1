@@ -7,5 +7,6 @@ public:
 	cChefLeftHand();
 	virtual~cChefLeftHand();
 	virtual void SetUp();
+	virtual void AniMation();
 };
 

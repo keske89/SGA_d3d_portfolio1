@@ -3,10 +3,13 @@
 
 
 cChefRoot::cChefRoot()
-	: m_fRotX(0.0f)
-	, m_pTexture(NULL)
+	: m_pTexture(NULL)
 	, m_pMesh(NULL)
+	, m_ePartAnimation(PARTANIMATION_IDLE)
 	, m_vLocalPos(0, 0, 0)
+	, m_fRotX(0.0f)
+	, m_fRotY(0.0f)
+	, m_fRotDeltaY(0.0f)
 	, m_fRotDeltaX(0.0f)
 	, m_pParentWorldTM(NULL)
 {
@@ -37,24 +40,13 @@ void cChefRoot::Destroy()
 
 void cChefRoot::SetUp()
 {
-	
+
 }
 
 void cChefRoot::Update()
 {
 
-	m_fRotX += m_fRotDeltaX;
-
-
-	D3DXMATRIX matR, matT;
-	D3DXMatrixIdentity(&matR);
-	D3DXMatrixIdentity(&matT);
-
-	D3DXMatrixRotationX(&matR, m_fRotX);
-	D3DXMatrixTranslation(&matT, m_vLocalPos.x, m_vLocalPos.y, m_vLocalPos.z);
-
-	m_matLocalTM = matR * matT;
-
+	AniMation();
 	m_matWorldTM = m_matLocalTM;
 	if (m_pParentWorldTM)
 	{
@@ -70,7 +62,7 @@ void cChefRoot::Update()
 void cChefRoot::Render()
 {
 	g_pD3DDevice->SetTransform(D3DTS_WORLD, &m_matWorldTM);
-	g_pD3DDevice->SetTexture(0,m_pTexture);
+	g_pD3DDevice->SetTexture(0, m_pTexture);
 	m_pMesh->DrawSubset(0);
 
 	for (int i = 0; i < m_vecChild.size(); i++)
@@ -78,5 +70,14 @@ void cChefRoot::Render()
 		m_vecChild[i]->Render();
 	}
 
+}
+
+void cChefRoot::AniMation()
+{
+
+}
+
+void cChefRoot::ImageChange()
+{
 }
 

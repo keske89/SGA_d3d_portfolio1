@@ -12,6 +12,8 @@
 cCharacter::cCharacter()
 	: m_pRoot(NULL)
 	, m_vPosition(0, 0, 0)
+	, m_eChefState(CHEF_STATE_IDLE)
+	, m_pObjRoot(NULL)
 {
 }
 
@@ -22,23 +24,28 @@ cCharacter::~cCharacter()
 		m_pRoot->Destroy();
 }
 
-void cCharacter::SetUp(D3DXVECTOR3 vPos,cCharacterControl * _pControl)
+void cCharacter::SetUp(D3DXVECTOR3 vPos, cCharacterControl * _pControl)
 {
 	m_pControl = _pControl;
+	m_vPosition = vPos;
 	SetMaterial();
 	cChefBody* pBody = new cChefBody;
 	pBody->SetUp();
 	m_pRoot = pBody;
 	cChefHead* pHead = new cChefHead;
 	pHead->SetUp();
+	pHead->SetRotDeltaY(0.05f);
+	pHead->SetRotDeltaX(0.01f);
 	m_pRoot->AddChild(pHead);
 	cChefLeftHand * pLHand = new cChefLeftHand;
 	pLHand->SetUp();
+	pLHand->SetRotDeltaX(0.05f);
 	m_pRoot->AddChild(pLHand);
 	cChefRightHand* pRHand = new cChefRightHand;
 	pRHand->SetUp();
+	pRHand->SetRotDeltaX(0.05f);
 	m_pRoot->AddChild(pRHand);
-	
+
 }
 
 void cCharacter::Update()
@@ -50,7 +57,7 @@ void cCharacter::Update()
 
 void cCharacter::Render()
 {
-	
+
 	g_pD3DDevice->SetMaterial(&m_stMtl);
 	if (m_pRoot)
 		m_pRoot->Render();

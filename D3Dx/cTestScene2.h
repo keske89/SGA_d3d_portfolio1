@@ -2,12 +2,16 @@
 #include "cGameNode.h"
 
 class cCamera;
+class cCharacter;
+class cCharacterControl;
 
 class cTestScene2 : public cGameNode
 {
 private:
 	cCamera * m_pCamera;
 	LPD3DXFONT				m_pFont;
+	cCharacter *			m_pChef[2];
+	cCharacterControl *		m_pControl;
 
 public:
 	cTestScene2();
