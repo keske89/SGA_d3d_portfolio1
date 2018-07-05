@@ -20,10 +20,6 @@ void cProgressbar::Setup(D3DXVECTOR3 pos)
 	m_fMaxWidth = 2.0f;
 	m_fHeight = 0.3f;
 	m_pTexture = g_pTextureManager->GetTexture(L"Resources/Texture2D/Progressbar.png");
-
-	
-
-
 }
 
 void cProgressbar::Update(D3DXVECTOR3 pos)
@@ -109,7 +105,7 @@ void cProgressbar::SetProgress()
 {
 	if (m_fCurrentWidth < m_fMaxWidth - 0.2f)
 	{
-		m_fCurrentWidth += 0.05f; // m_fCurrentWidth = m_fMaxWidth;
+		m_fCurrentWidth += 0.1f; // m_fCurrentWidth = m_fMaxWidth;
 	}
 	if (m_fCurrentWidth >= m_fMaxWidth - 0.2f)
 	{

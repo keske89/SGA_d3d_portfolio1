@@ -105,9 +105,6 @@
     <ClInclude Include="cObjLoader.h">
       <Filter>소스 파일\ObjLoader</Filter>
     </ClInclude>
-    <ClInclude Include="cIGObjManager.h">
-      <Filter>소스 파일\IngameObj</Filter>
-    </ClInclude>
     <ClInclude Include="cTestScene0.h">
       <Filter>소스 파일</Filter>
     </ClInclude>
@@ -164,6 +161,9 @@
     </ClInclude>
     <ClInclude Include="cSink.h">
       <Filter>소스 파일\IngameObj\ActionObj</Filter>
+    </ClInclude>
+    <ClInclude Include="cObjManager.h">
+      <Filter>소스 파일\Manager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -224,9 +224,6 @@
     <ClCompile Include="cObjLoader.cpp">
       <Filter>소스 파일\ObjLoader</Filter>
     </ClCompile>
-    <ClCompile Include="cIGObjManager.cpp">
-      <Filter>소스 파일\IngameObj</Filter>
-    </ClCompile>
     <ClCompile Include="cTestScene1.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
@@ -283,6 +280,9 @@
     </ClCompile>
     <ClCompile Include="cSink.cpp">
       <Filter>소스 파일\IngameObj\ActionObj</Filter>
+    </ClCompile>
+    <ClCompile Include="cObjManager.cpp">
+      <Filter>소스 파일\Manager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

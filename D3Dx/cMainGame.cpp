@@ -18,6 +18,7 @@ cMainGame::~cMainGame()
 
 	TIMEMANAGER->Destroy();
 	SCENEMANAGER->Destroy();
+	ObJMANAGER->Destroy();
 	g_pTextureManager->Destroy();
 	g_pFontManager->Destroy();
 	g_pDeviceManager->Destroy();
@@ -34,7 +35,7 @@ void cMainGame::Setup()
 	SCENEMANAGER->AddScene("TestScene2", new cTestScene2);
 	SCENEMANAGER->AddScene("TestScene3", new cTestScene3);
 	
-	SCENEMANAGER->ChangeScene("StageMapTool");
+	SCENEMANAGER->ChangeScene("TestScene1");
 
 	
 

@@ -3,6 +3,8 @@
 
 
 cFoodObj::cFoodObj()
+	: m_isChopped(false)
+	, m_bIsStart(false)
 {
 }
 
@@ -10,3 +12,5 @@ cFoodObj::cFoodObj()
 cFoodObj::~cFoodObj()
 {
 }
+
+

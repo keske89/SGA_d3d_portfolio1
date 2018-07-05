@@ -20,26 +20,19 @@ cIGObj::~cIGObj()
 	SAFE_DELETE(m_Tomato);
 	SAFE_DELETE(m_Knife);
 	m_VecObj.clear();
-	SAFE_RELEASE(m_pMesh);
-	SAFE_RELEASE(m_pTexture);
 	SAFE_DELETE(ObjLoader);
 }
 
 void cIGObj::Setup()
 {
-	ObjLoader = new cObjLoader;
-
-	m_Tomato = new cTomato;
-	m_Tomato->Setup();
-	m_Tomato->m_pMesh = ObjLoader->LoadMesh(_T("./Resources/Mesh/IngameObj"), _T("/Tomato_Whole.obj"), &m_matWorld);
-	D3DXCreateTextureFromFile(g_pD3DDevice, L"Resources/Texture2D/Tomato.png", &m_Tomato->m_pTexture);
-	m_VecObj.push_back(m_Tomato);
 
 	m_Knife = new cKnife;
 	m_Knife->Setup();
-	m_Knife->m_pMesh = ObjLoader->LoadMesh(_T("./Resources/Mesh/IngameObj"), _T("/Knife.obj"), &m_matWorld);
-	D3DXCreateTextureFromFile(g_pD3DDevice, L"Resources/Texture2D/Knife.png", &m_Knife->m_pTexture);
+	m_Knife->m_pMesh = ObJMANAGER->GetMesh(L"Knife.obj");
+	m_Knife->m_pTexture = g_pTextureManager->GetTexture(L"Resources/Texture2D/Knife.png"); 
 	m_VecObj.push_back(m_Knife);
+
+	
 }
 
 void cIGObj::Update()
@@ -59,7 +52,7 @@ void cIGObj::Render()
 			p->m_pMesh->DrawSubset(0);
 
 			g_pD3DDevice->SetRenderState(D3DRS_LIGHTING, false);
-			//p->Render();
+			p->Render();
 		}
 	}
 

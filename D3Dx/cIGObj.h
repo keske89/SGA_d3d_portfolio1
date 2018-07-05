@@ -9,7 +9,7 @@ private:
 	cObjLoader*	    ObjLoader;
 public:
 
-	bool				m_bInteraction;
+	//bool				m_bInteraction;
 	LPDIRECT3DTEXTURE9	m_pTexture;
 	LPD3DXMESH			m_pMesh;
 	D3DXVECTOR3			m_vPos;
@@ -20,7 +20,7 @@ public:
 	cIGObj*			m_Knife;
 
 	std::vector<cIGObj*>	m_VecObj;
-
+	SYNTHESIZE(bool, m_bInteraction, Interaction);
 
 public:
 	cIGObj();
@@ -29,6 +29,7 @@ public:
 	virtual void Setup() ;  
 	virtual void Update();
 	virtual void Render();
+	
 
 };
 
