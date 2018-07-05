@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "cMainGame.h"
 
+#include "cStageMapTool.h"
 #include "cTestScene0.h"
 #include "cTestScene1.h"
 #include "cTestScene2.h"
@@ -17,6 +18,7 @@ cMainGame::~cMainGame()
 
 	TIMEMANAGER->Destroy();
 	SCENEMANAGER->Destroy();
+	g_pTextureManager->Destroy();
 	g_pFontManager->Destroy();
 	g_pDeviceManager->Destroy();
 }
@@ -24,15 +26,15 @@ cMainGame::~cMainGame()
 void cMainGame::Setup()
 {
 	SetLight();
-	g_pD3DDevice->SetRenderState(D3DRS_LIGHTING, true);
+	g_pD3DDevice->SetRenderState(D3DRS_LIGHTING, false);
 
-	
+	SCENEMANAGER->AddScene("StageMapTool", new cStageMapTool);
 	SCENEMANAGER->AddScene("TestScene0", new cTestScene0);
 	SCENEMANAGER->AddScene("TestScene1", new cTestScene1);
 	SCENEMANAGER->AddScene("TestScene2", new cTestScene2);
 	SCENEMANAGER->AddScene("TestScene3", new cTestScene3);
 	
-	SCENEMANAGER->ChangeScene("TestScene1");
+	SCENEMANAGER->ChangeScene("StageMapTool");
 
 	
 
@@ -88,7 +90,7 @@ void cMainGame::SetLight()
 	stLight.Direction = vDir;
 	g_pD3DDevice->SetLight(0, &stLight);
 
-	g_pD3DDevice->LightEnable(0, true);
+	g_pD3DDevice->LightEnable(0, false);
 }
 
 
