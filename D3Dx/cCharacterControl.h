@@ -9,6 +9,26 @@ enum PLAYERMOD
 	PLAYERMOD_PLAY2P
 };
 
+struct ST_PLAYER_ATTRIBUTE
+{
+	D3DXVECTOR3 St_vDirection;
+	D3DXVECTOR3	St_vDirectionX;
+	D3DXVECTOR3	St_vDirectionZ;
+	D3DXVECTOR3	St_vPosition;
+	D3DXMATRIX	ST_matPlayer;
+	float		St_fAngle;
+	BOOL		ST_BisBooster;
+	ST_PLAYER_ATTRIBUTE()
+		: St_vDirection(0, 0, 0)
+		, St_vDirectionX(0, 0, 0)
+		, St_vDirectionZ(0, 0, 0)
+		, St_vPosition(0, 0, 0)
+		, St_fAngle(0.0f)
+		, ST_BisBooster(false)
+	{
+		D3DXMatrixIdentity(&ST_matPlayer);
+	}
+};
 class cCharacterControl
 {
 private:
@@ -18,29 +38,21 @@ private:
 	D3DXMATRIX					m_mat2P;
 	PLAYERMOD					m_enmPlayerMod;
 	BOOL						m_Bswitch;
-private:
-	//===============================================================================
-	// 캐릭터 조정
-	//===============================================================================
-	D3DXVECTOR3	m_vDirectionX;
-	D3DXVECTOR3	m_vDirectionZ;
-
-	D3DXVECTOR3	m_vDirection1P;
-	D3DXVECTOR3	m_vDirection2P;
-	SYNTHESIZE(D3DXVECTOR3, m_vPosition1P, Position1P);
-	SYNTHESIZE(D3DXVECTOR3, m_vPosition2P, Position2P);
-	float							m_fangle1P;
-	float							m_fangle2P;
+	ST_PLAYER_ATTRIBUTE			m_StPlayerAtrribute[2];
+	D3DXVECTOR3					m_vbooster;
+	float						m_fCharacterBOOSTERSpeed;
+	float						m_fFrictional;
 public:
 	cCharacterControl();
 	~cCharacterControl();
+	void AddcCharacter(cCharacter * Chef);
+	void SetPlaterMod(int num);
 	void SetUp();
 	void Update();
 	void Render();
 	void Control();
 	void ControlAction();
 	void Move();
-	void AddcCharacter(cCharacter * Chef);
-	void SetPlaterMod(int num);
+	void Booster(D3DXVECTOR3 pos);
 };
 
