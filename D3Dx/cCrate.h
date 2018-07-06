@@ -9,9 +9,9 @@ public:
 	~cCrate();
 
 
-	virtual void Setup();
-	virtual void Update();
-	virtual void Render();
+	virtual void Setup()	override;
+	virtual void Update()	override;
+	virtual void Render()	override;
 
 };
 

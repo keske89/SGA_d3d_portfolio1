@@ -11,3 +11,15 @@ cActionObj::cActionObj()
 cActionObj::~cActionObj()
 {
 }
+
+void cActionObj::Setup()
+{
+}
+
+void cActionObj::Update()
+{
+}
+
+void cActionObj::Render()
+{
+}

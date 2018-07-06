@@ -7,27 +7,35 @@ private:
 	D3DXVECTOR3				m_vPos;
 	LPDIRECT3DTEXTURE9		m_pTexture;
 	D3DXMATRIX				m_matWorld;
+	LPD3DXSPRITE			m_pSprite;
 	
-	float					m_fCurrentWidth;
-	//float					m_fMaxWidth;
+	float					m_fTopGauge;
+	float					m_fBottomGauge;
+	float					m_fProgress;
 	float					m_fHeight;
 
+	bool					m_isComplete;
+
+	LPDIRECT3DTEXTURE9		m_pUITexture;
+	D3DXIMAGE_INFO			m_stImageInfo;
+
+	std::vector<ST_PT_VERTEX>	m_vecComplete;
 	std::vector<ST_PT_VERTEX>	m_vecVertexTop;
 	std::vector<ST_PT_VERTEX>	m_vecVertexBottom;
 
-	SYNTHESIZE(float, m_fMaxWidth, MaxWidth);
-	//SYNTHESIZE(float, m_fCurrentWidth, progress);
 
 
 public:
 	cProgressbar();
 	~cProgressbar();
 
-	void Setup(D3DXVECTOR3 pos);
-	void Update(D3DXVECTOR3 pos);
+	void Setup();
+	void Update(D3DXVECTOR3 pos, int size);
 	void Render();
 
-	void SetProgress();
+	float SetGauge(int size);
+	bool Complete();
+
 
 };
 

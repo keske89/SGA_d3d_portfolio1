@@ -17,6 +17,8 @@ private:
 	cCharacter*				m_pChef[2];
 	cCharacterControl*		m_pControl;
 
+	std::vector<cIGObj*>	m_vecObj;
+
 public:
 	cTestScene1();
 	~cTestScene1();
