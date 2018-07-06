@@ -2,7 +2,9 @@
 #include "cIGObj.h"
 #include "cTomato.h"
 #include "cKnife.h"
-#include "cObjLoader.h"
+#include "cPot.h"
+#include "cCrate.h"
+
 
 cIGObj::cIGObj()
 	:m_bInteraction(false)
@@ -20,24 +22,38 @@ cIGObj::~cIGObj()
 	SAFE_DELETE(m_Tomato);
 	SAFE_DELETE(m_Knife);
 	m_VecObj.clear();
-	SAFE_DELETE(ObjLoader);
+	
 }
 
 void cIGObj::Setup()
 {
 
-	m_Knife = new cKnife;
-	m_Knife->Setup();
-	m_Knife->m_pMesh = ObJMANAGER->GetMesh(L"Knife.obj");
-	m_Knife->m_pTexture = g_pTextureManager->GetTexture(L"Resources/Texture2D/Knife.png"); 
-	m_VecObj.push_back(m_Knife);
+	//m_Knife = new cKnife;
+	//m_Knife->Setup();
+	//m_VecObj.push_back(m_Knife);
+	//
+	//
+	//m_Pot = new cPot;
+	//m_Pot->Setup();
+	//m_VecObj.push_back(m_Pot);
+	//
+	//m_Tomato = new cTomato;
+	//m_Tomato->Setup();
+	//m_VecObj.push_back(m_Tomato);
 
+	m_Crate = new cCrate;
+	m_Crate->Setup();
+	m_VecObj.push_back(m_Crate);
 	
 }
 
 void cIGObj::Update()
 {
-	m_Knife->Update();
+	for (auto p : m_VecObj)
+	{
+		p->Update();
+	}
+	
 }
 
 void cIGObj::Render()
@@ -46,16 +62,18 @@ void cIGObj::Render()
 	{
 		for (auto p : m_VecObj)
 		{
-			g_pD3DDevice->SetRenderState(D3DRS_LIGHTING, true);
+			g_pD3DDevice->SetRenderState(D3DRS_LIGHTING, false);
 
 			g_pD3DDevice->SetTexture(0, p->m_pTexture);
 			p->m_pMesh->DrawSubset(0);
 
 			g_pD3DDevice->SetRenderState(D3DRS_LIGHTING, false);
+			
+
 			p->Render();
 		}
 	}
 
-	m_Knife->Render();
+	
 	
 }

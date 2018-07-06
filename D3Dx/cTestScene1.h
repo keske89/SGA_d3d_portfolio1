@@ -3,14 +3,19 @@
 
 class cIGObj;
 class cCamera;
+class cCharacter;
+class cCharacterControl;
+
 
 
 class cTestScene1 : public cGameNode
 {
 private:
-	cCamera * m_pCamera;
+	cCamera*				m_pCamera;
 	LPD3DXFONT				m_pFont;
 	cIGObj*					m_IGObj;
+	cCharacter*				m_pChef[2];
+	cCharacterControl*		m_pControl;
 
 public:
 	cTestScene1();

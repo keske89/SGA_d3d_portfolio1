@@ -22,11 +22,15 @@ void cObjManager::Setup()
 {
 	D3DXMATRIX matWorld;
 	D3DXMatrixIdentity(&matWorld);
-
+	
 	ObjLoader = new cObjLoader;
 
 	SetMeshData(L"./Resources/Mesh/IngameObj/", L"Knife.obj", &matWorld);
 	SetMeshData(L"./Resources/Mesh/IngameObj/", L"Tomato_Whole.obj", &matWorld);
+	SetMeshData(L"./Resources/Mesh/IngameObj/", L"Pot_Mesh.obj", &matWorld);
+	SetMeshData(L"./Resources/Mesh/IngameObj/", L"Tomato_Sliced.obj", &matWorld);
+	SetMeshData(L"./Resources/Mesh/IngameObj/", L"Crate_mesh.obj", &matWorld);
+		
 }
 
 
@@ -41,7 +45,7 @@ void cObjManager::SetMeshData(LPCTSTR filepath, LPCTSTR filename, D3DXMATRIX* pM
 LPD3DXMESH cObjManager::GetMesh(LPCTSTR filename)
 {
 	
-	assert(m_mapMesh.find(filename) != m_mapMesh.end() && "일치하는 메쉬 키값이 없습니다");
+	assert(m_mapMesh.find(filename) != m_mapMesh.end() && "일치하는 매쉬 키값이 없습니다");
 	
 	return m_mapMesh[filename];
 }

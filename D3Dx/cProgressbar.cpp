@@ -4,6 +4,7 @@
 
 cProgressbar::cProgressbar()
 {
+	D3DXMatrixIdentity(&m_matWorld);
 	m_vecVertexBottom.clear();
 	m_vecVertexTop.clear();
 }
@@ -16,9 +17,10 @@ cProgressbar::~cProgressbar()
 
 void cProgressbar::Setup(D3DXVECTOR3 pos)
 {
-	m_fCurrentWidth = 0.0f;
-	m_fMaxWidth = 2.0f;
-	m_fHeight = 0.3f;
+	//m_vPos = pos;
+	//m_fCurrentWidth = 0.0f;
+	//m_fMaxWidth = 2.0f;
+	//m_fHeight = 0.3f; 
 	m_pTexture = g_pTextureManager->GetTexture(L"Resources/Texture2D/Progressbar.png");
 }
 
@@ -26,16 +28,17 @@ void cProgressbar::Update(D3DXVECTOR3 pos)
 {
 	m_vecVertexBottom.clear();
 	m_vecVertexTop.clear();
+	m_vPos = pos;
 	///////////////////// bottom///////////////
 	ST_PT_VERTEX v[4];
 
-	v[0].p = D3DXVECTOR3(pos.x - m_fMaxWidth / 2.0f, pos.y - m_fHeight / 2.0f, pos.z);
+	v[0].p = D3DXVECTOR3(m_vPos.x - m_fMaxWidth / 2.0f, m_vPos.y - m_fHeight / 2.0f, m_vPos.z);
 	
-	v[1].p = D3DXVECTOR3(pos.x - m_fMaxWidth / 2.0f, pos.y + m_fHeight / 2.0f, pos.z);
+	v[1].p = D3DXVECTOR3(m_vPos.x - m_fMaxWidth / 2.0f, m_vPos.y + m_fHeight / 2.0f, m_vPos.z);
 	
-	v[2].p = D3DXVECTOR3(pos.x + m_fMaxWidth / 2.0f, pos.y + m_fHeight / 2.0f, pos.z);
+	v[2].p = D3DXVECTOR3(m_vPos.x + m_fMaxWidth / 2.0f, m_vPos.y + m_fHeight / 2.0f, m_vPos.z);
 	
-	v[3].p = D3DXVECTOR3(pos.x + m_fMaxWidth / 2.0f, pos.y - m_fHeight / 2.0f, pos.z);
+	v[3].p = D3DXVECTOR3(m_vPos.x + m_fMaxWidth / 2.0f, m_vPos.y - m_fHeight / 2.0f, m_vPos.z);
 	
 	m_vecVertexBottom.push_back(v[0]);
 	m_vecVertexBottom.push_back(v[1]);
@@ -54,13 +57,13 @@ void cProgressbar::Update(D3DXVECTOR3 pos)
 	m_vecVertexBottom[5].t.x = 1.0f; m_vecVertexBottom[5].t.y = 0.1f;
 
 	//////////////////////////// top ///////////////////////////
-	v[0].p = D3DXVECTOR3(pos.x - m_fMaxWidth / 2.0f + 0.1f, pos.y - m_fHeight / 2.0f + 0.05f, pos.z);
+	v[0].p = D3DXVECTOR3(m_vPos.x - m_fMaxWidth / 2.0f + 0.1f, m_vPos.y - m_fHeight / 2.0f + 0.05f, m_vPos.z);
 
-	v[1].p = D3DXVECTOR3(pos.x - m_fMaxWidth / 2.0f + 0.1f, pos.y + m_fHeight / 2.0f - 0.05f, pos.z);
+	v[1].p = D3DXVECTOR3(m_vPos.x - m_fMaxWidth / 2.0f + 0.1f, m_vPos.y + m_fHeight / 2.0f - 0.05f, m_vPos.z);
 
-	v[2].p = D3DXVECTOR3(pos.x - m_fMaxWidth / 2.0f + 0.1f + m_fCurrentWidth, pos.y + m_fHeight / 2.0f - 0.05f, pos.z);
+	v[2].p = D3DXVECTOR3(m_vPos.x - m_fMaxWidth / 2.0f + 0.1f + m_fCurrentWidth, m_vPos.y + m_fHeight / 2.0f - 0.05f, m_vPos.z);
 
-	v[3].p = D3DXVECTOR3(pos.x - m_fMaxWidth / 2.0f + 0.1f + m_fCurrentWidth, pos.y - m_fHeight / 2.0f + 0.05f, pos.z);
+	v[3].p = D3DXVECTOR3(m_vPos.x - m_fMaxWidth / 2.0f + 0.1f + m_fCurrentWidth, m_vPos.y - m_fHeight / 2.0f + 0.05f, m_vPos.z);
 
 	m_vecVertexTop.push_back(v[0]);
 	m_vecVertexTop.push_back(v[1]);
@@ -77,13 +80,11 @@ void cProgressbar::Update(D3DXVECTOR3 pos)
 	m_vecVertexTop[3].t.x = 1.0f; m_vecVertexTop[3].t.y = 1.0f;
 	m_vecVertexTop[4].t.x = 0.0f; m_vecVertexTop[4].t.y = 1.0f;
 	m_vecVertexTop[5].t.x = 1.0f; m_vecVertexTop[5].t.y = 0.5f;
-		
-	m_vPos = pos;
 
-
+	SetProgress();
 }
 
-void cProgressbar::Render(D3DXVECTOR3 pos)
+void cProgressbar::Render()
 {
 	g_pD3DDevice->SetRenderState(D3DRS_LIGHTING, false);
 	

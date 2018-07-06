@@ -165,6 +165,9 @@
     <ClInclude Include="cObjManager.h">
       <Filter>소스 파일\Manager</Filter>
     </ClInclude>
+    <ClInclude Include="cCrate.h">
+      <Filter>소스 파일\IngameObj\ActionObj</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -283,6 +286,9 @@
     </ClCompile>
     <ClCompile Include="cObjManager.cpp">
       <Filter>소스 파일\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="cCrate.cpp">
+      <Filter>소스 파일\IngameObj\ActionObj</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

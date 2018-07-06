@@ -6,6 +6,7 @@ class cProgressbar
 private:
 	D3DXVECTOR3				m_vPos;
 	LPDIRECT3DTEXTURE9		m_pTexture;
+	D3DXMATRIX				m_matWorld;
 	
 	float					m_fCurrentWidth;
 	//float					m_fMaxWidth;
@@ -24,7 +25,7 @@ public:
 
 	void Setup(D3DXVECTOR3 pos);
 	void Update(D3DXVECTOR3 pos);
-	void Render(D3DXVECTOR3 pos);
+	void Render();
 
 	void SetProgress();
 

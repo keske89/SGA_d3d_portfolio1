@@ -155,6 +155,7 @@
     <ClInclude Include="cCamera.h" />
     <ClInclude Include="cCharacter.h" />
     <ClInclude Include="cCharacterControl.h" />
+    <ClInclude Include="cCrate.h" />
     <ClInclude Include="cDeviceManager.h" />
     <ClInclude Include="cFontManager.h" />
     <ClInclude Include="cFoodObj.h" />
@@ -199,6 +200,7 @@
     <ClCompile Include="cCamera.cpp" />
     <ClCompile Include="ccCharacter.cpp" />
     <ClCompile Include="cCharacterControl.cpp" />
+    <ClCompile Include="cCrate.cpp" />
     <ClCompile Include="cDeviceManager.cpp" />
     <ClCompile Include="cFontManager.cpp" />
     <ClCompile Include="cFoodObj.cpp" />
