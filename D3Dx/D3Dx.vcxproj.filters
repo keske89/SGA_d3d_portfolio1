@@ -171,6 +171,9 @@
     <ClInclude Include="cCrateLid.h">
       <Filter>소스 파일\IngameObj\ActionObj</Filter>
     </ClInclude>
+    <ClInclude Include="cStageObjManager.h">
+      <Filter>소스 파일\IngameObj</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -295,6 +298,9 @@
     </ClCompile>
     <ClCompile Include="cCrateLid.cpp">
       <Filter>소스 파일\IngameObj\ActionObj</Filter>
+    </ClCompile>
+    <ClCompile Include="cStageObjManager.cpp">
+      <Filter>소스 파일\IngameObj</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -4,7 +4,7 @@
 #include "cIGObj.h"
 #include "cCharacter.h"
 #include "cCharacterControl.h"
-
+#include "cStageObjManager.h"	
 
 
 cTestScene1::cTestScene1()
@@ -28,12 +28,6 @@ cTestScene1::~cTestScene1()
 		delete m_pChef[i];
 	}
 
-	for (auto p : m_vecObj)
-	{
-		p->Destroy(p);
-	}
-
-	m_vecObj.clear();
 }
 
 void cTestScene1::Setup()
@@ -45,14 +39,15 @@ void cTestScene1::Setup()
 
 	D3DXMATRIX mat;
 	D3DXMatrixIdentity(&mat);
-	m_IGObj = new cIGObj;
-	m_IGObj->Setup();
-
-	m_vecObj.push_back(m_IGObj->CreateCrate());
-
-
+	
 	m_pCamera = new cCamera;
 	m_pCamera->Setup();
+
+	m_SOM = new cStageObjManager;
+	m_SOM->Setup();
+
+
+	
 
 
 	/*m_pControl = new cCharacterControl;
@@ -74,22 +69,11 @@ void cTestScene1::Update()
 
 	if (m_pCamera)
 		m_pCamera->Update();
+
+	if (m_SOM)
+		m_SOM->Update();
 	
 	//m_vecObj[0]->SetMatWorld()  // 인덱스번호로 접근해서 관리함 일단 
-
-
-	if (m_IGObj)
-	{
-		m_IGObj->Update();
-		for (auto p : m_vecObj)
-		{
-			p->Update();
-		}
-	}
-		
-
-	
-
 
 	/*for (int i = 0; i < 2; i++)
 	{
@@ -107,15 +91,9 @@ void cTestScene1::Render()
 
 	m_pFont->DrawText(NULL, L"TestScene1", strlen("TestScene1"), &rc,
 		DT_LEFT | DT_TOP | DT_NOCLIP, D3DCOLOR_XRGB(255, 0, 0));
-	
-	if (m_IGObj)
-	{
-		m_IGObj->Render();
-		for (auto p : m_vecObj)
-		{
-			p->Render();
-		}
-	}
+
+	if (m_SOM)
+		m_SOM->Render();
 
 	/*for (int i = 0; i < 2; i++)
 	{

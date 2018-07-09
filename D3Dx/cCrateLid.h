@@ -3,16 +3,17 @@
 
 class cCrateLid	: public cActionObj
 {
-public:
-
-	SYNTHESIZE(std::string, m_attr, Attr);
 
 public:
 	cCrateLid();
 	~cCrateLid();
 
-	virtual void Setup();
-	virtual void Update();
-	virtual void Render();
+	
+
+	// cActionObj을(를) 통해 상속됨
+	virtual void Setup() override;
+	virtual void Update() override;
+	virtual void Render() override;
+	void Setup(D3DXMATRIX matWorld, D3DXVECTOR3 pos);
 };
 

@@ -45,8 +45,7 @@ void cStageMapTool::Setup()
 	m_pUI = new cStageMapToolUI;
 	m_pUI->Setup();
 
-	m_pGObj = new cIGObj;
-	m_pGObj->Setup();
+
 
 	//바닥 타일의 기초가 되는 사각형 셋팅
 	ST_PNT_VERTEX tempV;

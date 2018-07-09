@@ -13,4 +13,16 @@ cFoodObj::~cFoodObj()
 {
 }
 
+void cFoodObj::Setup()
+{
+}
+
+void cFoodObj::Update()
+{
+}
+
+void cFoodObj::Render()
+{
+}
+
 

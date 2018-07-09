@@ -10,8 +10,8 @@ public:
 	cActionObj();
 	virtual ~cActionObj();
 
-	virtual void Setup()  = 0;
-	virtual void Update() = 0;
-	virtual void Render() = 0;
+	virtual void Setup() =0;
+	virtual void Update()=0;
+	virtual void Render()=0;
 };
 

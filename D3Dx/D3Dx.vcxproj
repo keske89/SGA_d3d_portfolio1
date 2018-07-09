@@ -181,6 +181,7 @@
     <ClInclude Include="cRay.h" />
     <ClInclude Include="cSceneManager.h" />
     <ClInclude Include="cStage.h" />
+    <ClInclude Include="cStageObjManager.h" />
     <ClInclude Include="cTestScene1.h" />
     <ClInclude Include="cTestScene2.h" />
     <ClInclude Include="cTestScene3.h" />
@@ -227,6 +228,7 @@
     <ClCompile Include="cRay.cpp" />
     <ClCompile Include="cSceneManager.cpp" />
     <ClCompile Include="cStage.cpp" />
+    <ClCompile Include="cStageObjManager.cpp" />
     <ClCompile Include="cTestScene1.cpp" />
     <ClCompile Include="cTestScene2.cpp" />
     <ClCompile Include="cTestScene3.cpp" />

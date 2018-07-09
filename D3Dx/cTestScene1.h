@@ -5,7 +5,7 @@ class cIGObj;
 class cCamera;
 class cCharacter;
 class cCharacterControl;
-
+class cStageObjManager;
 
 
 class cTestScene1 : public cGameNode
@@ -16,8 +16,7 @@ private:
 	cIGObj*					m_IGObj;
 	cCharacter*				m_pChef[2];
 	cCharacterControl*		m_pControl;
-
-	std::vector<cIGObj*>	m_vecObj;
+	cStageObjManager*		m_SOM;
 
 public:
 	cTestScene1();

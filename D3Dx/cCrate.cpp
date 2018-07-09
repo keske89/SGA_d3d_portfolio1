@@ -12,37 +12,33 @@ cCrate::~cCrate()
 {
 }
 
-void cCrate::Setup()
+void cCrate::Setup(D3DXMATRIX matWorld, D3DXVECTOR3 pos)
 {
+	m_CrateLid = new cCrateLid;
+	m_CrateLid->Setup(m_matWorld, m_vPos);
+
+	D3DXMATRIX matS;
+	D3DXMatrixIdentity(&matS);
+	D3DXMatrixScaling(&matS, 1.0f, 2.5f, 1.0f);
+
+	m_matLocal = matS;
+
+	m_matWorld = matS * matWorld;
 	m_bInteraction = false;
 	m_bIsUse = false;
-	//m_matWorld
 	m_pMesh = ObJMANAGER->GetMesh(L"Crate_mesh.obj");
 	m_pTexture = g_pTextureManager->GetTexture(L"Resources/Texture2D/Crate.png");
+}
 
-	m_CrateLid = new cCrateLid;
-	m_CrateLid->Setup();
 
-	D3DXVECTOR3 temp;
-	temp = m_vPos;
-	temp.y += 3.0f;
-	m_CrateLid->SetPos(temp);
-
+void cCrate::Setup()
+{
+	
 	
 }
 
 void cCrate::Update()
 {
-	
-	D3DXMATRIX matS;
-	D3DXMatrixIdentity(&matS);
-	D3DXMatrixScaling(&matS, 1.0f, 3.0f, 1.0f);
-	
-	m_matLocal = matS;
-
-
-	m_matWorld = m_matLocal* m_matWorld;
-
 	if (m_CrateLid)
 		m_CrateLid->Update();
 }
