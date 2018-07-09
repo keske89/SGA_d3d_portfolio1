@@ -1,9 +1,11 @@
 #pragma once
 #include "cActionObj.h"
 
+
+
 class cCrateLid	: public cActionObj
 {
-
+					//m_LidType;
 public:
 	cCrateLid();
 	~cCrateLid();
@@ -14,6 +16,6 @@ public:
 	virtual void Setup() override;
 	virtual void Update() override;
 	virtual void Render() override;
-	void Setup(D3DXMATRIX matWorld, D3DXVECTOR3 pos);
+	virtual void Setup(D3DXMATRIX matWorld, D3DXVECTOR3 pos, int lidtype) override;
 };
 

@@ -49,6 +49,7 @@ void cStageObjManager::Render()
 	}
 }
 
+
 void cStageObjManager::DeleteObject(cIGObj* object)
 {
 	for (int i = 0; i < m_vecObj.size(); i++)

@@ -26,7 +26,7 @@ public:
 	void Setup();
 	void Update();
 	void Render();
-	void AddObject(cIGObj* object) { m_vecObj.push_back(object); }
+	void AddObject(cIGObj* object) { m_vecObj.push_back(object); };
 	void DeleteObject(cIGObj* object);
 
 };

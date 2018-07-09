@@ -12,10 +12,11 @@ cCrate::~cCrate()
 {
 }
 
-void cCrate::Setup(D3DXMATRIX matWorld, D3DXVECTOR3 pos)
+void cCrate::Setup(D3DXMATRIX matWorld, D3DXVECTOR3 pos, int lidtype)
 {
 	m_CrateLid = new cCrateLid;
-	m_CrateLid->Setup(m_matWorld, m_vPos);
+	m_LidType = (LIDTYPE)lidtype;
+	m_CrateLid->Setup(m_matWorld, m_vPos, m_LidType);
 
 	D3DXMATRIX matS;
 	D3DXMatrixIdentity(&matS);

@@ -11,7 +11,7 @@ cCrateLid::~cCrateLid()
 {
 }
 
-void cCrateLid::Setup(D3DXMATRIX matWorld, D3DXVECTOR3 pos)
+void cCrateLid::Setup(D3DXMATRIX matWorld, D3DXVECTOR3 pos, int lidtype)
 {
 	
 	D3DXMATRIX matT;
