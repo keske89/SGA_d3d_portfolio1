@@ -2,6 +2,8 @@
 #include "cCharacter.h"
 #include "cChefRoot.h"
 #include "cCharacterControl.h"
+#include "cStageObjManager.h"
+#include "cIGObj.h"
 // parts
 #include"cChefBody.h"
 #include"cChefHead.h"

@@ -1,5 +1,6 @@
 #pragma once
 class cChefRoot;
+class cStageObjManager;
 class cIGObj;
 class cCharacterControl;
 enum CHEF_STATE
@@ -19,7 +20,8 @@ private:
 	D3DMATERIAL9			m_stMtl;
 	SYNTHESIZE(D3DXVECTOR3, m_vPosition, Pos);
 	CHEF_STATE				m_eChefState;
-	cIGObj * m_pObjRoot;
+	cIGObj *				m_pObjRoot;
+	cStageObjManager*		m_pStageOBJ;
 public:
 	cCharacter();
 	~cCharacter();
@@ -35,6 +37,6 @@ public:
 	CHEF_STATE GetCHEF_STATE() { return m_eChefState; }
 	cIGObj * GetcIGObject();
 	void SetcIGObject(cIGObj * _object);
-	void setcIGObjectAdressLink(cIGObj* _object) { m_pObjRoot = _object; }
+	void setcStageObjManagerAdressLink(cStageObjManager* _StageObject) { m_pStageOBJ = _StageObject; }
 };
 
