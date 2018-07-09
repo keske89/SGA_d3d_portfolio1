@@ -7,6 +7,7 @@ cStageMapToolUI::cStageMapToolUI()
 	, m_nSelectTileNum(0)
 	, m_nTextureNum(0)
 	, m_eTileType(TT_FLOOR)
+	, m_eNOTileType(NOT_CRATE)
 {
 }
 
@@ -18,10 +19,10 @@ cStageMapToolUI::~cStageMapToolUI()
 
 void cStageMapToolUI::Setup()
 {
-	//바닥 타일 세팅
 	D3DXCreateSprite(g_pD3DDevice, &m_pSprite);
 	D3DXMATRIX matT, matS;
-	g_pD3DDevice->GetViewport(&VP);
+	g_pD3DDevice->GetViewport(&m_VP);
+	//바닥 타일 세팅
 	for (int i = 0; i < (MAX_FLOOR_TILE / 10) + 1; ++i)
 	{
 		for (int j = 0; j < 10; ++j)
@@ -33,13 +34,14 @@ void cStageMapToolUI::Setup()
 			m_stFloorTile[i * 10 + j].wstrTexture = buffer;
 			g_pTextureManager->GetTexture(m_stFloorTile[i * 10 + j].wstrTexture.c_str(), &m_stFloorTile[i * 10 + j].imageInfo);
 			D3DXMatrixScaling(&matS, 50.0f / (float)(m_stFloorTile[i * 10 + j].imageInfo.Width), 50.0f / (float)(m_stFloorTile[i * 10 + j].imageInfo.Height), 1.0f);
-			D3DXMatrixTranslation(&matT, VP.Width - (60 * (i + 1)) + 5, (60 * j) + 5, 0);
+			D3DXMatrixTranslation(&matT, m_VP.Width - (60 * (i + 1)) + 5, (60 * j) + 5, 0);
 			m_stFloorTile[i * 10 + j].matrix = matS * matT;
 		}
 	}
+	//각종 버튼들의 텍스쳐 할당과 위치 초기화
 	m_stTileSelectButton.wstrTexture = L"./Resources/StageTexture/FloorTile_0.png";
 	g_pTextureManager->GetTexture(m_stTileSelectButton.wstrTexture.c_str(), &m_stTileSelectButton.imageInfo);
-	//
+
 	m_stMenuButton[MT_FLOOR].wstrTexture = L"./Resources/StageTexture/MenuFloor.png";
 	g_pTextureManager->GetTexture(m_stMenuButton[MT_FLOOR].wstrTexture.c_str(), &m_stMenuButton[MT_FLOOR].imageInfo);
 	D3DXMatrixTranslation(&m_stMenuButton[MT_FLOOR].matrix, 0, 0, 0);
@@ -80,6 +82,10 @@ void cStageMapToolUI::Setup()
 	g_pTextureManager->GetTexture(m_stMenuButton[MT_TEXTURE3].wstrTexture.c_str(), &m_stMenuButton[MT_TEXTURE3].imageInfo);
 	D3DXMatrixTranslation(&m_stMenuButton[MT_TEXTURE3].matrix, 0, 540, 0);
 
+	m_stNewObjTile[NOT_CRATE].wstrTexture = L"./Resources/StageTexture/MenuCrate.png";
+	g_pTextureManager->GetTexture(m_stNewObjTile[NOT_CRATE].wstrTexture.c_str(), &m_stNewObjTile[NOT_CRATE].imageInfo);
+	D3DXMatrixTranslation(&m_stNewObjTile[NOT_CRATE].matrix, m_VP.Width - 165, 5, 0);
+
 	m_stMenuSelectButton.wstrTexture = L"./Resources/StageTexture/MenuSelect.png";
 	g_pTextureManager->GetTexture(m_stMenuSelectButton.wstrTexture.c_str(), &m_stMenuSelectButton.imageInfo);
 	D3DXMatrixTranslation(&m_stMenuSelectButton.matrix, 0, 0, 0);
@@ -87,9 +93,6 @@ void cStageMapToolUI::Setup()
 
 void cStageMapToolUI::Update()
 {
-	int xNum = m_nSelectTileNum / 10;
-	int yNum = m_nSelectTileNum % 10;
-	D3DXMatrixTranslation(&m_stTileSelectButton.matrix, VP.Width - (60 * (xNum + 1)), 60 * yNum, 0);
 }
 
 void cStageMapToolUI::Render()
@@ -156,7 +159,43 @@ void cStageMapToolUI::Render()
 					D3DCOLOR_ARGB(255, 255, 255, 255));
 			}
 		}
-
+		else if (m_eTileType == TT_NEWOBJ)
+		{
+			for (int i = 0; i < NOT_MAX; ++i)
+			{
+				m_pSprite->SetTransform(&m_stNewObjTile[i].matrix);
+				m_pSprite->Draw(
+					g_pTextureManager->GetTexture(m_stNewObjTile[i].wstrTexture.c_str()),
+					NULL,
+					NULL,
+					NULL,
+					D3DCOLOR_ARGB(255, 255, 255, 255));
+			}
+			m_pSprite->SetTransform(&m_stMenuButton[MT_NEWOBJ].matrix);
+			m_pSprite->Draw(
+				g_pTextureManager->GetTexture(m_stMenuSelectButton.wstrTexture.c_str()),
+				NULL,
+				NULL,
+				NULL,
+				D3DCOLOR_ARGB(255, 255, 255, 255));
+			m_pSprite->SetTransform(&m_stNewObjTile[m_eNOTileType].matrix);
+			m_pSprite->Draw(
+				g_pTextureManager->GetTexture(m_stMenuSelectButton.wstrTexture.c_str()),
+				NULL,
+				NULL,
+				NULL,
+				D3DCOLOR_ARGB(255, 255, 255, 255));
+		}
+		else if (m_eTileType == TT_BLOCK)
+		{
+			m_pSprite->SetTransform(&m_stMenuButton[MT_BLOCK].matrix);
+			m_pSprite->Draw(
+				g_pTextureManager->GetTexture(m_stMenuSelectButton.wstrTexture.c_str()),
+				NULL,
+				NULL,
+				NULL,
+				D3DCOLOR_ARGB(255, 255, 255, 255));
+		}
 
 		m_pSprite->End();
 	}
@@ -176,6 +215,9 @@ bool cStageMapToolUI::SelectTile(int& num)
 		{
 			m_nSelectTileNum = i;
 			num = i;
+			int xNum = m_nSelectTileNum / 10;
+			int yNum = m_nSelectTileNum % 10;
+			D3DXMatrixTranslation(&m_stTileSelectButton.matrix, m_VP.Width - (60 * (xNum + 1)), 60 * yNum, 0);
 			return true;
 		}
 	}
@@ -207,9 +249,40 @@ bool cStageMapToolUI::SelectMenu(int & num)
 			{
 				m_eTileType = TT_OBJECT;
 			}
+			else if (i == MT_NEWOBJ)
+			{
+				m_eTileType = TT_NEWOBJ;
+			}
+			else if (i == MT_BLOCK)
+			{
+				m_eTileType = TT_BLOCK;
+			}
 			else
 			{
 				num = i;
+			}
+			return true;
+		}
+	}
+
+	return false;
+}
+
+bool cStageMapToolUI::SelectNewObj(int & num)
+{
+	RECT rc;
+	for (int i = 0; i < NOT_MAX; ++i)
+	{
+		SetRect(&rc,
+			(int)m_stNewObjTile[i].matrix._41 + 5,
+			(int)m_stNewObjTile[i].matrix._42 + 5,
+			(int)m_stNewObjTile[i].matrix._41 + 150,
+			(int)m_stNewObjTile[i].matrix._42 + 50);
+		if (PtInRect(&rc, _ptMouse))
+		{
+			if (i == NOT_CRATE)
+			{
+				m_eNOTileType = NOT_CRATE;
 			}
 			return true;
 		}

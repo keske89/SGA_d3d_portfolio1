@@ -4,6 +4,8 @@
 #include "cStageGrid.h"
 #include "cRay.h"
 #include "cStageMapToolUI.h"
+#include "cIGObj.h"
+#include "cCrate.h"
 
 
 cStageMapTool::cStageMapTool()
@@ -17,6 +19,8 @@ cStageMapTool::cStageMapTool()
 	, m_nIndexZ(0)
 	, m_fTBRXAxis(0.0f)
 	, m_fTBRZAxis(0.0f)
+	, m_pGObj(NULL)
+	, m_pSelectGObj(NULL)
 { 
 }
 
@@ -26,6 +30,8 @@ cStageMapTool::~cStageMapTool()
 	SAFE_DELETE(m_pCamera);
 	SAFE_DELETE(m_pGrid);
 	SAFE_DELETE(m_pUI);
+	SAFE_DELETE(m_pGObj);
+	SAFE_DELETE(m_pSelectGObj);
 }
 
 void cStageMapTool::Setup()
@@ -39,32 +45,35 @@ void cStageMapTool::Setup()
 	m_pUI = new cStageMapToolUI;
 	m_pUI->Setup();
 
+	m_pGObj = new cIGObj;
+	m_pGObj->Setup();
+
 	//바닥 타일의 기초가 되는 사각형 셋팅
 	ST_PNT_VERTEX tempV;
 	tempV.p = D3DXVECTOR3(-0.5f, 0, -0.5f);
 	tempV.n = D3DXVECTOR3(0, 1, 0);
 	tempV.t = D3DXVECTOR2(1, 0);
-	m_stFloorTileTemplate.vecVertex.push_back(tempV);
+	m_stFloorTemplate.vecVertex.push_back(tempV);
 	tempV.p = D3DXVECTOR3(-0.5f, 0, 0.5f);
 	tempV.n = D3DXVECTOR3(0, 1, 0);
 	tempV.t = D3DXVECTOR2(0, 0);
-	m_stFloorTileTemplate.vecVertex.push_back(tempV);
+	m_stFloorTemplate.vecVertex.push_back(tempV);
 	tempV.p = D3DXVECTOR3(0.5f, 0, 0.5f);
 	tempV.n = D3DXVECTOR3(0, 1, 0);
 	tempV.t = D3DXVECTOR2(0, 1);
-	m_stFloorTileTemplate.vecVertex.push_back(tempV);
+	m_stFloorTemplate.vecVertex.push_back(tempV);
 	tempV.p = D3DXVECTOR3(-0.5f, 0, -0.5f);
 	tempV.n = D3DXVECTOR3(0, 1, 0);
 	tempV.t = D3DXVECTOR2(1, 0);
-	m_stFloorTileTemplate.vecVertex.push_back(tempV);
+	m_stFloorTemplate.vecVertex.push_back(tempV);
 	tempV.p = D3DXVECTOR3(0.5f, 0, 0.5f);
 	tempV.n = D3DXVECTOR3(0, 1, 0);
 	tempV.t = D3DXVECTOR2(0, 1);
-	m_stFloorTileTemplate.vecVertex.push_back(tempV);
+	m_stFloorTemplate.vecVertex.push_back(tempV);
 	tempV.p = D3DXVECTOR3(0.5f, 0, -0.5f);
 	tempV.n = D3DXVECTOR3(0, 1, 0);
 	tempV.t = D3DXVECTOR2(1, 1);
-	m_stFloorTileTemplate.vecVertex.push_back(tempV);
+	m_stFloorTemplate.vecVertex.push_back(tempV);
 	D3DXMATRIX matScale;
 	D3DXMATRIX matRot;
 	D3DXMATRIX matTrans;
@@ -72,10 +81,141 @@ void cStageMapTool::Setup()
 	D3DXMatrixRotationY(&matRot, m_fRotAngle);
 	D3DXMatrixTranslation(&matTransAfterRot, 0.5f, 0, 0.5f);
 	D3DXMatrixTranslation(&matTrans, m_nIndexX, 0, m_nIndexZ);
-	m_stFloorTileTemplate.matFinal = matRot * matTransAfterRot * matTrans;
-	m_stFloorTileTemplate.wstrTexture = m_pUI->getTileTexture(m_nTextureNum);
+	m_stFloorTemplate.matFinal = matRot * matTransAfterRot * matTrans;
+	m_stFloorTemplate.wstrTexture = m_pUI->getTileTexture(m_nTextureNum);
 
-	//LoadObject(L"./Resources/Mesh/Wall1m.obj", m_vecObjectSample);
+	//방해 타일의 기초가 되는 직육면체 설정
+	////위면
+	tempV.p = D3DXVECTOR3(-0.5f, BLOCK_HEIGHT, -0.5f);
+	tempV.n = D3DXVECTOR3(0, 1, 0);
+	tempV.t = D3DXVECTOR2(1, 0);
+	m_stBlockTemplate.vecVertex.push_back(tempV);
+	tempV.p = D3DXVECTOR3(-0.5f, BLOCK_HEIGHT, 0.5f);
+	tempV.n = D3DXVECTOR3(0, 1, 0);
+	tempV.t = D3DXVECTOR2(0, 0);
+	m_stBlockTemplate.vecVertex.push_back(tempV);
+	tempV.p = D3DXVECTOR3(0.5f, BLOCK_HEIGHT, 0.5f);
+	tempV.n = D3DXVECTOR3(0, 1, 0);
+	tempV.t = D3DXVECTOR2(0, 1);
+	m_stBlockTemplate.vecVertex.push_back(tempV);
+	tempV.p = D3DXVECTOR3(-0.5f, BLOCK_HEIGHT, -0.5f);
+	tempV.n = D3DXVECTOR3(0, 1, 0);
+	tempV.t = D3DXVECTOR2(1, 0);
+	m_stBlockTemplate.vecVertex.push_back(tempV);
+	tempV.p = D3DXVECTOR3(0.5f, BLOCK_HEIGHT, 0.5f);
+	tempV.n = D3DXVECTOR3(0, 1, 0);
+	tempV.t = D3DXVECTOR2(0, 1);
+	m_stBlockTemplate.vecVertex.push_back(tempV);
+	tempV.p = D3DXVECTOR3(0.5f, BLOCK_HEIGHT, -0.5f);
+	tempV.n = D3DXVECTOR3(0, 1, 0);
+	tempV.t = D3DXVECTOR2(1, 1);
+	m_stBlockTemplate.vecVertex.push_back(tempV);
+	////왼쪽면
+	tempV.p = D3DXVECTOR3(-0.5f, BLOCK_HEIGHT, -0.1f);
+	tempV.n = D3DXVECTOR3(-1, 0, 0);
+	tempV.t = D3DXVECTOR2(1, 1);
+	m_stBlockTemplate.vecVertex.push_back(tempV);
+	tempV.p = D3DXVECTOR3(-0.5f, 0, -0.1f);
+	tempV.n = D3DXVECTOR3(-1, 0, 0);
+	tempV.t = D3DXVECTOR2(1, 0);
+	m_stBlockTemplate.vecVertex.push_back(tempV);
+	tempV.p = D3DXVECTOR3(-0.5f, BLOCK_HEIGHT, 0.1f);
+	tempV.n = D3DXVECTOR3(-1, 0, 0);
+	tempV.t = D3DXVECTOR2(0, 1);
+	m_stBlockTemplate.vecVertex.push_back(tempV);
+	tempV.p = D3DXVECTOR3(-0.5f, BLOCK_HEIGHT, 0.1f);
+	tempV.n = D3DXVECTOR3(-1, 0, 0);
+	tempV.t = D3DXVECTOR2(0, 1);
+	m_stBlockTemplate.vecVertex.push_back(tempV);
+	tempV.p = D3DXVECTOR3(-0.5f, 0, -0.1f);
+	tempV.n = D3DXVECTOR3(-1, 0, 0);
+	tempV.t = D3DXVECTOR2(1, 0);
+	m_stBlockTemplate.vecVertex.push_back(tempV);
+	tempV.p = D3DXVECTOR3(-0.5f, 0, 0.1f);
+	tempV.n = D3DXVECTOR3(-1, 0, 0);
+	tempV.t = D3DXVECTOR2(0, 0);
+	m_stBlockTemplate.vecVertex.push_back(tempV);
+	////오른쪽면
+	tempV.p = D3DXVECTOR3(0.5f, BLOCK_HEIGHT, -0.1f);
+	tempV.n = D3DXVECTOR3(1, 0, 0);
+	tempV.t = D3DXVECTOR2(1, 0);
+	m_stBlockTemplate.vecVertex.push_back(tempV);
+	tempV.p = D3DXVECTOR3(0.5f, BLOCK_HEIGHT, 0.1f);
+	tempV.n = D3DXVECTOR3(1, 0, 0);
+	tempV.t = D3DXVECTOR2(0, 0);
+	m_stBlockTemplate.vecVertex.push_back(tempV);
+	tempV.p = D3DXVECTOR3(0.5f, 0, 0.1f);
+	tempV.n = D3DXVECTOR3(1, 0, 0);
+	tempV.t = D3DXVECTOR2(0, 1);
+	m_stBlockTemplate.vecVertex.push_back(tempV);
+	tempV.p = D3DXVECTOR3(0.5f, BLOCK_HEIGHT, -0.1f);
+	tempV.n = D3DXVECTOR3(1, 0, 0);
+	tempV.t = D3DXVECTOR2(1, 0);
+	m_stBlockTemplate.vecVertex.push_back(tempV);
+	tempV.p = D3DXVECTOR3(0.5f, 0, 0.1f);
+	tempV.n = D3DXVECTOR3(1, 0, 0);
+	tempV.t = D3DXVECTOR2(0, 1);
+	m_stBlockTemplate.vecVertex.push_back(tempV);
+	tempV.p = D3DXVECTOR3(0.5f, 0, -0.1f);
+	tempV.n = D3DXVECTOR3(1, 0, 0);
+	tempV.t = D3DXVECTOR2(1, 1);
+	m_stBlockTemplate.vecVertex.push_back(tempV);
+	////앞면
+	tempV.p = D3DXVECTOR3(-0.1f, 0, -0.5f);
+	tempV.n = D3DXVECTOR3(0, 0, -1);
+	tempV.t = D3DXVECTOR2(1, 0);
+	m_stBlockTemplate.vecVertex.push_back(tempV);
+	tempV.p = D3DXVECTOR3(-0.1f, BLOCK_HEIGHT, -0.5f);
+	tempV.n = D3DXVECTOR3(0, 0, -1);
+	tempV.t = D3DXVECTOR2(0, 0);
+	m_stBlockTemplate.vecVertex.push_back(tempV);
+	tempV.p = D3DXVECTOR3(0.1f, BLOCK_HEIGHT, -0.5f);
+	tempV.n = D3DXVECTOR3(0, 0, -1);
+	tempV.t = D3DXVECTOR2(0, 1);
+	m_stBlockTemplate.vecVertex.push_back(tempV);
+	tempV.p = D3DXVECTOR3(-0.1f, 0, -0.5f);
+	tempV.n = D3DXVECTOR3(0, 0, -1);
+	tempV.t = D3DXVECTOR2(1, 0);
+	m_stBlockTemplate.vecVertex.push_back(tempV);
+	tempV.p = D3DXVECTOR3(0.1f, BLOCK_HEIGHT, -0.5f);
+	tempV.n = D3DXVECTOR3(0, 0, -1);
+	tempV.t = D3DXVECTOR2(0, 1);
+	m_stBlockTemplate.vecVertex.push_back(tempV);
+	tempV.p = D3DXVECTOR3(0.1f, 0, -0.5f);
+	tempV.n = D3DXVECTOR3(0, 0, -1);
+	tempV.t = D3DXVECTOR2(1, 1);
+	m_stBlockTemplate.vecVertex.push_back(tempV);
+	////뒷면
+	tempV.p = D3DXVECTOR3(-0.1f, BLOCK_HEIGHT, 0.5f);
+	tempV.n = D3DXVECTOR3(0, 0, 1);
+	tempV.t = D3DXVECTOR2(1, 0);
+	m_stBlockTemplate.vecVertex.push_back(tempV);
+	tempV.p = D3DXVECTOR3(-0.1f, 0, 0.5f);
+	tempV.n = D3DXVECTOR3(0, 0, 1);
+	tempV.t = D3DXVECTOR2(0, 0);
+	m_stBlockTemplate.vecVertex.push_back(tempV);
+	tempV.p = D3DXVECTOR3(0.1f, 0, 0.5f);
+	tempV.n = D3DXVECTOR3(0, 0, 1);
+	tempV.t = D3DXVECTOR2(0, 1);
+	m_stBlockTemplate.vecVertex.push_back(tempV);
+	tempV.p = D3DXVECTOR3(-0.1f, BLOCK_HEIGHT, 0.5f);
+	tempV.n = D3DXVECTOR3(0, 0, 1);
+	tempV.t = D3DXVECTOR2(1, 0);
+	m_stBlockTemplate.vecVertex.push_back(tempV);
+	tempV.p = D3DXVECTOR3(0.1f, 0, 0.5f);
+	tempV.n = D3DXVECTOR3(0, 0, 1);
+	tempV.t = D3DXVECTOR2(0, 1);
+	m_stBlockTemplate.vecVertex.push_back(tempV);
+	tempV.p = D3DXVECTOR3(0.1f, BLOCK_HEIGHT, 0.5f);
+	tempV.n = D3DXVECTOR3(0, 0, 1);
+	tempV.t = D3DXVECTOR2(1, 1);
+	m_stBlockTemplate.vecVertex.push_back(tempV);
+	m_stBlockTemplate.matFinal = matRot * matTransAfterRot * matTrans;
+	m_stBlockTemplate.wstrTexture = L"./Resources/StageTexture/FloorTile_20.png";
+	
+
+
+
 }
 
 void cStageMapTool::Update()
@@ -85,6 +225,9 @@ void cStageMapTool::Update()
 
 	if (m_pUI)
 		m_pUI->Update();
+
+	if (m_pGObj)
+		m_pGObj->Update();
 
 	Control();
 }
@@ -118,28 +261,40 @@ void cStageMapTool::Render()
 	
 	if (m_pUI->getTileType() == TT_FLOOR)	//커서 위치의 샘플 타일을 그려준다.
 	{
-		g_pD3DDevice->SetTransform(D3DTS_WORLD, &m_stFloorTileTemplate.matFinal);
-		g_pD3DDevice->SetTexture(0, g_pTextureManager->GetTexture(m_stFloorTileTemplate.wstrTexture.c_str()));
-		g_pD3DDevice->DrawPrimitiveUP(D3DPT_TRIANGLELIST, m_stFloorTileTemplate.vecVertex.size() / 3, &m_stFloorTileTemplate.vecVertex[0], sizeof(ST_PNT_VERTEX));
+		g_pD3DDevice->SetTransform(D3DTS_WORLD, &m_stFloorTemplate.matFinal);
+		g_pD3DDevice->SetTexture(0, g_pTextureManager->GetTexture(m_stFloorTemplate.wstrTexture.c_str()));
+		g_pD3DDevice->DrawPrimitiveUP(D3DPT_TRIANGLELIST, m_stFloorTemplate.vecVertex.size() / 3, &m_stFloorTemplate.vecVertex[0], sizeof(ST_PNT_VERTEX));
 	}
 	else if (m_pUI->getTileType() == TT_OBJECT)	//커서 위치의 샘플 오브젝트를 그려준다.
 	{
-		for (int i = 0; i < m_vecObjectSample.size(); ++i)
+		for (int i = 0; i < m_vecObjectTemplate.size(); ++i)
 		{
-			g_pD3DDevice->SetTransform(D3DTS_WORLD, &m_vecObjectSample[i].matFinal);
-			if (m_vecObjectSample[i].wstrTexture.size() > 0)
+			g_pD3DDevice->SetTransform(D3DTS_WORLD, &m_vecObjectTemplate[i].matFinal);
+			if (m_vecObjectTemplate[i].wstrTexture.size() > 0)
 			{
-				g_pD3DDevice->SetTexture(0, g_pTextureManager->GetTexture(m_vecObjectSample[i].wstrTexture.c_str()));
+				g_pD3DDevice->SetTexture(0, g_pTextureManager->GetTexture(m_vecObjectTemplate[i].wstrTexture.c_str()));
 			}
 			else
 			{
 				g_pD3DDevice->SetTexture(0, NULL);
 			}
-			g_pD3DDevice->DrawPrimitiveUP(D3DPT_TRIANGLELIST, m_vecObjectSample[i].vecVertex.size() / 3, &m_vecObjectSample[i].vecVertex[0], sizeof(ST_PNT_VERTEX));
+			g_pD3DDevice->DrawPrimitiveUP(D3DPT_TRIANGLELIST, m_vecObjectTemplate[i].vecVertex.size() / 3, &m_vecObjectTemplate[i].vecVertex[0], sizeof(ST_PNT_VERTEX));
 		}
 	}
+	else if (m_pUI->getTileType() == TT_BLOCK) //커서 위치의 방해 타일과 깔린 방해 타일들을 그린다.
+	{
+		g_pD3DDevice->SetTexture(0, g_pTextureManager->GetTexture(m_stBlockTemplate.wstrTexture.c_str()));
+		for (m_iterBlockTiles = m_mapBlockTiles.begin(); m_iterBlockTiles != m_mapBlockTiles.end(); ++m_iterBlockTiles)
+		{
+			g_pD3DDevice->SetTransform(D3DTS_WORLD, &m_iterBlockTiles->second.matFinal);
+			g_pD3DDevice->DrawPrimitiveUP(D3DPT_TRIANGLELIST, m_iterBlockTiles->second.vecVertex.size() / 3, &m_iterBlockTiles->second.vecVertex[0], sizeof(ST_PNT_VERTEX));
+		}
+		g_pD3DDevice->SetTransform(D3DTS_WORLD, &m_stBlockTemplate.matFinal);
+		g_pD3DDevice->DrawPrimitiveUP(D3DPT_TRIANGLELIST, m_stBlockTemplate.vecVertex.size() / 3, &m_stBlockTemplate.vecVertex[0], sizeof(ST_PNT_VERTEX));
+	}
 
-
+	if (m_pGObj)
+		m_pGObj->Render();
 }
 
 void cStageMapTool::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
@@ -218,13 +373,15 @@ void cStageMapTool::Control()
 	D3DXMatrixRotationY(&matRot, m_fRotAngle);
 	D3DXMatrixTranslation(&matTransAfterRot, 0.5f, 0, 0.5f);
 	D3DXMatrixTranslation(&matTrans, m_nIndexX, 0, m_nIndexZ);
-	m_stFloorTileTemplate.matFinal = matRot * matTransAfterRot * matTrans;
-	m_stFloorTileTemplate.wstrTexture = m_pUI->getTileTexture(m_nTextureNum);
-	for (int i = 0; i < m_vecObjectSample.size(); ++i)
+	m_stFloorTemplate.matFinal = matRot * matTransAfterRot * matTrans;
+	m_stFloorTemplate.wstrTexture = m_pUI->getTileTexture(m_nTextureNum);
+	m_stBlockTemplate.matFinal = matRot * matTransAfterRot * matTrans;
+
+	for (int i = 0; i < m_vecObjectTemplate.size(); ++i)
 	{
-		m_vecObjectSample[i].matFinal = matTransBeforeRot * matRot * matTransAfterRot * matTrans;
+		m_vecObjectTemplate[i].matFinal = matTransBeforeRot * matRot * matTransAfterRot * matTrans;
 	}
-	if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
+	if (KEYMANAGER->isOnceKeyUp(VK_LBUTTON))
 	{
 		int menuNum;
 		if (m_pUI->SelectMenu(menuNum) == true)
@@ -255,10 +412,10 @@ void cStageMapTool::Control()
 				wstring FullPath = ofn.lpstrFile;
 
 				cObjLoader Loader;
-				m_vecObjectSample.clear();
-				LoadObject(FullPath.c_str(), m_vecObjectSample);
+				m_vecObjectTemplate.clear();
+				LoadObject(FullPath.c_str(), m_vecObjectTemplate);
 
-				m_pUI->setTextureNum(m_vecObjectSample.size());
+				m_pUI->setTextureNum(m_vecObjectTemplate.size());
 			}
 			else if (menuNum == MT_SAVE)
 			{
@@ -313,7 +470,7 @@ void cStageMapTool::Control()
 				if (GetOpenFileName(&ofn) == FALSE) return;
 
 				wstring FullPath = ofn.lpstrFile;
-				m_vecObjectSample[menuNum - MT_TEXTURE1].wstrTexture = FullPath;
+				m_vecObjectTemplate[menuNum - MT_TEXTURE1].wstrTexture = FullPath;
 				/*
 				WCHAR* token = NULL;
 				WCHAR* text = &FullPath[0];
@@ -338,7 +495,7 @@ void cStageMapTool::Control()
 			{
 				m_mapFloorTiles.erase(m_mapFloorTiles.find(make_pair(m_nIndexX, m_nIndexZ)));
 			}
-			m_mapFloorTiles.insert(make_pair(make_pair(m_nIndexX, m_nIndexZ), m_stFloorTileTemplate));
+			m_mapFloorTiles.insert(make_pair(make_pair(m_nIndexX, m_nIndexZ), m_stFloorTemplate));
 		}
 		else if (m_pUI->getTileType() == TT_OBJECT)
 		{
@@ -346,10 +503,39 @@ void cStageMapTool::Control()
 			{
 				m_mapObjectTiles.erase(m_mapObjectTiles.find(make_pair(m_nIndexX, m_nIndexZ)));
 			}
-			m_mapObjectTiles.insert(make_pair(make_pair(m_nIndexX, m_nIndexZ), m_vecObjectSample));
+			m_mapObjectTiles.insert(make_pair(make_pair(m_nIndexX, m_nIndexZ), m_vecObjectTemplate));
+		}
+		else if (m_pUI->getTileType() == TT_NEWOBJ)
+		{
+			m_iterNewObject = m_mapNewObject.find(make_pair(m_nIndexX, m_nIndexZ));
+			if (m_iterNewObject != m_mapNewObject.end())
+			{
+				m_pGObj->Destroy(m_iterNewObject->second);
+				m_mapNewObject.erase(m_iterNewObject);
+			}
+			switch (m_pUI->getNewObjTileType())
+			{
+			case(NOT_CRATE):
+			{
+				cIGObj* temp = m_pGObj->CreateCrate();
+				temp->Setup();
+				m_mapNewObject.insert(make_pair(make_pair(m_nIndexX, m_nIndexZ), temp));
+			}
+			break;
+			default:
+			break;
+			}
+		}
+		else if (m_pUI->getTileType() == TT_BLOCK)
+		{
+			if (m_mapBlockTiles.find(make_pair(m_nIndexX, m_nIndexZ)) != m_mapBlockTiles.end())
+			{
+				m_mapBlockTiles.erase(m_mapBlockTiles.find(make_pair(m_nIndexX, m_nIndexZ)));
+			}
+			m_mapBlockTiles.insert(make_pair(make_pair(m_nIndexX, m_nIndexZ), m_stBlockTemplate));
 		}
 	}
-	if (KEYMANAGER->isOnceKeyDown('R'))
+	if (KEYMANAGER->isOnceKeyDown(VK_SPACE))
 	{
 		if (m_pUI->getTileType() == TT_FLOOR)
 		{
@@ -363,6 +549,13 @@ void cStageMapTool::Control()
 			if (m_mapObjectTiles.find(make_pair(m_nIndexX, m_nIndexZ)) != m_mapObjectTiles.end())
 			{
 				m_mapObjectTiles.erase(m_mapObjectTiles.find(make_pair(m_nIndexX, m_nIndexZ)));
+			}
+		}
+		else if (m_pUI->getTileType() == TT_BLOCK)
+		{
+			if (m_mapBlockTiles.find(make_pair(m_nIndexX, m_nIndexZ)) != m_mapBlockTiles.end())
+			{
+				m_mapBlockTiles.erase(m_mapBlockTiles.find(make_pair(m_nIndexX, m_nIndexZ)));
 			}
 		}
 	}

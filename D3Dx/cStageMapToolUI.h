@@ -1,15 +1,22 @@
 #pragma once
 
 #define MAX_FLOOR_TILE 22
-
+//그릴 타일 타잎의 번호
 enum eTileType
 {
 	TT_FLOOR,
 	TT_OBJECT,
 	TT_NEWOBJ,
+	TT_BLOCK,
 	TT_MAX
 };
-
+//새로 생성할 타일 타잎의 번호
+enum eNewObjTileType
+{
+	NOT_CRATE,
+	NOT_MAX
+};
+//메뉴들의 번호
 enum eMenuType
 {
 	MT_FLOOR,
@@ -24,7 +31,7 @@ enum eMenuType
 	MT_TEXTURE3,
 	MT_MAX
 };
-
+//UI버튼 구조체
 struct ST_UI_BUTTON
 {
 	wstring				wstrTexture;
@@ -35,16 +42,18 @@ struct ST_UI_BUTTON
 class cStageMapToolUI
 {
 private:
-	LPD3DXSPRITE		m_pSprite;
-	ST_UI_BUTTON		m_stFloorTile[MAX_FLOOR_TILE];
-	ST_UI_BUTTON		m_stTileSelectButton;
-	ST_UI_BUTTON		m_stMenuButton[MT_MAX];
-	ST_UI_BUTTON		m_stMenuSelectButton;
-	D3DVIEWPORT9		VP;
+	LPD3DXSPRITE		m_pSprite;						
+	ST_UI_BUTTON		m_stFloorTile[MAX_FLOOR_TILE];	//바닥 타일 버튼
+	ST_UI_BUTTON		m_stNewObjTile[NOT_MAX];		//뉴 오브젝트 버튼
+	ST_UI_BUTTON		m_stTileSelectButton;			//현재 선택한 타일의 버튼
+	ST_UI_BUTTON		m_stMenuButton[MT_MAX];			//메뉴 버튼
+	ST_UI_BUTTON		m_stMenuSelectButton;			//현재 선택한 메뉴 버튼
+	D3DVIEWPORT9		m_VP;							//뷰포트 받아올 멤버변수
 
-	int					m_nSelectTileNum;
-	int					m_nTextureNum;
-	eTileType			m_eTileType;
+	int					m_nSelectTileNum;				//현재 선택한 타일 번호
+	int					m_nTextureNum;					//현재 오브젝트의 텍스쳐 갯수
+	eTileType			m_eTileType;					//타일 타잎 번호 넘겨줄 변수
+	eNewObjTileType		m_eNOTileType;					//뉴 오브젝트 타일 번호 넘겨줄 변수
 public:
 	cStageMapToolUI();
 	~cStageMapToolUI();
@@ -55,7 +64,9 @@ public:
 
 	bool SelectTile(int& num);
 	bool SelectMenu(int& num);
+	bool SelectNewObj(int& num);
 	inline eTileType getTileType() { return m_eTileType; }
+	inline eNewObjTileType getNewObjTileType() { return m_eNOTileType; }
 	inline wstring getTileTexture(int num) { return m_stFloorTile[num].wstrTexture; }
 	inline void setTextureNum(int num) { m_nTextureNum = num; }
 };
