@@ -19,7 +19,7 @@ private:
 	D3DMATERIAL9			m_stMtl;
 	SYNTHESIZE(D3DXVECTOR3, m_vPosition, Pos);
 	CHEF_STATE				m_eChefState;
-	SYNTHESIZE(cIGObj *, m_pObjRoot, Object);
+	cIGObj * m_pObjRoot;
 public:
 	cCharacter();
 	~cCharacter();
@@ -33,5 +33,8 @@ public:
 		m_eChefState = (CHEF_STATE)state;
 	}
 	CHEF_STATE GetCHEF_STATE() { return m_eChefState; }
+	cIGObj * GetcIGObject();
+	void SetcIGObject(cIGObj * _object);
+	void setcIGObjectAdressLink(cIGObj* _object) { m_pObjRoot = _object; }
 };
 
