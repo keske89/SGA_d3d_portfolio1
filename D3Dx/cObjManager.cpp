@@ -30,6 +30,8 @@ void cObjManager::Setup()
 	SetMeshData(L"./Resources/Mesh/IngameObj/", L"Pot_Mesh.obj", &matWorld);
 	SetMeshData(L"./Resources/Mesh/IngameObj/", L"Tomato_Sliced.obj", &matWorld);
 	SetMeshData(L"./Resources/Mesh/IngameObj/", L"Crate_mesh.obj", &matWorld);
+	SetMeshData(L"./Resources/Mesh/IngameObj/", L"CrateLid_mesh.obj", &matWorld);
+	
 		
 }
 

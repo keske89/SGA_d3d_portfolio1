@@ -47,17 +47,44 @@ void cIGObj::Setup()
 
 void cIGObj::Update()
 {
+	if (m_VecObj.size() != NULL)
+	{
+		for (auto p : m_VecObj)
+		{
+			p->Update();
+		}
+	}
 	
 }
 
 void cIGObj::Render()
 {
 
+	if (m_VecObj.size() != NULL)
+	{
+		for (auto p : m_VecObj)
+		{
+			p->Render();
+		}
+	}
 }
 
 void cIGObj::Destroy(cIGObj* target)
 {
-	delete this;
+
+	vector<cIGObj*> ::iterator m_viobj;
+	
+	
+	for (m_viobj = m_VecObj.begin(); m_viobj != m_VecObj.end(); m_viobj++)
+	{
+		if (*m_viobj == target)
+		{
+			SAFE_DELETE(*m_viobj);
+
+			m_viobj = m_VecObj.erase(m_viobj);
+			break;
+		}
+	}
 }
 
 cIGObj* cIGObj::CreateCrate()

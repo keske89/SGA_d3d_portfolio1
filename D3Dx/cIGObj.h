@@ -23,7 +23,7 @@ public:
 
 	cIGObj*			m_Tomato;
 	cIGObj*			m_Knife;
-	cPot*			m_Pot;
+	cIGObj*			m_Pot;
 	cIGObj*			m_Crate;
 
 	std::vector<cIGObj*>	m_VecObj;
@@ -39,8 +39,7 @@ public:
 	virtual void Setup();
 	virtual void Update();
 	virtual void Render();
-			void Destroy(cIGObj* target);
-
+	void Destroy(cIGObj* target);
 
 	cIGObj* CreateCrate();
 	

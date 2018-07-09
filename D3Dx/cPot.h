@@ -16,9 +16,9 @@ public:
 	cPot();
 	~cPot();
 
-	virtual void Setup()	override;
-	virtual void Update()	override;
-	virtual void Render()	override;
+	virtual void Setup();
+	virtual void Update();
+	virtual void Render();
 
 	void SetFood(cFoodObj* foodobject);
 

@@ -1,21 +1,18 @@
 #pragma once
 #include "cActionObj.h"
 
-class cCrateLid;
-
-class cCrate : public cActionObj
+class cCrateLid	: public cActionObj
 {
 public:
-	cCrateLid*	m_CrateLid;
-public:
-	cCrate();
-	~cCrate();
 
+	SYNTHESIZE(std::string, m_attr, Attr);
+
+public:
+	cCrateLid();
+	~cCrateLid();
 
 	virtual void Setup();
 	virtual void Update();
 	virtual void Render();
-
 };
-
 
