@@ -92,7 +92,7 @@ void cCharacterControl::ControlAction()
 		{
 			for (int i = 0; i < m_vecCharacter[m_Bswitch]->GetRoot()->GetChild().size(); i++)
 			{
-				if (!m_vecCharacter[m_Bswitch]->GetObjectW())
+				if (!m_vecCharacter[m_Bswitch]->GetcIGObject())
 				{
 					m_vecCharacter[m_Bswitch]->SetCHEF_STATE(CHEF_STATE_MOVE);
 					m_vecCharacter[m_Bswitch]->GetRoot()->GetChild()[i]->SetPart_AniMation(PARTANIMATION_MOVE);
@@ -109,7 +109,7 @@ void cCharacterControl::ControlAction()
 		{
 			for (int i = 0; i < m_vecCharacter[m_Bswitch]->GetRoot()->GetChild().size(); i++)
 			{
-				if (!m_vecCharacter[m_Bswitch]->GetObjectW())
+				if (!m_vecCharacter[m_Bswitch]->GetcIGObject())
 				{
 					m_vecCharacter[m_Bswitch]->SetCHEF_STATE(CHEF_STATE_MOVE);
 					m_vecCharacter[m_Bswitch]->GetRoot()->GetChild()[i]->SetPart_AniMation(PARTANIMATION_MOVE);
@@ -126,7 +126,7 @@ void cCharacterControl::ControlAction()
 		{
 			for (int i = 0; i < m_vecCharacter[m_Bswitch]->GetRoot()->GetChild().size(); i++)
 			{
-				if (!m_vecCharacter[m_Bswitch]->GetObjectW())
+				if (!m_vecCharacter[m_Bswitch]->GetcIGObject())
 				{
 					m_vecCharacter[m_Bswitch]->SetCHEF_STATE(CHEF_STATE_MOVE);
 					m_vecCharacter[m_Bswitch]->GetRoot()->GetChild()[i]->SetPart_AniMation(PARTANIMATION_MOVE);
@@ -144,12 +144,12 @@ void cCharacterControl::ControlAction()
 			for (int i = 0; i < m_vecCharacter[m_Bswitch]->GetRoot()->GetChild().size(); i++)
 			{
 
-				if (!m_vecCharacter[m_Bswitch]->GetObjectW())
+				if (!m_vecCharacter[m_Bswitch]->GetcIGObject())
 					m_vecCharacter[m_Bswitch]->SetCHEF_STATE(CHEF_STATE_MOVE);
 				else
 					m_vecCharacter[m_Bswitch]->SetCHEF_STATE(CHEF_STATE_TRANCEPORT_MOVE);
 
-				if (!m_vecCharacter[m_Bswitch]->GetObjectW())
+				if (!m_vecCharacter[m_Bswitch]->GetcIGObject())
 				{
 					m_vecCharacter[m_Bswitch]->GetRoot()->GetChild()[i]->SetPart_AniMation(PARTANIMATION_MOVE);
 				}
@@ -163,14 +163,14 @@ void cCharacterControl::ControlAction()
 
 		if (KEYMANAGER->isOnceKeyUp(VK_DOWN) || KEYMANAGER->isOnceKeyUp(VK_UP))
 		{
-			if (!m_vecCharacter[m_Bswitch]->GetObjectW())
+			if (!m_vecCharacter[m_Bswitch]->GetcIGObject())
 				m_vecCharacter[m_Bswitch]->SetCHEF_STATE(CHEF_STATE_IDLE);
 			else
 				m_vecCharacter[m_Bswitch]->SetCHEF_STATE(CHEF_STATE_TRANCEPORT_IDLE);
 
 			for (int i = 0; i < m_vecCharacter[m_Bswitch]->GetRoot()->GetChild().size(); i++)
 			{
-				if (!m_vecCharacter[m_Bswitch]->GetObjectW())
+				if (!m_vecCharacter[m_Bswitch]->GetcIGObject())
 					m_vecCharacter[m_Bswitch]->GetRoot()->GetChild()[i]->SetPart_AniMation(PARTANIMATION_IDLE);
 				else
 					m_vecCharacter[m_Bswitch]->GetRoot()->GetChild()[i]->SetPart_AniMation(PARTANIMATION_TRANCEPORT);
@@ -180,14 +180,14 @@ void cCharacterControl::ControlAction()
 		}
 		if (KEYMANAGER->isOnceKeyUp(VK_RIGHT) || KEYMANAGER->isOnceKeyUp(VK_LEFT))
 		{
-			if (!m_vecCharacter[m_Bswitch]->GetObjectW())
+			if (!m_vecCharacter[m_Bswitch]->GetcIGObject())
 				m_vecCharacter[m_Bswitch]->SetCHEF_STATE(CHEF_STATE_IDLE);
 			else
 				m_vecCharacter[m_Bswitch]->SetCHEF_STATE(CHEF_STATE_TRANCEPORT_IDLE);
 
 			for (int i = 0; i < m_vecCharacter[m_Bswitch]->GetRoot()->GetChild().size(); i++)
 			{
-				if (!m_vecCharacter[m_Bswitch]->GetObjectW())
+				if (!m_vecCharacter[m_Bswitch]->GetcIGObject())
 					m_vecCharacter[m_Bswitch]->GetRoot()->GetChild()[i]->SetPart_AniMation(PARTANIMATION_IDLE);
 				else
 					m_vecCharacter[m_Bswitch]->GetRoot()->GetChild()[i]->SetPart_AniMation(PARTANIMATION_TRANCEPORT);
@@ -218,7 +218,7 @@ void cCharacterControl::ControlAction()
 		{
 			for (int i = 0; i < m_vecCharacter[0]->GetRoot()->GetChild().size(); i++)
 			{
-				if (!m_vecCharacter[0]->GetObjectW())
+				if (!m_vecCharacter[0]->GetcIGObject())
 				{
 					m_vecCharacter[0]->SetCHEF_STATE(CHEF_STATE_MOVE);
 					m_vecCharacter[0]->GetRoot()->GetChild()[i]->SetPart_AniMation(PARTANIMATION_MOVE);
@@ -235,7 +235,7 @@ void cCharacterControl::ControlAction()
 		{
 			for (int i = 0; i < m_vecCharacter[0]->GetRoot()->GetChild().size(); i++)
 			{
-				if (!m_vecCharacter[0]->GetObjectW())
+				if (!m_vecCharacter[0]->GetcIGObject())
 				{
 					m_vecCharacter[0]->SetCHEF_STATE(CHEF_STATE_MOVE);
 					m_vecCharacter[0]->GetRoot()->GetChild()[i]->SetPart_AniMation(PARTANIMATION_MOVE);
@@ -252,7 +252,7 @@ void cCharacterControl::ControlAction()
 		{
 			for (int i = 0; i < m_vecCharacter[0]->GetRoot()->GetChild().size(); i++)
 			{
-				if (!m_vecCharacter[0]->GetObjectW())
+				if (!m_vecCharacter[0]->GetcIGObject())
 				{
 					m_vecCharacter[0]->SetCHEF_STATE(CHEF_STATE_IDLE);
 					m_vecCharacter[0]->GetRoot()->GetChild()[i]->SetPart_AniMation(PARTANIMATION_IDLE);
@@ -269,7 +269,7 @@ void cCharacterControl::ControlAction()
 		{
 			for (int i = 0; i < m_vecCharacter[0]->GetRoot()->GetChild().size(); i++)
 			{
-				if (!m_vecCharacter[0]->GetObjectW())
+				if (!m_vecCharacter[0]->GetcIGObject())
 				{
 					m_vecCharacter[0]->SetCHEF_STATE(CHEF_STATE_MOVE);
 					m_vecCharacter[0]->GetRoot()->GetChild()[i]->SetPart_AniMation(PARTANIMATION_MOVE);
@@ -286,7 +286,7 @@ void cCharacterControl::ControlAction()
 		{
 			for (int i = 0; i < m_vecCharacter[0]->GetRoot()->GetChild().size(); i++)
 			{
-				if (!m_vecCharacter[0]->GetObjectW())
+				if (!m_vecCharacter[0]->GetcIGObject())
 				{
 					m_vecCharacter[0]->SetCHEF_STATE(CHEF_STATE_MOVE);
 					m_vecCharacter[0]->GetRoot()->GetChild()[i]->SetPart_AniMation(PARTANIMATION_MOVE);
@@ -303,7 +303,7 @@ void cCharacterControl::ControlAction()
 		{
 			for (int i = 0; i < m_vecCharacter[0]->GetRoot()->GetChild().size(); i++)
 			{
-				if (!m_vecCharacter[0]->GetObjectW())
+				if (!m_vecCharacter[0]->GetcIGObject())
 				{
 					m_vecCharacter[0]->SetCHEF_STATE(CHEF_STATE_IDLE);
 					m_vecCharacter[0]->GetRoot()->GetChild()[i]->SetPart_AniMation(PARTANIMATION_IDLE);
@@ -320,7 +320,7 @@ void cCharacterControl::ControlAction()
 		{
 			for (int i = 0; i < m_vecCharacter[1]->GetRoot()->GetChild().size(); i++)
 			{
-				if (!m_vecCharacter[1]->GetObjectW())
+				if (!m_vecCharacter[1]->GetcIGObject())
 				{
 					m_vecCharacter[1]->SetCHEF_STATE(CHEF_STATE_MOVE);
 					m_vecCharacter[1]->GetRoot()->GetChild()[i]->SetPart_AniMation(PARTANIMATION_MOVE);
@@ -337,7 +337,7 @@ void cCharacterControl::ControlAction()
 		{
 			for (int i = 0; i < m_vecCharacter[1]->GetRoot()->GetChild().size(); i++)
 			{
-				if (!m_vecCharacter[1]->GetObjectW())
+				if (!m_vecCharacter[1]->GetcIGObject())
 				{
 					m_vecCharacter[1]->SetCHEF_STATE(CHEF_STATE_MOVE);
 					m_vecCharacter[1]->GetRoot()->GetChild()[i]->SetPart_AniMation(PARTANIMATION_MOVE);
@@ -354,7 +354,7 @@ void cCharacterControl::ControlAction()
 		{
 			for (int i = 0; i < m_vecCharacter[1]->GetRoot()->GetChild().size(); i++)
 			{
-				if (!m_vecCharacter[1]->GetObjectW())
+				if (!m_vecCharacter[1]->GetcIGObject())
 				{
 					m_vecCharacter[1]->SetCHEF_STATE(CHEF_STATE_IDLE);
 					m_vecCharacter[1]->GetRoot()->GetChild()[i]->SetPart_AniMation(PARTANIMATION_IDLE);
@@ -372,7 +372,7 @@ void cCharacterControl::ControlAction()
 		{
 			for (int i = 0; i < m_vecCharacter[1]->GetRoot()->GetChild().size(); i++)
 			{
-				if (!m_vecCharacter[1]->GetObjectW())
+				if (!m_vecCharacter[1]->GetcIGObject())
 				{
 					m_vecCharacter[1]->SetCHEF_STATE(CHEF_STATE_MOVE);
 					m_vecCharacter[1]->GetRoot()->GetChild()[i]->SetPart_AniMation(PARTANIMATION_MOVE);
@@ -389,7 +389,7 @@ void cCharacterControl::ControlAction()
 		{
 			for (int i = 0; i < m_vecCharacter[1]->GetRoot()->GetChild().size(); i++)
 			{
-				if (!m_vecCharacter[1]->GetObjectW())
+				if (!m_vecCharacter[1]->GetcIGObject())
 				{
 					m_vecCharacter[1]->SetCHEF_STATE(CHEF_STATE_MOVE);
 					m_vecCharacter[1]->GetRoot()->GetChild()[i]->SetPart_AniMation(PARTANIMATION_MOVE);
@@ -406,7 +406,7 @@ void cCharacterControl::ControlAction()
 		{
 			for (int i = 0; i < m_vecCharacter[1]->GetRoot()->GetChild().size(); i++)
 			{
-				if (!m_vecCharacter[1]->GetObjectW())
+				if (!m_vecCharacter[1]->GetcIGObject())
 				{
 					m_vecCharacter[1]->SetCHEF_STATE(CHEF_STATE_IDLE);
 					m_vecCharacter[1]->GetRoot()->GetChild()[i]->SetPart_AniMation(PARTANIMATION_IDLE);

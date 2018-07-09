@@ -71,3 +71,12 @@ void cCharacter::SetMaterial()
 	m_stMtl.Diffuse = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
 	m_stMtl.Specular = D3DXCOLOR(0.3f, 0.3f, 0.3f, 1.0f);
 }
+
+cIGObj * cCharacter::GetcIGObject()
+{
+	return nullptr;
+}
+
+void cCharacter::SetcIGObject(cIGObj * _object)
+{
+}
