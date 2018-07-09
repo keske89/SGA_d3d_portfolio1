@@ -16,7 +16,7 @@ void cCrate::Setup(D3DXMATRIX matWorld, D3DXVECTOR3 pos, int lidtype)
 {
 	m_CrateLid = new cCrateLid;
 	m_LidType = (LIDTYPE)lidtype;
-	m_CrateLid->Setup(m_matWorld, m_vPos, m_LidType);
+	m_CrateLid->Setup(matWorld, pos, lidtype);
 
 	D3DXMATRIX matS;
 	D3DXMatrixIdentity(&matS);
@@ -29,6 +29,13 @@ void cCrate::Setup(D3DXMATRIX matWorld, D3DXVECTOR3 pos, int lidtype)
 	m_bIsUse = false;
 	m_pMesh = ObJMANAGER->GetMesh(L"Crate_mesh.obj");
 	m_pTexture = g_pTextureManager->GetTexture(L"Resources/Texture2D/Crate.png");
+}
+
+void cCrate::SetWorldMat(D3DXMATRIX matWorld)
+{
+	 m_matWorld = m_matLocal* matWorld;
+	 m_CrateLid->SetMatWorld(matWorld);
+
 }
 
 

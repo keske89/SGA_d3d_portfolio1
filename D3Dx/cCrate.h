@@ -26,6 +26,8 @@ public:
 	virtual void Render() override;
 
 	virtual void Setup(D3DXMATRIX matWorld, D3DXVECTOR3 pos, int lidtype) ;
+	virtual void SetWorldMat(D3DXMATRIX matWorld);
+	
 
 };
 

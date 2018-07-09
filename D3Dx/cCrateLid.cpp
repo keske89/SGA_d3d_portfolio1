@@ -13,6 +13,10 @@ cCrateLid::~cCrateLid()
 
 void cCrateLid::Setup(D3DXMATRIX matWorld, D3DXVECTOR3 pos, int lidtype)
 {
+	// 0 양파
+	// 1 토마토
+	// 2 버섯
+	// 3 감자
 	
 	D3DXMATRIX matT;
 	D3DXMatrixIdentity(&matT);
@@ -24,8 +28,33 @@ void cCrateLid::Setup(D3DXMATRIX matWorld, D3DXVECTOR3 pos, int lidtype)
 	m_bInteraction = false;
 	m_bIsUse = false;
 	m_pMesh = ObJMANAGER->GetMesh(L"CrateLid_mesh.obj");
-	m_pTexture = g_pTextureManager->GetTexture(L"Resources/Texture2D/CrateLid.png");
+	switch (lidtype)
+	{
+	case 0:
+		m_pTexture = g_pTextureManager->GetTexture(L"Resources/Texture2D/Onion_Texture.png");
+		break;
+
+	case 1:
+		m_pTexture = g_pTextureManager->GetTexture(L"Resources/Texture2D/Tomato_Texture.png");
+		break;
+
+	case 2:
+		m_pTexture = g_pTextureManager->GetTexture(L"Resources/Texture2D/Mushroom_Texture.png");
+		break;
+
+	case 3:
+		m_pTexture = g_pTextureManager->GetTexture(L"Resources/Texture2D/Potato_Texture.png");
+		break;
+
+	default:
+		break;
+	}
 	
+	
+}
+
+void cCrateLid::SetWorldMat(D3DXMATRIX matWorld)
+{
 }
 
 void cCrateLid::Setup()

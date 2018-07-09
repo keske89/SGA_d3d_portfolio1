@@ -23,7 +23,7 @@ void cStageObjManager::Setup()
 	D3DXVECTOR3 mPos(0, 0, 0);
 
 	m_crate = new cCrate;
-	m_crate->Setup(matWorld, mPos);
+	m_crate->Setup(matWorld, mPos, 1);
 
 	m_vecObj.push_back(m_crate);
 }
