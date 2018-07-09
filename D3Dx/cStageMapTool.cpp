@@ -537,7 +537,7 @@ void cStageMapTool::Control()
 					m_pSelectGObj = new cCrate;
 				}
 				ST_NEWOBJ temp;
-				temp.p = new cIGObj; 
+				temp.p = new cCrate;
 				m_pSOM->AddObject(temp.p);
 				temp.type = NOT_CRATE;
 				temp.p->SetMatWorld(matTransBeforeRot * matRot * matTransAfterRot * matTrans);
