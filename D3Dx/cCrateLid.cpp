@@ -17,12 +17,12 @@ void cCrateLid::Setup(D3DXMATRIX matWorld, D3DXVECTOR3 pos, int lidtype)
 	// 1 토마토
 	// 2 버섯
 	// 3 감자
-	
+	m_vPos = pos;
 	D3DXMATRIX matT;
 	D3DXMatrixIdentity(&matT);
-	D3DXMatrixTranslation(&matT, 0, -1.2f, 0);
+	D3DXMatrixTranslation(&matT, m_vPos.x, m_vPos.y, m_vPos.z);
 	m_matWorld = matT * matWorld;
-	m_vPos = pos;
+	
 
 
 	m_bInteraction = false;
