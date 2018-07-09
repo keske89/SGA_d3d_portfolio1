@@ -4,6 +4,8 @@
 #include "cStageGrid.h"
 #include "cRay.h"
 #include "cStageMapToolUI.h"
+#include "cStageObjManager.h"
+#include "cActionObj.h"
 #include "cIGObj.h"
 #include "cCrate.h"
 
@@ -19,8 +21,9 @@ cStageMapTool::cStageMapTool()
 	, m_nIndexZ(0)
 	, m_fTBRXAxis(0.0f)
 	, m_fTBRZAxis(0.0f)
-	, m_pGObj(NULL)
+	, m_pSOM(NULL)
 	, m_pSelectGObj(NULL)
+	, m_nNewObjNum(0)
 { 
 }
 
@@ -30,7 +33,7 @@ cStageMapTool::~cStageMapTool()
 	SAFE_DELETE(m_pCamera);
 	SAFE_DELETE(m_pGrid);
 	SAFE_DELETE(m_pUI);
-	SAFE_DELETE(m_pGObj);
+	SAFE_DELETE(m_pSOM);
 	SAFE_DELETE(m_pSelectGObj);
 }
 
@@ -45,7 +48,8 @@ void cStageMapTool::Setup()
 	m_pUI = new cStageMapToolUI;
 	m_pUI->Setup();
 
-
+	m_pSOM = new cStageObjManager;
+	m_pSOM->Setup();
 
 	//바닥 타일의 기초가 되는 사각형 셋팅
 	ST_PNT_VERTEX tempV;
@@ -212,9 +216,8 @@ void cStageMapTool::Setup()
 	m_stBlockTemplate.matFinal = matRot * matTransAfterRot * matTrans;
 	m_stBlockTemplate.wstrTexture = L"./Resources/StageTexture/FloorTile_20.png";
 	
-
-
-
+	m_pSelectGObj = new cCrate;
+	m_pSelectGObj->Setup();
 }
 
 void cStageMapTool::Update()
@@ -225,8 +228,11 @@ void cStageMapTool::Update()
 	if (m_pUI)
 		m_pUI->Update();
 
-	if (m_pGObj)
-		m_pGObj->Update();
+	if (m_pSelectGObj)
+		m_pSelectGObj->Update();
+
+	if (m_pSOM)
+		m_pSOM->Update();
 
 	Control();
 }
@@ -280,6 +286,11 @@ void cStageMapTool::Render()
 			g_pD3DDevice->DrawPrimitiveUP(D3DPT_TRIANGLELIST, m_vecObjectTemplate[i].vecVertex.size() / 3, &m_vecObjectTemplate[i].vecVertex[0], sizeof(ST_PNT_VERTEX));
 		}
 	}
+	else if (m_pUI->getTileType() == TT_NEWOBJ)
+	{
+		if (m_pSelectGObj)
+			m_pSelectGObj->Render();
+	}
 	else if (m_pUI->getTileType() == TT_BLOCK) //커서 위치의 방해 타일과 깔린 방해 타일들을 그린다.
 	{
 		g_pD3DDevice->SetTexture(0, g_pTextureManager->GetTexture(m_stBlockTemplate.wstrTexture.c_str()));
@@ -292,8 +303,8 @@ void cStageMapTool::Render()
 		g_pD3DDevice->DrawPrimitiveUP(D3DPT_TRIANGLELIST, m_stBlockTemplate.vecVertex.size() / 3, &m_stBlockTemplate.vecVertex[0], sizeof(ST_PNT_VERTEX));
 	}
 
-	if (m_pGObj)
-		m_pGObj->Render();
+	if (m_pSOM)
+		m_pSOM->Render();
 }
 
 void cStageMapTool::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
@@ -376,10 +387,14 @@ void cStageMapTool::Control()
 	m_stFloorTemplate.wstrTexture = m_pUI->getTileTexture(m_nTextureNum);
 	m_stBlockTemplate.matFinal = matRot * matTransAfterRot * matTrans;
 
+	if (m_pSelectGObj)
+		m_pSelectGObj->SetMatWorld(matTransBeforeRot * matRot * matTransAfterRot * matTrans);
+
 	for (int i = 0; i < m_vecObjectTemplate.size(); ++i)
 	{
 		m_vecObjectTemplate[i].matFinal = matTransBeforeRot * matRot * matTransAfterRot * matTrans;
 	}
+
 	if (KEYMANAGER->isOnceKeyUp(VK_LBUTTON))
 	{
 		int menuNum;
@@ -509,15 +524,23 @@ void cStageMapTool::Control()
 			m_iterNewObject = m_mapNewObject.find(make_pair(m_nIndexX, m_nIndexZ));
 			if (m_iterNewObject != m_mapNewObject.end())
 			{
-				m_pGObj->Destroy(m_iterNewObject->second);
+				m_pSOM->DeleteObject(m_iterNewObject->second.p);
 				m_mapNewObject.erase(m_iterNewObject);
 			}
 			switch (m_pUI->getNewObjTileType())
 			{
 			case(NOT_CRATE):
 			{
-				cIGObj* temp = m_pGObj->CreateCrate();
-				temp->Setup();
+				if (m_nNewObjNum != NOT_CRATE)
+				{
+					SAFE_DELETE(m_pSelectGObj);
+					m_pSelectGObj = new cCrate;
+				}
+				ST_NEWOBJ temp;
+				temp.p = new cIGObj; 
+				m_pSOM->AddObject(temp.p);
+				temp.type = NOT_CRATE;
+				temp.p->SetMatWorld(matTransBeforeRot * matRot * matTransAfterRot * matTrans);
 				m_mapNewObject.insert(make_pair(make_pair(m_nIndexX, m_nIndexZ), temp));
 			}
 			break;
@@ -548,6 +571,15 @@ void cStageMapTool::Control()
 			if (m_mapObjectTiles.find(make_pair(m_nIndexX, m_nIndexZ)) != m_mapObjectTiles.end())
 			{
 				m_mapObjectTiles.erase(m_mapObjectTiles.find(make_pair(m_nIndexX, m_nIndexZ)));
+			}
+		}
+		else if (m_pUI->getTileType() == TT_NEWOBJ)
+		{
+			m_iterNewObject = m_mapNewObject.find(make_pair(m_nIndexX, m_nIndexZ));
+			if (m_iterNewObject != m_mapNewObject.end())
+			{
+				m_pSOM->DeleteObject(m_iterNewObject->second.p);
+				m_mapNewObject.erase(m_iterNewObject);
 			}
 		}
 		else if (m_pUI->getTileType() == TT_BLOCK)
