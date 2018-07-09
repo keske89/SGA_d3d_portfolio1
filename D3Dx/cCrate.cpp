@@ -18,13 +18,16 @@ void cCrate::Setup(D3DXMATRIX matWorld, D3DXVECTOR3 pos, int lidtype)
 	m_LidType = (LIDTYPE)lidtype;
 	m_CrateLid->Setup(matWorld, pos, lidtype);
 
-	D3DXMATRIX matS;
+	D3DXMATRIX matS, matT;
+	D3DXMatrixIdentity(&matT);
+	D3DXMatrixTranslation(&matT, 0.0f, 0.5f, 0.0f);
+
 	D3DXMatrixIdentity(&matS);
 	D3DXMatrixScaling(&matS, 1.0f, 2.5f, 1.0f);
 
-	m_matLocal = matS;
+	m_matLocal = matT * matS;
 
-	m_matWorld = matS * matWorld;
+	m_matWorld = m_matLocal * matWorld;
 	m_bInteraction = false;
 	m_bIsUse = false;
 	m_pMesh = ObJMANAGER->GetMesh(L"Crate_mesh.obj");
