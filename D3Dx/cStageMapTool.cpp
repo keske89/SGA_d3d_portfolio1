@@ -217,7 +217,9 @@ void cStageMapTool::Setup()
 	m_stBlockTemplate.wstrTexture = L"./Resources/StageTexture/FloorTile_20.png";
 	
 	m_pSelectGObj = new cCrate;
-	m_pSelectGObj->Setup();
+	D3DXMATRIX matIden;
+	D3DXMatrixIdentity(&matIden);
+	m_pSelectGObj->Setup(matIden, D3DXVECTOR3(0, 0, 0), LID_ONION);
 }
 
 void cStageMapTool::Update()
@@ -388,7 +390,7 @@ void cStageMapTool::Control()
 	m_stBlockTemplate.matFinal = matRot * matTransAfterRot * matTrans;
 
 	if (m_pSelectGObj)
-		m_pSelectGObj->SetMatWorld(matTransBeforeRot * matRot * matTransAfterRot * matTrans);
+		m_pSelectGObj->SetWorldMat(matTransBeforeRot * matRot * matTransAfterRot * matTrans);
 
 	for (int i = 0; i < m_vecObjectTemplate.size(); ++i)
 	{
@@ -501,7 +503,22 @@ void cStageMapTool::Control()
 		}
 		else if (m_pUI->SelectTile(m_nTextureNum) == true)
 		{
+			
+		}
+		else if (m_pUI->SelectSubMenu() == true)
+		{
 
+		}
+		else if (m_pUI->SelectNewObj(m_nNewObjNum) == true)
+		{
+			if (m_nNewObjNum != NOT_CRATE)
+			{
+				SAFE_DELETE(m_pSelectGObj);
+				m_pSelectGObj = new cCrate;
+				D3DXMATRIX matIden;
+				D3DXMatrixIdentity(&matIden);
+				m_pSelectGObj->Setup(matIden, D3DXVECTOR3(0, 0, 0), LID_ONION);
+			}
 		}
 		else if (m_pUI->getTileType() == TT_FLOOR)
 		{
@@ -531,16 +548,39 @@ void cStageMapTool::Control()
 			{
 			case(NOT_CRATE):
 			{
-				if (m_nNewObjNum != NOT_CRATE)
-				{
-					SAFE_DELETE(m_pSelectGObj);
-					m_pSelectGObj = new cCrate;
-				}
 				ST_NEWOBJ temp;
 				temp.p = new cCrate;
+				D3DXMATRIX matFinal = matTransBeforeRot * matRot * matTransAfterRot * matTrans;
+				switch (m_pUI->getCrateType())
+				{
+				case(CRATE_MUSHROOM):
+				{
+					temp.type = LID_MUSHROOM;
+				}
+				break;
+				case(CRATE_ONION):
+				{
+					temp.type = LID_ONION;
+				}
+				break;
+				case(CRATE_POTATO):
+				{
+					temp.type = LID_POTATO;
+				}
+				break;
+				case(CRATE_TOMATO):
+				{
+					temp.type = LID_TOMATO;
+				}
+				break;
+				default:
+				{
+					temp.type = LID_ONION;
+				}
+				break;
+				}
 				m_pSOM->AddObject(temp.p);
-				temp.type = NOT_CRATE;
-				temp.p->SetMatWorld(matTransBeforeRot * matRot * matTransAfterRot * matTrans);
+				temp.p->Setup(matFinal, D3DXVECTOR3(matFinal._41, matFinal._42, matFinal._43), temp.type);
 				m_mapNewObject.insert(make_pair(make_pair(m_nIndexX, m_nIndexZ), temp));
 			}
 			break;

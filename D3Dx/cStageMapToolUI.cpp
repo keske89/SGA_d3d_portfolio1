@@ -8,6 +8,7 @@ cStageMapToolUI::cStageMapToolUI()
 	, m_nTextureNum(0)
 	, m_eTileType(TT_FLOOR)
 	, m_eNOTileType(NOT_CRATE)
+	, m_eCrateType(CRATE_ONION)
 {
 }
 
@@ -89,6 +90,14 @@ void cStageMapToolUI::Setup()
 	m_stMenuSelectButton.wstrTexture = L"./Resources/StageTexture/MenuSelect.png";
 	g_pTextureManager->GetTexture(m_stMenuSelectButton.wstrTexture.c_str(), &m_stMenuSelectButton.imageInfo);
 	D3DXMatrixTranslation(&m_stMenuSelectButton.matrix, 0, 0, 0);
+
+	m_stSubMenuButton.wstrTexture = L"./Resources/StageTexture/SubMenu.png";
+	g_pTextureManager->GetTexture(m_stSubMenuButton.wstrTexture.c_str(), &m_stSubMenuButton.imageInfo);
+	D3DXMatrixTranslation(&m_stSubMenuButton.matrix, m_VP.Width - 160 - 256, 0, 0);
+	
+	m_stSubMenuSelectButton.wstrTexture = L"./Resources/StageTexture/SubMenuSelect.png";
+	g_pTextureManager->GetTexture(m_stSubMenuSelectButton.wstrTexture.c_str(), &m_stSubMenuSelectButton.imageInfo);
+	D3DXMatrixTranslation(&m_stSubMenuSelectButton.matrix, m_VP.Width - 160 - 256, 0, 0);
 }
 
 void cStageMapToolUI::Update()
@@ -99,7 +108,7 @@ void cStageMapToolUI::Render()
 {
 	if (m_pSprite)
 	{
-		m_pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
+		m_pSprite->Begin(D3DXSPRITE_ALPHABLEND);
 
 		for (int i = 0; i < MT_TEXTURE1; ++i)
 		{
@@ -161,6 +170,23 @@ void cStageMapToolUI::Render()
 		}
 		else if (m_eTileType == TT_NEWOBJ)
 		{
+			if (m_eNOTileType == NOT_CRATE)
+			{
+				m_pSprite->SetTransform(&m_stSubMenuButton.matrix);
+				m_pSprite->Draw(
+					g_pTextureManager->GetTexture(m_stSubMenuButton.wstrTexture.c_str()),
+					NULL,
+					NULL,
+					NULL,
+					D3DCOLOR_ARGB(255, 255, 255, 255));
+				m_pSprite->SetTransform(&m_stSubMenuSelectButton.matrix);
+				m_pSprite->Draw(
+					g_pTextureManager->GetTexture(m_stSubMenuSelectButton.wstrTexture.c_str()),
+					NULL,
+					NULL,
+					NULL,
+					D3DCOLOR_ARGB(255, 255, 255, 255));
+			}
 			for (int i = 0; i < NOT_MAX; ++i)
 			{
 				m_pSprite->SetTransform(&m_stNewObjTile[i].matrix);
@@ -268,7 +294,7 @@ bool cStageMapToolUI::SelectMenu(int & num)
 	return false;
 }
 
-bool cStageMapToolUI::SelectNewObj(int & num)
+bool cStageMapToolUI::SelectNewObj(int& num)
 {
 	RECT rc;
 	for (int i = 0; i < NOT_MAX; ++i)
@@ -288,5 +314,45 @@ bool cStageMapToolUI::SelectNewObj(int & num)
 		}
 	}
 
+	return false;
+}
+
+bool cStageMapToolUI::SelectSubMenu()
+{
+	if (m_eNOTileType == NOT_CRATE)
+	{
+		RECT rc;
+		SetRect(&rc,
+			(int)m_stSubMenuButton.matrix._41,
+			(int)m_stSubMenuButton.matrix._42,
+			(int)m_stSubMenuButton.matrix._41 + 256,
+			(int)m_stSubMenuButton.matrix._42 + 256);
+		if (PtInRect(&rc, _ptMouse))
+		{
+			int x = (_ptMouse.x - (int)m_stSubMenuButton.matrix._41) / 64;
+			int y = (_ptMouse.y - (int)m_stSubMenuButton.matrix._42) / 64;
+			if (x * 10 + y == CRATE_ONION)
+			{
+				m_eCrateType = CRATE_ONION;
+				D3DXMatrixTranslation(&m_stSubMenuSelectButton.matrix, m_VP.Width - 160 - 256 + (x * 64), (y * 64), 0);
+			}
+			else if (x * 10 + y == CRATE_MUSHROOM)
+			{
+				m_eCrateType = CRATE_MUSHROOM;
+				D3DXMatrixTranslation(&m_stSubMenuSelectButton.matrix, m_VP.Width - 160 - 256 + (x * 64), (y * 64), 0);
+			}
+			else if (x * 10 + y == CRATE_POTATO)
+			{
+				m_eCrateType = CRATE_POTATO;
+				D3DXMatrixTranslation(&m_stSubMenuSelectButton.matrix, m_VP.Width - 160 - 256 + (x * 64), (y * 64), 0);
+			}
+			else if (x * 10 + y == CRATE_TOMATO)
+			{
+				m_eCrateType = CRATE_TOMATO;
+				D3DXMatrixTranslation(&m_stSubMenuSelectButton.matrix, m_VP.Width - 160 - 256 + (x * 64), (y * 64), 0);
+			}
+			return true;
+		}
+	}
 	return false;
 }

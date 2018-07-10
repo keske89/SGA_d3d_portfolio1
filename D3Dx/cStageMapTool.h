@@ -17,7 +17,7 @@ class cStageMapTool : public cGameNode
 public:
 	struct ST_NEWOBJ
 	{
-		cIGObj* p;
+		cActionObj* p;
 		int type;
 	};
 	struct ST_TILE	//타일 구조체

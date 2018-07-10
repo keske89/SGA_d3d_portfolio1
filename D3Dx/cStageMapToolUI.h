@@ -16,6 +16,15 @@ enum eNewObjTileType
 	NOT_CRATE,
 	NOT_MAX
 };
+//상자 타잎
+enum eCrateType
+{
+	CRATE_TOMATO = 00,
+	CRATE_MUSHROOM = 01,
+	CRATE_ONION = 10,
+	CRATE_POTATO = 20,
+	CRATE_MAX = 4
+};
 //메뉴들의 번호
 enum eMenuType
 {
@@ -48,12 +57,15 @@ private:
 	ST_UI_BUTTON		m_stTileSelectButton;			//현재 선택한 타일의 버튼
 	ST_UI_BUTTON		m_stMenuButton[MT_MAX];			//메뉴 버튼
 	ST_UI_BUTTON		m_stMenuSelectButton;			//현재 선택한 메뉴 버튼
+	ST_UI_BUTTON		m_stSubMenuButton;				//서브 메뉴 버튼
+	ST_UI_BUTTON		m_stSubMenuSelectButton;		//서브 메뉴 선택 버튼
 	D3DVIEWPORT9		m_VP;							//뷰포트 받아올 멤버변수
 
 	int					m_nSelectTileNum;				//현재 선택한 타일 번호
 	int					m_nTextureNum;					//현재 오브젝트의 텍스쳐 갯수
 	eTileType			m_eTileType;					//타일 타잎 번호 넘겨줄 변수
 	eNewObjTileType		m_eNOTileType;					//뉴 오브젝트 타일 번호 넘겨줄 변수
+	eCrateType			m_eCrateType;					//상자 종류
 public:
 	cStageMapToolUI();
 	~cStageMapToolUI();
@@ -65,8 +77,10 @@ public:
 	bool SelectTile(int& num);
 	bool SelectMenu(int& num);
 	bool SelectNewObj(int& num);
+	bool SelectSubMenu();
 	inline eTileType getTileType() { return m_eTileType; }
 	inline eNewObjTileType getNewObjTileType() { return m_eNOTileType; }
+	inline eCrateType getCrateType() { return m_eCrateType; }
 	inline wstring getTileTexture(int num) { return m_stFloorTile[num].wstrTexture; }
 	inline void setTextureNum(int num) { m_nTextureNum = num; }
 };
