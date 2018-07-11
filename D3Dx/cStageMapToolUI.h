@@ -19,11 +19,11 @@ enum eNewObjTileType
 //상자 타잎
 enum eCrateType
 {
-	CRATE_TOMATO = 00,
-	CRATE_MUSHROOM = 01,
-	CRATE_ONION = 10,
-	CRATE_POTATO = 20,
-	CRATE_MAX = 4
+	CT_TOMATO = 00,
+	CT_MUSHROOM = 01,
+	CT_ONION = 10,
+	CT_POTATO = 20,
+	CT_MAX = 4
 };
 //메뉴들의 번호
 enum eMenuType

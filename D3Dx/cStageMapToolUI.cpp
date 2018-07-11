@@ -8,7 +8,7 @@ cStageMapToolUI::cStageMapToolUI()
 	, m_nTextureNum(0)
 	, m_eTileType(TT_FLOOR)
 	, m_eNOTileType(NOT_CRATE)
-	, m_eCrateType(CRATE_ONION)
+	, m_eCrateType(CT_ONION)
 {
 }
 
@@ -331,24 +331,24 @@ bool cStageMapToolUI::SelectSubMenu()
 		{
 			int x = (_ptMouse.x - (int)m_stSubMenuButton.matrix._41) / 64;
 			int y = (_ptMouse.y - (int)m_stSubMenuButton.matrix._42) / 64;
-			if (x * 10 + y == CRATE_ONION)
+			if (x * 10 + y == CT_ONION)
 			{
-				m_eCrateType = CRATE_ONION;
+				m_eCrateType = CT_ONION;
 				D3DXMatrixTranslation(&m_stSubMenuSelectButton.matrix, m_VP.Width - 160 - 256 + (x * 64), (y * 64), 0);
 			}
-			else if (x * 10 + y == CRATE_MUSHROOM)
+			else if (x * 10 + y == CT_MUSHROOM)
 			{
-				m_eCrateType = CRATE_MUSHROOM;
+				m_eCrateType = CT_MUSHROOM;
 				D3DXMatrixTranslation(&m_stSubMenuSelectButton.matrix, m_VP.Width - 160 - 256 + (x * 64), (y * 64), 0);
 			}
-			else if (x * 10 + y == CRATE_POTATO)
+			else if (x * 10 + y == CT_POTATO)
 			{
-				m_eCrateType = CRATE_POTATO;
+				m_eCrateType = CT_POTATO;
 				D3DXMatrixTranslation(&m_stSubMenuSelectButton.matrix, m_VP.Width - 160 - 256 + (x * 64), (y * 64), 0);
 			}
-			else if (x * 10 + y == CRATE_TOMATO)
+			else if (x * 10 + y == CT_TOMATO)
 			{
-				m_eCrateType = CRATE_TOMATO;
+				m_eCrateType = CT_TOMATO;
 				D3DXMatrixTranslation(&m_stSubMenuSelectButton.matrix, m_VP.Width - 160 - 256 + (x * 64), (y * 64), 0);
 			}
 			return true;

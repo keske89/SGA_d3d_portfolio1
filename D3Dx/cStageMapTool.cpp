@@ -572,18 +572,6 @@ void cStageMapTool::Control()
 
 				wstring FullPath = ofn.lpstrFile;
 				m_vecObjectTemplate[menuNum - MT_TEXTURE1].wstrTexture = FullPath;
-				/*
-				WCHAR* token = NULL;
-				WCHAR* text = &FullPath[0];
-				wstring RelativePath = L"./Resources/Texture2D/";
-				while (1)
-				{
-					token = wcstok_s(NULL, L"\\", &text);
-					if (wcscmp(token, L"Texture2D") == 0) break;
-				}
-				RelativePath = RelativePath + text;
-				m_vecObjectSample[menuNum - 6].wstrTexture = RelativePath;
-				*/
 			}
 		}
 		else if (m_pUI->SelectTile(m_nTextureNum) == true)
@@ -642,22 +630,22 @@ void cStageMapTool::Control()
 				D3DXMATRIX matFinal = matTransBeforeRot * matRot * matTransAfterRot * matTrans;
 				switch (m_pUI->getCrateType())
 				{
-				case(CRATE_MUSHROOM):
+				case(CT_MUSHROOM):
 				{
 					temp.type = LID_MUSHROOM;
 				}
 				break;
-				case(CRATE_ONION):
+				case(CT_ONION):
 				{
 					temp.type = LID_ONION;
 				}
 				break;
-				case(CRATE_POTATO):
+				case(CT_POTATO):
 				{
 					temp.type = LID_POTATO;
 				}
 				break;
-				case(CRATE_TOMATO):
+				case(CT_TOMATO):
 				{
 					temp.type = LID_TOMATO;
 				}
