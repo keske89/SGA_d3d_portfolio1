@@ -25,7 +25,8 @@ void cCrateLid::Setup(D3DXMATRIX matWorld, D3DXVECTOR3 pos, int lidtype)
 	D3DXMATRIX matT;
 	D3DXMatrixIdentity(&matT);
  	D3DXMatrixTranslation(&matT, m_vPos.x, m_vPos.y, m_vPos.z);
-	m_matWorld = matT * matWorld;
+	m_matLocal = matT;
+	m_matWorld = m_matLocal * matWorld;
 
 	m_bInteraction = false;
 	m_bIsUse = false;
@@ -80,7 +81,7 @@ void cCrateLid::SetTexture()
 void cCrateLid::Update()
 {
 
-	SetTexture();
+	//SetTexture();
 	this->Action();
 
 	if (m_bAni)
@@ -99,7 +100,7 @@ void cCrateLid::Render()
 
 	g_pD3DDevice->SetTexture(0, m_pTexture);
 	m_pMesh->DrawSubset(0);
-	g_pD3DDevice->SetTexture(0, m_aTexture[m_CrateState]);
+	g_pD3DDevice->SetTexture(0, m_pTexture);
 	m_pMesh->DrawSubset(1);
 
 

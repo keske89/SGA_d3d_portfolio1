@@ -30,9 +30,9 @@ void cStageObjManager::Setup()
 	m_crate->GetLid()->SetDelegate(this); //Delegate Link
 	m_vecObj.push_back(m_crate);
 
-	m_Sink = new cSink;
+	/*m_Sink = new cSink;
 	m_Sink->Setup();
-	m_vecObj.push_back(m_Sink);
+	m_vecObj.push_back(m_Sink);*/
 
 	//m_Cooker = new cCooker;
 	//m_Cooker->Setup();
@@ -106,6 +106,6 @@ void cStageObjManager::OnAction(cIGObj * pSender)
 {
 	if (pSender == m_crate->GetLid())
 	{
-		SCENEMANAGER->ChangeScene("StageMapTool");
+		//SCENEMANAGER->ChangeScene("StageMapTool");
 	}
 }
