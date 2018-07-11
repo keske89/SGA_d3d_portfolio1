@@ -1,5 +1,15 @@
 #pragma once
 
+class cIGObj;
+
+class cActionDelegate //Action¿ë delegate class
+{
+public:
+	virtual void OnAction(cIGObj* pSender) = 0;
+	void Release() { delete this; }
+};
+
+
 class cIGObj
 {
 public:
@@ -16,6 +26,7 @@ public:
 	SYNTHESIZE(D3DXVECTOR3, m_vPos, Pos);
 	SYNTHESIZE(D3DXMATRIX, m_matWorld, MatWorld);
 
+	SYNTHESIZE(cActionDelegate*, m_pDelegate, Delegate);
 
 public:
 	cIGObj();

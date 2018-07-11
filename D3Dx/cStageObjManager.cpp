@@ -1,13 +1,16 @@
 #include "stdafx.h"
 #include "cStageObjManager.h"
 #include "cIGObj.h"
-#include "cChef.h"
 #include "cCrate.h"
 #include "cKnife.h"
 #include "cPot.h"
 #include "cSink.h"
+#include "cCooker.h"
+//delegate
+#include "cCrateLid.h"
 
 cStageObjManager::cStageObjManager()
+	:m_buttonSelect(BUTTON_2)
 {
 }
 
@@ -24,8 +27,17 @@ void cStageObjManager::Setup()
 
 	m_crate = new cCrate;
 	m_crate->Setup(matWorld, mPos, 1);
-
+	m_crate->GetLid()->SetDelegate(this); //Delegate Link
 	m_vecObj.push_back(m_crate);
+
+	m_Sink = new cSink;
+	m_Sink->Setup();
+	m_vecObj.push_back(m_Sink);
+
+	//m_Cooker = new cCooker;
+	//m_Cooker->Setup();
+	//m_vecObj.push_back(m_Cooker);
+
 }
 
 void cStageObjManager::Update()
@@ -39,6 +51,8 @@ void cStageObjManager::Update()
 	{
 		p->Update();
 	}
+
+	ActionControl();
 }
 
 void cStageObjManager::Render()
@@ -57,9 +71,41 @@ void cStageObjManager::DeleteObject(cIGObj* object)
 		if (m_vecObj[i] == object)
 		{
 			SAFE_DELETE(m_vecObj[i]);
-			m_vecObj.erase(m_vecObj.begin()+i);
+			m_vecObj.erase(m_vecObj.begin() + i);
 			break;
 		}
 	}
-	
+}
+
+void cStageObjManager::ActionControl()
+{
+	if (KEYMANAGER->isOnceKeyDown(VK_DOWN))
+	{
+		m_buttonSelect++;
+		if (m_buttonSelect > 1) m_buttonSelect = BUTTON_1;
+	}
+
+	if (KEYMANAGER->isOnceKeyDown(VK_UP))
+	{
+
+		m_buttonSelect--;
+		if (m_buttonSelect < 0) m_buttonSelect = BUTTON_2;
+	}
+
+	if (m_buttonSelect == BUTTON_1)
+	{
+		m_crate->GetLid()->SetCheck(true);
+	}
+	else if (m_buttonSelect == BUTTON_2)
+	{
+		m_crate->GetLid()->SetCheck(false);
+	}
+}
+
+void cStageObjManager::OnAction(cIGObj * pSender)
+{
+	if (pSender == m_crate->GetLid())
+	{
+		SCENEMANAGER->ChangeScene("StageMapTool");
+	}
 }

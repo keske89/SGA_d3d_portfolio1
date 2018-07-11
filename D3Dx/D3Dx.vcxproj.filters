@@ -183,6 +183,9 @@
     <ClInclude Include="cChefKnife.h">
       <Filter>소스 파일\Chef</Filter>
     </ClInclude>
+    <ClInclude Include="cCooker.h">
+      <Filter>소스 파일\IngameObj\ActionObj</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -319,6 +322,9 @@
     </ClCompile>
     <ClCompile Include="cChefKnife.cpp">
       <Filter>소스 파일\Chef</Filter>
+    </ClCompile>
+    <ClCompile Include="cCooker.cpp">
+      <Filter>소스 파일\IngameObj\ActionObj</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

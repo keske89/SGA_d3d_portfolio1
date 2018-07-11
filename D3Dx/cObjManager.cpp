@@ -31,6 +31,12 @@ void cObjManager::Setup()
 	SetMeshData(L"./Resources/Mesh/IngameObj/", L"Tomato_Sliced.obj", &matWorld);
 	SetMeshData(L"./Resources/Mesh/IngameObj/", L"Crate_mesh.obj", &matWorld);
 	SetMeshData(L"./Resources/Mesh/IngameObj/", L"CrateLid_mesh.obj", &matWorld);
+
+	SetMeshData(L"./Resources/Mesh/IngameObj/", L"Sink1.obj", &matWorld);
+	SetMeshData(L"./Resources/Mesh/IngameObj/", L"Sink_Counter.obj", &matWorld);
+	SetMeshData(L"./Resources/Mesh/IngameObj/", L"Box008.obj", &matWorld);
+
+	//===============================================================PLAYER
 	SetMeshData(L"./Resources/Mesh/", L"Hand_Grip_R #010449.obj", &matWorld);
 	SetMeshData(L"./Resources/Mesh/", L"Hand_Open_R #000539.obj", &matWorld);
 }
@@ -40,7 +46,7 @@ void cObjManager::SetMeshData(LPCTSTR filepath, LPCTSTR filename, D3DXMATRIX* pM
 {
 	if (m_mesh != NULL) m_mesh = NULL;
 
-	m_mesh = ObjLoader->LoadMesh(filepath, filename, pMat);
+	m_mesh = ObjLoader->ObjectLoadMesh(filepath, filename, pMat);
 	m_mapMesh[filename] = m_mesh;
 }
 

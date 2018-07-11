@@ -3,10 +3,9 @@
 #include "cCrateLid.h"
 
 cCrate::cCrate()
-	:m_CrateLid(NULL)
+	: m_CrateLid(NULL)
 {
 }
-
 
 cCrate::~cCrate()
 {
@@ -16,7 +15,7 @@ void cCrate::Setup(D3DXMATRIX matWorld, D3DXVECTOR3 pos, int lidtype)
 {
 	m_CrateLid = new cCrateLid;
 	m_LidType = (LIDTYPE)lidtype;
-	m_CrateLid->Setup(matWorld, pos + D3DXVECTOR3(0,0.07f,0), lidtype);
+	m_CrateLid->Setup(matWorld, pos + D3DXVECTOR3(0, 0.07f, 0), lidtype);
 
 	D3DXMATRIX matS, matT;
 	D3DXMatrixIdentity(&matT);
@@ -36,16 +35,16 @@ void cCrate::Setup(D3DXMATRIX matWorld, D3DXVECTOR3 pos, int lidtype)
 
 void cCrate::SetWorldMat(D3DXMATRIX matWorld)
 {
-	 m_matWorld = m_matLocal* matWorld;
-	 m_CrateLid->SetMatWorld(matWorld);
+	m_matWorld = m_matLocal * matWorld;
+	m_CrateLid->SetMatWorld(matWorld);
 
 }
 
 
 void cCrate::Setup()
 {
-	
-	
+
+
 }
 
 void cCrate::Update()
