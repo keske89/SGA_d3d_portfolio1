@@ -198,10 +198,16 @@
     <ClInclude Include="cPlate.h">
       <Filter>소스 파일\IngameObj\ActionObj</Filter>
     </ClInclude>
-    <ClInclude Include="cFoodConveyor.h">
+    <ClInclude Include="cChoppingBoard.h">
       <Filter>소스 파일\IngameObj\ActionObj</Filter>
     </ClInclude>
-    <ClInclude Include="cChoppingBoard.h">
+    <ClInclude Include="cPass.h">
+      <Filter>소스 파일\IngameObj\ActionObj</Filter>
+    </ClInclude>
+    <ClInclude Include="cCounterTop.h">
+      <Filter>소스 파일\IngameObj</Filter>
+    </ClInclude>
+    <ClInclude Include="cPassScroll.h">
       <Filter>소스 파일\IngameObj\ActionObj</Filter>
     </ClInclude>
   </ItemGroup>
@@ -356,10 +362,16 @@
     <ClCompile Include="cPlate.cpp">
       <Filter>소스 파일\IngameObj\ActionObj</Filter>
     </ClCompile>
-    <ClCompile Include="cFoodConveyor.cpp">
+    <ClCompile Include="cChoppingBoard.cpp">
       <Filter>소스 파일\IngameObj\ActionObj</Filter>
     </ClCompile>
-    <ClCompile Include="cChoppingBoard.cpp">
+    <ClCompile Include="cPass.cpp">
+      <Filter>소스 파일\IngameObj\ActionObj</Filter>
+    </ClCompile>
+    <ClCompile Include="cCounterTop.cpp">
+      <Filter>소스 파일\IngameObj</Filter>
+    </ClCompile>
+    <ClCompile Include="cPassScroll.cpp">
       <Filter>소스 파일\IngameObj\ActionObj</Filter>
     </ClCompile>
   </ItemGroup>

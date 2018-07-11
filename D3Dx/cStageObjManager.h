@@ -8,6 +8,9 @@ class cKnife;
 class cPot;
 class cSink;
 class cCooker;
+class cPass;
+class cPassScroll;
+
 
 enum BUTTONSELECT
 {

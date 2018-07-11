@@ -26,19 +26,41 @@ void cObjManager::Setup()
 	ObjLoader = new cObjLoader;
 
 	SetMeshData(L"./Resources/Mesh/IngameObj/", L"Knife.obj", &matWorld);
+	SetMeshData(L"./Resources/Mesh/IngameObj/", L"Chopping_Board.obj", &matWorld);
+
 	SetMeshData(L"./Resources/Mesh/IngameObj/", L"Tomato_Whole.obj", &matWorld);
-	SetMeshData(L"./Resources/Mesh/IngameObj/", L"Pot_Mesh.obj", &matWorld);
 	SetMeshData(L"./Resources/Mesh/IngameObj/", L"Tomato_Sliced.obj", &matWorld);
+
+	SetMeshData(L"./Resources/Mesh/IngameObj/", L"Onion_Whole.obj", &matWorld);
+	SetMeshData(L"./Resources/Mesh/IngameObj/", L"Onion_Sliced.obj", &matWorld);
+
+	SetMeshData(L"./Resources/Mesh/IngameObj/", L"Mushroom_Whole.obj", &matWorld);
+	SetMeshData(L"./Resources/Mesh/IngameObj/", L"Mushroom_Sliced.obj", &matWorld);
+	
 	SetMeshData(L"./Resources/Mesh/IngameObj/", L"Crate_mesh.obj", &matWorld);
 	SetMeshData(L"./Resources/Mesh/IngameObj/", L"CrateLid_mesh.obj", &matWorld);
-	SetMeshData(L"./Resources/Mesh/IngameObj/", L"Chopping_Board.obj", &matWorld);
+	
 	SetMeshData(L"./Resources/Mesh/IngameObj/", L"Sink1.obj", &matWorld);
 	SetMeshData(L"./Resources/Mesh/IngameObj/", L"Sink_Counter.obj", &matWorld);
+
+	SetMeshData(L"./Resources/Mesh/IngameObj/", L"Plate.obj", &matWorld);
+	SetMeshData(L"./Resources/Mesh/IngameObj/", L"PlateReturnBox.obj", &matWorld);
+
 	SetMeshData(L"./Resources/Mesh/IngameObj/", L"Cooker.obj", &matWorld);
+	SetMeshData(L"./Resources/Mesh/IngameObj/", L"Pot_Mesh.obj", &matWorld);
+
+	SetMeshData(L"./Resources/Mesh/IngameObj/", L"Bin.obj", &matWorld);
+	SetMeshData(L"./Resources/Mesh/IngameObj/", L"CounterTop_Isolated.obj", &matWorld);
+
+	SetMeshData(L"./Resources/Mesh/IngameObj/", L"ThePass.obj", &matWorld);
+	SetMeshData(L"./Resources/Mesh/IngameObj/", L"ThePass_FatScrolling.obj", &matWorld);
+
+
+	
 
 	//===============================================================PLAYER
-	SetMeshData(L"./Resources/Mesh/", L"Hand_Grip_R #010449.obj", &matWorld);
-	SetMeshData(L"./Resources/Mesh/", L"Hand_Open_R #000539.obj", &matWorld);
+	SetMeshData(L"./Resources/Mesh/Player/", L"Hand_Grip_R #010449.obj", &matWorld);
+	SetMeshData(L"./Resources/Mesh/Player/", L"Hand_Open_R #000539.obj", &matWorld);
 }
 
 

@@ -1,10 +1,10 @@
 #pragma once
 #include "cActionObj.h"
-class cChoppingBoard : public cActionObj
+class cPass : public cActionObj
 {
 public:
-	cChoppingBoard();
-	~cChoppingBoard();
+	cPass();
+	~cPass();
 
 	// cActionObj을(를) 통해 상속됨
 	virtual void Setup() override;

@@ -48,4 +48,5 @@ void cCooker::Setup(D3DXMATRIX matWorld, D3DXVECTOR3 pos, int lidtype)
 
 void cCooker::SetWorldMat(D3DXMATRIX matWorld)
 {
+	m_matWorld = m_matLocal * matWorld;
 }

@@ -24,7 +24,7 @@ void cCrateLid::Setup(D3DXMATRIX matWorld, D3DXVECTOR3 pos, int lidtype)
 	m_vPos = pos;
 	D3DXMATRIX matT;
 	D3DXMatrixIdentity(&matT);
-	D3DXMatrixTranslation(&matT, m_vPos.x, m_vPos.y, m_vPos.z);
+ 	D3DXMatrixTranslation(&matT, m_vPos.x, m_vPos.y, m_vPos.z);
 	m_matWorld = matT * matWorld;
 
 	m_bInteraction = false;
@@ -32,27 +32,27 @@ void cCrateLid::Setup(D3DXMATRIX matWorld, D3DXVECTOR3 pos, int lidtype)
 	m_pMesh = ObJMANAGER->GetMesh(L"CrateLid_mesh.obj");
 	m_pTexture = g_pTextureManager->GetTexture(L"Resources/Texture2D/LidBottom_Texture.png");
 
-	//switch (lidtype)
-	//{
-	//case 0:
-	//	m_pTexture = g_pTextureManager->GetTexture(L"Resources/Texture2D/Onion_Texture.png");
-	//	break;
+	switch (lidtype)
+	{
+	case 0:
+		m_pTexture = g_pTextureManager->GetTexture(L"Resources/Texture2D/Onion_Texture.png");
+		break;
 
-	//case 1:
-	//	m_pTexture = g_pTextureManager->GetTexture(L"Resources/Texture2D/Tomato_Texture.png");
-	//	break;
+	case 1:
+		m_pTexture = g_pTextureManager->GetTexture(L"Resources/Texture2D/Tomato_Texture.png");
+		break;
 
-	//case 2:
-	//	m_pTexture = g_pTextureManager->GetTexture(L"Resources/Texture2D/Mushroom_Texture.png");
-	//	break;
+	case 2:
+		m_pTexture = g_pTextureManager->GetTexture(L"Resources/Texture2D/Mushroom_Texture.png");
+		break;
 
-	//case 3:
-	//	m_pTexture = g_pTextureManager->GetTexture(L"Resources/Texture2D/Potato_Texture.png");
-	//	break;
+	case 3:
+		m_pTexture = g_pTextureManager->GetTexture(L"Resources/Texture2D/Potato_Texture.png");
+		break;
 
-	//default:
-	//	break;
-	//}
+	default:
+		break;
+	}
 
 
 }
