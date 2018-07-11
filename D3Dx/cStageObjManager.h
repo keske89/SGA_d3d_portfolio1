@@ -1,15 +1,28 @@
 #pragma once
 #include "cIGObj.h"
 
+typedef 
+
 class cIGObj;
 class cCharacter;
+
+// action obj
 class cCrate;
-class cKnife;
+
+class cChoppingBoard;
+
 class cPot;
-class cSink;
 class cCooker;
+
+class cSink;
+class cBin;
+
 class cPass;
 class cPassScroll;
+
+class cPlate;
+class cPlateReturnBox;
+
 
 enum OBJECTTYPE
 {
@@ -52,15 +65,21 @@ class cStageObjManager : public cActionDelegate
 {
 private:
 
-	cCrate * m_crate;
-	cSink*					 m_Sink;
-	cCooker*				 m_Cooker;
+	cCrate*					m_crate;
+	cSink*					m_Sink;
+	cCooker*				m_Cooker;
+	cChoppingBoard*			m_ChoppingBoard;
+	cPot*					m_Pot;
+	cBin*					m_Bin;
+	cPass*					m_Pass;
+	cPlate*					m_Plate;
+	cPlateReturnBox*		m_PlateReturnBox;
 
 	int m_buttonSelect;
 
 	SYNTHESIZE(cCharacter*, m_player1, Player1);
 	SYNTHESIZE(cCharacter*, m_player2, Player2);
-	SYNTHESIZE(std::vector<cIGObj*>, m_vecObj, vecObj);
+	SYNTHESIZE(std::list<cIGObj*>, m_listObj, ListObj);
 
 
 public:
@@ -70,8 +89,7 @@ public:
 	void Setup();
 	void Update();
 	void Render();
-	void AddObject(cIGObj* object) { m_vecObj.push_back(object); };
-	void DeleteObject(cIGObj* object);
+	void DeleteObject(std::list<cIGObj*>::iterator objectIter);
 
 	void ActionControl();
 
@@ -79,6 +97,6 @@ public:
 
 	virtual void OnAction(cIGObj* pSender) override;
 
-	void SetIngameObject(OBJECTTYPE objtype, D3DXMATRIX matWorld);
+	std::list<cIGObj*>::iterator SetIngameObject(OBJECTTYPE objtype, D3DXMATRIX matWorld);
 };
 

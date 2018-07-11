@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "cPass.h"
+#include "cPassScroll.h"
 
 
 cPass::cPass()
@@ -34,6 +35,9 @@ void cPass::Setup(D3DXMATRIX matWorld, D3DXVECTOR3 pos, int lidtype)
 	m_bIsUse = false;
 	m_pMesh = ObJMANAGER->GetMesh(L"ThePass.obj");
 	m_pTexture = g_pTextureManager->GetTexture(L"Resources/Texture2D/ThePass.png");
+
+	m_PassScroll = new cPassScroll;
+	m_PassScroll->Setup(matWorld, pos, lidtype);
 }
 
 void cPass::SetWorldMat(D3DXMATRIX matWorld)

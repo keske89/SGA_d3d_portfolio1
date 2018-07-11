@@ -8,6 +8,7 @@ class cCharacterControl;
 class cStageObjManager;
 
 
+
 class cTestScene1 : public cGameNode
 {
 private:

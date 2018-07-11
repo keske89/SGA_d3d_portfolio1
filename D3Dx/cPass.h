@@ -1,7 +1,10 @@
 #pragma once
 #include "cActionObj.h"
+class cPassScroll;
+
 class cPass : public cActionObj
 {
+	cPassScroll*		m_PassScroll;
 public:
 	cPass();
 	~cPass();

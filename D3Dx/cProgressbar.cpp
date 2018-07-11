@@ -128,6 +128,12 @@ void cProgressbar::Update(D3DXVECTOR3 pos , int size)
 
 void cProgressbar::Render()
 {
+
+	//g_pD3DDevice->SetTransform(D3DTS_WORLD, &m_matWorld);
+	//g_pD3DDevice->SetTexture(0, m_pTexture);
+	//g_pD3DDevice->SetFVF(ST_PNT_VERTEX::FVF);
+	//m_pMesh->DrawSubset(0);
+
 	if (!Complete())
 	{
 		g_pD3DDevice->SetRenderState(D3DRS_LIGHTING, false);
