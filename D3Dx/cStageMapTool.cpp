@@ -22,7 +22,6 @@ cStageMapTool::cStageMapTool()
 	, m_fTBRXAxis(0.0f)
 	, m_fTBRZAxis(0.0f)
 	, m_pSOM(NULL)
-	, m_pSelectGObj(NULL)
 	, m_nNewObjNum(0)
 { 
 }
@@ -34,7 +33,6 @@ cStageMapTool::~cStageMapTool()
 	SAFE_DELETE(m_pGrid);
 	SAFE_DELETE(m_pUI);
 	SAFE_DELETE(m_pSOM);
-	SAFE_DELETE(m_pSelectGObj);
 }
 
 void cStageMapTool::Setup()
@@ -223,10 +221,7 @@ void cStageMapTool::Setup()
 	m_stBlockTemplate.matFinal = matRot * matTransAfterRot * matTrans;
 	m_stBlockTemplate.wstrTexture = L"./Resources/StageTexture/FloorTile_20.png";
 	
-	m_pSelectGObj = new cCrate;
-	D3DXMATRIX matIden;
-	D3DXMatrixIdentity(&matIden);
-	m_pSelectGObj->Setup(matIden, D3DXVECTOR3(0, 0, 0), LID_ONION);
+
 }
 
 void cStageMapTool::Update()
@@ -236,9 +231,6 @@ void cStageMapTool::Update()
 
 	if (m_pUI)
 		m_pUI->Update();
-
-	if (m_pSelectGObj)
-		m_pSelectGObj->Update();
 
 	if (m_pSOM)
 		m_pSOM->Update();
@@ -297,8 +289,7 @@ void cStageMapTool::Render()
 	}
 	else if (m_pUI->getTileType() == TT_NEWOBJ)
 	{
-		if (m_pSelectGObj)
-			m_pSelectGObj->Render();
+
 	}
 	else if (m_pUI->getTileType() == TT_BLOCK) //커서 위치의 방해 타일과 깔린 방해 타일들을 그린다.
 	{
@@ -395,10 +386,12 @@ void cStageMapTool::Control()
 	m_stFloorTemplate.matFinal = matRot * matTransAfterRot * matTrans;
 	m_stFloorTemplate.wstrTexture = m_pUI->getTileTexture(m_nTextureNum);
 	m_stBlockTemplate.matFinal = matRot * matTransAfterRot * matTrans;
-
-	if (m_pSelectGObj)
-		m_pSelectGObj->SetWorldMat(matTransBeforeRot * matRot * matTransAfterRot * matTrans);
-
+	/////////////////////////////////수정 필요/////////////////////////////////////////
+	if ((*m_stNewObjTemplate.p))
+	{
+		(*m_stNewObjTemplate.p)->SetMatWorld(matTransBeforeRot * matRot * matTransAfterRot * matTrans);
+	}
+	//////////////////////////////////////////////////////////////////////////////////
 	for (int i = 0; i < m_vecObjectTemplate.size(); ++i)
 	{
 		m_vecObjectTemplate[i].matFinal = matTransBeforeRot * matRot * matTransAfterRot * matTrans;
@@ -432,21 +425,25 @@ void cStageMapTool::Control()
 		}
 		else if (m_pUI->SelectSubMenu() == true)
 		{
+			/*
 			SAFE_DELETE(m_pSelectGObj);
 			m_pSelectGObj = new cCrate;
 			D3DXMATRIX matIden;
 			D3DXMatrixIdentity(&matIden);
 			m_pSelectGObj->Setup(matIden, D3DXVECTOR3(0, 0, 0), m_pUI->getCrateType());
+			*/
 		}
 		else if (m_pUI->SelectNewObj(m_nNewObjNum) == true)
 		{
 			if (m_nNewObjNum != NOT_CRATE)
 			{
+				/*
 				SAFE_DELETE(m_pSelectGObj);
 				m_pSelectGObj = new cCrate;
 				D3DXMATRIX matIden;
 				D3DXMatrixIdentity(&matIden);
 				m_pSelectGObj->Setup(matIden, D3DXVECTOR3(0, 0, 0), m_pUI->getCrateType());
+				*/
 			}
 		}
 		else if (m_pUI->getTileType() == TT_FLOOR)
@@ -473,43 +470,41 @@ void cStageMapTool::Control()
 				m_pSOM->DeleteObject(m_iterNewObject->second.p);
 				m_mapNewObject.erase(m_iterNewObject);
 			}
+			ST_NEWOBJ temp;
+			D3DXMATRIX matFinal = matTransBeforeRot * matRot * matTransAfterRot * matTrans;
 			switch (m_pUI->getNewObjTileType())
 			{
 			case(NOT_CRATE):
 			{
-				ST_NEWOBJ temp;
-				temp.p = new cCrate;
-				D3DXMATRIX matFinal = matTransBeforeRot * matRot * matTransAfterRot * matTrans;
 				switch (m_pUI->getCrateType())
 				{
 				case(CT_MUSHROOM):
 				{
-					temp.type = LID_MUSHROOM;
+					temp.type = CRATE_MUSHROOM;
 				}
 				break;
 				case(CT_ONION):
 				{
-					temp.type = LID_ONION;
+					temp.type = CRATE_ONION;
 				}
 				break;
 				case(CT_POTATO):
 				{
-					temp.type = LID_POTATO;
+					temp.type = CRATE_POTATO;
 				}
 				break;
 				case(CT_TOMATO):
 				{
-					temp.type = LID_TOMATO;
+					temp.type = CRATE_TOMATO;
 				}
 				break;
 				default:
 				{
-					temp.type = LID_ONION;
+					temp.type = CRATE_ONION;
 				}
 				break;
 				}
-				m_pSOM->AddObject(temp.p);
-				temp.p->Setup(matFinal, D3DXVECTOR3(matFinal._41, matFinal._42, matFinal._43), temp.type);
+				temp.p = m_pSOM->SetIngameObject((OBJECTTYPE)temp.type, matFinal);
 				m_mapNewObject.insert(make_pair(make_pair(m_nIndexX, m_nIndexZ), temp));
 			}
 			break;

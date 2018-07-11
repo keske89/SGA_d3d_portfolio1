@@ -17,7 +17,7 @@ class cStageMapTool : public cGameNode
 public:
 	struct ST_NEWOBJ
 	{
-		cActionObj* p;
+		list<cIGObj*>::iterator p;
 		int type;
 	};
 	struct ST_TILE	//타일 구조체
@@ -31,7 +31,6 @@ private:
 	cStageGrid*				m_pGrid;				
 	cStageMapToolUI*		m_pUI;		
 	cStageObjManager*		m_pSOM;
-	cActionObj*				m_pSelectGObj;
 
 	D3DXVECTOR3				m_vecPos;				//카메라 룩앳 포지션
 													
@@ -57,6 +56,7 @@ private:
 	ST_TILE											m_stFloorTemplate;		//템플릿 바닥 타일
 	ST_TILE											m_stBlockTemplate;		//템플릿 방해 오브젝트
 	ST_TILE											m_stLeaf;				//템플릿 나뭇잎
+	ST_NEWOBJ										m_stNewObjTemplate;		//템플릿 뉴 오브젝트
 
 	wstring wstrTest;
 public:
