@@ -97,7 +97,7 @@ void cStageMapToolUI::Setup()
 	
 	m_stSubMenuSelectButton.wstrTexture = L"./Resources/StageTexture/SubMenuSelect.png";
 	g_pTextureManager->GetTexture(m_stSubMenuSelectButton.wstrTexture.c_str(), &m_stSubMenuSelectButton.imageInfo);
-	D3DXMatrixTranslation(&m_stSubMenuSelectButton.matrix, m_VP.Width - 160 - 256, 0, 0);
+	D3DXMatrixTranslation(&m_stSubMenuSelectButton.matrix, m_VP.Width - 160 - 256 + 64, 0, 0);
 }
 
 void cStageMapToolUI::Update()

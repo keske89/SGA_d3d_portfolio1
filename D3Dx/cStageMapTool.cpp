@@ -450,7 +450,7 @@ void cStageMapTool::Control()
 				ofn.nMaxFileTitle = NULL;
 				ofn.lpstrFileTitle = NULL;
 				ofn.lpstrInitialDir = NULL;
-				ofn.lpstrFilter = L"All Files(*.*)\0*.*\0";			// 오픈파일네임에서 읽을수 있는 파일을 제한하는 필터 설정
+				ofn.lpstrFilter = L"MAP Files(*.map)\0*.map\0";
 				ofn.Flags = OFN_OVERWRITEPROMPT;
 
 				if (GetSaveFileName(&ofn) == false) return;
@@ -458,9 +458,94 @@ void cStageMapTool::Control()
 				wstring curMapFileName = ofn.lpstrFile;
 				file = CreateFile(curMapFileName.c_str(), GENERIC_WRITE, NULL, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
 
+				map<wstring, int> mapAttributeNum;
+				map<wstring, int>::iterator iterAttributeNum;
+				int attributeNum = 0;
+				int maxVectorSize = 0;
+				vector<ST_PNT_VERTEX>		vecVertex;
+				vector<WORD>				vecIndex;
+				vector<DWORD>				vecAttribute;
+				ST_PNT_VERTEX tempVertex;
+				vector<ST_PNT_VERTEX> tempVector;
+				for (m_iterFloorTiles = m_mapFloorTiles.begin(); m_iterFloorTiles != m_mapFloorTiles.end(); ++m_iterFloorTiles)
+				{
+					iterAttributeNum = mapAttributeNum.find(m_iterFloorTiles->second.wstrTexture);
+					if (iterAttributeNum == mapAttributeNum.end())
+					{
+						mapAttributeNum[m_iterFloorTiles->second.wstrTexture] = attributeNum;
+						attributeNum++;
+						iterAttributeNum = mapAttributeNum.find(m_iterFloorTiles->second.wstrTexture);
+					}
+					for (int i = 0; i < m_iterFloorTiles->second.vecVertex.size(); ++i)
+					{
+						tempVertex = m_iterFloorTiles->second.vecVertex[i];
+						D3DXVec3TransformCoord(
+							&tempVertex.p,
+							&m_iterFloorTiles->second.vecVertex[i].p,
+							&m_iterFloorTiles->second.matFinal);
+						vecVertex.push_back(tempVertex);
+						vecIndex.push_back(maxVectorSize);
+						maxVectorSize++;
+						if (i % 3 == 0) vecAttribute.push_back(iterAttributeNum->second);
+					}
+				}
+				for (m_iterObjectTiles = m_mapObjectTiles.begin(); m_iterObjectTiles != m_mapObjectTiles.end(); ++m_iterObjectTiles)
+				{
+					for (int i = 0; i < m_iterObjectTiles->second.size(); ++i)
+					{
+						WCHAR* token = NULL;
+						wstring buffer = m_iterObjectTiles->second[i].wstrTexture;
+						WCHAR* text = &buffer[0];
+						wstring RelativePath = L"./Resources/Texture2D/";
+						while (1)
+						{
+							token = wcstok_s(NULL, L"\\", &text);
+							if (wcscmp(token, L"Texture2D") == 0) break;
+						}
+						RelativePath = RelativePath + text;
+						iterAttributeNum = mapAttributeNum.find(RelativePath);
+						if (iterAttributeNum == mapAttributeNum.end())
+						{
+							mapAttributeNum[RelativePath] = attributeNum;
+							attributeNum++;
+							iterAttributeNum = mapAttributeNum.find(RelativePath);
+						}
+						for (int j = 0; j < m_iterObjectTiles->second[i].vecVertex.size(); ++j)
+						{
+							tempVertex = m_iterObjectTiles->second[i].vecVertex[j];
+							D3DXVec3TransformCoord(
+								&tempVertex.p,
+								&m_iterObjectTiles->second[i].vecVertex[j].p,
+								&m_iterObjectTiles->second[i].matFinal);
+							vecVertex.push_back(tempVertex);
+							vecIndex.push_back(maxVectorSize);
+							maxVectorSize++;
+							if (j % 3 == 0) vecAttribute.push_back(iterAttributeNum->second);
+						}
+					}
+				}
 
+				int maxTexture = mapAttributeNum.size();
+				WriteFile(file, &maxTexture, sizeof(int), &write, NULL);
+				for (iterAttributeNum = mapAttributeNum.begin(); iterAttributeNum != mapAttributeNum.end(); ++iterAttributeNum)
+				{
+					int num = iterAttributeNum->second;
+					wstring wstr = iterAttributeNum->first;
+					WriteFile(file, &num, sizeof(int), &write, NULL);
+					int length = wstr.size();
+					WriteFile(file, &length, sizeof(int), &write, NULL);
+					WriteFile(file, &wstr[0], length * sizeof(WCHAR), &write, NULL);
+				}
+				WriteFile(file, &maxVectorSize, sizeof(int), &write, NULL);
+				WriteFile(file, &vecVertex[0], sizeof(ST_PNT_VERTEX) * vecVertex.size(), &write, NULL);
+				WriteFile(file, &vecIndex[0], sizeof(WORD) * vecIndex.size(), &write, NULL);
+				WriteFile(file, &vecAttribute[0], sizeof(DWORD) * vecAttribute.size(), &write, NULL);
 
 				CloseHandle(file);
+			}
+			else if (menuNum == MT_LOAD)
+			{
+
 			}
 			else if (menuNum == MT_TEXTURE1 || menuNum == MT_TEXTURE2 || menuNum == MT_TEXTURE3)
 			{
@@ -507,7 +592,11 @@ void cStageMapTool::Control()
 		}
 		else if (m_pUI->SelectSubMenu() == true)
 		{
-
+			SAFE_DELETE(m_pSelectGObj);
+			m_pSelectGObj = new cCrate;
+			D3DXMATRIX matIden;
+			D3DXMatrixIdentity(&matIden);
+			m_pSelectGObj->Setup(matIden, D3DXVECTOR3(0, 0, 0), m_pUI->getCrateType());
 		}
 		else if (m_pUI->SelectNewObj(m_nNewObjNum) == true)
 		{
@@ -517,7 +606,7 @@ void cStageMapTool::Control()
 				m_pSelectGObj = new cCrate;
 				D3DXMATRIX matIden;
 				D3DXMatrixIdentity(&matIden);
-				m_pSelectGObj->Setup(matIden, D3DXVECTOR3(0, 0, 0), LID_ONION);
+				m_pSelectGObj->Setup(matIden, D3DXVECTOR3(0, 0, 0), m_pUI->getCrateType());
 			}
 		}
 		else if (m_pUI->getTileType() == TT_FLOOR)
@@ -638,7 +727,6 @@ void cStageMapTool::LoadObject(LPCTSTR fullpath, vector<ST_TILE>& objectVector)
 	vector<D3DXVECTOR2> vecT;
 	vector<D3DXVECTOR3> vecN;
 	vector<ST_PNT_VERTEX> vecPNT;
-	vector<DWORD> vecAttbuf;
 	CString mtlName;
 	char token[TOKEN_SIZE];
 

@@ -2,6 +2,7 @@
 #include "cMainGame.h"
 
 #include "cStageMapTool.h"
+#include "cStageScene.h"
 #include "cTestScene0.h"
 #include "cTestScene1.h"
 #include "cTestScene2.h"
@@ -30,12 +31,13 @@ void cMainGame::Setup()
 	g_pD3DDevice->SetRenderState(D3DRS_LIGHTING, false);
 
 	SCENEMANAGER->AddScene("StageMapTool", new cStageMapTool);
+	SCENEMANAGER->AddScene("StageScene", new cStageScene);
 	SCENEMANAGER->AddScene("TestScene0", new cTestScene0);
 	SCENEMANAGER->AddScene("TestScene1", new cTestScene1);
 	SCENEMANAGER->AddScene("TestScene2", new cTestScene2);
 	SCENEMANAGER->AddScene("TestScene3", new cTestScene3);
 	
-	SCENEMANAGER->ChangeScene("TestScene1");
+	SCENEMANAGER->ChangeScene("StageMapTool");
 
 	
 
