@@ -109,3 +109,47 @@ void cStageObjManager::OnAction(cIGObj * pSender)
 		//SCENEMANAGER->ChangeScene("StageMapTool");
 	}
 }
+
+
+void cStageObjManager::SetIngameObject(OBJECTTYPE objtype, D3DXMATRIX matWorld)
+{
+	switch (objtype)
+	{
+	case CRATE_TOMATO:
+		break;
+	case CRATE_POTATO:
+		break;
+	case CRATE_MUSHROOM:
+		break;
+	case CRATE_ONION:
+		break;
+	case AOBJ_BIN:
+		break;
+	case AOBJ_CHOPPIGNBOARD:
+		break;
+	case AOBJ_COOKER:
+		break;
+	case AOBJ_PASS:
+		break;
+	case AOBJ_PLATE:
+		break;
+	case AOBJ_PLATERETURNBOX:
+		break;
+	case AOBJ_POT:
+		break;
+	case AOBJ_SINK:
+		break;
+	case FOBJ_POTATO:
+		break;
+	case FOBJ_TOMATO:
+		break;
+	case FOBJ_MUSHROOM:
+		break;
+	case FOBJ_ONION:
+		break;
+	default:
+		break;
+	}
+}
+
+
