@@ -25,7 +25,7 @@ void cCooker::Setup()
 	m_matWorld = m_matLocal;
 	m_bInteraction = false;
 	m_bIsUse = false;
-	m_pMesh = ObJMANAGER->GetMesh(L"Box008.obj");
+	m_pMesh = ObJMANAGER->GetMesh(L"Cooker.obj");
 	m_pTexture = g_pTextureManager->GetTexture(L"Resources/Texture2D/Cooker_Texture.png");
 
 }

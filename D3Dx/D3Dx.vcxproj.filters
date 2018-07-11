@@ -186,6 +186,24 @@
     <ClInclude Include="cCooker.h">
       <Filter>소스 파일\IngameObj\ActionObj</Filter>
     </ClInclude>
+    <ClInclude Include="cOnion.h">
+      <Filter>소스 파일\IngameObj\FoodObj</Filter>
+    </ClInclude>
+    <ClInclude Include="cBin.h">
+      <Filter>소스 파일\IngameObj\ActionObj</Filter>
+    </ClInclude>
+    <ClInclude Include="cPlateReturnBox.h">
+      <Filter>소스 파일\IngameObj\ActionObj</Filter>
+    </ClInclude>
+    <ClInclude Include="cPlate.h">
+      <Filter>소스 파일\IngameObj\ActionObj</Filter>
+    </ClInclude>
+    <ClInclude Include="cFoodConveyor.h">
+      <Filter>소스 파일\IngameObj\ActionObj</Filter>
+    </ClInclude>
+    <ClInclude Include="cChoppingBoard.h">
+      <Filter>소스 파일\IngameObj\ActionObj</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -324,6 +342,24 @@
       <Filter>소스 파일\Chef</Filter>
     </ClCompile>
     <ClCompile Include="cCooker.cpp">
+      <Filter>소스 파일\IngameObj\ActionObj</Filter>
+    </ClCompile>
+    <ClCompile Include="cOnion.cpp">
+      <Filter>소스 파일\IngameObj\FoodObj</Filter>
+    </ClCompile>
+    <ClCompile Include="cBin.cpp">
+      <Filter>소스 파일\IngameObj\ActionObj</Filter>
+    </ClCompile>
+    <ClCompile Include="cPlateReturnBox.cpp">
+      <Filter>소스 파일\IngameObj\ActionObj</Filter>
+    </ClCompile>
+    <ClCompile Include="cPlate.cpp">
+      <Filter>소스 파일\IngameObj\ActionObj</Filter>
+    </ClCompile>
+    <ClCompile Include="cFoodConveyor.cpp">
+      <Filter>소스 파일\IngameObj\ActionObj</Filter>
+    </ClCompile>
+    <ClCompile Include="cChoppingBoard.cpp">
       <Filter>소스 파일\IngameObj\ActionObj</Filter>
     </ClCompile>
   </ItemGroup>

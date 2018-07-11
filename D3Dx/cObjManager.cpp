@@ -31,10 +31,10 @@ void cObjManager::Setup()
 	SetMeshData(L"./Resources/Mesh/IngameObj/", L"Tomato_Sliced.obj", &matWorld);
 	SetMeshData(L"./Resources/Mesh/IngameObj/", L"Crate_mesh.obj", &matWorld);
 	SetMeshData(L"./Resources/Mesh/IngameObj/", L"CrateLid_mesh.obj", &matWorld);
-
+	SetMeshData(L"./Resources/Mesh/IngameObj/", L"Chopping_Board.obj", &matWorld);
 	SetMeshData(L"./Resources/Mesh/IngameObj/", L"Sink1.obj", &matWorld);
 	SetMeshData(L"./Resources/Mesh/IngameObj/", L"Sink_Counter.obj", &matWorld);
-	SetMeshData(L"./Resources/Mesh/IngameObj/", L"Box008.obj", &matWorld);
+	SetMeshData(L"./Resources/Mesh/IngameObj/", L"Cooker.obj", &matWorld);
 
 	//===============================================================PLAYER
 	SetMeshData(L"./Resources/Mesh/", L"Hand_Grip_R #010449.obj", &matWorld);

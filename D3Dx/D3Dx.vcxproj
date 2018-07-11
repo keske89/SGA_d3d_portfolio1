@@ -152,18 +152,24 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="cActionObj.h" />
+    <ClInclude Include="cBin.h" />
     <ClInclude Include="cCamera.h" />
     <ClInclude Include="cChef.h" />
     <ClInclude Include="cCharacterControl.h" />
     <ClInclude Include="cChefAnimation.h" />
     <ClInclude Include="cChefKnife.h" />
+    <ClInclude Include="cChoppingBoard.h" />
     <ClInclude Include="cCooker.h" />
     <ClInclude Include="cCrate.h" />
     <ClInclude Include="cCrateLid.h" />
     <ClInclude Include="cDeviceManager.h" />
     <ClInclude Include="cFontManager.h" />
+    <ClInclude Include="cFoodConveyor.h" />
     <ClInclude Include="cFoodObj.h" />
     <ClInclude Include="cGameNode.h" />
+    <ClInclude Include="cOnion.h" />
+    <ClInclude Include="cPlate.h" />
+    <ClInclude Include="cPlateReturnBox.h" />
     <ClInclude Include="cPot.h" />
     <ClInclude Include="cSink.h" />
     <ClInclude Include="cStageGrid.h" />
@@ -203,18 +209,24 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="cActionObj.cpp" />
+    <ClCompile Include="cBin.cpp" />
     <ClCompile Include="cCamera.cpp" />
     <ClCompile Include="cChef.cpp" />
     <ClCompile Include="cCharacterControl.cpp" />
     <ClCompile Include="cChefAnimation.cpp" />
     <ClCompile Include="cChefKnife.cpp" />
+    <ClCompile Include="cChoppingBoard.cpp" />
     <ClCompile Include="cCooker.cpp" />
     <ClCompile Include="cCrate.cpp" />
     <ClCompile Include="cCrateLid.cpp" />
     <ClCompile Include="cDeviceManager.cpp" />
     <ClCompile Include="cFontManager.cpp" />
+    <ClCompile Include="cFoodConveyor.cpp" />
     <ClCompile Include="cFoodObj.cpp" />
     <ClCompile Include="cGameNode.cpp" />
+    <ClCompile Include="cOnion.cpp" />
+    <ClCompile Include="cPlate.cpp" />
+    <ClCompile Include="cPlateReturnBox.cpp" />
     <ClCompile Include="cPot.cpp" />
     <ClCompile Include="cSink.cpp" />
     <ClCompile Include="cStageGrid.cpp" />
