@@ -32,6 +32,7 @@ private:
 	cStageMapToolUI*		m_pUI;		
 	cStageObjManager*		m_pSOM;
 	cActionObj*				m_pSelectGObj;
+
 	D3DXVECTOR3				m_vecPos;				//카메라 룩앳 포지션
 													
 	int						m_nTextureNum;			//바닥타일 텍스쳐 번호
@@ -55,6 +56,7 @@ private:
 	vector<ST_TILE>									m_vecObjectTemplate;	//템플릿 오브젝트
 	ST_TILE											m_stFloorTemplate;		//템플릿 바닥 타일
 	ST_TILE											m_stBlockTemplate;		//템플릿 방해 오브젝트
+	ST_TILE											m_stLeaf;				//템플릿 나뭇잎
 
 	wstring wstrTest;
 public:
@@ -69,5 +71,9 @@ public:
 
 	void Control();
 	void LoadObject(LPCTSTR fullpath, vector<ST_TILE>& objectVector);
+	void MenuOpen();
+	void MenuSave();
+	void MenuLoad();
+	void MenuTexture(int menuNum);
 };
 

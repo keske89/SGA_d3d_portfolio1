@@ -57,26 +57,32 @@ void cStageMapTool::Setup()
 	tempV.n = D3DXVECTOR3(0, 1, 0);
 	tempV.t = D3DXVECTOR2(1, 0);
 	m_stFloorTemplate.vecVertex.push_back(tempV);
+	m_stLeaf.vecVertex.push_back(tempV);
 	tempV.p = D3DXVECTOR3(-0.5f, 0, 0.5f);
 	tempV.n = D3DXVECTOR3(0, 1, 0);
 	tempV.t = D3DXVECTOR2(0, 0);
 	m_stFloorTemplate.vecVertex.push_back(tempV);
+	m_stLeaf.vecVertex.push_back(tempV);
 	tempV.p = D3DXVECTOR3(0.5f, 0, 0.5f);
 	tempV.n = D3DXVECTOR3(0, 1, 0);
 	tempV.t = D3DXVECTOR2(0, 1);
 	m_stFloorTemplate.vecVertex.push_back(tempV);
+	m_stLeaf.vecVertex.push_back(tempV);
 	tempV.p = D3DXVECTOR3(-0.5f, 0, -0.5f);
 	tempV.n = D3DXVECTOR3(0, 1, 0);
 	tempV.t = D3DXVECTOR2(1, 0);
 	m_stFloorTemplate.vecVertex.push_back(tempV);
+	m_stLeaf.vecVertex.push_back(tempV);
 	tempV.p = D3DXVECTOR3(0.5f, 0, 0.5f);
 	tempV.n = D3DXVECTOR3(0, 1, 0);
 	tempV.t = D3DXVECTOR2(0, 1);
 	m_stFloorTemplate.vecVertex.push_back(tempV);
+	m_stLeaf.vecVertex.push_back(tempV);
 	tempV.p = D3DXVECTOR3(0.5f, 0, -0.5f);
 	tempV.n = D3DXVECTOR3(0, 1, 0);
 	tempV.t = D3DXVECTOR2(1, 1);
 	m_stFloorTemplate.vecVertex.push_back(tempV);
+	m_stLeaf.vecVertex.push_back(tempV);
 	D3DXMATRIX matScale;
 	D3DXMATRIX matRot;
 	D3DXMATRIX matTrans;
@@ -86,6 +92,7 @@ void cStageMapTool::Setup()
 	D3DXMatrixTranslation(&matTrans, m_nIndexX, 0, m_nIndexZ);
 	m_stFloorTemplate.matFinal = matRot * matTransAfterRot * matTrans;
 	m_stFloorTemplate.wstrTexture = m_pUI->getTileTexture(m_nTextureNum);
+	m_stLeaf.wstrTexture = L"./Resources/Texture2D/Tree_Leaves.png";
 
 	//방해 타일의 기초가 되는 직육면체 설정
 	////위면
@@ -404,174 +411,19 @@ void cStageMapTool::Control()
 		{
 			if (menuNum == MT_OPEN)
 			{
-				HANDLE file;
-				DWORD read;
-
-				OPENFILENAME ofn;
-
-				WCHAR filePath[1024] = L"";
-				ZeroMemory(&ofn, sizeof(OPENFILENAME));
-
-				ofn.lStructSize = sizeof(OPENFILENAME);
-				ofn.hwndOwner = NULL;
-				ofn.lpstrFile = filePath;
-				ofn.nMaxFile = sizeof(filePath);
-				ofn.nFilterIndex = true;
-				ofn.nMaxFileTitle = NULL;
-				ofn.lpstrFileTitle = NULL;
-				ofn.lpstrInitialDir = NULL;
-				ofn.lpstrFilter = L"OBJ Files(*.obj)\0*.obj\0";
-				ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST;
-
-				if (GetOpenFileName(&ofn) == FALSE) return;
-
-				wstring FullPath = ofn.lpstrFile;
-
-				cObjLoader Loader;
-				m_vecObjectTemplate.clear();
-				LoadObject(FullPath.c_str(), m_vecObjectTemplate);
-
-				m_pUI->setTextureNum(m_vecObjectTemplate.size());
+				MenuOpen();
 			}
 			else if (menuNum == MT_SAVE)
 			{
-				HANDLE file;
-				DWORD write;
-
-				OPENFILENAME ofn;
-				WCHAR filePath[1024] = L"";
-				ZeroMemory(&ofn, sizeof(OPENFILENAME));
-
-				ofn.lStructSize = sizeof(OPENFILENAME);
-				ofn.hwndOwner = NULL;
-				ofn.lpstrFile = filePath;
-				ofn.nMaxFile = sizeof(filePath);
-				ofn.nFilterIndex = true;
-				ofn.nMaxFileTitle = NULL;
-				ofn.lpstrFileTitle = NULL;
-				ofn.lpstrInitialDir = NULL;
-				ofn.lpstrFilter = L"MAP Files(*.map)\0*.map\0";
-				ofn.Flags = OFN_OVERWRITEPROMPT;
-
-				if (GetSaveFileName(&ofn) == false) return;
-
-				wstring curMapFileName = ofn.lpstrFile;
-				file = CreateFile(curMapFileName.c_str(), GENERIC_WRITE, NULL, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
-
-				map<wstring, int> mapAttributeNum;
-				map<wstring, int>::iterator iterAttributeNum;
-				int attributeNum = 0;
-				int maxVectorSize = 0;
-				vector<ST_PNT_VERTEX>		vecVertex;
-				vector<WORD>				vecIndex;
-				vector<DWORD>				vecAttribute;
-				ST_PNT_VERTEX tempVertex;
-				vector<ST_PNT_VERTEX> tempVector;
-				for (m_iterFloorTiles = m_mapFloorTiles.begin(); m_iterFloorTiles != m_mapFloorTiles.end(); ++m_iterFloorTiles)
-				{
-					iterAttributeNum = mapAttributeNum.find(m_iterFloorTiles->second.wstrTexture);
-					if (iterAttributeNum == mapAttributeNum.end())
-					{
-						mapAttributeNum[m_iterFloorTiles->second.wstrTexture] = attributeNum;
-						attributeNum++;
-						iterAttributeNum = mapAttributeNum.find(m_iterFloorTiles->second.wstrTexture);
-					}
-					for (int i = 0; i < m_iterFloorTiles->second.vecVertex.size(); ++i)
-					{
-						tempVertex = m_iterFloorTiles->second.vecVertex[i];
-						D3DXVec3TransformCoord(
-							&tempVertex.p,
-							&m_iterFloorTiles->second.vecVertex[i].p,
-							&m_iterFloorTiles->second.matFinal);
-						vecVertex.push_back(tempVertex);
-						vecIndex.push_back(maxVectorSize);
-						maxVectorSize++;
-						if (i % 3 == 0) vecAttribute.push_back(iterAttributeNum->second);
-					}
-				}
-				for (m_iterObjectTiles = m_mapObjectTiles.begin(); m_iterObjectTiles != m_mapObjectTiles.end(); ++m_iterObjectTiles)
-				{
-					for (int i = 0; i < m_iterObjectTiles->second.size(); ++i)
-					{
-						WCHAR* token = NULL;
-						wstring buffer = m_iterObjectTiles->second[i].wstrTexture;
-						WCHAR* text = &buffer[0];
-						wstring RelativePath = L"./Resources/Texture2D/";
-						while (1)
-						{
-							token = wcstok_s(NULL, L"\\", &text);
-							if (wcscmp(token, L"Texture2D") == 0) break;
-						}
-						RelativePath = RelativePath + text;
-						iterAttributeNum = mapAttributeNum.find(RelativePath);
-						if (iterAttributeNum == mapAttributeNum.end())
-						{
-							mapAttributeNum[RelativePath] = attributeNum;
-							attributeNum++;
-							iterAttributeNum = mapAttributeNum.find(RelativePath);
-						}
-						for (int j = 0; j < m_iterObjectTiles->second[i].vecVertex.size(); ++j)
-						{
-							tempVertex = m_iterObjectTiles->second[i].vecVertex[j];
-							D3DXVec3TransformCoord(
-								&tempVertex.p,
-								&m_iterObjectTiles->second[i].vecVertex[j].p,
-								&m_iterObjectTiles->second[i].matFinal);
-							vecVertex.push_back(tempVertex);
-							vecIndex.push_back(maxVectorSize);
-							maxVectorSize++;
-							if (j % 3 == 0) vecAttribute.push_back(iterAttributeNum->second);
-						}
-					}
-				}
-
-				int maxTexture = mapAttributeNum.size();
-				WriteFile(file, &maxTexture, sizeof(int), &write, NULL);
-				for (iterAttributeNum = mapAttributeNum.begin(); iterAttributeNum != mapAttributeNum.end(); ++iterAttributeNum)
-				{
-					int num = iterAttributeNum->second;
-					wstring wstr = iterAttributeNum->first;
-					WriteFile(file, &num, sizeof(int), &write, NULL);
-					int length = wstr.size();
-					WriteFile(file, &length, sizeof(int), &write, NULL);
-					WriteFile(file, &wstr[0], length * sizeof(WCHAR), &write, NULL);
-				}
-				WriteFile(file, &maxVectorSize, sizeof(int), &write, NULL);
-				WriteFile(file, &vecVertex[0], sizeof(ST_PNT_VERTEX) * vecVertex.size(), &write, NULL);
-				WriteFile(file, &vecIndex[0], sizeof(WORD) * vecIndex.size(), &write, NULL);
-				WriteFile(file, &vecAttribute[0], sizeof(DWORD) * vecAttribute.size(), &write, NULL);
-
-				CloseHandle(file);
+				MenuSave();
 			}
 			else if (menuNum == MT_LOAD)
 			{
-
+				MenuLoad();
 			}
 			else if (menuNum == MT_TEXTURE1 || menuNum == MT_TEXTURE2 || menuNum == MT_TEXTURE3)
 			{
-				HANDLE file;
-				DWORD read;
-
-				OPENFILENAME ofn;
-
-				WCHAR filePath[1024] = L"";
-				ZeroMemory(&ofn, sizeof(OPENFILENAME));
-
-				ofn.lStructSize = sizeof(OPENFILENAME);
-				ofn.hwndOwner = NULL;
-				ofn.lpstrFile = filePath;
-				ofn.nMaxFile = sizeof(filePath);
-				ofn.nFilterIndex = true;
-				ofn.nMaxFileTitle = NULL;
-				ofn.lpstrFileTitle = NULL;
-				ofn.lpstrInitialDir = NULL;
-				ofn.lpstrFilter = L"PNG Files(*.png)\0*.png\0";
-				ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST;
-
-				if (GetOpenFileName(&ofn) == FALSE) return;
-
-				wstring FullPath = ofn.lpstrFile;
-				m_vecObjectTemplate[menuNum - MT_TEXTURE1].wstrTexture = FullPath;
+				MenuTexture(menuNum);
 			}
 		}
 		else if (m_pUI->SelectTile(m_nTextureNum) == true)
@@ -791,4 +643,190 @@ void cStageMapTool::LoadObject(LPCTSTR fullpath, vector<ST_TILE>& objectVector)
 	}
 
 	fin.close();
+}
+
+void cStageMapTool::MenuOpen()
+{
+	HANDLE file;
+	DWORD read;
+
+	OPENFILENAME ofn;
+
+	WCHAR filePath[1024] = L"";
+	ZeroMemory(&ofn, sizeof(OPENFILENAME));
+
+	ofn.lStructSize = sizeof(OPENFILENAME);
+	ofn.hwndOwner = NULL;
+	ofn.lpstrFile = filePath;
+	ofn.nMaxFile = sizeof(filePath);
+	ofn.nFilterIndex = true;
+	ofn.nMaxFileTitle = NULL;
+	ofn.lpstrFileTitle = NULL;
+	ofn.lpstrInitialDir = NULL;
+	ofn.lpstrFilter = L"OBJ Files(*.obj)\0*.obj\0";
+	ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST;
+
+	if (GetOpenFileName(&ofn) == FALSE) return;
+
+	wstring FullPath = ofn.lpstrFile;
+
+	cObjLoader Loader;
+	m_vecObjectTemplate.clear();
+	LoadObject(FullPath.c_str(), m_vecObjectTemplate);
+
+	m_pUI->setTextureNum(m_vecObjectTemplate.size());
+}
+
+void cStageMapTool::MenuSave()
+{
+	HANDLE file;
+	DWORD write;
+
+	OPENFILENAME ofn;
+	WCHAR filePath[1024] = L"";
+	ZeroMemory(&ofn, sizeof(OPENFILENAME));
+
+	ofn.lStructSize = sizeof(OPENFILENAME);
+	ofn.hwndOwner = NULL;
+	ofn.lpstrFile = filePath;
+	ofn.nMaxFile = sizeof(filePath);
+	ofn.nFilterIndex = true;
+	ofn.nMaxFileTitle = NULL;
+	ofn.lpstrFileTitle = NULL;
+	ofn.lpstrInitialDir = NULL;
+	ofn.lpstrFilter = L"MAP Files(*.map)\0*.map\0";
+	ofn.Flags = OFN_OVERWRITEPROMPT;
+
+	if (GetSaveFileName(&ofn) == false) return;
+
+	wstring curMapFileName = ofn.lpstrFile;
+	file = CreateFile(curMapFileName.c_str(), GENERIC_WRITE, NULL, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
+
+	map<wstring, int> mapAttributeNum;
+	map<wstring, int>::iterator iterAttributeNum;
+	int attributeNum = 0;
+	int maxVectorSize = 0;
+	vector<ST_PNT_VERTEX>		vecVertex;
+	vector<WORD>				vecIndex;
+	vector<DWORD>				vecAttribute;
+	ST_PNT_VERTEX tempVertex;
+	vector<ST_PNT_VERTEX> tempVector;
+	for (m_iterFloorTiles = m_mapFloorTiles.begin(); m_iterFloorTiles != m_mapFloorTiles.end(); ++m_iterFloorTiles)
+	{
+		iterAttributeNum = mapAttributeNum.find(m_iterFloorTiles->second.wstrTexture);
+		if (iterAttributeNum == mapAttributeNum.end())
+		{
+			mapAttributeNum[m_iterFloorTiles->second.wstrTexture] = attributeNum;
+			attributeNum++;
+			iterAttributeNum = mapAttributeNum.find(m_iterFloorTiles->second.wstrTexture);
+		}
+		for (int i = 0; i < m_iterFloorTiles->second.vecVertex.size(); ++i)
+		{
+			tempVertex = m_iterFloorTiles->second.vecVertex[i];
+			D3DXVec3TransformCoord(
+				&tempVertex.p,
+				&m_iterFloorTiles->second.vecVertex[i].p,
+				&m_iterFloorTiles->second.matFinal);
+			vecVertex.push_back(tempVertex);
+			vecIndex.push_back(maxVectorSize);
+			maxVectorSize++;
+			if (i % 3 == 0) vecAttribute.push_back(iterAttributeNum->second);
+		}
+	}
+	for (m_iterObjectTiles = m_mapObjectTiles.begin(); m_iterObjectTiles != m_mapObjectTiles.end(); ++m_iterObjectTiles)
+	{
+		for (int i = 0; i < m_iterObjectTiles->second.size(); ++i)
+		{
+			WCHAR* token = NULL;
+			wstring buffer = m_iterObjectTiles->second[i].wstrTexture;
+			WCHAR* text = &buffer[0];
+			wstring RelativePath = L"./Resources/Texture2D/";
+			while (1)
+			{
+				token = wcstok_s(NULL, L"\\", &text);
+				if (wcscmp(token, L"Texture2D") == 0) break;
+			}
+			RelativePath = RelativePath + text;
+			iterAttributeNum = mapAttributeNum.find(RelativePath);
+			if (iterAttributeNum == mapAttributeNum.end())
+			{
+				mapAttributeNum[RelativePath] = attributeNum;
+				attributeNum++;
+				iterAttributeNum = mapAttributeNum.find(RelativePath);
+			}
+			for (int j = 0; j < m_iterObjectTiles->second[i].vecVertex.size(); ++j)
+			{
+				tempVertex = m_iterObjectTiles->second[i].vecVertex[j];
+				D3DXVec3TransformCoord(
+					&tempVertex.p,
+					&m_iterObjectTiles->second[i].vecVertex[j].p,
+					&m_iterObjectTiles->second[i].matFinal);
+				vecVertex.push_back(tempVertex);
+				vecIndex.push_back(maxVectorSize);
+				maxVectorSize++;
+				if (j % 3 == 0) vecAttribute.push_back(iterAttributeNum->second);
+			}
+		}
+	}
+
+	int maxTexture = mapAttributeNum.size();
+	WriteFile(file, &maxTexture, sizeof(int), &write, NULL);
+	for (iterAttributeNum = mapAttributeNum.begin(); iterAttributeNum != mapAttributeNum.end(); ++iterAttributeNum)
+	{
+		int num = iterAttributeNum->second;
+		wstring wstr = iterAttributeNum->first;
+		WriteFile(file, &num, sizeof(int), &write, NULL);
+		int length = wstr.size();
+		WriteFile(file, &length, sizeof(int), &write, NULL);
+		WriteFile(file, &wstr[0], length * sizeof(WCHAR), &write, NULL);
+	}
+	WriteFile(file, &maxVectorSize, sizeof(int), &write, NULL);
+	WriteFile(file, &vecVertex[0], sizeof(ST_PNT_VERTEX) * vecVertex.size(), &write, NULL);
+	WriteFile(file, &vecIndex[0], sizeof(WORD) * vecIndex.size(), &write, NULL);
+	WriteFile(file, &vecAttribute[0], sizeof(DWORD) * vecAttribute.size(), &write, NULL);
+
+	CloseHandle(file);
+}
+
+void cStageMapTool::MenuLoad()
+{
+	for (int i = 1; i < 5; ++i)
+	{
+		D3DXMATRIX matTrans;
+		D3DXMATRIX matRot;
+		for (int j = 0; j < i; ++j)
+		{
+			D3DXMatrixTranslation(&matTrans, (i - 1) * 0.2, 2 - (i - 1) * 0.2, (i - 1) * 0.2);
+			D3DXMatrixRotationY(&matRot, D3DX_PI * i / j * 2.0f);
+			m_stLeaf.matFinal = matTrans * matRot;
+			m_vecObjectTemplate.push_back(m_stLeaf);
+		}
+	}
+}
+
+void cStageMapTool::MenuTexture(int menuNum)
+{
+	HANDLE file;
+	DWORD read;
+
+	OPENFILENAME ofn;
+
+	WCHAR filePath[1024] = L"";
+	ZeroMemory(&ofn, sizeof(OPENFILENAME));
+
+	ofn.lStructSize = sizeof(OPENFILENAME);
+	ofn.hwndOwner = NULL;
+	ofn.lpstrFile = filePath;
+	ofn.nMaxFile = sizeof(filePath);
+	ofn.nFilterIndex = true;
+	ofn.nMaxFileTitle = NULL;
+	ofn.lpstrFileTitle = NULL;
+	ofn.lpstrInitialDir = NULL;
+	ofn.lpstrFilter = L"PNG Files(*.png)\0*.png\0";
+	ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST;
+
+	if (GetOpenFileName(&ofn) == FALSE) return;
+
+	wstring FullPath = ofn.lpstrFile;
+	m_vecObjectTemplate[menuNum - MT_TEXTURE1].wstrTexture = FullPath;
 }
