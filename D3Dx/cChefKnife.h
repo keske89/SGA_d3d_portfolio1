@@ -1,11 +1,11 @@
 #pragma once
 #include "cChefRoot.h"
-class cChefLeftHand :
+class cChefKnife :
 	public cChefRoot
 {
 public:
-	cChefLeftHand();
-	virtual~cChefLeftHand();
+	cChefKnife();
+	~cChefKnife();
 	virtual void SetUp();
 };
 

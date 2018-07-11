@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "cStageObjManager.h"
 #include "cIGObj.h"
-#include "cCharacter.h"
+#include "cChef.h"
 #include "cCrate.h"
 #include "cKnife.h"
 #include "cPot.h"

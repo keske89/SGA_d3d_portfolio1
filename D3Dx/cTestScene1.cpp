@@ -2,7 +2,7 @@
 #include "cTestScene1.h"
 #include "cCamera.h"
 #include "cIGObj.h"
-#include "cCharacter.h"
+#include "cChef.h"
 #include "cCharacterControl.h"
 #include "cStageObjManager.h"	
 

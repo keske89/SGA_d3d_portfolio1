@@ -129,9 +129,6 @@
     <ClInclude Include="cCharacterControl.h">
       <Filter>소스 파일\Chef</Filter>
     </ClInclude>
-    <ClInclude Include="cCharacter.h">
-      <Filter>소스 파일\Chef</Filter>
-    </ClInclude>
     <ClInclude Include="cChefBody.h">
       <Filter>소스 파일\Chef\ChefPatrs</Filter>
     </ClInclude>
@@ -176,6 +173,15 @@
     </ClInclude>
     <ClInclude Include="cStageScene.h">
       <Filter>소스 파일\Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="cChef.h">
+      <Filter>소스 파일\Chef</Filter>
+    </ClInclude>
+    <ClInclude Include="cChefAnimation.h">
+      <Filter>소스 파일\Chef</Filter>
+    </ClInclude>
+    <ClInclude Include="cChefKnife.h">
+      <Filter>소스 파일\Chef</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -260,9 +266,6 @@
     <ClCompile Include="cCharacterControl.cpp">
       <Filter>소스 파일\Chef</Filter>
     </ClCompile>
-    <ClCompile Include="ccCharacter.cpp">
-      <Filter>소스 파일\Chef</Filter>
-    </ClCompile>
     <ClCompile Include="cChefBody.cpp">
       <Filter>소스 파일\Chef\ChefPatrs</Filter>
     </ClCompile>
@@ -307,6 +310,15 @@
     </ClCompile>
     <ClCompile Include="cStageScene.cpp">
       <Filter>소스 파일\Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="cChef.cpp">
+      <Filter>소스 파일\Chef</Filter>
+    </ClCompile>
+    <ClCompile Include="cChefAnimation.cpp">
+      <Filter>소스 파일\Chef</Filter>
+    </ClCompile>
+    <ClCompile Include="cChefKnife.cpp">
+      <Filter>소스 파일\Chef</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

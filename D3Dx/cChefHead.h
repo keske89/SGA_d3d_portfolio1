@@ -6,6 +6,5 @@ public:
 	cChefHead();
 	virtual~cChefHead();
 	virtual void SetUp();
-	virtual void AniMation();
 };
 

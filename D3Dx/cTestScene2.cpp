@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "cTestScene2.h"
 #include "cCamera.h"
-#include "cCharacter.h"
+#include "cChef.h"
 #include "cCharacterControl.h"
 
 cTestScene2::cTestScene2()
@@ -37,7 +37,7 @@ void cTestScene2::Setup()
 
 	for (int i = 0; i < 2; i++)
 	{
-		m_pChef[i] = new cCharacter;
+		m_pChef[i] = new cChef;
 		m_pControl->AddcCharacter(m_pChef[i]);
 		m_pChef[i]->SetUp(D3DXVECTOR3(i * 3, 0, 0), m_pControl);
 	}
@@ -62,9 +62,6 @@ void cTestScene2::Render()
 	RECT rc;
 	SetRect(&rc, 10, 200, 1000, 1000);
 	char m_str[256];
-	sprintf_s(m_str, "%d", m_pChef[0]->GetCHEF_STATE());
-	m_pFont->DrawText(NULL, (LPCWCHAR)m_str, strlen(m_str), &rc,
-		DT_LEFT | DT_TOP | DT_NOCLIP, D3DCOLOR_XRGB(255, 0, 0));
 
 	for (int i = 0; i < 2; i++)
 	{

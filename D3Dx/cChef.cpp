@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "cCharacter.h"
+#include "cChef.h"
 #include "cChefRoot.h"
 #include "cCharacterControl.h"
 #include "cStageObjManager.h"
@@ -9,24 +9,23 @@
 #include"cChefHead.h"
 #include"cChefLeftHand.h"
 #include"cChefRightHand.h"
+#include "cChefKnife.h"
 
-
-cCharacter::cCharacter()
+cChef::cChef()
 	: m_pRoot(NULL)
 	, m_vPosition(0, 0, 0)
-	, m_eChefState(CHEF_STATE_IDLE)
 	, m_pObjRoot(NULL)
 {
 }
 
 
-cCharacter::~cCharacter()
+cChef::~cChef()
 {
 	if (m_pRoot)
 		m_pRoot->Destroy();
 }
 
-void cCharacter::SetUp(D3DXVECTOR3 vPos, cCharacterControl * _pControl)
+void cChef::SetUp(D3DXVECTOR3 vPos, cCharacterControl * _pControl)
 {
 	m_pControl = _pControl;
 	m_vPosition = vPos;
@@ -36,28 +35,27 @@ void cCharacter::SetUp(D3DXVECTOR3 vPos, cCharacterControl * _pControl)
 	m_pRoot = pBody;
 	cChefHead* pHead = new cChefHead;
 	pHead->SetUp();
-	pHead->SetRotDeltaY(0.05f);
-	pHead->SetRotDeltaX(0.01f);
 	m_pRoot->AddChild(pHead);
 	cChefLeftHand * pLHand = new cChefLeftHand;
 	pLHand->SetUp();
-	pLHand->SetRotDeltaX(0.05f);
 	m_pRoot->AddChild(pLHand);
 	cChefRightHand* pRHand = new cChefRightHand;
 	pRHand->SetUp();
-	pRHand->SetRotDeltaX(0.05f);
 	m_pRoot->AddChild(pRHand);
-
+	cChefKnife * pKnife = new cChefKnife;
+	pKnife->SetUp();
+	m_pRoot->AddChild(pKnife);
 }
 
-void cCharacter::Update()
+void cChef::Update()
 {
 	m_pControl->Control();
+	Animation(m_pRoot);
 	if (m_pRoot)
 		m_pRoot->Update();
 }
 
-void cCharacter::Render()
+void cChef::Render()
 {
 
 	g_pD3DDevice->SetMaterial(&m_stMtl);
@@ -66,7 +64,7 @@ void cCharacter::Render()
 
 }
 
-void cCharacter::SetMaterial()
+void cChef::SetMaterial()
 {
 	ZeroMemory(&m_stMtl, sizeof(D3DMATERIAL9));
 	m_stMtl.Ambient = D3DXCOLOR(0.0f, 0.0f, 0.0f, 1.0f);
@@ -74,11 +72,11 @@ void cCharacter::SetMaterial()
 	m_stMtl.Specular = D3DXCOLOR(0.3f, 0.3f, 0.3f, 1.0f);
 }
 
-cIGObj * cCharacter::GetcIGObject()
+cIGObj * cChef::GetcIGObject()
 {
 	return nullptr;
 }
 
-void cCharacter::SetcIGObject(cIGObj * _object)
+void cChef::SetcIGObject(cIGObj * _object)
 {
 }

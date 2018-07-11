@@ -5,7 +5,7 @@
 cChefRoot::cChefRoot()
 	: m_pTexture(NULL)
 	, m_pMesh(NULL)
-	, m_ePartAnimation(PARTANIMATION_IDLE)
+	, m_eChefstate(CHEF_STATE_IDLE)
 	, m_vLocalPos(0, 0, 0)
 	, m_fRotX(0.0f)
 	, m_fRotY(0.0f)
@@ -19,6 +19,7 @@ cChefRoot::cChefRoot()
 
 cChefRoot::~cChefRoot()
 {
+
 }
 
 void cChefRoot::AddChild(cChefRoot * pChild)
@@ -33,6 +34,7 @@ void cChefRoot::Destroy()
 	for (int i = 0; i < m_vecChild.size(); i++)
 	{
 		m_vecChild[i]->m_pTexture->Release();
+		m_vecChild[i]->m_pMesh->Release();
 		m_vecChild[i]->Destroy();
 	}
 	delete this;
@@ -46,7 +48,7 @@ void cChefRoot::SetUp()
 void cChefRoot::Update()
 {
 
-	AniMation();
+	//AniMation();
 	m_matWorldTM = m_matLocalTM;
 	if (m_pParentWorldTM)
 	{
@@ -72,10 +74,7 @@ void cChefRoot::Render()
 
 }
 
-void cChefRoot::AniMation()
-{
 
-}
 
 void cChefRoot::ImageChange()
 {

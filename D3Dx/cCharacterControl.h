@@ -1,6 +1,7 @@
 #pragma once
-class cCharacter;
+class cChef;
 class cChefRoot;
+class cChefAnimation;
 #define CharacterSpeed 0.1f
 enum PLAYERMOD
 {
@@ -32,20 +33,19 @@ struct ST_PLAYER_ATTRIBUTE
 class cCharacterControl
 {
 private:
-	std::vector<cCharacter *>	m_vecCharacter;
+	std::vector<cChef *>	m_vecCharacter;
 
-	D3DXMATRIX					m_mat1P;
-	D3DXMATRIX					m_mat2P;
 	PLAYERMOD					m_enmPlayerMod;
 	BOOL						m_Bswitch;
 	ST_PLAYER_ATTRIBUTE			m_StPlayerAtrribute[2];
 	D3DXVECTOR3					m_vbooster;
 	float						m_fCharacterBOOSTERSpeed;
 	float						m_fFrictional;
+	cChefAnimation *			m_pAnimation;
 public:
 	cCharacterControl();
 	~cCharacterControl();
-	void AddcCharacter(cCharacter * Chef);
+	void AddcCharacter(cChef * _Chef);
 	void SetPlaterMod(int num);
 	void SetUp();
 	void Update();

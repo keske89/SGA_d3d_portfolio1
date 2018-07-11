@@ -153,8 +153,10 @@
   <ItemGroup>
     <ClInclude Include="cActionObj.h" />
     <ClInclude Include="cCamera.h" />
-    <ClInclude Include="cCharacter.h" />
+    <ClInclude Include="cChef.h" />
     <ClInclude Include="cCharacterControl.h" />
+    <ClInclude Include="cChefAnimation.h" />
+    <ClInclude Include="cChefKnife.h" />
     <ClInclude Include="cCrate.h" />
     <ClInclude Include="cCrateLid.h" />
     <ClInclude Include="cDeviceManager.h" />
@@ -201,8 +203,10 @@
   <ItemGroup>
     <ClCompile Include="cActionObj.cpp" />
     <ClCompile Include="cCamera.cpp" />
-    <ClCompile Include="ccCharacter.cpp" />
+    <ClCompile Include="cChef.cpp" />
     <ClCompile Include="cCharacterControl.cpp" />
+    <ClCompile Include="cChefAnimation.cpp" />
+    <ClCompile Include="cChefKnife.cpp" />
     <ClCompile Include="cCrate.cpp" />
     <ClCompile Include="cCrateLid.cpp" />
     <ClCompile Include="cDeviceManager.cpp" />
