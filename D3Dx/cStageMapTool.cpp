@@ -23,6 +23,7 @@ cStageMapTool::cStageMapTool()
 	, m_fTBRZAxis(0.0f)
 	, m_pSOM(NULL)
 	, m_nNewObjNum(0)
+	, m_nMenuNum(0)
 { 
 }
 
@@ -409,39 +410,44 @@ void cStageMapTool::Control()
 			{
 				m_pSOM->DeleteObject(m_stNewObjTemplate.iter);
 			}
-			else if (menuNum == MT_NEWOBJ)
+			else if (m_nMenuNum != menuNum && menuNum == MT_NEWOBJ)
 			{
 				m_stNewObjTemplate.iter = m_pSOM->SetIngameObject((OBJECTTYPE)m_stNewObjTemplate.type, matIden);
 				m_stNewObjTemplate.p = (*m_stNewObjTemplate.iter);
+				m_nMenuNum = menuNum;
 			}
 			if (menuNum == MT_OPEN)
 			{
 				MenuOpen();
+				m_nMenuNum = menuNum;
 			}
 			else if (menuNum == MT_SAVE)
 			{
 				MenuSave();
+				m_nMenuNum = menuNum;
 			}
 			else if (menuNum == MT_LOAD)
 			{
 				MenuLoad();
+				m_nMenuNum = menuNum;
 			}
 			else if (menuNum == MT_TEXTURE1 || menuNum == MT_TEXTURE2 || menuNum == MT_TEXTURE3)
 			{
 				MenuTexture(menuNum);
+				m_nMenuNum = menuNum;
 			}
 		}
 		else if (m_pUI->SelectTile(m_nTextureNum) == true)
 		{
 			
 		}
-		else if (menuNum == MT_NEWOBJ && m_pUI->SelectSubMenu() == true)
+		else if (m_nMenuNum == MT_NEWOBJ && m_nNewObjNum == NOT_CRATE && m_pUI->SelectSubMenu() == true)
 		{
 			m_pSOM->DeleteObject(m_stNewObjTemplate.iter);
 			m_stNewObjTemplate.type = getObjectType();
 			m_stNewObjTemplate.iter = m_pSOM->SetIngameObject((OBJECTTYPE)m_stNewObjTemplate.type, matIden);
 		}
-		else if (menuNum == MT_NEWOBJ && m_pUI->SelectNewObj(m_nNewObjNum) == true)
+		else if (m_nMenuNum == MT_NEWOBJ && m_pUI->SelectNewObj(m_nNewObjNum) == true)
 		{
 			if (m_nNewObjNum == NOT_CRATE)
 			{

@@ -36,6 +36,7 @@ private:
 	D3DXVECTOR3				m_vecPos;				//카메라 룩앳 포지션
 													
 	int						m_nTextureNum;			//바닥타일 텍스쳐 번호
+	int						m_nMenuNum;				//선택한 메뉴 번호
 	int						m_nNewObjNum;			//뉴오브젝트 번호
 	int						m_nIndexX;				//그리드 x축 인덱스
 	int						m_nIndexZ;				//그리드 z축 인덱스

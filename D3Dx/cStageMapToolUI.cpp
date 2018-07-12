@@ -283,10 +283,7 @@ bool cStageMapToolUI::SelectMenu(int & num)
 			{
 				m_eTileType = TT_BLOCK;
 			}
-			else
-			{
-				num = i;
-			}
+			num = i;
 			return true;
 		}
 	}
