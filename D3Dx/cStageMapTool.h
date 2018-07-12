@@ -17,8 +17,9 @@ class cStageMapTool : public cGameNode
 public:
 	struct ST_NEWOBJ
 	{
-		list<cIGObj*>::iterator p;
-		int type;
+		list<cIGObj*>::iterator iter;
+		cIGObj*					p;
+		int						type;
 	};
 	struct ST_TILE	//타일 구조체
 	{
@@ -75,5 +76,6 @@ public:
 	void MenuSave();
 	void MenuLoad();
 	void MenuTexture(int menuNum);
+	int getObjectType();
 };
 

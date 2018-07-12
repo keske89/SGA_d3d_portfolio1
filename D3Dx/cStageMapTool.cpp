@@ -221,7 +221,8 @@ void cStageMapTool::Setup()
 	m_stBlockTemplate.matFinal = matRot * matTransAfterRot * matTrans;
 	m_stBlockTemplate.wstrTexture = L"./Resources/StageTexture/FloorTile_20.png";
 	
-
+	m_stNewObjTemplate.p = NULL;
+	m_stNewObjTemplate.type = CRATE_ONION;
 }
 
 void cStageMapTool::Update()
@@ -387,9 +388,9 @@ void cStageMapTool::Control()
 	m_stFloorTemplate.wstrTexture = m_pUI->getTileTexture(m_nTextureNum);
 	m_stBlockTemplate.matFinal = matRot * matTransAfterRot * matTrans;
 	/////////////////////////////////수정 필요/////////////////////////////////////////
-	if ((*m_stNewObjTemplate.p))
+	if (m_stNewObjTemplate.p)
 	{
-		(*m_stNewObjTemplate.p)->SetMatWorld(matTransBeforeRot * matRot * matTransAfterRot * matTrans);
+		m_stNewObjTemplate.p->SetMatWorld(matTransBeforeRot * matRot * matTransAfterRot * matTrans);
 	}
 	//////////////////////////////////////////////////////////////////////////////////
 	for (int i = 0; i < m_vecObjectTemplate.size(); ++i)
@@ -400,8 +401,19 @@ void cStageMapTool::Control()
 	if (KEYMANAGER->isOnceKeyUp(VK_LBUTTON))
 	{
 		int menuNum;
+		D3DXMATRIX matIden;
+		D3DXMatrixIdentity(&matIden);
 		if (m_pUI->SelectMenu(menuNum) == true)
 		{
+			if (menuNum != MT_NEWOBJ && m_stNewObjTemplate.p != NULL)
+			{
+				m_pSOM->DeleteObject(m_stNewObjTemplate.iter);
+			}
+			else if (menuNum == MT_NEWOBJ)
+			{
+				m_stNewObjTemplate.iter = m_pSOM->SetIngameObject((OBJECTTYPE)m_stNewObjTemplate.type, matIden);
+				m_stNewObjTemplate.p = (*m_stNewObjTemplate.iter);
+			}
 			if (menuNum == MT_OPEN)
 			{
 				MenuOpen();
@@ -423,27 +435,19 @@ void cStageMapTool::Control()
 		{
 			
 		}
-		else if (m_pUI->SelectSubMenu() == true)
+		else if (menuNum == MT_NEWOBJ && m_pUI->SelectSubMenu() == true)
 		{
-			/*
-			SAFE_DELETE(m_pSelectGObj);
-			m_pSelectGObj = new cCrate;
-			D3DXMATRIX matIden;
-			D3DXMatrixIdentity(&matIden);
-			m_pSelectGObj->Setup(matIden, D3DXVECTOR3(0, 0, 0), m_pUI->getCrateType());
-			*/
+			m_pSOM->DeleteObject(m_stNewObjTemplate.iter);
+			m_stNewObjTemplate.type = getObjectType();
+			m_stNewObjTemplate.iter = m_pSOM->SetIngameObject((OBJECTTYPE)m_stNewObjTemplate.type, matIden);
 		}
-		else if (m_pUI->SelectNewObj(m_nNewObjNum) == true)
+		else if (menuNum == MT_NEWOBJ && m_pUI->SelectNewObj(m_nNewObjNum) == true)
 		{
-			if (m_nNewObjNum != NOT_CRATE)
+			if (m_nNewObjNum == NOT_CRATE)
 			{
-				/*
-				SAFE_DELETE(m_pSelectGObj);
-				m_pSelectGObj = new cCrate;
-				D3DXMATRIX matIden;
-				D3DXMatrixIdentity(&matIden);
-				m_pSelectGObj->Setup(matIden, D3DXVECTOR3(0, 0, 0), m_pUI->getCrateType());
-				*/
+				m_pSOM->DeleteObject(m_stNewObjTemplate.iter);
+				m_stNewObjTemplate.type = getObjectType();
+				m_stNewObjTemplate.iter = m_pSOM->SetIngameObject((OBJECTTYPE)m_stNewObjTemplate.type, matIden);
 			}
 		}
 		else if (m_pUI->getTileType() == TT_FLOOR)
@@ -467,50 +471,15 @@ void cStageMapTool::Control()
 			m_iterNewObject = m_mapNewObject.find(make_pair(m_nIndexX, m_nIndexZ));
 			if (m_iterNewObject != m_mapNewObject.end())
 			{
-				m_pSOM->DeleteObject(m_iterNewObject->second.p);
+				m_pSOM->DeleteObject(m_iterNewObject->second.iter);
 				m_mapNewObject.erase(m_iterNewObject);
 			}
 			ST_NEWOBJ temp;
 			D3DXMATRIX matFinal = matTransBeforeRot * matRot * matTransAfterRot * matTrans;
-			switch (m_pUI->getNewObjTileType())
-			{
-			case(NOT_CRATE):
-			{
-				switch (m_pUI->getCrateType())
-				{
-				case(CT_MUSHROOM):
-				{
-					temp.type = CRATE_MUSHROOM;
-				}
-				break;
-				case(CT_ONION):
-				{
-					temp.type = CRATE_ONION;
-				}
-				break;
-				case(CT_POTATO):
-				{
-					temp.type = CRATE_POTATO;
-				}
-				break;
-				case(CT_TOMATO):
-				{
-					temp.type = CRATE_TOMATO;
-				}
-				break;
-				default:
-				{
-					temp.type = CRATE_ONION;
-				}
-				break;
-				}
-				temp.p = m_pSOM->SetIngameObject((OBJECTTYPE)temp.type, matFinal);
-				m_mapNewObject.insert(make_pair(make_pair(m_nIndexX, m_nIndexZ), temp));
-			}
-			break;
-			default:
-			break;
-			}
+			temp.type = getObjectType();
+			temp.iter = m_pSOM->SetIngameObject((OBJECTTYPE)temp.type, matFinal);
+			temp.p = (*temp.iter);
+			m_mapNewObject.insert(make_pair(make_pair(m_nIndexX, m_nIndexZ), temp));
 		}
 		else if (m_pUI->getTileType() == TT_BLOCK)
 		{
@@ -542,7 +511,7 @@ void cStageMapTool::Control()
 			m_iterNewObject = m_mapNewObject.find(make_pair(m_nIndexX, m_nIndexZ));
 			if (m_iterNewObject != m_mapNewObject.end())
 			{
-				m_pSOM->DeleteObject(m_iterNewObject->second.p);
+				m_pSOM->DeleteObject(m_iterNewObject->second.iter);
 				m_mapNewObject.erase(m_iterNewObject);
 			}
 		}
@@ -824,4 +793,40 @@ void cStageMapTool::MenuTexture(int menuNum)
 
 	wstring FullPath = ofn.lpstrFile;
 	m_vecObjectTemplate[menuNum - MT_TEXTURE1].wstrTexture = FullPath;
+}
+
+int cStageMapTool::getObjectType()
+{
+	switch (m_pUI->getNewObjTileType())
+	{
+		case(NOT_CRATE):
+		{
+			switch (m_pUI->getCrateType())
+			{
+			case(CT_MUSHROOM):
+			{
+				return(CRATE_MUSHROOM);
+			}
+			break;
+			case(CT_ONION):
+			{
+				return(CRATE_ONION);
+			}
+			break;
+			case(CT_POTATO):
+			{
+				return(CRATE_POTATO);
+			}
+			break;
+			case(CT_TOMATO):
+			{
+				return(CRATE_TOMATO);
+			}
+			break;
+			}
+		}
+		break;
+	}
+
+	return CRATE_ONION;
 }
