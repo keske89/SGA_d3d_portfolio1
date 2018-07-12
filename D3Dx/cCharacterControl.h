@@ -12,22 +12,27 @@ enum PLAYERMOD
 
 struct ST_PLAYER_ATTRIBUTE
 {
-	D3DXVECTOR3 St_vDirection;
-	D3DXVECTOR3	St_vDirectionX;
-	D3DXVECTOR3	St_vDirectionZ;
-	D3DXVECTOR3	St_vPosition;
-	D3DXMATRIX	ST_matPlayer;
-	float		St_fAngle;
-	BOOL		ST_BisBooster;
+	D3DXVECTOR3 st_vDirection;
+	D3DXVECTOR3	st_vDirectionX;
+	D3DXVECTOR3	st_vDirectionZ;
+	D3DXVECTOR3	st_vPosition;
+	D3DXVECTOR3 st_vBooster;
+	D3DXMATRIX	st_matPlayer;
+	float		st_fAngle;
+	float		st_fCharacterBOOSTERSpeed;
+	float		st_fFrictional;
+	BOOL		st_BisBooster;
 	ST_PLAYER_ATTRIBUTE()
-		: St_vDirection(0, 0, 0)
-		, St_vDirectionX(0, 0, 0)
-		, St_vDirectionZ(0, 0, 0)
-		, St_vPosition(0, 0, 0)
-		, St_fAngle(0.0f)
-		, ST_BisBooster(false)
+		: st_vDirection(0, 0, 0)
+		, st_vDirectionX(0, 0, 0)
+		, st_vDirectionZ(0, 0, 0)
+		, st_vBooster(0, 0, 0)
+		, st_fAngle(0.0f)
+		, st_fCharacterBOOSTERSpeed(0)
+		, st_fFrictional(0)
+		, st_BisBooster(false)
 	{
-		D3DXMatrixIdentity(&ST_matPlayer);
+		D3DXMatrixIdentity(&st_matPlayer);
 	}
 };
 class cCharacterControl
@@ -54,7 +59,20 @@ public:
 	void Render();
 	void Control();
 	void ControlAction();
+	void Control1P();
+	void Control2P();
 	void Move();
-	void Booster(D3DXVECTOR3 pos);
+	void Booster();
+	ST_PLAYER_ATTRIBUTE* GetAtribute(cChef * _Chef)
+	{
+		if (m_vecCharacter[0] == _Chef)
+		{
+			return &m_StPlayerAtrribute[0];
+		}
+		else if (m_vecCharacter[1] == _Chef)
+		{
+			return &m_StPlayerAtrribute[1];
+		}
+	}
 };
 
