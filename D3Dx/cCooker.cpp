@@ -13,20 +13,8 @@ cCooker::~cCooker()
 
 void cCooker::Setup()
 {
-	D3DXMATRIX matS, matT;
-	D3DXMatrixIdentity(&matT);
-	D3DXMatrixTranslation(&matT, 0.0f, 0.5f, 0.0f);
-
-	D3DXMatrixIdentity(&matS);
-	D3DXMatrixScaling(&matS, 1.0f, 2.5f, 1.0f);
-
-	m_matLocal = matT * matS;
-
-	m_matWorld = m_matLocal;
-	m_bInteraction = false;
-	m_bIsUse = false;
-	m_pMesh = ObJMANAGER->GetMesh(L"Cooker.obj");
-	m_pTexture = g_pTextureManager->GetTexture(L"Resources/Texture2D/Cooker_Texture.png");
+	
+	
 
 }
 
@@ -44,6 +32,12 @@ void cCooker::Render()
 
 void cCooker::Setup(D3DXMATRIX matWorld, D3DXVECTOR3 pos, int lidtype)
 {
+	m_vPos = pos;
+	m_matWorld = matWorld;
+	m_bInteraction = false;
+	m_bIsUse = false;
+	m_pMesh = ObJMANAGER->GetMesh(L"Cooker.obj");
+	m_pTexture = g_pTextureManager->GetTexture(L"Resources/Texture2D/Cooker_Texture.png");
 }
 
 void cCooker::SetWorldMat(D3DXMATRIX matWorld)

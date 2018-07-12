@@ -7,7 +7,7 @@ class cIGObj;
 class cCharacter;
 
 // action obj
-class cCrate;
+class cCrateLid;
 
 class cChoppingBoard;
 
@@ -22,6 +22,8 @@ class cPassScroll;
 
 class cPlate;
 class cPlateReturnBox;
+
+class cTomato;
 
 
 enum OBJECTTYPE
@@ -65,7 +67,7 @@ class cStageObjManager : public cActionDelegate
 {
 private:
 
-	cCrate*					m_crate;
+	cCrateLid*				m_crateLid;
 	cSink*					m_Sink;
 	cCooker*				m_Cooker;
 	cChoppingBoard*			m_ChoppingBoard;
@@ -74,6 +76,8 @@ private:
 	cPass*					m_Pass;
 	cPlate*					m_Plate;
 	cPlateReturnBox*		m_PlateReturnBox;
+	cTomato*				m_Tomato;
+	
 
 	int m_buttonSelect;
 

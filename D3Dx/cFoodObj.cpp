@@ -25,4 +25,10 @@ void cFoodObj::Render()
 {
 }
 
+void cFoodObj::Setup(D3DXMATRIX matWorld, D3DXVECTOR3 pos, int lidtype)
+{
+}
 
+void cFoodObj::SetWorldMat(D3DXMATRIX matWorld)
+{
+}

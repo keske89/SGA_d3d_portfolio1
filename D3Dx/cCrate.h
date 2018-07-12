@@ -3,25 +3,10 @@
 
 class cStageObjManager;
 
-enum LIDTYPE
-{
-	LID_ONION,
-	LID_TOMATO,
-	LID_MUSHROOM,
-	LID_POTATO,
-
-};
-
 class cCrateLid;
 
 class cCrate : public cActionObj
 {
-public:
-	cCrateLid * m_CrateLid;
-	LIDTYPE		m_LidType;
-
-
-
 public:
 	cCrate();
 	~cCrate();
@@ -34,7 +19,6 @@ public:
 	virtual void Setup(D3DXMATRIX matWorld, D3DXVECTOR3 pos, int lidtype);
 	virtual void SetWorldMat(D3DXMATRIX matWorld);
 
-	cCrateLid* GetLid() { return m_CrateLid; }
 
 };
 

@@ -45,7 +45,7 @@ void cTestScene1::Setup()
 
 	m_SOM = new cStageObjManager;
 	m_SOM->Setup();
-
+	m_SOM->
 
 	
 

@@ -21,6 +21,7 @@ public:
 	D3DXVECTOR3			m_vDir;
 	//D3DXMATRIX			m_matWorld;
 	D3DXMATRIX			m_matLocal;
+	cIGObj*				m_Inven;
 	
 	SYNTHESIZE(bool, m_bInteraction, Interaction);
 	SYNTHESIZE(D3DXVECTOR3, m_vPos, Pos);
@@ -35,5 +36,6 @@ public:
 	virtual void Setup()= 0;
 	virtual void Update() = 0;
 	virtual void Render() = 0;
+	
 };
 

@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "cStageObjManager.h"
 #include "cIGObj.h"
-#include "cCrate.h"
+#include "cCrateLid.h"
 #include "cKnife.h"
 #include "cPot.h"
 #include "cSink.h"
@@ -11,6 +11,7 @@
 #include "cPlate.h"
 #include "cPlateReturnBox.h"
 #include "cChoppingBoard.h"
+#include "cTomato.h"
 
 //delegate
 #include "cCrateLid.h"
@@ -31,18 +32,22 @@ void cStageObjManager::Setup()
 	D3DXMatrixIdentity(&matWorld);
 	D3DXVECTOR3 mPos(0, 0, 0);
 
-	m_crate = new cCrate;
-	m_crate->Setup(matWorld, mPos, 1);
-	m_crate->GetLid()->SetDelegate(this); //Delegate Link
-	m_listObj.push_back(m_crate);
+	m_crateLid = new cCrateLid;
+	m_crateLid->Setup(matWorld, mPos, CRATE_TOMATO);
+	m_listObj.push_back(m_crateLid);
 
-	/*m_Sink = new cSink;
-	m_Sink->Setup();
-	m_vecObj.push_back(m_Sink);*/
 
-	//m_Cooker = new cCooker;
-	//m_Cooker->Setup();
-	//m_vecObj.push_back(m_Cooker);
+	m_Sink = new cSink;
+	m_Sink->Setup(matWorld, mPos, 0);
+	m_listObj.push_back(m_Sink);
+
+	m_Cooker = new cCooker;
+	m_Cooker->Setup(matWorld, mPos, 0);
+	m_listObj.push_back(m_Cooker);
+
+	m_Tomato = new cTomato;
+	m_Tomato->Setup(matWorld, mPos, 0);
+	m_listObj.push_back(m_Tomato);
 
 }
 
@@ -52,6 +57,15 @@ void cStageObjManager::Update()
 	//{
 	//	m_vecObj[i].
 	//}
+	if (KEYMANAGER->isOnceKeyDown('P'))
+	{
+		m_crateLid->SetInven(m_Tomato);
+	}
+
+	if (KEYMANAGER->isOnceKeyDown('L'))
+	{
+		m_crateLid->GetInven();
+	}
 
 	for (auto p : m_listObj)
 	{
@@ -94,20 +108,20 @@ void cStageObjManager::ActionControl()
 
 	if (m_buttonSelect == BUTTON_1)
 	{
-		m_crate->GetLid()->SetCheck(true);
+		//m_crateLid->GetLid()->SetCheck(true);
 	}
 	else if (m_buttonSelect == BUTTON_2)
 	{
-		m_crate->GetLid()->SetCheck(false);
+		//m_crate->GetLid()->SetCheck(false);
 	}
 }
 
-void cStageObjManager::OnAction(cIGObj * pSender)
+void cStageObjManager::OnAction(cIGObj * pSender) //신호를 주는 객체에서 신호가 들어왔다.
 {
-	if (pSender == m_crate->GetLid())
-	{
-		//SCENEMANAGER->ChangeScene("StageMapTool");
-	}
+	//if (pSender == m_crate->GetLid())
+	//{
+	//	//SCENEMANAGER->ChangeScene("StageMapTool");
+	//}
 }
 
 
@@ -123,28 +137,28 @@ std::list<cIGObj*>::iterator cStageObjManager:: SetIngameObject(OBJECTTYPE objty
 	switch (objtype)
 	{
 	case CRATE_TOMATO:
-		m_crate = new cCrate;
-		m_crate->Setup(matWorld, D3DXVECTOR3(matWorld._41, matWorld._42, matWorld._43), (int)CRATE_TOMATO);
-		iter = m_listObj.insert(m_listObj.end(), m_crate);
+		m_crateLid = new cCrateLid;
+		m_crateLid->Setup(matWorld, D3DXVECTOR3(matWorld._41, matWorld._42, matWorld._43), (int)CRATE_TOMATO);
+		iter = m_listObj.insert(m_listObj.end(), m_crateLid);
 		return iter;
 		//return 
 		break;
 	case CRATE_POTATO:
-		m_crate = new cCrate;
-		m_crate->Setup(matWorld, D3DXVECTOR3(matWorld._41, matWorld._42, matWorld._43), (int)CRATE_POTATO);
-		iter = m_listObj.insert(m_listObj.end(), m_crate);
+		m_crateLid = new cCrateLid;
+		m_crateLid->Setup(matWorld, D3DXVECTOR3(matWorld._41, matWorld._42, matWorld._43), (int)CRATE_POTATO);
+		iter = m_listObj.insert(m_listObj.end(), m_crateLid);
 		return iter;
 		break;
 	case CRATE_MUSHROOM:
-		m_crate = new cCrate;
-		m_crate->Setup(matWorld, D3DXVECTOR3(matWorld._41, matWorld._42, matWorld._43), (int)CRATE_MUSHROOM);
-		iter = m_listObj.insert(m_listObj.end(), m_crate);
+		m_crateLid = new cCrateLid;
+		m_crateLid->Setup(matWorld, D3DXVECTOR3(matWorld._41, matWorld._42, matWorld._43), (int)CRATE_MUSHROOM);
+		iter = m_listObj.insert(m_listObj.end(), m_crateLid);
 		return iter;
 		break;
 	case CRATE_ONION:
-		m_crate = new cCrate;
-		m_crate->Setup(matWorld, D3DXVECTOR3(matWorld._41, matWorld._42, matWorld._43), (int)CRATE_ONION);
-		iter = m_listObj.insert(m_listObj.end(), m_crate);
+		m_crateLid = new cCrateLid;
+		m_crateLid->Setup(matWorld, D3DXVECTOR3(matWorld._41, matWorld._42, matWorld._43), (int)CRATE_ONION);
+		iter = m_listObj.insert(m_listObj.end(), m_crateLid);
 		return iter;
 		break;
 	case AOBJ_BIN:

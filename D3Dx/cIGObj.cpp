@@ -8,6 +8,7 @@ cIGObj::cIGObj()
 	, m_pTexture(NULL)
 	, m_vPos(0.0f, 0.0f, 0.0f)
 	, m_pDelegate(NULL)
+	, m_Inven(NULL)
 {	
 	D3DXMatrixIdentity(&m_matLocal);
 	D3DXMatrixIdentity(&m_matWorld);
