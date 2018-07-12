@@ -48,12 +48,11 @@ private:
 	map<pair<int, int>, ST_TILE>::iterator			m_iterFloorTiles;		//위에꺼 반복자
 	map<pair<int, int>, vector<ST_TILE>>			m_mapObjectTiles;		//오브젝트 타일 정보 저장 컨테이너
 	map<pair<int, int>, vector<ST_TILE>>::iterator	m_iterObjectTiles;		//위에꺼 반복자
-	map<pair<int, int>, vector<ST_TILE>>			m_mapNewObjTiles;		//New로 할당하는 오브젝트 타일 정보 저장 컨테이너
-	map<pair<int, int>, vector<ST_TILE>>::iterator	m_iterNewObjTiles;		//위에꺼 반복자
+	map<pair<int, int>, ST_NEWOBJ>					m_mapNewObject;			//New로 생성해주는 오브젝트
+	map<pair<int, int>, ST_NEWOBJ>					m_mapSetObject;			//NewObj에 셋팅해주는 오브젝트
+	map<pair<int, int>, ST_NEWOBJ>::iterator		m_iterNewObject;		//위에 둘꺼 반복자
 	map<pair<int, int>, ST_TILE>					m_mapBlockTiles;		//방해 타일 정보 저장 컨테이너
 	map<pair<int, int>, ST_TILE>::iterator			m_iterBlockTiles;		//위에꺼 반복자
-	map<pair<int, int>, ST_NEWOBJ>					m_mapNewObject;			//New로 생성해주는 오브젝트
-	map<pair<int, int>, ST_NEWOBJ>::iterator		m_iterNewObject;		//위에꺼 반복자
 	vector<ST_TILE>									m_vecObjectTemplate;	//템플릿 오브젝트
 	ST_TILE											m_stFloorTemplate;		//템플릿 바닥 타일
 	ST_TILE											m_stBlockTemplate;		//템플릿 방해 오브젝트
@@ -77,6 +76,6 @@ public:
 	void MenuSave();
 	void MenuLoad();
 	void MenuTexture(int menuNum);
-	int getObjectType();
+	int getObjectType(bool& isSetObject);
 };
 

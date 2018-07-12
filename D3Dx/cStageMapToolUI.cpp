@@ -83,9 +83,15 @@ void cStageMapToolUI::Setup()
 	g_pTextureManager->GetTexture(m_stMenuButton[MT_TEXTURE3].wstrTexture.c_str(), &m_stMenuButton[MT_TEXTURE3].imageInfo);
 	D3DXMatrixTranslation(&m_stMenuButton[MT_TEXTURE3].matrix, 0, 540, 0);
 
-	m_stNewObjTile[NOT_CRATE].wstrTexture = L"./Resources/StageTexture/MenuCrate.png";
-	g_pTextureManager->GetTexture(m_stNewObjTile[NOT_CRATE].wstrTexture.c_str(), &m_stNewObjTile[NOT_CRATE].imageInfo);
-	D3DXMatrixTranslation(&m_stNewObjTile[NOT_CRATE].matrix, m_VP.Width - 165, 5, 0);
+	for (int i = 0; i < NOT_MAX; ++i)
+	{
+		WCHAR buffer[128];
+		int num = i;
+		wsprintf(buffer, L"./Resources/StageTexture/MenuNew_%d.png", num);
+		m_stNewObjTile[i].wstrTexture = buffer;
+		g_pTextureManager->GetTexture(m_stNewObjTile[i].wstrTexture.c_str(), &m_stNewObjTile[i].imageInfo);
+		D3DXMatrixTranslation(&m_stNewObjTile[i].matrix, m_VP.Width - 165, 5 + (i * 60), 0);
+	}
 
 	m_stMenuSelectButton.wstrTexture = L"./Resources/StageTexture/MenuSelect.png";
 	g_pTextureManager->GetTexture(m_stMenuSelectButton.wstrTexture.c_str(), &m_stMenuSelectButton.imageInfo);

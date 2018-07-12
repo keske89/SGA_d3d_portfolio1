@@ -14,6 +14,14 @@ enum eTileType
 enum eNewObjTileType
 {
 	NOT_CRATE,
+	NOT_BIN,
+	NOT_CHOPPINGBOARD,
+	NOT_COOKER,
+	NOT_PASS,
+	NOT_PLATE,
+	NOT_PLATERETURNBOX,
+	NOT_POT,
+	NOT_SINK,
 	NOT_MAX
 };
 //ªÛ¿⁄ ≈∏¿Ÿ

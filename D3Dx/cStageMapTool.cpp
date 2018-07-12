@@ -409,6 +409,7 @@ void cStageMapTool::Control()
 			if (menuNum != MT_NEWOBJ && m_stNewObjTemplate.p != NULL)
 			{
 				m_pSOM->DeleteObject(m_stNewObjTemplate.iter);
+				m_stNewObjTemplate.p = NULL;
 			}
 			else if (m_nMenuNum != menuNum && menuNum == MT_NEWOBJ)
 			{
@@ -419,23 +420,20 @@ void cStageMapTool::Control()
 			if (menuNum == MT_OPEN)
 			{
 				MenuOpen();
-				m_nMenuNum = menuNum;
 			}
 			else if (menuNum == MT_SAVE)
 			{
 				MenuSave();
-				m_nMenuNum = menuNum;
 			}
 			else if (menuNum == MT_LOAD)
 			{
 				MenuLoad();
-				m_nMenuNum = menuNum;
 			}
 			else if (menuNum == MT_TEXTURE1 || menuNum == MT_TEXTURE2 || menuNum == MT_TEXTURE3)
 			{
 				MenuTexture(menuNum);
-				m_nMenuNum = menuNum;
 			}
+			m_nMenuNum = menuNum;
 		}
 		else if (m_pUI->SelectTile(m_nTextureNum) == true)
 		{
@@ -443,17 +441,21 @@ void cStageMapTool::Control()
 		}
 		else if (m_nMenuNum == MT_NEWOBJ && m_nNewObjNum == NOT_CRATE && m_pUI->SelectSubMenu() == true)
 		{
+			bool temp;
 			m_pSOM->DeleteObject(m_stNewObjTemplate.iter);
-			m_stNewObjTemplate.type = getObjectType();
+			m_stNewObjTemplate.type = getObjectType(temp);
 			m_stNewObjTemplate.iter = m_pSOM->SetIngameObject((OBJECTTYPE)m_stNewObjTemplate.type, matIden);
+			m_stNewObjTemplate.p = (*m_stNewObjTemplate.iter);
 		}
 		else if (m_nMenuNum == MT_NEWOBJ && m_pUI->SelectNewObj(m_nNewObjNum) == true)
 		{
 			if (m_nNewObjNum == NOT_CRATE)
 			{
+				bool temp;
 				m_pSOM->DeleteObject(m_stNewObjTemplate.iter);
-				m_stNewObjTemplate.type = getObjectType();
+				m_stNewObjTemplate.type = getObjectType(temp);
 				m_stNewObjTemplate.iter = m_pSOM->SetIngameObject((OBJECTTYPE)m_stNewObjTemplate.type, matIden);
+				m_stNewObjTemplate.p = (*m_stNewObjTemplate.iter);
 			}
 		}
 		else if (m_pUI->getTileType() == TT_FLOOR)
@@ -474,18 +476,38 @@ void cStageMapTool::Control()
 		}
 		else if (m_pUI->getTileType() == TT_NEWOBJ)
 		{
-			m_iterNewObject = m_mapNewObject.find(make_pair(m_nIndexX, m_nIndexZ));
-			if (m_iterNewObject != m_mapNewObject.end())
-			{
-				m_pSOM->DeleteObject(m_iterNewObject->second.iter);
-				m_mapNewObject.erase(m_iterNewObject);
-			}
+			bool isSetObj;
 			ST_NEWOBJ temp;
 			D3DXMATRIX matFinal = matTransBeforeRot * matRot * matTransAfterRot * matTrans;
-			temp.type = getObjectType();
+			temp.type = getObjectType(isSetObj);
+			if (isSetObj == true)
+			{
+				m_iterNewObject = m_mapSetObject.find(make_pair(m_nIndexX, m_nIndexZ));
+				if (m_iterNewObject != m_mapSetObject.end())
+				{
+					m_pSOM->DeleteObject(m_iterNewObject->second.iter);
+					m_mapSetObject.erase(m_iterNewObject);
+				}
+			}
+			else
+			{
+				m_iterNewObject = m_mapNewObject.find(make_pair(m_nIndexX, m_nIndexZ));
+				if (m_iterNewObject != m_mapNewObject.end())
+				{
+					m_pSOM->DeleteObject(m_iterNewObject->second.iter);
+					m_mapNewObject.erase(m_iterNewObject);
+				}
+			}
 			temp.iter = m_pSOM->SetIngameObject((OBJECTTYPE)temp.type, matFinal);
 			temp.p = (*temp.iter);
-			m_mapNewObject.insert(make_pair(make_pair(m_nIndexX, m_nIndexZ), temp));
+			if (isSetObj == true)
+			{
+				m_mapSetObject.insert(make_pair(make_pair(m_nIndexX, m_nIndexZ), temp));
+			}
+			else
+			{
+				m_mapNewObject.insert(make_pair(make_pair(m_nIndexX, m_nIndexZ), temp));
+			}
 		}
 		else if (m_pUI->getTileType() == TT_BLOCK)
 		{
@@ -519,6 +541,12 @@ void cStageMapTool::Control()
 			{
 				m_pSOM->DeleteObject(m_iterNewObject->second.iter);
 				m_mapNewObject.erase(m_iterNewObject);
+			}
+			m_iterNewObject = m_mapSetObject.find(make_pair(m_nIndexX, m_nIndexZ));
+			if (m_iterNewObject != m_mapSetObject.end())
+			{
+				m_pSOM->DeleteObject(m_iterNewObject->second.iter);
+				m_mapSetObject.erase(m_iterNewObject);
 			}
 		}
 		else if (m_pUI->getTileType() == TT_BLOCK)
@@ -801,12 +829,13 @@ void cStageMapTool::MenuTexture(int menuNum)
 	m_vecObjectTemplate[menuNum - MT_TEXTURE1].wstrTexture = FullPath;
 }
 
-int cStageMapTool::getObjectType()
+int cStageMapTool::getObjectType(bool& isSetObject)
 {
 	switch (m_pUI->getNewObjTileType())
 	{
 		case(NOT_CRATE):
 		{
+			isSetObject = false;
 			switch (m_pUI->getCrateType())
 			{
 			case(CT_MUSHROOM):
