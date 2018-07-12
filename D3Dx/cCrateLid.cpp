@@ -10,16 +10,16 @@ cCrateLid::cCrateLid()
 	, m_fAnimationRot(0.0f)
 	, m_bAni(false)
 	, m_pTexture2(NULL)
-	, m_Crate(NULL)
 {
 }
 
 
 cCrateLid::~cCrateLid()
 {
+	m_pChild->~cIGObj();
 }
 
-void cCrateLid::Setup(D3DXMATRIX matWorld, D3DXVECTOR3 pos, int lidtype)
+void cCrateLid::Setup(D3DXMATRIX matWorld, D3DXVECTOR3 pos, int objectType)
 {
 	// CRATE = 10~ 
 
@@ -42,7 +42,7 @@ void cCrateLid::Setup(D3DXMATRIX matWorld, D3DXVECTOR3 pos, int lidtype)
 	// ¶Ñ°Ï ¾Æ·¡ÂÊ ÀÌ¹ÌÁö
 	m_pTexture = g_pTextureManager->GetTexture(L"Resources/Texture2D/LidBottom_Texture.png");
 
-	switch (lidtype)
+	switch (objectType)
 	{
 	case 14:
 		m_pTexture2 = g_pTextureManager->GetTexture(L"Resources/Texture2D/Onion_Texture.png");
@@ -64,9 +64,9 @@ void cCrateLid::Setup(D3DXMATRIX matWorld, D3DXVECTOR3 pos, int lidtype)
 		break;
 	}
 
+	m_nObjectType = objectType;
 
-	m_Crate = new cCrate;
-	m_Crate->Setup(matWorld, pos, lidtype);
+
 
 
 }
@@ -118,7 +118,6 @@ void cCrateLid::Update()
 	//{
 	//	this->Animation();
 	//}
-	m_Crate->SetMatWorld(m_matWorld);
 	Inventory();
 
 }
@@ -135,7 +134,7 @@ void cCrateLid::Render()
 	g_pD3DDevice->SetTexture(0, m_pTexture2);
 	m_pMesh->DrawSubset(1);
 
-	m_Crate->Render();
+	m_pChild->Render();
 
 
 }
@@ -210,7 +209,7 @@ void cCrateLid::Inventory()
 		D3DXMatrixIdentity(&matT);
 		D3DXMatrixTranslation(&matT, 0, 1.0f, 0);
 
-		m_Inven->SetMatWorld(matT * m_matLocal * m_matWorld);
+		m_Inven->SetWorldMatrix(matT * m_matLocal * m_matWorld);
 	}
 
 }

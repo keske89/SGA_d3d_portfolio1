@@ -391,7 +391,7 @@ void cStageMapTool::Control()
 	/////////////////////////////////수정 필요/////////////////////////////////////////
 	if (m_stNewObjTemplate.p)
 	{
-		m_stNewObjTemplate.p->SetMatWorld(matTransBeforeRot * matRot * matTransAfterRot * matTrans);
+		m_stNewObjTemplate.p->SetWorldMatrix(matTransBeforeRot * matRot * matTransAfterRot * matTrans);
 	}
 	//////////////////////////////////////////////////////////////////////////////////
 	for (int i = 0; i < m_vecObjectTemplate.size(); ++i)

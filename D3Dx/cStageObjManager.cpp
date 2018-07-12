@@ -2,6 +2,7 @@
 #include "cStageObjManager.h"
 #include "cIGObj.h"
 #include "cCrateLid.h"
+#include "cCrate.h"
 #include "cKnife.h"
 #include "cPot.h"
 #include "cSink.h"
@@ -24,6 +25,11 @@ cStageObjManager::cStageObjManager()
 
 cStageObjManager::~cStageObjManager()
 {
+	list<cIGObj*>::iterator iter;
+	for (iter = m_listObj.begin(); iter != m_listObj.end(); ++iter)
+	{
+		SAFE_DELETE(*iter);
+	}
 }
 
 void cStageObjManager::Setup()
@@ -34,20 +40,23 @@ void cStageObjManager::Setup()
 
 	m_crateLid = new cCrateLid;
 	m_crateLid->Setup(matWorld, mPos, CRATE_TOMATO);
+	cCrate* crate = new cCrate;
+	crate->Setup(matWorld, mPos, CRATE_TOMATO);
+	m_crateLid->AddChild(crate);
 	m_listObj.push_back(m_crateLid);
 
 
-	m_Sink = new cSink;
-	m_Sink->Setup(matWorld, mPos, 0);
-	m_listObj.push_back(m_Sink);
-
-	m_Cooker = new cCooker;
-	m_Cooker->Setup(matWorld, mPos, 0);
-	m_listObj.push_back(m_Cooker);
-
-	m_Tomato = new cTomato;
-	m_Tomato->Setup(matWorld, mPos, 0);
-	m_listObj.push_back(m_Tomato);
+	//m_Sink = new cSink;
+	//m_Sink->Setup(matWorld, mPos, 0);
+	//m_listObj.push_back(m_Sink);
+	//
+	//m_Cooker = new cCooker;
+	//m_Cooker->Setup(matWorld, mPos, 0);
+	//m_listObj.push_back(m_Cooker);
+	//
+	//m_Tomato = new cTomato;
+	//m_Tomato->Setup(matWorld, mPos, 0);
+	//m_listObj.push_back(m_Tomato);
 
 }
 
@@ -137,30 +146,49 @@ std::list<cIGObj*>::iterator cStageObjManager:: SetIngameObject(OBJECTTYPE objty
 	switch (objtype)
 	{
 	case CRATE_TOMATO:
-		m_crateLid = new cCrateLid;
-		m_crateLid->Setup(matWorld, D3DXVECTOR3(matWorld._41, matWorld._42, matWorld._43), (int)CRATE_TOMATO);
+	{
+		cCrateLid * pCrateLid = new cCrateLid;
+		pCrateLid->Setup(matWorld, D3DXVECTOR3(matWorld._41, matWorld._42, matWorld._43), (int)CRATE_TOMATO);
+		cCrate* pCrate = new cCrate;
+		pCrate->Setup(matWorld, D3DXVECTOR3(matWorld._41, matWorld._42, matWorld._43), (int)CRATE_TOMATO);
+		pCrateLid->AddChild(pCrate);
 		iter = m_listObj.insert(m_listObj.end(), m_crateLid);
 		return iter;
-		//return 
-		break;
+	}
+	break;
 	case CRATE_POTATO:
-		m_crateLid = new cCrateLid;
-		m_crateLid->Setup(matWorld, D3DXVECTOR3(matWorld._41, matWorld._42, matWorld._43), (int)CRATE_POTATO);
+	{
+		cCrateLid * pCrateLid = new cCrateLid;
+		pCrateLid->Setup(matWorld, D3DXVECTOR3(matWorld._41, matWorld._42, matWorld._43), (int)CRATE_POTATO);
+		cCrate* pCrate = new cCrate;
+		pCrate->Setup(matWorld, D3DXVECTOR3(matWorld._41, matWorld._42, matWorld._43), (int)CRATE_POTATO);
+		pCrateLid->AddChild(pCrate);
 		iter = m_listObj.insert(m_listObj.end(), m_crateLid);
 		return iter;
-		break;
+	}
+	break;
 	case CRATE_MUSHROOM:
-		m_crateLid = new cCrateLid;
-		m_crateLid->Setup(matWorld, D3DXVECTOR3(matWorld._41, matWorld._42, matWorld._43), (int)CRATE_MUSHROOM);
+	{
+		cCrateLid * pCrateLid = new cCrateLid;
+		pCrateLid->Setup(matWorld, D3DXVECTOR3(matWorld._41, matWorld._42, matWorld._43), (int)CRATE_MUSHROOM);
+		cCrate* pCrate = new cCrate;
+		pCrate->Setup(matWorld, D3DXVECTOR3(matWorld._41, matWorld._42, matWorld._43), (int)CRATE_MUSHROOM);
+		pCrateLid->AddChild(pCrate);
 		iter = m_listObj.insert(m_listObj.end(), m_crateLid);
 		return iter;
-		break;
+	}
+	break;
 	case CRATE_ONION:
-		m_crateLid = new cCrateLid;
-		m_crateLid->Setup(matWorld, D3DXVECTOR3(matWorld._41, matWorld._42, matWorld._43), (int)CRATE_ONION);
+	{
+		cCrateLid * pCrateLid = new cCrateLid;
+		pCrateLid->Setup(matWorld, D3DXVECTOR3(matWorld._41, matWorld._42, matWorld._43), (int)CRATE_ONION);
+		cCrate* pCrate = new cCrate;
+		pCrate->Setup(matWorld, D3DXVECTOR3(matWorld._41, matWorld._42, matWorld._43), (int)CRATE_ONION);
+		pCrateLid->AddChild(pCrate);
 		iter = m_listObj.insert(m_listObj.end(), m_crateLid);
 		return iter;
-		break;
+	}
+	break;
 	case AOBJ_BIN:
 		m_Bin = new cBin;
 		m_Bin->Setup(matWorld, D3DXVECTOR3(matWorld._41, matWorld._42, matWorld._43), 0);

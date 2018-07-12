@@ -18,7 +18,6 @@ private:
 
 
 	LPDIRECT3DTEXTURE9			m_pTexture2;
-	cCrate*						m_Crate;
 	bool m_bCheck;
 	bool m_bAni;
 
@@ -40,7 +39,7 @@ public:
 	virtual void Setup() override;
 	virtual void Update() override;
 	virtual void Render() override;
-	virtual void Setup(D3DXMATRIX matWorld, D3DXVECTOR3 pos, int lidtype) override;
+	virtual void Setup(D3DXMATRIX matWorld, D3DXVECTOR3 pos, int objectType) override;
 	virtual void SetWorldMat(D3DXMATRIX matWorld);
 
 

@@ -21,6 +21,7 @@ cTestScene1::~cTestScene1()
 	delete m_pCamera;
 	delete m_IGObj;
 	SAFE_RELEASE(m_pFont);
+	SAFE_DELETE(m_SOM);
 
 	delete m_pControl;
 	for (int i = 0; i < 2; i++)
@@ -45,7 +46,6 @@ void cTestScene1::Setup()
 
 	m_SOM = new cStageObjManager;
 	m_SOM->Setup();
-	m_SOM->
 
 	
 
