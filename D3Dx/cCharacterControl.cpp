@@ -25,7 +25,14 @@ void cCharacterControl::SetUp()
 	m_vecCharacter[0]->GetRoot()->SetParentWorldTM(&m_StPlayerAtrribute[0].ST_matPlayer);
 	m_vecCharacter[1]->GetRoot()->SetParentWorldTM(&m_StPlayerAtrribute[1].ST_matPlayer);
 }
-
+void cCharacterControl::SetUp(std::map<pair<int, int>, bool> StageIndex)
+{
+	D3DXMatrixTranslation(&m_StPlayerAtrribute[0].ST_matPlayer, m_vecCharacter[0]->GetPos().x, m_vecCharacter[0]->GetPos().y, m_vecCharacter[0]->GetPos().z);
+	D3DXMatrixTranslation(&m_StPlayerAtrribute[1].ST_matPlayer, m_vecCharacter[1]->GetPos().x, m_vecCharacter[1]->GetPos().y, m_vecCharacter[1]->GetPos().z);
+	m_vecCharacter[0]->GetRoot()->SetParentWorldTM(&m_StPlayerAtrribute[0].ST_matPlayer);
+	m_vecCharacter[1]->GetRoot()->SetParentWorldTM(&m_StPlayerAtrribute[1].ST_matPlayer);
+	m_mapSatgeIndex = StageIndex;
+}
 void cCharacterControl::Update()
 {
 }
@@ -340,7 +347,6 @@ void cCharacterControl::SetPlaterMod(int num)
 		m_enmPlayerMod = (PLAYERMOD)num;
 
 }
-
 void cCharacterControl::AddcCharacter(cChef * Chef)
 {
 	m_vecCharacter.push_back(Chef);

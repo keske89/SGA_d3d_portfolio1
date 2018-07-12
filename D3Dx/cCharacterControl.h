@@ -42,11 +42,13 @@ private:
 	float						m_fCharacterBOOSTERSpeed;
 	float						m_fFrictional;
 	cChefAnimation *			m_pAnimation;
+	std::map<pair<int, int>, bool> m_mapSatgeIndex;
 public:
 	cCharacterControl();
 	~cCharacterControl();
 	void AddcCharacter(cChef * _Chef);
 	void SetPlaterMod(int num);
+	void SetUp(std::map<pair<int, int>, bool> StageIndex);
 	void SetUp();
 	void Update();
 	void Render();
