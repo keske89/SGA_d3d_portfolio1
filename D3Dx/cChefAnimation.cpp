@@ -26,18 +26,20 @@ void cChefAnimation::Animation(cChefRoot * _cChefRoot)
 	case CHEF_STATE_IDLE:
 	{
 		D3DXMatrixIdentity(&matOld);
-		for (int i = 0; i < 2; i++)
-			_cChefRoot->GetChild()[i]->SetmatLocal(matOld);
+		D3DXMatrixTranslation(&matT2, 3.43f, 0, 0);
 		D3DXMatrixTranslation(&matT, 0, -100, 0);
+		_cChefRoot->GetChild()[0]->SetmatLocal(matT2);
+		_cChefRoot->GetChild()[1]->SetmatLocal(matOld);
 		_cChefRoot->GetChild()[3]->SetmatLocal(matT);
-
 		_cChefRoot->GetChild()[2]->Setmesh(ObJMANAGER->GetMesh(L"Hand_Open_R #000539.obj"));
 	}
 	break;
 	case CHEF_STATE_MOVE:
 	{
-		_cChefRoot->GetChild()[2]->Setmesh(ObJMANAGER->GetMesh(L"Hand_Open_R #000539.obj"));
+		D3DXMatrixTranslation(&matT2, 3.43f, 0, 0);
 		D3DXMatrixTranslation(&matT, 0, -100, 0);
+		_cChefRoot->GetChild()[0]->SetmatLocal(matT2);
+		_cChefRoot->GetChild()[2]->Setmesh(ObJMANAGER->GetMesh(L"Hand_Open_R #000539.obj"));
 		_cChefRoot->GetChild()[3]->SetmatLocal(matT);
 		for (int i = 0; i < _cChefRoot->GetChild().size() - 1; i++)
 		{
@@ -95,8 +97,10 @@ void cChefAnimation::Animation(cChefRoot * _cChefRoot)
 
 			D3DXMatrixRotationY(&matRY, m_fRotY);
 			D3DXMatrixTranslation(&matT, temp.x, temp.y, temp.z);
-			D3DXMatrixTranslation(&matT2, temp.x, temp.y, temp.z);
-			matAni = matRX * matRY * matT;
+			if(i == 0)
+				matAni = matT2 *matRX * matRY * matT;
+			else
+				matAni = matRX * matRY * matT;
 			_cChefRoot->GetChild()[i]->SetmatLocal(matAni);
 
 		}
@@ -143,6 +147,7 @@ void cChefAnimation::Animation(cChefRoot * _cChefRoot)
 	break;
 	case CHEF_STATE_TRANCEPORT_MOVE:
 	{
+		D3DXMatrixTranslation(&matT2, 3.43f, 0, 0);
 		float f_tempAngle = 0;
 		for (int i = 0; i < _cChefRoot->GetChild().size() - 1; i++)
 		{
@@ -205,7 +210,10 @@ void cChefAnimation::Animation(cChefRoot * _cChefRoot)
 			D3DXMatrixRotationY(&matRY, m_fRotY);
 			D3DXMatrixRotationZ(&matRZ, D3DX_PI / 2);
 			D3DXMatrixTranslation(&matT, temp.x, temp.y, temp.z);
-			matAni = matRY * matRZ* matT;
+			if (i == 0)
+				matAni = matT2 * matRX * matRY * matT;
+			else
+				matAni = matRX * matRY * matT;
 			_cChefRoot->GetChild()[i]->SetmatLocal(matAni);
 		}
 	}

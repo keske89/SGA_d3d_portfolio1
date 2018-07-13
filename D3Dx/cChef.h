@@ -24,7 +24,8 @@ private:
 public:
 	cChef();
 	~cChef();
-	void SetUp(D3DXVECTOR3 vPos, cCharacterControl * m_pControl);
+	void SetUp(D3DXVECTOR3 vPos, cCharacterControl * m_pControl = NULL);
+	void Relese();
 	void Update();
 	void Render();
 	void SetMaterial();

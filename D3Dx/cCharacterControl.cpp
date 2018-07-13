@@ -15,7 +15,10 @@ cCharacterControl::cCharacterControl()
 
 cCharacterControl::~cCharacterControl()
 {
-	m_vecCharacter.clear();
+	for (int i = 0; i < m_vecCharacter.size(); i++)
+	{
+		m_vecCharacter[i]->Relese();
+	}
 }
 
 void cCharacterControl::SetUp()

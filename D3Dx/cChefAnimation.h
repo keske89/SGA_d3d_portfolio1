@@ -7,7 +7,7 @@ private:
 	float m_fRotDeltaX, m_fRotDeltaY, m_fRotDeltaZ;
 public:
 	cChefAnimation();
-	~cChefAnimation();
+	virtual	~cChefAnimation();
 	void Animation(cChefRoot * _cChefRoot);
 	D3DXMATRIX*  KnifeLocal();
 };

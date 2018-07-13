@@ -4,7 +4,6 @@
 cChefRunPuff::cChefRunPuff()
 			: m_fangle(0)
 			, m_fScale(10.0f)
-			, m_pDelegate(NULL)
 {
 	D3DXMatrixIdentity(&m_matWorld);
 	D3DXMatrixIdentity(&m_matLocal);
@@ -13,9 +12,7 @@ cChefRunPuff::cChefRunPuff()
 
 cChefRunPuff::~cChefRunPuff()
 {
-	m_pMesh->Release();
 	m_pTexture->Release();
-	SAFE_RELEASE(m_pDelegate);
 }
 
 void cChefRunPuff::SetUp(D3DXVECTOR3 vPos)
