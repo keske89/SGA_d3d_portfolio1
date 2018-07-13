@@ -33,8 +33,6 @@ void cChefRoot::Destroy()
 {
 	for (int i = 0; i < m_vecChild.size(); i++)
 	{
-		m_vecChild[i]->m_pTexture->Release();
-		m_vecChild[i]->m_pMesh->Release();
 		m_vecChild[i]->Destroy();
 	}
 	delete this;

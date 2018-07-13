@@ -28,6 +28,7 @@ cTestScene1::~cTestScene1()
 	{
 		delete m_pChef[i];
 	}
+	SAFE_RELEASE(m_pFont);
 
 }
 
@@ -50,16 +51,22 @@ void cTestScene1::Setup()
 	
 
 
-	/*m_pControl = new cCharacterControl;
+	m_pControl = new cCharacterControl;
 
 	for (int i = 0; i < 2; i++)
 	{
-		m_pChef[i] = new cCharacter;
+		m_pChef[i] = new cChef;
 		m_pControl->AddcCharacter(m_pChef[i]);
 		m_pChef[i]->SetUp(D3DXVECTOR3(i * 3, 0, 0), m_pControl);
 	}
-	m_pControl->SetUp();*/
+	m_pControl->SetUp();
+	for (int i = 0; i < 2; i++)
+	{
+		m_pChef[i]->Update();
+	}
 
+	if (KEYMANAGER->isOnceKeyDown(VK_RETURN))
+		m_pControl->SetPlaterMod(2);
 
 	
 }
@@ -72,16 +79,16 @@ void cTestScene1::Update()
 
 	if (m_SOM)
 		m_SOM->Update();
-	
+
 	//m_vecObj[0]->SetMatWorld()  // 인덱스번호로 접근해서 관리함 일단 
 
-	/*for (int i = 0; i < 2; i++)
+	for (int i = 0; i < 2; i++)
 	{
 		m_pChef[i]->Update();
 	}
 
 	if (KEYMANAGER->isOnceKeyDown(VK_RETURN))
-		m_pControl->SetPlaterMod(2);*/
+		m_pControl->SetPlaterMod(2);
 }
 
 void cTestScene1::Render()
@@ -94,11 +101,10 @@ void cTestScene1::Render()
 
 	if (m_SOM)
 		m_SOM->Render();
-
-	/*for (int i = 0; i < 2; i++)
+	for (int i = 0; i < 2; i++)
 	{
 		m_pChef[i]->Render();
-	}*/
+	}
 }
 
 void cTestScene1::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)

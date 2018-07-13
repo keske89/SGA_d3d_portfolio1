@@ -3,7 +3,7 @@
 
 class cIGObj;
 class cCamera;
-class cCharacter;
+class cChef;
 class cCharacterControl;
 class cStageObjManager;
 
@@ -15,7 +15,7 @@ private:
 	cCamera*				m_pCamera;
 	LPD3DXFONT				m_pFont;
 	cIGObj*					m_IGObj;
-	cCharacter*				m_pChef[2];
+	cChef *					m_pChef[2];
 	cCharacterControl*		m_pControl;
 	cStageObjManager*		m_SOM;
 
