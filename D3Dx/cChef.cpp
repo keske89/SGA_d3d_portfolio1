@@ -15,6 +15,7 @@ cChef::cChef()
 	: m_pRoot(NULL)
 	, m_vPosition(0, 0, 0)
 	, m_pObjRoot(NULL)
+	, m_fRadius(0.5f)
 {
 }
 
@@ -45,22 +46,47 @@ void cChef::SetUp(D3DXVECTOR3 vPos, cCharacterControl * _pControl)
 	cChefKnife * pKnife = new cChefKnife;
 	pKnife->SetUp();
 	m_pRoot->AddChild(pKnife);
+
 }
 
 void cChef::Update()
 {
 	m_pControl->Control();
 	Animation(m_pRoot);
+
 	if (m_pRoot)
 		m_pRoot->Update();
+
+	runPuffCreate();
+	for (auto p : m_vecPuff)
+	{
+		p->Update();
+	}
+	for (auto p : m_vecPuff)
+	{
+		if (p->Getscale() < 0)
+			p = NULL;
+		else if (p->Getscale() > 0)
+			p->Getscale()--;
+		if (p == NULL)
+			m_vecPuff.remove(p);
+	}
+
 }
 
 void cChef::Render()
 {
 
 	g_pD3DDevice->SetMaterial(&m_stMtl);
+	for (auto p : m_vecPuff)
+	{
+		p->Render();
+	}
+
+	g_pD3DDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
 	if (m_pRoot)
 		m_pRoot->Render();
+
 
 }
 
@@ -79,4 +105,14 @@ cIGObj * cChef::GetcIGObject()
 
 void cChef::SetcIGObject(cIGObj * _object)
 {
+}
+
+void cChef::runPuffCreate()
+{
+	if (m_pRoot->GetCHEF_STATE() == CHEF_STATE_MOVE)
+	{
+		cChefRunPuff * _runPuff = new cChefRunPuff;
+		_runPuff->SetUp(m_vPosition);
+		m_vecPuff.insert(m_vecPuff.begin(), _runPuff);
+	}
 }

@@ -61,6 +61,7 @@ void cObjManager::Setup()
 	//===============================================================PLAYER
 	SetMeshData(L"./Resources/Mesh/Player/", L"Hand_Grip_R #010449.obj", &matWorld);
 	SetMeshData(L"./Resources/Mesh/Player/", L"Hand_Open_R #000539.obj", &matWorld);
+	SetMeshData(L"./Resources/Mesh/", L"RunPuff.obj", &matWorld);
 }
 
 

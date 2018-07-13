@@ -63,6 +63,8 @@ public:
 	void Control2P();
 	void Move();
 	void Booster();
+	BOOL CheckChefIntersect();
+	void ChefIntersectMove();
 	ST_PLAYER_ATTRIBUTE* GetAtribute(cChef * _Chef)
 	{
 		if (m_vecCharacter[0] == _Chef)

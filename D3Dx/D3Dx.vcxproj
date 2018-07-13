@@ -158,6 +158,7 @@
     <ClInclude Include="cCharacterControl.h" />
     <ClInclude Include="cChefAnimation.h" />
     <ClInclude Include="cChefKnife.h" />
+    <ClInclude Include="cChefRunPuff.h" />
     <ClInclude Include="cChoppingBoard.h" />
     <ClInclude Include="cCooker.h" />
     <ClInclude Include="cCounterTop.h" />
@@ -217,6 +218,7 @@
     <ClCompile Include="cCharacterControl.cpp" />
     <ClCompile Include="cChefAnimation.cpp" />
     <ClCompile Include="cChefKnife.cpp" />
+    <ClCompile Include="cChefRunPuff.cpp" />
     <ClCompile Include="cChoppingBoard.cpp" />
     <ClCompile Include="cCooker.cpp" />
     <ClCompile Include="cCounterTop.cpp" />
