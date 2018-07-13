@@ -16,7 +16,8 @@ cCrateLid::cCrateLid()
 
 cCrateLid::~cCrateLid()
 {
-	m_pChild->~cIGObj();
+	delete m_crate;
+	//m_pChild->~cIGObj();
 }
 
 void cCrateLid::Setup(D3DXMATRIX matWorld, D3DXVECTOR3 pos, int objectType)
@@ -32,7 +33,10 @@ void cCrateLid::Setup(D3DXMATRIX matWorld, D3DXVECTOR3 pos, int objectType)
 	D3DXMatrixIdentity(&matT);
 	D3DXMatrixTranslation(&matT, trans.x, trans.y, trans.z);
 	m_matLocal = matT;
-	m_vPos = pos;
+
+	m_vPos.x = matWorld._41;
+	m_vPos.y = matWorld._42;
+	m_vPos.z = matWorld._43;
 
 	m_matWorld = matWorld;
 
@@ -81,6 +85,9 @@ void cCrateLid::Setup()
 void cCrateLid::SetWorldMat(D3DXMATRIX matWorld)
 {
 	m_matWorld = matWorld;
+	m_vPos.x = matWorld._41;
+	m_vPos.y = matWorld._42;
+	m_vPos.z = matWorld._43;
 }
 
 cIGObj* cCrateLid::GetInven()
@@ -121,6 +128,10 @@ void cCrateLid::Update()
 	//{
 	//	this->Animation();
 	//}
+	m_vPos.x = m_matWorld._41;
+	m_vPos.y = m_matWorld._42;
+	m_vPos.z = m_matWorld._43;
+
 	Inventory();
 
 }

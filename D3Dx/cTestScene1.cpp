@@ -7,6 +7,7 @@
 #include "cStageObjManager.h"	
 
 
+
 cTestScene1::cTestScene1()
 	: m_pCamera(NULL)
 	, m_pControl(NULL)
@@ -23,11 +24,13 @@ cTestScene1::~cTestScene1()
 	SAFE_RELEASE(m_pFont);
 	SAFE_DELETE(m_SOM);
 
-	delete m_pControl;
+
 	for (int i = 0; i < 2; i++)
 	{
 		delete m_pChef[i];
 	}
+	delete m_pControl;
+	
 	SAFE_RELEASE(m_pFont);
 
 }
@@ -49,24 +52,17 @@ void cTestScene1::Setup()
 	m_SOM->Setup();
 
 	
-
-
 	m_pControl = new cCharacterControl;
-
 	for (int i = 0; i < 2; i++)
 	{
 		m_pChef[i] = new cChef;
 		m_pControl->AddcCharacter(m_pChef[i]);
 		m_pChef[i]->SetUp(D3DXVECTOR3(i * 3, 0, 0), m_pControl);
 	}
-	m_pControl->SetUp();
-	for (int i = 0; i < 2; i++)
-	{
-		m_pChef[i]->Update();
-	}
 
-	if (KEYMANAGER->isOnceKeyDown(VK_RETURN))
-		m_pControl->SetPlaterMod(2);
+	
+	m_pControl->SetUp();
+	
 
 	
 }
@@ -82,13 +78,21 @@ void cTestScene1::Update()
 
 	//m_vecObj[0]->SetMatWorld()  // 인덱스번호로 접근해서 관리함 일단 
 
+
 	for (int i = 0; i < 2; i++)
 	{
-		m_pChef[i]->Update();
+		if (m_pChef[i])
+		{
+			m_pChef[i]->Update();
+		}
 	}
 
-	if (KEYMANAGER->isOnceKeyDown(VK_RETURN))
-		m_pControl->SetPlaterMod(2);
+	if (m_pControl)
+	{
+		if (KEYMANAGER->isOnceKeyDown(VK_RETURN))
+			m_pControl->SetPlaterMod(2);
+	}
+	
 }
 
 void cTestScene1::Render()
@@ -101,9 +105,13 @@ void cTestScene1::Render()
 
 	if (m_SOM)
 		m_SOM->Render();
+
 	for (int i = 0; i < 2; i++)
 	{
-		m_pChef[i]->Render();
+		if (m_pChef[i])
+		{
+			m_pChef[i]->Render();
+		}
 	}
 }
 

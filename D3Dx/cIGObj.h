@@ -27,7 +27,6 @@ public:
 	
 	SYNTHESIZE(bool, m_bInteraction, Interaction);
 	SYNTHESIZE(D3DXVECTOR3, m_vPos, Pos);
-
 	SYNTHESIZE(cActionDelegate*, m_pDelegate, Delegate);
 
 public:

@@ -13,6 +13,7 @@
 #include "cPlateReturnBox.h"
 #include "cChoppingBoard.h"
 #include "cTomato.h"
+#include "cCounterTop.h"
 
 //delegate
 #include "cCrateLid.h"
@@ -42,6 +43,10 @@ void cStageObjManager::Setup()
 	m_crateLid->Setup(matWorld, mPos, CRATE_TOMATO);
 	m_listObj.push_back(m_crateLid);
 
+
+	m_Counter = new cCounterTop;
+	m_Counter->Setup(matWorld, mPos, CRATE_TOMATO);
+	m_listObj.push_back(m_Counter);
 
 	
 	//m_Sink = new cSink;

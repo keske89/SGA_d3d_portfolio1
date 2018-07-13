@@ -15,7 +15,7 @@ private:
 	cCamera*				m_pCamera;
 	LPD3DXFONT				m_pFont;
 	cIGObj*					m_IGObj;
-	cChef *					m_pChef[2];
+	cChef*					m_pChef[2];
 	cCharacterControl*		m_pControl;
 	cStageObjManager*		m_SOM;
 

@@ -4,7 +4,7 @@
 typedef 
 
 class cIGObj;
-class cCharacter;
+class cChef;
 
 // action obj
 class cCrateLid;
@@ -24,6 +24,7 @@ class cPlate;
 class cPlateReturnBox;
 
 class cTomato;
+class cCounterTop;
 
 
 enum OBJECTTYPE
@@ -47,6 +48,7 @@ enum OBJECTTYPE
 	AOBJ_PLATERETURNBOX = 25,
 	AOBJ_POT = 26,
 	AOBJ_SINK = 27,
+	AOBJ_TABLE = 28,
 
 	// FOOD OBJ 30~
 	FOBJ_POTATO = 30,
@@ -77,12 +79,12 @@ private:
 	cPlate*					m_Plate;
 	cPlateReturnBox*		m_PlateReturnBox;
 	cTomato*				m_Tomato;
-	
+	cCounterTop*			m_Counter;
 
 	int m_buttonSelect;
 
-	SYNTHESIZE(cCharacter*, m_player1, Player1);
-	SYNTHESIZE(cCharacter*, m_player2, Player2);
+	SYNTHESIZE(cChef*, m_player1, Player1);
+	SYNTHESIZE(cChef*, m_player2, Player2);
 	SYNTHESIZE(std::list<cIGObj*>, m_listObj, ListObj);
 
 

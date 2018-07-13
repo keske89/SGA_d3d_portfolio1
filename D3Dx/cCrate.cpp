@@ -31,6 +31,9 @@ void cCrate::Setup(D3DXMATRIX matWorld, D3DXVECTOR3 pos, int objectType)
 void cCrate::SetWorldMat(D3DXMATRIX matWorld)
 {
 	m_matWorld = matWorld;
+	m_vPos.x = matWorld._41;
+	m_vPos.y = matWorld._42;
+	m_vPos.z = matWorld._43;
 }
 
 
@@ -42,6 +45,9 @@ void cCrate::Setup()
 
 void cCrate::Update()
 {	
+	m_vPos.x = m_matWorld._41;
+	m_vPos.y = m_matWorld._42;
+	m_vPos.z = m_matWorld._43;
 }
 
 void cCrate::Render()

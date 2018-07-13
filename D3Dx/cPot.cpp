@@ -34,6 +34,10 @@ void cPot::Update()
 
 	m_pPgbar->Update(temp, m_size);
 	//if(m_vecFood )
+
+	m_vPos.x = m_matWorld._41;
+	m_vPos.y = m_matWorld._42;
+	m_vPos.z = m_matWorld._43;
 }
 
 void cPot::Render()
@@ -57,6 +61,10 @@ void cPot::SetFood(cFoodObj* foodobject)
 
 void cPot::Setup(D3DXMATRIX matWorld, D3DXVECTOR3 pos, int lidtype)
 {
+	m_vPos.x = matWorld._41;
+	m_vPos.y = matWorld._42;
+	m_vPos.z = matWorld._43;
+	m_matWorld = matWorld;
 	m_pMesh = ObJMANAGER->GetMesh(L"Pot_Mesh.obj");
 	m_pTexture = g_pTextureManager->GetTexture(L"Resources/Texture2D/Pot_Texture.png");
 	m_vecFood.resize(3);
@@ -68,4 +76,7 @@ void cPot::Setup(D3DXMATRIX matWorld, D3DXVECTOR3 pos, int lidtype)
 void cPot::SetWorldMat(D3DXMATRIX matWorld)
 {
 	m_matWorld = matWorld;
+	m_vPos.x = matWorld._41;
+	m_vPos.y = matWorld._42;
+	m_vPos.z = matWorld._43;
 }
