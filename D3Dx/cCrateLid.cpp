@@ -67,7 +67,10 @@ void cCrateLid::Setup(D3DXMATRIX matWorld, D3DXVECTOR3 pos, int objectType)
 	m_nObjectType = objectType;
 
 
-
+	m_crate = new cCrate;
+	m_crate->Setup(matWorld, pos, 11);
+	this->AddChild(m_crate);
+	
 
 }
 

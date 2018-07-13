@@ -40,12 +40,10 @@ void cStageObjManager::Setup()
 
 	m_crateLid = new cCrateLid;
 	m_crateLid->Setup(matWorld, mPos, CRATE_TOMATO);
-	cCrate* crate = new cCrate;
-	crate->Setup(matWorld, mPos, CRATE_TOMATO);
-	m_crateLid->AddChild(crate);
 	m_listObj.push_back(m_crateLid);
 
 
+	
 	//m_Sink = new cSink;
 	//m_Sink->Setup(matWorld, mPos, 0);
 	//m_listObj.push_back(m_Sink);
