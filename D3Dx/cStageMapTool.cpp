@@ -388,12 +388,12 @@ void cStageMapTool::Control()
 	m_stFloorTemplate.matFinal = matRot * matTransAfterRot * matTrans;
 	m_stFloorTemplate.wstrTexture = m_pUI->getTileTexture(m_nTextureNum);
 	m_stBlockTemplate.matFinal = matRot * matTransAfterRot * matTrans;
-	/////////////////////////////////수정 필요/////////////////////////////////////////
+
 	if (m_stNewObjTemplate.p)
 	{
 		m_stNewObjTemplate.p->SetWorldMatrix(matTransBeforeRot * matRot * matTransAfterRot * matTrans);
 	}
-	//////////////////////////////////////////////////////////////////////////////////
+
 	for (int i = 0; i < m_vecObjectTemplate.size(); ++i)
 	{
 		m_vecObjectTemplate[i].matFinal = matTransBeforeRot * matRot * matTransAfterRot * matTrans;
@@ -435,7 +435,7 @@ void cStageMapTool::Control()
 			}
 			m_nMenuNum = menuNum;
 		}
-		else if (m_pUI->SelectTile(m_nTextureNum) == true)
+		else if (m_nMenuNum == MT_FLOOR && m_pUI->SelectTile(m_nTextureNum) == true)
 		{
 			
 		}
@@ -859,6 +859,54 @@ int cStageMapTool::getObjectType(bool& isSetObject)
 			}
 			break;
 			}
+		}
+		break;
+		case(NOT_BIN):
+		{
+			isSetObject = false;
+			return(AOBJ_BIN);
+		}
+		break;
+		case(NOT_CHOPPINGBOARD):
+		{
+			isSetObject = true;
+			return(AOBJ_CHOPPIGNBOARD);
+		}
+		break;
+		case(NOT_COOKER):
+		{
+			isSetObject = true;
+			return(AOBJ_COOKER);
+		}
+		break;
+		case(NOT_PASS):
+		{
+			isSetObject = false;
+			return(AOBJ_PASS);
+		}
+		break;
+		case(NOT_PLATE):
+		{
+			isSetObject = true;
+			return(AOBJ_PLATE);
+		}
+		break;
+		case(NOT_PLATERETURNBOX):
+		{
+			isSetObject = false;
+			return(AOBJ_PLATERETURNBOX);
+		}
+		break;
+		case(NOT_POT):
+		{
+			isSetObject = true;
+			return(AOBJ_POT);
+		}
+		break;
+		case(NOT_SINK):
+		{
+			isSetObject = false;
+			return(AOBJ_SINK);
 		}
 		break;
 	}

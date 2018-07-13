@@ -42,6 +42,7 @@ void cStageMapToolUI::Setup()
 	//각종 버튼들의 텍스쳐 할당과 위치 초기화
 	m_stTileSelectButton.wstrTexture = L"./Resources/StageTexture/FloorTile_0.png";
 	g_pTextureManager->GetTexture(m_stTileSelectButton.wstrTexture.c_str(), &m_stTileSelectButton.imageInfo);
+	D3DXMatrixTranslation(&m_stTileSelectButton.matrix, m_VP.Width - 60, 0, 0);
 
 	m_stMenuButton[MT_FLOOR].wstrTexture = L"./Resources/StageTexture/MenuFloor.png";
 	g_pTextureManager->GetTexture(m_stMenuButton[MT_FLOOR].wstrTexture.c_str(), &m_stMenuButton[MT_FLOOR].imageInfo);
@@ -309,10 +310,7 @@ bool cStageMapToolUI::SelectNewObj(int& num)
 			(int)m_stNewObjTile[i].matrix._42 + 50);
 		if (PtInRect(&rc, _ptMouse))
 		{
-			if (i == NOT_CRATE)
-			{
-				m_eNOTileType = NOT_CRATE;
-			}
+			m_eNOTileType = (eNewObjTileType)i;
 			return true;
 		}
 	}
