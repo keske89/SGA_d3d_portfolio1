@@ -1,12 +1,13 @@
 #pragma once
 #include"cChefAnimation.h"
 #include"cChefRunPuff.h"
+#include"cIGObj.h"
+
 class cChefRoot;
 class cStageObjManager;
-class cIGObj;
 class cCharacterControl;
 
-class cChef :public cChefAnimation
+class cChef :public cChefAnimation, public cActionDelegate
 {
 private:
 	SYNTHESIZE_REF(cChefRoot *, m_pRoot, Root);
@@ -34,5 +35,6 @@ public:
 	void setcStageObjManagerAdressLink(cStageObjManager* _StageObject) { m_pStageOBJ = _StageObject; }
 
 	void runPuffCreate();
+	virtual void OnAction(cIGObj* pSender) override;
 };
 

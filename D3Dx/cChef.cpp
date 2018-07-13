@@ -121,3 +121,7 @@ void cChef::runPuffCreate()
 		m_vecPuff.insert(m_vecPuff.begin(), _runPuff);
 	}*/
 }
+
+void cChef::OnAction(cIGObj * pSender)
+{
+}
