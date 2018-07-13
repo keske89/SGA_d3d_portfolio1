@@ -1,5 +1,6 @@
 #pragma once
 
+class cChef;
 class cIGObj;
 
 class cActionDelegate //Action¿ë delegate class
@@ -28,6 +29,8 @@ public:
 	SYNTHESIZE(bool, m_bInteraction, Interaction);
 	SYNTHESIZE(D3DXVECTOR3, m_vPos, Pos);
 	SYNTHESIZE(cActionDelegate*, m_pDelegate, Delegate);
+	SYNTHESIZE(cChef*, m_player1, player1);
+	SYNTHESIZE(cChef*, m_player2, player2);
 
 public:
 	cIGObj();

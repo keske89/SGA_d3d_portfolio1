@@ -122,16 +122,17 @@ void cCrateLid::Update()
 {
 
 	//SetTexture();
-	//this->Action();
-	//
-	//if (m_bAni)
-	//{
-	//	this->Animation();
-	//}
-	m_vPos.x = m_matWorld._41;
+	this->Action();
+	
+	if (m_bAni)
+	{
+		this->Animation();
+	}
+	/*m_vPos.x = m_matWorld._41;
 	m_vPos.y = m_matWorld._42;
 	m_vPos.z = m_matWorld._43;
-
+*/
+	
 	Inventory();
 
 }
@@ -140,7 +141,7 @@ void cCrateLid::Update()
 void cCrateLid::Render()
 {
 	
-	g_pD3DDevice->SetTransform(D3DTS_WORLD, &(m_matLocal * m_matWorld));
+	g_pD3DDevice->SetTransform(D3DTS_WORLD, &m_matWorld);
 	g_pD3DDevice->SetFVF(ST_PNT_VERTEX::FVF);
 
 	g_pD3DDevice->SetTexture(0, m_pTexture);
@@ -155,7 +156,7 @@ void cCrateLid::Render()
 
 void cCrateLid::Action()
 {
-	if (m_bCheck)
+	if (m_bInteraction)
 	{
 		if (GetKeyState(VK_SPACE) & 0x8000)
 		{
@@ -188,7 +189,10 @@ void cCrateLid::Action()
 		else
 		{
 			m_CrateState = NORMAL;
-			m_matWorld = m_matLocal;
+
+			D3DXMATRIX matT;
+			D3DXMatrixTranslation(&matT, m_vPos.x, m_vPos.y-0.5f, m_vPos.z);
+			m_matWorld = matT;
 			m_fAnimationRot = 0.0f;
 			m_bAni = false;
 		}
@@ -205,7 +209,7 @@ void cCrateLid::Animation()
 	}
 	D3DXMATRIX matR, matT;
 	D3DXMatrixRotationX(&matR, m_fAnimationRot * D3DX_PI / 180);
-	D3DXMatrixTranslation(&matT, 0, 0.1f - (0.1f * f2), -0.8f - (-0.8f*f2));
+	D3DXMatrixTranslation(&matT, 0, 0.6f - (0.6f * f2), -0.8f - (-0.8f*f2));
 	m_matWorld = m_matLocal * matT* matR;
 
 	if (m_fAnimationRot > 45)

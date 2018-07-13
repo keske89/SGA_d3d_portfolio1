@@ -52,17 +52,26 @@ void cTestScene1::Setup()
 	m_SOM->Setup();
 
 	
+
+	
 	m_pControl = new cCharacterControl;
 	for (int i = 0; i < 2; i++)
 	{
 		m_pChef[i] = new cChef;
 		m_pControl->AddcCharacter(m_pChef[i]);
-		m_pChef[i]->SetUp(D3DXVECTOR3(i * 3, 0, 0), m_pControl);
+		m_pChef[i]->SetUp(D3DXVECTOR3((i+1) * 3, 0, 0), m_pControl);
+		m_pChef[i]->setcStageObjManagerAdressLink(m_SOM);
+		
 	}
 
 	
 	m_pControl->SetUp();
+
+	m_SOM->SetPlayer1(m_pChef[0]);
+	m_SOM->SetPlayer2(m_pChef[1]);
 	
+
+
 
 	
 }

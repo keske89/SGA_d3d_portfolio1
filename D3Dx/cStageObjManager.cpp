@@ -14,6 +14,10 @@
 #include "cChoppingBoard.h"
 #include "cTomato.h"
 #include "cCounterTop.h"
+#include "cChef.h"
+
+
+
 
 //delegate
 #include "cCrateLid.h"
@@ -44,23 +48,14 @@ void cStageObjManager::Setup()
 	m_listObj.push_back(m_crateLid);
 
 
-	m_Counter = new cCounterTop;
-	m_Counter->Setup(matWorld, mPos, CRATE_TOMATO);
+	/*m_Counter = new cCounterTop;
+	m_Counter->Setup(matWorld, mPos, 0);
 	m_listObj.push_back(m_Counter);
 
-	
-	//m_Sink = new cSink;
-	//m_Sink->Setup(matWorld, mPos, 0);
-	//m_listObj.push_back(m_Sink);
-	//
-	//m_Cooker = new cCooker;
-	//m_Cooker->Setup(matWorld, mPos, 0);
-	//m_listObj.push_back(m_Cooker);
-	//
-	//m_Tomato = new cTomato;
-	//m_Tomato->Setup(matWorld, mPos, 0);
-	//m_listObj.push_back(m_Tomato);
-
+	m_Tomato = new cTomato;
+	m_Tomato->Setup(matWorld, mPos, 0);
+	m_listObj.push_back(m_Tomato);
+*/
 }
 
 void cStageObjManager::Update()
@@ -73,17 +68,26 @@ void cStageObjManager::Update()
 	{
 		m_crateLid->SetInven(m_Tomato);
 	}
+	//
+	//if (KEYMANAGER->isOnceKeyDown('L'))
+	//{
+	//	m_crateLid->GetInven();
+	//}
 
-	if (KEYMANAGER->isOnceKeyDown('L'))
+	for (auto p : m_listObj)
 	{
-		m_crateLid->GetInven();
+		m_player1->GetPos();
+		m_player2->GetPos();
 	}
+	
+
 
 	for (auto p : m_listObj)
 	{
 		p->Update();
 	}
 
+	IsCollison();
 	ActionControl();
 }
 
@@ -125,6 +129,28 @@ void cStageObjManager::ActionControl()
 	else if (m_buttonSelect == BUTTON_2)
 	{
 		//m_crate->GetLid()->SetCheck(false);
+	}
+}
+
+void cStageObjManager::IsCollison()
+{
+	for (auto p : m_listObj)
+	{
+		if (fabs(p->GetPos().x - m_player1->GetPos().x) <= 1.0f &&
+			fabs(p->GetPos().z - m_player1->GetPos().z) <= 1.0f)
+		{
+			p->SetInteraction(true);
+		}
+
+		else if (fabs(p->GetPos().x - m_player2->GetPos().x) <= 1.0f &&
+			fabs(p->GetPos().z - m_player2->GetPos().z) <= 1.0f)
+		{
+			p->SetInteraction(true);
+		}
+		else
+		{
+			p->SetInteraction(false);
+		}
 	}
 }
 
