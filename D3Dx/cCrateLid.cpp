@@ -106,8 +106,6 @@ cIGObj* cCrateLid::GetInven()
 	}
 }
 
-
-
 void cCrateLid::SetTexture()
 {
 	m_pTexture = g_pTextureManager->GetTexture(L"Resources/Texture2D/LidBottom_Texture.png");
@@ -115,8 +113,6 @@ void cCrateLid::SetTexture()
 	m_aTexture[COLLISIONWITHPLAYER] = g_pTextureManager->GetTexture(L"Resources/Texture2D/Tomato_Texture.png");
 	m_aTexture[SELECTED] = g_pTextureManager->GetTexture(L"Resources/Texture2D/Onion_Texture.png");
 }
-
-
 
 void cCrateLid::Update()
 {
@@ -192,7 +188,7 @@ void cCrateLid::Action()
 
 			D3DXMATRIX matT;
 			D3DXMatrixTranslation(&matT, m_vPos.x, m_vPos.y-0.5f, m_vPos.z);
-			m_matWorld = matT;
+			m_matWorld = m_matLocal;
 			m_fAnimationRot = 0.0f;
 			m_bAni = false;
 		}
@@ -201,18 +197,20 @@ void cCrateLid::Action()
 
 void cCrateLid::Animation()
 {
-	float f = 0.6f;
-	float f2 = 1.0f - m_fAnimationRot / 45;
-	if (m_fAnimationRot <= 45)
+	int n = 60;								//상자열리는 각도
+	float f1 = 0.6f;						//animation 속도 조절
+	float f2 = 1.0f - m_fAnimationRot / n;  //animation interpolation용 t값 
+	if (m_fAnimationRot <= n)
 	{
-		m_fAnimationRot += f;
+		m_fAnimationRot += f1;
 	}
+
 	D3DXMATRIX matR, matT;
 	D3DXMatrixRotationX(&matR, m_fAnimationRot * D3DX_PI / 180);
-	D3DXMatrixTranslation(&matT, 0, 0.6f - (0.6f * f2), -0.8f - (-0.8f*f2));
-	m_matWorld = m_matLocal * matT* matR;
+	D3DXMatrixTranslation(&matT, 0, 0.2f - (0.2f * f2), -0.6f - (-0.6f * f2)); //interpolation 
+	m_matWorld = m_matLocal * matT * matR;
 
-	if (m_fAnimationRot > 45)
+	if (m_fAnimationRot > n)
 	{
 		m_matWorld = m_matLocal;
 	}
