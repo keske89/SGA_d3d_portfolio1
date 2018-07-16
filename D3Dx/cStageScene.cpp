@@ -35,7 +35,7 @@ cStageScene::~cStageScene()
 void cStageScene::Setup()
 {
 	m_pStage = new cStage;
-	m_pStage->Setup(2, m_vNewObjData, m_vSetObjData, m_mapIsBlockedData, m_vecChefPos[0], m_vecChefPos[1]);
+	m_pStage->Setup(3, m_vNewObjData, m_vSetObjData, m_mapIsBlockedData, m_vecChefPos[0], m_vecChefPos[1]);
 
 	m_pCamera = new cCamera;
 	m_pCamera->Setup();
