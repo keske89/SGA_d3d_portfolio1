@@ -22,6 +22,7 @@ enum eNewObjTileType
 	NOT_PLATERETURNBOX,
 	NOT_POT,
 	NOT_SINK,
+	NOT_TABLE,
 	NOT_MAX
 };
 //ªÛ¿⁄ ≈∏¿Ÿ

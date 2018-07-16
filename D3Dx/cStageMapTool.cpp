@@ -24,7 +24,8 @@ cStageMapTool::cStageMapTool()
 	, m_pSOM(NULL)
 	, m_nNewObjNum(0)
 	, m_nMenuNum(0)
-{ 
+	, m_nCharacterSelect(0)
+{
 }
 
 
@@ -56,32 +57,26 @@ void cStageMapTool::Setup()
 	tempV.n = D3DXVECTOR3(0, 1, 0);
 	tempV.t = D3DXVECTOR2(1, 0);
 	m_stFloorTemplate.vecVertex.push_back(tempV);
-	m_stLeaf.vecVertex.push_back(tempV);
 	tempV.p = D3DXVECTOR3(-0.5f, 0, 0.5f);
 	tempV.n = D3DXVECTOR3(0, 1, 0);
 	tempV.t = D3DXVECTOR2(0, 0);
 	m_stFloorTemplate.vecVertex.push_back(tempV);
-	m_stLeaf.vecVertex.push_back(tempV);
 	tempV.p = D3DXVECTOR3(0.5f, 0, 0.5f);
 	tempV.n = D3DXVECTOR3(0, 1, 0);
 	tempV.t = D3DXVECTOR2(0, 1);
 	m_stFloorTemplate.vecVertex.push_back(tempV);
-	m_stLeaf.vecVertex.push_back(tempV);
 	tempV.p = D3DXVECTOR3(-0.5f, 0, -0.5f);
 	tempV.n = D3DXVECTOR3(0, 1, 0);
 	tempV.t = D3DXVECTOR2(1, 0);
 	m_stFloorTemplate.vecVertex.push_back(tempV);
-	m_stLeaf.vecVertex.push_back(tempV);
 	tempV.p = D3DXVECTOR3(0.5f, 0, 0.5f);
 	tempV.n = D3DXVECTOR3(0, 1, 0);
 	tempV.t = D3DXVECTOR2(0, 1);
 	m_stFloorTemplate.vecVertex.push_back(tempV);
-	m_stLeaf.vecVertex.push_back(tempV);
 	tempV.p = D3DXVECTOR3(0.5f, 0, -0.5f);
 	tempV.n = D3DXVECTOR3(0, 1, 0);
 	tempV.t = D3DXVECTOR2(1, 1);
 	m_stFloorTemplate.vecVertex.push_back(tempV);
-	m_stLeaf.vecVertex.push_back(tempV);
 	D3DXMATRIX matScale;
 	D3DXMATRIX matRot;
 	D3DXMATRIX matTrans;
@@ -91,7 +86,6 @@ void cStageMapTool::Setup()
 	D3DXMatrixTranslation(&matTrans, m_nIndexX, 0, m_nIndexZ);
 	m_stFloorTemplate.matFinal = matRot * matTransAfterRot * matTrans;
 	m_stFloorTemplate.wstrTexture = m_pUI->getTileTexture(m_nTextureNum);
-	m_stLeaf.wstrTexture = L"./Resources/Texture2D/Tree_Leaves.png";
 
 	//방해 타일의 기초가 되는 직육면체 설정
 	////위면
@@ -221,6 +215,12 @@ void cStageMapTool::Setup()
 	m_stBlockTemplate.vecVertex.push_back(tempV);
 	m_stBlockTemplate.matFinal = matRot * matTransAfterRot * matTrans;
 	m_stBlockTemplate.wstrTexture = L"./Resources/StageTexture/FloorTile_20.png";
+	m_stChefLocation[0].vecVertex = m_stBlockTemplate.vecVertex;
+	m_stChefLocation[1].vecVertex = m_stBlockTemplate.vecVertex;
+	m_stChefLocation[0].matFinal = matRot * matTransAfterRot * matTrans;
+	m_stChefLocation[1].matFinal = matRot * matTransAfterRot * matTrans;
+	m_stChefLocation[0].wstrTexture = L"./Resources/Texture2D/Level_Character_Icon_Buck.png";
+	m_stChefLocation[1].wstrTexture = L"./Resources/Texture2D/Level_Character_Icon_Mel.png";
 	
 	m_stNewObjTemplate.p = NULL;
 	m_stNewObjTemplate.type = CRATE_ONION;
@@ -247,6 +247,7 @@ void cStageMapTool::Render()
 
 	if (m_pUI)
 		m_pUI->Render();
+
 
 	g_pD3DDevice->SetFVF(ST_PNT_VERTEX::FVF);
 	//바닥 타일 그려준다.
@@ -305,8 +306,16 @@ void cStageMapTool::Render()
 		g_pD3DDevice->DrawPrimitiveUP(D3DPT_TRIANGLELIST, m_stBlockTemplate.vecVertex.size() / 3, &m_stBlockTemplate.vecVertex[0], sizeof(ST_PNT_VERTEX));
 	}
 
+	for (int i = 0; i < 2; ++i)
+	{
+		g_pD3DDevice->SetTexture(0, g_pTextureManager->GetTexture(m_stChefLocation[i].wstrTexture.c_str()));
+		g_pD3DDevice->SetTransform(D3DTS_WORLD, &m_stChefLocation[i].matFinal);
+		g_pD3DDevice->DrawPrimitiveUP(D3DPT_TRIANGLELIST, m_stChefLocation[i].vecVertex.size() / 3, &m_stChefLocation[i].vecVertex[0], sizeof(ST_PNT_VERTEX));
+	}
+
 	if (m_pSOM)
 		m_pSOM->Render();
+
 }
 
 void cStageMapTool::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
@@ -415,7 +424,6 @@ void cStageMapTool::Control()
 			{
 				m_stNewObjTemplate.iter = m_pSOM->SetIngameObject((OBJECTTYPE)m_stNewObjTemplate.type, matIden);
 				m_stNewObjTemplate.p = (*m_stNewObjTemplate.iter);
-				m_nMenuNum = menuNum;
 			}
 			if (menuNum == MT_OPEN)
 			{
@@ -434,6 +442,11 @@ void cStageMapTool::Control()
 				MenuTexture(menuNum);
 			}
 			m_nMenuNum = menuNum;
+		}
+		else if (m_nMenuNum == MT_LOAD)
+		{
+			m_stChefLocation[m_nCharacterSelect % 2].matFinal = matRot * matTransAfterRot * matTrans;
+			m_nCharacterSelect++;
 		}
 		else if (m_nMenuNum == MT_FLOOR && m_pUI->SelectTile(m_nTextureNum) == true)
 		{
@@ -478,15 +491,15 @@ void cStageMapTool::Control()
 		{
 			bool isSetObj;
 			ST_NEWOBJ temp;
-			D3DXMATRIX matFinal = matTransBeforeRot * matRot * matTransAfterRot * matTrans;
+			temp.matFinal = matTransBeforeRot * matRot * matTransAfterRot * matTrans;
 			temp.type = getObjectType(isSetObj);
 			if (isSetObj == true)
 			{
-				m_iterNewObject = m_mapSetObject.find(make_pair(m_nIndexX, m_nIndexZ));
-				if (m_iterNewObject != m_mapSetObject.end())
+				m_iterSetObject = m_mapSetObject.find(make_pair(m_nIndexX, m_nIndexZ));
+				if (m_iterSetObject != m_mapSetObject.end())
 				{
-					m_pSOM->DeleteObject(m_iterNewObject->second.iter);
-					m_mapSetObject.erase(m_iterNewObject);
+					m_pSOM->DeleteObject(m_iterSetObject->second.iter);
+					m_mapSetObject.erase(m_iterSetObject);
 				}
 			}
 			else
@@ -498,10 +511,15 @@ void cStageMapTool::Control()
 					m_mapNewObject.erase(m_iterNewObject);
 				}
 			}
-			temp.iter = m_pSOM->SetIngameObject((OBJECTTYPE)temp.type, matFinal);
+			temp.iter = m_pSOM->SetIngameObject((OBJECTTYPE)temp.type, temp.matFinal);
 			temp.p = (*temp.iter);
 			if (isSetObj == true)
 			{
+				m_iterNewObject = m_mapNewObject.find(make_pair(m_nIndexX, m_nIndexZ));
+				if (m_iterNewObject != m_mapNewObject.end())
+				{
+					m_iterNewObject->second.p->SetInven(temp.p);
+				}
 				m_mapSetObject.insert(make_pair(make_pair(m_nIndexX, m_nIndexZ), temp));
 			}
 			else
@@ -517,6 +535,10 @@ void cStageMapTool::Control()
 			}
 			m_mapBlockTiles.insert(make_pair(make_pair(m_nIndexX, m_nIndexZ), m_stBlockTemplate));
 		}
+	}
+	if (KEYMANAGER->isStayKeyDown(VK_LBUTTON))
+	{
+
 	}
 	if (KEYMANAGER->isOnceKeyDown(VK_SPACE))
 	{
@@ -783,23 +805,42 @@ void cStageMapTool::MenuSave()
 	WriteFile(file, &vecIndex[0], sizeof(WORD) * vecIndex.size(), &write, NULL);
 	WriteFile(file, &vecAttribute[0], sizeof(DWORD) * vecAttribute.size(), &write, NULL);
 
+	int maxNewObjSize = m_mapNewObject.size();
+	WriteFile(file, &maxNewObjSize, sizeof(int), &write, NULL);
+	for (m_iterNewObject = m_mapNewObject.begin(); m_iterNewObject != m_mapNewObject.end(); ++m_iterNewObject)
+	{
+		WriteFile(file, &m_iterNewObject->second.matFinal, sizeof(D3DXMATRIX), &write, NULL);
+		WriteFile(file, &m_iterNewObject->second.type, sizeof(int), &write, NULL);
+	}
+	int maxSetObjSize = m_mapSetObject.size();
+	WriteFile(file, &maxSetObjSize, sizeof(int), &write, NULL);
+	for (m_iterSetObject = m_mapSetObject.begin(); m_iterSetObject != m_mapSetObject.end(); ++m_iterSetObject)
+	{
+		WriteFile(file, &m_iterSetObject->second.matFinal, sizeof(D3DXMATRIX), &write, NULL);
+		WriteFile(file, &m_iterSetObject->second.type, sizeof(int), &write, NULL);
+	}
+
+	int maxBlockSize = m_mapBlockTiles.size();
+	WriteFile(file, &maxBlockSize, sizeof(int), &write, NULL);
+	for (m_iterBlockTiles = m_mapBlockTiles.begin(); m_iterBlockTiles != m_mapBlockTiles.end(); ++m_iterBlockTiles)
+	{
+		WriteFile(file, &m_iterBlockTiles->first, sizeof(pair<int, int>), &write, NULL);
+	}
+
+	D3DXVECTOR3 vecTemp(0, 0, 0);
+	vecTemp.x = m_stChefLocation[0].matFinal._41;
+	vecTemp.z = m_stChefLocation[0].matFinal._43;
+	WriteFile(file, &vecTemp, sizeof(D3DXVECTOR3), &write, NULL);
+	vecTemp.x = m_stChefLocation[1].matFinal._41;
+	vecTemp.z = m_stChefLocation[1].matFinal._43;
+	WriteFile(file, &vecTemp, sizeof(D3DXVECTOR3), &write, NULL);
+
 	CloseHandle(file);
 }
 
 void cStageMapTool::MenuLoad()
 {
-	for (int i = 1; i < 5; ++i)
-	{
-		D3DXMATRIX matTrans;
-		D3DXMATRIX matRot;
-		for (int j = 0; j < i; ++j)
-		{
-			D3DXMatrixTranslation(&matTrans, (i - 1) * 0.2, 2 - (i - 1) * 0.2, (i - 1) * 0.2);
-			D3DXMatrixRotationY(&matRot, D3DX_PI * i / j * 2.0f);
-			m_stLeaf.matFinal = matTrans * matRot;
-			m_vecObjectTemplate.push_back(m_stLeaf);
-		}
-	}
+
 }
 
 void cStageMapTool::MenuTexture(int menuNum)
@@ -907,6 +948,12 @@ int cStageMapTool::getObjectType(bool& isSetObject)
 		{
 			isSetObject = false;
 			return(AOBJ_SINK);
+		}
+		break;
+		case(NOT_TABLE):
+		{
+			isSetObject = false;
+			return(AOBJ_TABLE);
 		}
 		break;
 	}
