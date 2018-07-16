@@ -40,14 +40,10 @@ class cCharacterControl
 private:
 	std::vector<cChef *>	m_vecCharacter;
 
-	PLAYERMOD					m_enmPlayerMod;
-	BOOL						m_Bswitch;
-	ST_PLAYER_ATTRIBUTE			m_StPlayerAtrribute[2];
-	D3DXVECTOR3					m_vbooster;
-	float						m_fCharacterBOOSTERSpeed;
-	float						m_fFrictional;
-	cChefAnimation *			m_pAnimation;
-	std::map<pair<int, int>, bool> m_mapSatgeIndex;
+	PLAYERMOD					m_enmPlayerMod;				//임시 모드
+	BOOL						m_Bswitch;					//싱글모드일시 사용
+	ST_PLAYER_ATTRIBUTE			m_StPlayerAtrribute[2];		//각각의 캐릭터 움직임에 필요한 변수들의 모임
+	std::map<pair<int, int>, bool> m_mapSatgeIndex;			//맵 인데스 정보
 public:
 	cCharacterControl();
 	~cCharacterControl();
@@ -61,6 +57,8 @@ public:
 	void ControlAction();
 	void Control1P();
 	void Control2P();
+	void SetPos1P(D3DXVECTOR3 _pos);
+	void SetPos2P(D3DXVECTOR3 _pos);
 	void Move();
 	void Booster();
 	BOOL CheckChefIntersect();
