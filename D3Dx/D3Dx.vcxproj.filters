@@ -37,6 +37,12 @@
     <Filter Include="소스 파일\Stage">
       <UniqueIdentifier>{9eaa807a-dea1-4f1b-89ca-85148dde2fc0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\WORLDMAP">
+      <UniqueIdentifier>{d86f7ebe-2e9d-4282-99af-94e8b18d4ef7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\INTRO">
+      <UniqueIdentifier>{c224b5cd-4d22-4d0a-a418-bc5427dffa9f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -213,6 +219,27 @@
     <ClInclude Include="cChefRunPuff.h">
       <Filter>소스 파일\Chef</Filter>
     </ClInclude>
+    <ClInclude Include="Assets.h">
+      <Filter>소스 파일\WORLDMAP</Filter>
+    </ClInclude>
+    <ClInclude Include="textureManager.h">
+      <Filter>소스 파일\WORLDMAP</Filter>
+    </ClInclude>
+    <ClInclude Include="UIController.h">
+      <Filter>소스 파일\WORLDMAP</Filter>
+    </ClInclude>
+    <ClInclude Include="imageManager.h">
+      <Filter>소스 파일\WORLDMAP</Filter>
+    </ClInclude>
+    <ClInclude Include="image.h">
+      <Filter>소스 파일\WORLDMAP</Filter>
+    </ClInclude>
+    <ClInclude Include="cWorldMapScene.h">
+      <Filter>소스 파일\WORLDMAP</Filter>
+    </ClInclude>
+    <ClInclude Include="cIntroScene.h">
+      <Filter>소스 파일\INTRO</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -379,6 +406,27 @@
     </ClCompile>
     <ClCompile Include="cChefRunPuff.cpp">
       <Filter>소스 파일\Chef</Filter>
+    </ClCompile>
+    <ClCompile Include="Assets.cpp">
+      <Filter>소스 파일\WORLDMAP</Filter>
+    </ClCompile>
+    <ClCompile Include="imageManager.cpp">
+      <Filter>소스 파일\WORLDMAP</Filter>
+    </ClCompile>
+    <ClCompile Include="textureManager.cpp">
+      <Filter>소스 파일\WORLDMAP</Filter>
+    </ClCompile>
+    <ClCompile Include="UIController.cpp">
+      <Filter>소스 파일\WORLDMAP</Filter>
+    </ClCompile>
+    <ClCompile Include="image.cpp">
+      <Filter>소스 파일\WORLDMAP</Filter>
+    </ClCompile>
+    <ClCompile Include="cWorldMapScene.cpp">
+      <Filter>소스 파일\WORLDMAP</Filter>
+    </ClCompile>
+    <ClCompile Include="cIntroScene.cpp">
+      <Filter>소스 파일\INTRO</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

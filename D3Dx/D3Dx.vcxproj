@@ -151,6 +151,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Assets.h" />
     <ClInclude Include="cActionObj.h" />
     <ClInclude Include="cBin.h" />
     <ClInclude Include="cCamera.h" />
@@ -168,6 +169,7 @@
     <ClInclude Include="cFontManager.h" />
     <ClInclude Include="cFoodObj.h" />
     <ClInclude Include="cGameNode.h" />
+    <ClInclude Include="cIntroScene.h" />
     <ClInclude Include="cOnion.h" />
     <ClInclude Include="cPass.h" />
     <ClInclude Include="cPassScroll.h" />
@@ -204,13 +206,19 @@
     <ClInclude Include="cTimeManager.h" />
     <ClInclude Include="cTimer.h" />
     <ClInclude Include="cTomato.h" />
+    <ClInclude Include="cWorldMapScene.h" />
     <ClInclude Include="D3Dx.h" />
+    <ClInclude Include="image.h" />
+    <ClInclude Include="imageManager.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="singletonBase.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="textureManager.h" />
+    <ClInclude Include="UIController.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Assets.cpp" />
     <ClCompile Include="cActionObj.cpp" />
     <ClCompile Include="cBin.cpp" />
     <ClCompile Include="cCamera.cpp" />
@@ -228,6 +236,7 @@
     <ClCompile Include="cFontManager.cpp" />
     <ClCompile Include="cFoodObj.cpp" />
     <ClCompile Include="cGameNode.cpp" />
+    <ClCompile Include="cIntroScene.cpp" />
     <ClCompile Include="cOnion.cpp" />
     <ClCompile Include="cPass.cpp" />
     <ClCompile Include="cPassScroll.cpp" />
@@ -264,13 +273,18 @@
     <ClCompile Include="cTimeManager.cpp" />
     <ClCompile Include="cTimer.cpp" />
     <ClCompile Include="cTomato.cpp" />
+    <ClCompile Include="cWorldMapScene.cpp" />
     <ClCompile Include="D3Dx.cpp" />
+    <ClCompile Include="image.cpp" />
+    <ClCompile Include="imageManager.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="textureManager.cpp" />
+    <ClCompile Include="UIController.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="D3Dx.rc" />

@@ -1,10 +1,15 @@
 #pragma once
 #include "cGameNode.h"
 
+class cCamera;
+
+class cWorldMapScene;
+
 class cMainGame : public cGameNode
 {
 private:
-
+	cCamera * m_pCamera;
+	cWorldMapScene* m_pWMScene;
 
 public:
 	cMainGame();

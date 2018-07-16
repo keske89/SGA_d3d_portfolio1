@@ -29,12 +29,20 @@ void cCamera::Setup()
 	g_pD3DDevice->SetTransform(D3DTS_PROJECTION, &matProj);
 }
 
-void cCamera::Update()
+void cCamera::Update(D3DXVECTOR3 * pTarget)
 {
 	D3DXMATRIX matRot;
 	D3DXMatrixRotationYawPitchRoll(&matRot, m_fRotY, m_fRotX, 0);
 	D3DXVec3TransformNormal(&m_vEye, &D3DXVECTOR3(0, 0, -m_fDistance), &matRot);
 	m_vEye = m_vEye + m_vLookAt;
+
+	if (pTarget)
+	{
+		// 스토커 기법
+		m_vLookAt = *pTarget;		// 타겟만 바라봐
+		m_vEye = *pTarget + m_vEye;	// 타겟으로 부터 일정 거리 유지
+	}
+
 	D3DXMATRIX matView;
 	D3DXMatrixLookAtLH(&matView, &m_vEye, &m_vLookAt, &m_vUp);
 
@@ -62,8 +70,8 @@ void cCamera::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		if (m_isRButtonDown)
 		{
 			POINT ptCurrMouse;
-			ptCurrMouse.x = LOWORD(lParam);
-			ptCurrMouse.y = HIWORD(lParam);
+			g_ptMouse.x = ptCurrMouse.x = LOWORD(lParam);
+			g_ptMouse.y = ptCurrMouse.y = HIWORD(lParam);
 
 			m_fRotY += (ptCurrMouse.x - m_ptPrevMouse.x) / 100.0f;
 			m_fRotX += (ptCurrMouse.y - m_ptPrevMouse.y) / 100.0f;

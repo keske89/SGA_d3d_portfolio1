@@ -1,5 +1,11 @@
 #include "stdafx.h"
 #include "cMainGame.h"
+#include "cCamera.h"
+
+//WM
+#include "cWorldMapScene.h"
+#include "cIntroScene.h"
+//
 
 #include "cStageMapTool.h"
 #include "cStageScene.h"
@@ -10,6 +16,7 @@
 
 
 cMainGame::cMainGame()
+	: m_pCamera(NULL)
 {
 }
 
@@ -19,6 +26,15 @@ cMainGame::~cMainGame()
 
 	TIMEMANAGER->Destroy();
 	SCENEMANAGER->Destroy();
+
+	//WM
+	delete m_pCamera;
+	Assets::Delete();
+	SAFE_RELEASE(SPRITE);
+	IMAGEMANAGER->release();
+	TEXTUREMANAGER->release();
+	//
+
 	ObJMANAGER->Destroy();
 	g_pTextureManager->Destroy();
 	g_pFontManager->Destroy();
@@ -30,6 +46,13 @@ void cMainGame::Setup()
 	SetLight();
 	g_pD3DDevice->SetRenderState(D3DRS_LIGHTING, false);
 
+
+	//WM
+	m_pCamera = new cCamera;
+	m_pCamera->Setup();
+
+	m_pWMScene = new cWorldMapScene;
+	//
 	SCENEMANAGER->AddScene("StageMapTool", new cStageMapTool);
 	SCENEMANAGER->AddScene("StageScene", new cStageScene);
 	SCENEMANAGER->AddScene("TestScene0", new cTestScene0);
@@ -39,16 +62,14 @@ void cMainGame::Setup()
 	
 	SCENEMANAGER->ChangeScene("StageMapTool");
 
-	
-
-
-
+	m_pWMScene->setCamera(m_pCamera);
 
 
 }
 
 void cMainGame::Update()
 {
+	m_pCamera->Update();
 	SCENEMANAGER->Update();
 
 }
@@ -56,7 +77,7 @@ void cMainGame::Update()
 void cMainGame::Render()
 {
 	g_pD3DDevice->Clear(NULL, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER,
-		D3DCOLOR_XRGB(0, 0, 255), 1.0f, 0);
+		D3DCOLOR_XRGB(67, 111, 114), 1.0f, 0);
 
 	g_pD3DDevice->BeginScene();
 

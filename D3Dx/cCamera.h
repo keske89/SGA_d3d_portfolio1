@@ -17,7 +17,7 @@ private:
 	POINT		m_ptPrevMouse;
 public:
 	void Setup();
-	void Update();
+	void Update(D3DXVECTOR3 * pTarget = NULL);
 
 	void WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 	inline void setVLookAt(D3DXVECTOR3 vector) { m_vLookAt = vector + D3DXVECTOR3(0, 0, 0); }
