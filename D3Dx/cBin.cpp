@@ -24,7 +24,7 @@ void cBin::Update()
 
 void cBin::Render()
 {
-	g_pD3DDevice->SetTransform(D3DTS_WORLD, &m_matWorld);
+	g_pD3DDevice->SetTransform(D3DTS_WORLD, &(m_matLocal *m_matWorld));
 	g_pD3DDevice->SetTexture(0, m_pTexture);
 	g_pD3DDevice->SetFVF(ST_PNT_VERTEX::FVF);
 	m_pMesh->DrawSubset(0);
@@ -32,6 +32,11 @@ void cBin::Render()
 
 void cBin::Setup(D3DXMATRIX matWorld, D3DXVECTOR3 pos, int lidtype)
 {
+	D3DXMATRIX matS;
+	D3DXMatrixIdentity(&matS);
+	D3DXMatrixScaling(&matS, 0.9f, 1.0f, 0.9f);
+	m_matLocal = matS;
+
 	m_vPos.x = matWorld._41;
 	m_vPos.y = matWorld._42;
 	m_vPos.z = matWorld._43;
