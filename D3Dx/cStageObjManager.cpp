@@ -270,10 +270,9 @@ std::list<cIGObj*>::iterator cStageObjManager:: SetIngameObject(OBJECTTYPE objty
 	case AOBJ_TABLE:
 		m_Counter = new cCounterTop;
 		m_Counter->Setup(matWorld, D3DXVECTOR3(matWorld._41, matWorld._42, matWorld._43), 0);
-		iter = m_listObj.insert(m_listObj.end(), m_Sink);
+		iter = m_listObj.insert(m_listObj.end(), m_Counter);
 		return iter;
 		break;
-
 	case FOBJ_POTATO:
 		break;
 	case FOBJ_TOMATO:
