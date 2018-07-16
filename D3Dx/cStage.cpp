@@ -71,6 +71,39 @@ void cStage::Setup(int stageNum)
 	memcpy(attribute, &vecAttribute[0], vecAttribute.size() * sizeof(DWORD));
 	m_pMesh->UnlockAttributeBuffer();
 
+
+	int maxObjSize = 0;
+	D3DXMATRIX matTemp;
+	int tempType = 0;
+	ReadFile(file, &maxObjSize, sizeof(int), &read, NULL);
+	for (int i = 0; i < maxObjSize; ++i)
+	{
+		ReadFile(file, &matTemp, sizeof(D3DXMATRIX), &read, NULL);
+		ReadFile(file, &tempType, sizeof(int), &read, NULL);
+		m_vecNewObjData.push_back(make_pair(tempType, matTemp));
+	}
+	ReadFile(file, &maxObjSize, sizeof(int), &read, NULL);
+	for (int i = 0; i < maxObjSize; ++i)
+	{
+		ReadFile(file, &matTemp, sizeof(D3DXMATRIX), &read, NULL);
+		ReadFile(file, &tempType, sizeof(int), &read, NULL);
+		m_vecSetObjData.push_back(make_pair(tempType, matTemp));
+	}
+
+	int maxBlockSize = 0;
+	pair<int, int> tempPair;
+	ReadFile(file, &maxBlockSize, sizeof(int), &read, NULL);
+	for (int i = 0; i < maxBlockSize; ++i)
+	{
+		ReadFile(file, &tempPair, sizeof(pair<int, int>), &read, NULL);
+		m_mapIsBlockedData.insert(make_pair(tempPair, 0));
+	}
+
+	ReadFile(file, &m_vecChefPos[0], sizeof(D3DXVECTOR3), &read, NULL);
+	ReadFile(file, &m_vecChefPos[1], sizeof(D3DXVECTOR3), &read, NULL);
+
+
+
 	CloseHandle(file);
 }
 
