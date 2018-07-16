@@ -10,7 +10,7 @@ public:
 	void Release() { delete this; }
 };
 
-enum OBJECTTYPE
+enum COLLISONTYPE
 {
 	OBJ_STATIC,
 	OBJ_DYNAMIC,
@@ -29,7 +29,7 @@ public:
 	cIGObj*				m_Inven;
 	cIGObj*				m_pChild;
 	int					m_nObjectType;
-	OBJECTTYPE			m_eState;
+	COLLISONTYPE		m_eState;
 	
 	SYNTHESIZE(bool, m_bInteraction, Interaction);
 	SYNTHESIZE(D3DXVECTOR3, m_vDir, Dir);
