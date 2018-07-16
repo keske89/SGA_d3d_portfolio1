@@ -30,8 +30,6 @@ public:
 
 
 	LPDIRECT3DTEXTURE9 m_aTexture[COUNT];
-
-	void SetTexture();
 	void SetCheck(bool check) { m_bCheck = check; }
 	bool GetCheck() { return m_bCheck; }
 	// cActionObj을(를) 통해 상속됨

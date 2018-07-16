@@ -10,6 +10,12 @@ public:
 	void Release() { delete this; }
 };
 
+enum State
+{
+	IDLE,
+	COLLISONWITHPLAYER,
+
+}; 
 
 class cIGObj
 {
@@ -25,6 +31,7 @@ public:
 	cIGObj*				m_Inven;
 	cIGObj*				m_pChild;
 	int					m_nObjectType;
+	State				m_eState;
 	
 	SYNTHESIZE(bool, m_bInteraction, Interaction);
 	SYNTHESIZE(D3DXVECTOR3, m_vPos, Pos);

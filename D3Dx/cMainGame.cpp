@@ -37,7 +37,7 @@ void cMainGame::Setup()
 	SCENEMANAGER->AddScene("TestScene2", new cTestScene2);
 	SCENEMANAGER->AddScene("TestScene3", new cTestScene3);
 	
-	SCENEMANAGER->ChangeScene("TestScene1");
+	SCENEMANAGER->ChangeScene("StageMapTool");
 
 	
 

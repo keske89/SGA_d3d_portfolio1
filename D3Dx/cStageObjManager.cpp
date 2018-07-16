@@ -43,9 +43,7 @@ void cStageObjManager::Setup()
 	D3DXMatrixIdentity(&matWorld);
 	D3DXVECTOR3 mPos(0, 0, 0);
 
-	m_crateLid = new cCrateLid;
-	m_crateLid->Setup(matWorld, mPos, CRATE_TOMATO);
-	m_listObj.push_back(m_crateLid);
+	
 
 
 	/*m_Counter = new cCounterTop;
@@ -64,31 +62,34 @@ void cStageObjManager::Update()
 	//{
 	//	m_vecObj[i].
 	//}
-	if (KEYMANAGER->isOnceKeyDown('P'))
+	/*if (KEYMANAGER->isOnceKeyDown('P'))
 	{
+
 		m_crateLid->SetInven(m_Tomato);
-	}
+	}*/
 	//
 	//if (KEYMANAGER->isOnceKeyDown('L'))
 	//{
 	//	m_crateLid->GetInven();
 	//}
 
-	for (auto p : m_listObj)
+	if (m_player1 && m_player2)
 	{
-		m_player1->GetPos();
-		m_player2->GetPos();
+		for (auto p : m_listObj)
+		{
+			m_player1->GetPos();
+			m_player2->GetPos();
+		}
 	}
 	
-
-
+	
 	for (auto p : m_listObj)
 	{
 		p->Update();
 	}
 
-	IsCollison();
-	ActionControl();
+	//IsCollison();
+	//ActionControl();
 }
 
 void cStageObjManager::Render()

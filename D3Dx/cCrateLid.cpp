@@ -106,28 +106,17 @@ cIGObj* cCrateLid::GetInven()
 	}
 }
 
-void cCrateLid::SetTexture()
-{
-	m_pTexture = g_pTextureManager->GetTexture(L"Resources/Texture2D/LidBottom_Texture.png");
-	m_aTexture[NORMAL] = g_pTextureManager->GetTexture(L"Resources/Texture2D/Mushroom_Texture.png");
-	m_aTexture[COLLISIONWITHPLAYER] = g_pTextureManager->GetTexture(L"Resources/Texture2D/Tomato_Texture.png");
-	m_aTexture[SELECTED] = g_pTextureManager->GetTexture(L"Resources/Texture2D/Onion_Texture.png");
-}
 
 void cCrateLid::Update()
 {
 
-	//SetTexture();
+	
 	this->Action();
 	
 	if (m_bAni)
 	{
 		this->Animation();
 	}
-	/*m_vPos.x = m_matWorld._41;
-	m_vPos.y = m_matWorld._42;
-	m_vPos.z = m_matWorld._43;
-*/
 	
 	Inventory();
 
@@ -198,7 +187,7 @@ void cCrateLid::Action()
 void cCrateLid::Animation()
 {
 	int n = 60;								//상자열리는 각도
-	float f1 = 0.6f;						//animation 속도 조절
+	float f1 = 1.0f;						//animation 속도 조절
 	float f2 = 1.0f - m_fAnimationRot / n;  //animation interpolation용 t값 
 	if (m_fAnimationRot <= n)
 	{
