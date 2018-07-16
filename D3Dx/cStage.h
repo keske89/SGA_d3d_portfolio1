@@ -5,18 +5,12 @@ class cStage
 private:
 	LPD3DXMESH						m_pMesh;
 	vector<wstring>					m_vecTex;
-	vector<pair<int, D3DXMATRIX>>	m_vecNewObjData;
-	vector<pair<int, D3DXMATRIX>>	m_vecSetObjData;
-	map<pair<int, int>, int>		m_mapIsBlockedData;
-	D3DXVECTOR3						m_vecChefPos[2];
 public:
 	cStage();
 	~cStage();
 
-	void Setup(int stageNum);
+	void Setup(int stageNum, vector<pair<int, D3DXMATRIX>>& vecNewObj, vector<pair<int, D3DXMATRIX>>& vecSetObj, map<pair<int, int>, int>& mapBlock, D3DXVECTOR3& player1Location, D3DXVECTOR3& player2Location);
 	void Update();
 	void Render();
-	vector<pair<int, D3DXMATRIX>> GetNewObjData() { return m_vecNewObjData; }
-	vector<pair<int, D3DXMATRIX>> GetSetObjData() { return m_vecSetObjData; }
 };
 

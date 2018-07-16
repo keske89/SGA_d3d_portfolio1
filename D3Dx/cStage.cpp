@@ -13,7 +13,7 @@ cStage::~cStage()
 	SAFE_RELEASE(m_pMesh);
 }
 
-void cStage::Setup(int stageNum)
+void cStage::Setup(int stageNum, vector<pair<int, D3DXMATRIX>>& vecNewObj, vector<pair<int, D3DXMATRIX>>& vecSetObj, map<pair<int, int>, int>& mapBlock, D3DXVECTOR3& player1Location, D3DXVECTOR3& player2Location)
 {
 	HANDLE file;
 	DWORD read;
@@ -80,14 +80,14 @@ void cStage::Setup(int stageNum)
 	{
 		ReadFile(file, &matTemp, sizeof(D3DXMATRIX), &read, NULL);
 		ReadFile(file, &tempType, sizeof(int), &read, NULL);
-		m_vecNewObjData.push_back(make_pair(tempType, matTemp));
+		vecNewObj.push_back(make_pair(tempType, matTemp));
 	}
 	ReadFile(file, &maxObjSize, sizeof(int), &read, NULL);
 	for (int i = 0; i < maxObjSize; ++i)
 	{
 		ReadFile(file, &matTemp, sizeof(D3DXMATRIX), &read, NULL);
 		ReadFile(file, &tempType, sizeof(int), &read, NULL);
-		m_vecSetObjData.push_back(make_pair(tempType, matTemp));
+		vecSetObj.push_back(make_pair(tempType, matTemp));
 	}
 
 	int maxBlockSize = 0;
@@ -96,11 +96,11 @@ void cStage::Setup(int stageNum)
 	for (int i = 0; i < maxBlockSize; ++i)
 	{
 		ReadFile(file, &tempPair, sizeof(pair<int, int>), &read, NULL);
-		m_mapIsBlockedData.insert(make_pair(tempPair, 0));
+		mapBlock.insert(make_pair(tempPair, 0));
 	}
 
-	ReadFile(file, &m_vecChefPos[0], sizeof(D3DXVECTOR3), &read, NULL);
-	ReadFile(file, &m_vecChefPos[1], sizeof(D3DXVECTOR3), &read, NULL);
+	ReadFile(file, &player1Location, sizeof(D3DXVECTOR3), &read, NULL);
+	ReadFile(file, &player2Location, sizeof(D3DXVECTOR3), &read, NULL);
 
 
 

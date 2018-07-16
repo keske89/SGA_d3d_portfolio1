@@ -473,11 +473,11 @@ void cStageMapTool::Control()
 		}
 		else if (m_pUI->getTileType() == TT_FLOOR)
 		{
-			if (m_mapFloorTiles.find(make_pair(m_nIndexX, m_nIndexZ)) != m_mapFloorTiles.end())
-			{
-				m_mapFloorTiles.erase(m_mapFloorTiles.find(make_pair(m_nIndexX, m_nIndexZ)));
-			}
-			m_mapFloorTiles.insert(make_pair(make_pair(m_nIndexX, m_nIndexZ), m_stFloorTemplate));
+			//if (m_mapFloorTiles.find(make_pair(m_nIndexX, m_nIndexZ)) != m_mapFloorTiles.end())
+			//{
+			//	m_mapFloorTiles.erase(m_mapFloorTiles.find(make_pair(m_nIndexX, m_nIndexZ)));
+			//}
+			//m_mapFloorTiles.insert(make_pair(make_pair(m_nIndexX, m_nIndexZ), m_stFloorTemplate));
 		}
 		else if (m_pUI->getTileType() == TT_OBJECT)
 		{
@@ -538,7 +538,14 @@ void cStageMapTool::Control()
 	}
 	if (KEYMANAGER->isStayKeyDown(VK_LBUTTON))
 	{
-
+		if (m_pUI->getTileType() == TT_FLOOR)
+		{
+			if (m_mapFloorTiles.find(make_pair(m_nIndexX, m_nIndexZ)) != m_mapFloorTiles.end())
+			{
+				m_mapFloorTiles.erase(m_mapFloorTiles.find(make_pair(m_nIndexX, m_nIndexZ)));
+			}
+			m_mapFloorTiles.insert(make_pair(make_pair(m_nIndexX, m_nIndexZ), m_stFloorTemplate));
+		}
 	}
 	if (KEYMANAGER->isOnceKeyDown(VK_SPACE))
 	{
