@@ -52,8 +52,9 @@ void cCrate::Update()
 
 void cCrate::Render()
 {
-	g_pD3DDevice->SetTransform(D3DTS_WORLD, &(m_matLocal * m_matWorld));
+	g_pD3DDevice->SetTransform(D3DTS_WORLD, &(m_matWorld));
 	g_pD3DDevice->SetTexture(0, m_pTexture);
 	g_pD3DDevice->SetFVF(ST_PNT_VERTEX::FVF);
 	m_pMesh->DrawSubset(0);
+	
 }

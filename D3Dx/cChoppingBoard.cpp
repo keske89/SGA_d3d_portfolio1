@@ -32,10 +32,14 @@ void cChoppingBoard::Render()
 
 void cChoppingBoard::Setup(D3DXMATRIX matWorld, D3DXVECTOR3 pos, int lidtype)
 {
+	D3DXMATRIX matR;
+	D3DXVECTOR3 v(1.0f, 0, 0);
+	D3DXMatrixIdentity(&matR);
+	D3DXMatrixRotationAxis(&matR, &v, (float)3.14 * 0.5f);
 	m_vPos.x = matWorld._41;
 	m_vPos.y = matWorld._42;
 	m_vPos.z = matWorld._43;
-	m_matWorld = matWorld;
+	m_matWorld = matR * matWorld;
 	m_bInteraction = false;
 	m_bIsUse = false;
 	m_pMesh = ObJMANAGER->GetMesh(L"Chopping_Board.obj");

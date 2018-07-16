@@ -17,7 +17,7 @@ cCrateLid::cCrateLid()
 cCrateLid::~cCrateLid()
 {
 	delete m_crate;
-	//m_pChild->~cIGObj();
+	m_pChild->~cIGObj();
 }
 
 void cCrateLid::Setup(D3DXMATRIX matWorld, D3DXVECTOR3 pos, int objectType)
@@ -45,6 +45,7 @@ void cCrateLid::Setup(D3DXMATRIX matWorld, D3DXVECTOR3 pos, int objectType)
 	m_pMesh = ObJMANAGER->GetMesh(L"CrateLid_mesh.obj");
 	// 뚜겅 아래쪽 이미지
 	m_pTexture = g_pTextureManager->GetTexture(L"Resources/Texture2D/LidBottom_Texture.png");
+	m_nObjectType = objectType;
 
 	switch (objectType)
 	{
@@ -67,14 +68,6 @@ void cCrateLid::Setup(D3DXMATRIX matWorld, D3DXVECTOR3 pos, int objectType)
 	default:
 		break;
 	}
-
-	m_nObjectType = objectType;
-
-
-	m_crate = new cCrate;
-	m_crate->Setup(matWorld, pos, 11);
-	this->AddChild(m_crate);
-	
 
 }
 
@@ -108,9 +101,7 @@ cIGObj* cCrateLid::GetInven()
 
 
 void cCrateLid::Update()
-{
-
-	
+{	
 	this->Action();
 	
 	if (m_bAni)
@@ -126,15 +117,18 @@ void cCrateLid::Update()
 void cCrateLid::Render()
 {
 	
-	g_pD3DDevice->SetTransform(D3DTS_WORLD, &m_matWorld);
+	g_pD3DDevice->SetTransform(D3DTS_WORLD, & m_matWorld);
 	g_pD3DDevice->SetFVF(ST_PNT_VERTEX::FVF);
 
 	g_pD3DDevice->SetTexture(0, m_pTexture);
 	m_pMesh->DrawSubset(0);
 	g_pD3DDevice->SetTexture(0, m_pTexture2);
 	m_pMesh->DrawSubset(1);
-
-	m_pChild->Render();
+	if (m_pChild)
+	{
+		m_pChild->Render();
+	}
+	
 
 
 }
@@ -174,12 +168,13 @@ void cCrateLid::Action()
 		else
 		{
 			m_CrateState = NORMAL;
+			// 맵툴에서 사용할때 lid 좌표가 고정되어버리는 현상발생으로 해결 방안 찾아봐야할듯
 
-			D3DXMATRIX matT;
-			D3DXMatrixTranslation(&matT, m_vPos.x, m_vPos.y-0.5f, m_vPos.z);
-			m_matWorld = m_matLocal;
-			m_fAnimationRot = 0.0f;
-			m_bAni = false;
+			//D3DXMATRIX matT;
+			//D3DXMatrixTranslation(&matT, m_vPos.x, m_vPos.y-0.5f, m_vPos.z);
+			//m_matWorld = m_matLocal;
+			//m_fAnimationRot = 0.0f;
+			//m_bAni = false;
 		}
 	}
 }

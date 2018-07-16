@@ -11,6 +11,7 @@ public:
 	cProgressbar*			m_pPgbar;
 	std::vector<cFoodObj*>	m_vecFood;
 	int						m_size;
+	bool					m_isAction;
 
 public:
 	cPot();

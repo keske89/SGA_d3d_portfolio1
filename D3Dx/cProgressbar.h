@@ -15,6 +15,7 @@ private:
 	float					m_fHeight;
 
 	bool					m_isComplete;
+	bool					m_isAction;
 
 	LPDIRECT3DTEXTURE9		m_pUITexture;
 	D3DXIMAGE_INFO			m_stImageInfo;
@@ -29,13 +30,14 @@ public:
 	cProgressbar();
 	~cProgressbar();
 
-	void Setup();
+	void Setup(D3DXMATRIX matWorld, D3DXVECTOR3 pos);
 	void Update(D3DXVECTOR3 pos, int size);
 	void Render();
 
 	float SetGauge(int size);
 	bool Complete();
-
+	void SetIsAction(bool action) { m_isAction = action; }
+	void SetPos(D3DXVECTOR3 pos) { m_vPos = pos; }
 
 };
 
