@@ -10,10 +10,10 @@ public:
 	void Release() { delete this; }
 };
 
-enum State
+enum OBJECTTYPE
 {
-	IDLE,
-	COLLISONWITHPLAYER,
+	OBJ_STATIC,
+	OBJ_DYNAMIC,
 
 }; 
 
@@ -24,20 +24,20 @@ public:
 	//bool				m_bInteraction;
 	LPDIRECT3DTEXTURE9	m_pTexture;
 	LPD3DXMESH			m_pMesh;
-	//D3DXVECTOR3			m_vPos;
-	D3DXVECTOR3			m_vDir;
 	D3DXMATRIX			m_matWorld;
 	D3DXMATRIX			m_matLocal;
 	cIGObj*				m_Inven;
 	cIGObj*				m_pChild;
 	int					m_nObjectType;
-	State				m_eState;
+	OBJECTTYPE			m_eState;
 	
 	SYNTHESIZE(bool, m_bInteraction, Interaction);
+	SYNTHESIZE(D3DXVECTOR3, m_vDir, Dir);
 	SYNTHESIZE(D3DXVECTOR3, m_vPos, Pos);
 	SYNTHESIZE(cActionDelegate*, m_pDelegate, Delegate);
 	SYNTHESIZE(cChef*, m_player1, player1);
 	SYNTHESIZE(cChef*, m_player2, player2);
+	
 
 public:
 	cIGObj();

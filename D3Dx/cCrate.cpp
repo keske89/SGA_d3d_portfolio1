@@ -17,7 +17,7 @@ void cCrate::Setup(D3DXMATRIX matWorld, D3DXVECTOR3 pos, int objectType)
 	D3DXMatrixIdentity(&matT);
 	D3DXMatrixTranslation(&matT, trans.x, trans.y, trans.z);
 	m_matLocal = matT;
-
+	m_eState = OBJ_STATIC;
 	m_matWorld = matWorld;
 	m_bInteraction = false;
 	m_bIsUse = false;
@@ -34,6 +34,7 @@ void cCrate::SetWorldMat(D3DXMATRIX matWorld)
 	m_vPos.x = matWorld._41;
 	m_vPos.y = matWorld._42;
 	m_vPos.z = matWorld._43;
+	
 }
 
 
@@ -52,7 +53,7 @@ void cCrate::Update()
 
 void cCrate::Render()
 {
-	g_pD3DDevice->SetTransform(D3DTS_WORLD, &(m_matWorld));
+	g_pD3DDevice->SetTransform(D3DTS_WORLD, &(m_matLocal * m_matWorld));
 	g_pD3DDevice->SetTexture(0, m_pTexture);
 	g_pD3DDevice->SetFVF(ST_PNT_VERTEX::FVF);
 	m_pMesh->DrawSubset(0);

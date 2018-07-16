@@ -240,6 +240,9 @@
     <ClInclude Include="cIntroScene.h">
       <Filter>소스 파일\INTRO</Filter>
     </ClInclude>
+    <ClInclude Include="cCollison.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -427,6 +430,9 @@
     </ClCompile>
     <ClCompile Include="cIntroScene.cpp">
       <Filter>소스 파일\INTRO</Filter>
+    </ClCompile>
+    <ClCompile Include="cCollison.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

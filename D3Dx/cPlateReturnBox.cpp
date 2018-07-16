@@ -37,7 +37,7 @@ void cPlateReturnBox::Setup(D3DXMATRIX matWorld, D3DXVECTOR3 pos, int lidtype)
 	D3DXMatrixIdentity(&matS);
 	D3DXMatrixScaling(&matS, 0.9f, 1.0f, 0.9f);
 	m_matLocal = matS;
-
+	m_eState = OBJ_STATIC;
 	m_vPos.x = matWorld._41;
 	m_vPos.y = matWorld._42;
 	m_vPos.z = matWorld._43;

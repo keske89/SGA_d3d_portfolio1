@@ -187,9 +187,6 @@ void cProgressbar::Update(D3DXVECTOR3 pos , int size)
 		
 	}
 	
-
-
-	
 }
 
 void cProgressbar::Render()
