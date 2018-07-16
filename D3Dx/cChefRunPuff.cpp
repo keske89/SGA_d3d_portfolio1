@@ -2,8 +2,8 @@
 #include "cChefRunPuff.h"
 
 cChefRunPuff::cChefRunPuff()
-			: m_fangle(0)
-			, m_fScale(10.0f)
+	: m_fangle(0)
+	, m_fScale(10.0f)
 {
 	D3DXMatrixIdentity(&m_matWorld);
 	D3DXMatrixIdentity(&m_matLocal);
@@ -21,7 +21,7 @@ void cChefRunPuff::SetUp(D3DXVECTOR3 vPos)
 	D3DXCreateTextureFromFile(g_pD3DDevice, L"./Resources/Texture2D/RunningPuff.png", &m_pTexture);
 	D3DXMATRIX matT;
 	D3DXMatrixIdentity(&matT);
-	D3DXMatrixTranslation(&matT, vPos.x, vPos.y+0.3, vPos.z);
+	D3DXMatrixTranslation(&matT, vPos.x, vPos.y, vPos.z);
 	m_matLocal = matT;
 }
 
@@ -29,21 +29,41 @@ void cChefRunPuff::Update()
 {
 	if (m_fangle < D3DX_PI)
 		m_fangle += 0.2f;
-	
+
 	D3DXMATRIX matS, matR;
 	D3DXMatrixIdentity(&matS);
 	D3DXMatrixIdentity(&matR);
-	
+
 	D3DXMatrixScaling(&matS, m_fScale, m_fScale, m_fScale);
 	D3DXMatrixRotationX(&matR, m_fangle);
-	
 
-	m_matWorld = matS * matR ;
+
+	m_matWorld = matS * matR *m_matLocal;
 }
 
 void cChefRunPuff::Render()
 {
-	g_pD3DDevice->SetTransform(D3DTS_WORLD, &(m_matWorld * m_matLocal));
+	g_pD3DDevice->SetTransform(D3DTS_WORLD, &(m_matWorld));
 	g_pD3DDevice->SetTexture(0, m_pTexture);
 	m_pMesh->DrawSubset(0);
 }
+
+void cChefRunPuff::BoomMod()
+{
+	if (m_fangle <= D3DX_PI * 4)
+		m_fangle += 0.05f;
+	if (m_fangle > D3DX_PI * 4)
+		m_fangle -= 0.05f;
+
+	D3DXMATRIX matS, matR, matR2, matT, matT2;
+	D3DXMatrixIdentity(&matS);
+	D3DXMatrixIdentity(&matR);
+	D3DXMatrixIdentity(&matT);
+
+	D3DXMatrixScaling(&matS, m_fScale, m_fScale, m_fScale);
+	//D3DXMatrixRotationY(&matR, m_fangle);
+	D3DXMatrixTranslation(&matT, -sinf(m_fangle), m_fangle, 0);
+
+	m_matWorld = matS * m_matLocal;
+}
+

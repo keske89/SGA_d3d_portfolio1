@@ -51,9 +51,9 @@ private:
 public:
 	cCharacterControl();
 	~cCharacterControl();
-	void AddcCharacter(cChef * _Chef);
+	void AddcCharacter(IN cChef * _Chef);
 	void SetPlaterMod(int num);
-	void SetUp(std::map<pair<int, int>, bool> StageIndex);
+	void SetUp(IN std::map<pair<int, int>, bool> StageIndex);
 	void SetUp();
 	void Update();
 	void Render();
@@ -65,7 +65,7 @@ public:
 	void Booster();
 	BOOL CheckChefIntersect();
 	void ChefIntersectMove();
-	ST_PLAYER_ATTRIBUTE* GetAtribute(cChef * _Chef)
+	ST_PLAYER_ATTRIBUTE* GetAtribute(IN cChef * _Chef)
 	{
 		if (m_vecCharacter[0] == _Chef)
 		{

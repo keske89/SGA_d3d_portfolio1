@@ -41,7 +41,6 @@ void cTestScene2::Setup()
 		m_pControl->AddcCharacter(m_pChef[i]);
 		m_pChef[i]->SetUp(D3DXVECTOR3(i * 3, 0, 0), m_pControl);
 	}
-	m_pControl->SetUp();
 }
 
 void cTestScene2::Update()

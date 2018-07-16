@@ -22,7 +22,11 @@ cChef::cChef()
 
 cChef::~cChef()
 {
-	
+	std::list<cChefRunPuff*>::iterator iter;
+	for (iter = m_listPuff.begin(); iter != m_listPuff.end(); iter++)
+	{
+		(*iter)->~cChefRunPuff();
+	}
 }
 
 void cChef::SetUp(D3DXVECTOR3 vPos, cCharacterControl * _pControl)
@@ -45,13 +49,14 @@ void cChef::SetUp(D3DXVECTOR3 vPos, cCharacterControl * _pControl)
 	cChefKnife * pKnife = new cChefKnife;
 	pKnife->SetUp();
 	m_pRoot->AddChild(pKnife);
+	D3DXMATRIX matT;
+	D3DXMatrixTranslation(&matT, vPos.x, vPos.y, vPos.z);
+	m_pRoot->SetParentWorldTM(&matT);
 
 }
 
 void cChef::Relese()
 {
-	if (m_pRoot)
-		m_pRoot->Destroy();
 }
 
 void cChef::Update()
@@ -63,19 +68,8 @@ void cChef::Update()
 		m_pRoot->Update();
 
 	runPuffCreate();
-	/*for (auto p : m_vecPuff)
-	{
-		p->Update();
-	}
-	for (auto p : m_vecPuff)
-	{
-		if (p->Getscale() < 0)
-			p = NULL;
-		else if (p->Getscale() > 0)
-			p->Getscale()--;
-		if (p == NULL)
-			m_vecPuff.remove(p);
-	}*/
+	if (m_listPuff.size()>0)
+		runPuffUpdate();
 
 }
 
@@ -83,16 +77,16 @@ void cChef::Render()
 {
 
 	g_pD3DDevice->SetMaterial(&m_stMtl);
-	//for (auto p : m_vecPuff)
-	//{
-	//	p->Render();
-	//}
 
 	g_pD3DDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
+
+	for (auto p : m_listPuff)
+	{
+		if (p->Getscale() > 0)
+			p->Render();
+	}
 	if (m_pRoot)
 		m_pRoot->Render();
-
-
 }
 
 void cChef::SetMaterial()
@@ -114,14 +108,48 @@ void cChef::SetcIGObject(cIGObj * _object)
 
 void cChef::runPuffCreate()
 {
-	/*if (m_pRoot->GetCHEF_STATE() == CHEF_STATE_MOVE)
+	if (m_pRoot->GetCHEF_STATE() == CHEF_STATE_MOVE)
 	{
 		cChefRunPuff * _runPuff = new cChefRunPuff;
 		_runPuff->SetUp(m_vPosition);
-		m_vecPuff.insert(m_vecPuff.begin(), _runPuff);
-	}*/
+		m_listPuff.insert(m_listPuff.begin(), _runPuff);
+	}
+	else if (m_pRoot->GetCHEF_STATE() == CHEF_STATE_BOOSTER_MOVE)
+	{
+	}
+}
+
+void cChef::runPuffUpdate()
+{
+	std::list<cChefRunPuff *>::iterator iter;
+	for (auto p : m_listPuff)
+	{
+		if (m_pRoot->GetCHEF_STATE() == CHEF_STATE_MOVE)
+			p->Update();
+		else if (m_pRoot->GetCHEF_STATE() == CHEF_STATE_BOOSTER_MOVE)
+		{
+			for (int i = 0; i < 6; i++)
+			{
+				p->BoomMod();
+			}
+		}
+	}
+	if (m_listPuff.size() > 0)
+	{
+		for (iter = m_listPuff.begin(); iter != m_listPuff.end(); iter++)
+		{
+			if ((*iter)->Getscale() >= 0)
+				(*iter)->Getscale()--;
+		}
+	}
+}
+
+void cChef::runPuffDelete(IN std::list<cChefRunPuff*>::iterator cChefIter)
+{
+	m_listPuff.erase(cChefIter);
 }
 
 void cChef::OnAction(cIGObj * pSender)
 {
+
 }

@@ -21,20 +21,22 @@ private:
 	LPD3DXMESH				m_pMesh;
 	BOOL					m_bRender;
 private:
-	std::list<cChefRunPuff *> m_vecPuff;
+	std::list<cChefRunPuff *> m_listPuff;
 public:
 	cChef();
 	~cChef();
-	void SetUp(D3DXVECTOR3 vPos, cCharacterControl * m_pControl = NULL);
+	void SetUp(IN D3DXVECTOR3 vPos, cCharacterControl * m_pControl = NULL);
 	void Relese();
 	void Update();
 	void Render();
 	void SetMaterial();
 	cIGObj * GetcIGObject();
-	void SetcIGObject(cIGObj * _object);
+	void SetcIGObject(IN cIGObj * _object);
 	void setcStageObjManagerAdressLink(cStageObjManager* _StageObject) { m_pStageOBJ = _StageObject; }
 
 	void runPuffCreate();
-	virtual void OnAction(cIGObj* pSender) override;
+	void runPuffUpdate();
+	void runPuffDelete(IN std::list<cChefRunPuff *> ::iterator cChefIter);
+	virtual void OnAction(IN cIGObj* pSender) override;
 };
 
