@@ -15,6 +15,7 @@
 #include "cTomato.h"
 #include "cCounterTop.h"
 #include "cChef.h"
+#include "cOnion.h"
 
 
 
@@ -157,10 +158,11 @@ void cStageObjManager::IsCollison()
 
 void cStageObjManager::OnAction(cIGObj* pSender) //신호를 주는 객체에서 신호가 들어왔다.
 {
-	//if (pSender == m_crate->GetLid())
-	//{
-	//	//SCENEMANAGER->ChangeScene("StageMapTool");
-	//}
+	switch (pSender->m_nObjectType)
+	{
+	default:
+		break;
+	}
 }
 
 
@@ -221,65 +223,70 @@ std::list<cIGObj*>::iterator cStageObjManager:: SetIngameObject(OBJECTTYPE objty
 	break;
 	case AOBJ_BIN:
 		m_Bin = new cBin;
-		m_Bin->Setup(matWorld, D3DXVECTOR3(matWorld._41, matWorld._42, matWorld._43), 0);
+		m_Bin->Setup(matWorld, D3DXVECTOR3(matWorld._41, matWorld._42, matWorld._43), AOBJ_BIN);
 		iter = m_listObj.insert(m_listObj.end(), m_Bin);
 		return iter;
 		break;
 	case AOBJ_CHOPPIGNBOARD:
 		m_ChoppingBoard = new cChoppingBoard;
-		m_ChoppingBoard->Setup(matWorld, D3DXVECTOR3(matWorld._41, matWorld._42, matWorld._43), 0);
+		m_ChoppingBoard->Setup(matWorld, D3DXVECTOR3(matWorld._41, matWorld._42, matWorld._43), AOBJ_CHOPPIGNBOARD);
 		iter = m_listObj.insert(m_listObj.end(), m_ChoppingBoard);
 		return iter;
 		break;
 	case AOBJ_COOKER:
 		m_Cooker = new cCooker;
-		m_Cooker->Setup(matWorld, D3DXVECTOR3(matWorld._41, matWorld._42, matWorld._43), 0);
+		m_Cooker->Setup(matWorld, D3DXVECTOR3(matWorld._41, matWorld._42, matWorld._43), AOBJ_COOKER);
 		iter = m_listObj.insert(m_listObj.end(), m_Cooker);
 		return iter;
 		break;
 	case AOBJ_PASS:
 		m_Pass = new cPass;
-		m_Pass->Setup(matWorld, D3DXVECTOR3(matWorld._41, matWorld._42, matWorld._43), 0);
+		m_Pass->Setup(matWorld, D3DXVECTOR3(matWorld._41, matWorld._42, matWorld._43), AOBJ_PASS);
 		iter = m_listObj.insert(m_listObj.end(), m_Pass);
 		return iter;
 		break;
 	case AOBJ_PLATE:
 		m_Plate = new cPlate;
-		m_Plate->Setup(matWorld, D3DXVECTOR3(matWorld._41, matWorld._42, matWorld._43), 0);
+		m_Plate->Setup(matWorld, D3DXVECTOR3(matWorld._41, matWorld._42, matWorld._43), AOBJ_PLATE);
 		iter = m_listObj.insert(m_listObj.end(), m_Plate);
 		return iter;
 		break;
 	case AOBJ_PLATERETURNBOX:
 		m_PlateReturnBox = new cPlateReturnBox;
-		m_PlateReturnBox->Setup(matWorld, D3DXVECTOR3(matWorld._41, matWorld._42, matWorld._43), 0);
+		m_PlateReturnBox->Setup(matWorld, D3DXVECTOR3(matWorld._41, matWorld._42, matWorld._43), AOBJ_PLATERETURNBOX);
 		iter = m_listObj.insert(m_listObj.end(), m_PlateReturnBox);
 		return iter;
 		break;
 	case AOBJ_POT:
 		m_Pot = new cPot;
-		m_Pot->Setup(matWorld, D3DXVECTOR3(matWorld._41, matWorld._42, matWorld._43), 0);
+		m_Pot->Setup(matWorld, D3DXVECTOR3(matWorld._41, matWorld._42, matWorld._43), AOBJ_POT);
 		iter = m_listObj.insert(m_listObj.end(), m_Pot);
 		return iter;
 		break;
 	case AOBJ_SINK:
 		m_Sink = new cSink;
-		m_Sink->Setup(matWorld, D3DXVECTOR3(matWorld._41, matWorld._42, matWorld._43), 0);
+		m_Sink->Setup(matWorld, D3DXVECTOR3(matWorld._41, matWorld._42, matWorld._43), AOBJ_SINK);
 		iter = m_listObj.insert(m_listObj.end(), m_Sink);
 		return iter;
 		break;
 	case AOBJ_TABLE:
 		m_Counter = new cCounterTop;
-		m_Counter->Setup(matWorld, D3DXVECTOR3(matWorld._41, matWorld._42, matWorld._43), 0);
+		m_Counter->Setup(matWorld, D3DXVECTOR3(matWorld._41, matWorld._42, matWorld._43), AOBJ_TABLE);
 		iter = m_listObj.insert(m_listObj.end(), m_Counter);
 		return iter;
 		break;
 	case FOBJ_POTATO:
+		
 		break;
 	case FOBJ_TOMATO:
 		break;
 	case FOBJ_MUSHROOM:
 		break;
 	case FOBJ_ONION:
+		m_Onion = new cOnion;
+		m_Onion->Setup(matWorld, D3DXVECTOR3(matWorld._41, matWorld._42, matWorld._43), FOBJ_ONION);
+		iter = m_listObj.insert(m_listObj.end(), m_Onion);
+		return iter;
 		break;
 	default:
 		break;

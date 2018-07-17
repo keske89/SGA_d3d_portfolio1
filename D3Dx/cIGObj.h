@@ -50,5 +50,6 @@ public:
 	void AddChild(cIGObj* childNode);
 	void SetWorldMatrix(D3DXMATRIX matWorld);
 	inline int GetObjectType() { return m_nObjectType; }
+	inline int GetCollisonType() { return m_eState; }
 };
 
