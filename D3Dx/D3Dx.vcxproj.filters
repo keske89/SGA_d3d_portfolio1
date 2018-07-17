@@ -43,6 +43,15 @@
     <Filter Include="소스 파일\INTRO">
       <UniqueIdentifier>{c224b5cd-4d22-4d0a-a418-bc5427dffa9f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\WORLDMAP\UI">
+      <UniqueIdentifier>{dfd73933-df75-4c87-bb69-6ea15a4486cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\WORLDMAP\INTERFACE">
+      <UniqueIdentifier>{6b13d45a-13f6-43dc-abe5-06c5aa630aa4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\WORLDMAP\WMManager">
+      <UniqueIdentifier>{38a28251-75ea-41b6-993b-332cb03bc4b6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -219,19 +228,7 @@
     <ClInclude Include="cChefRunPuff.h">
       <Filter>소스 파일\Chef</Filter>
     </ClInclude>
-    <ClInclude Include="Assets.h">
-      <Filter>소스 파일\WORLDMAP</Filter>
-    </ClInclude>
-    <ClInclude Include="textureManager.h">
-      <Filter>소스 파일\WORLDMAP</Filter>
-    </ClInclude>
     <ClInclude Include="UIController.h">
-      <Filter>소스 파일\WORLDMAP</Filter>
-    </ClInclude>
-    <ClInclude Include="imageManager.h">
-      <Filter>소스 파일\WORLDMAP</Filter>
-    </ClInclude>
-    <ClInclude Include="image.h">
       <Filter>소스 파일\WORLDMAP</Filter>
     </ClInclude>
     <ClInclude Include="cWorldMapScene.h">
@@ -240,11 +237,50 @@
     <ClInclude Include="cIntroScene.h">
       <Filter>소스 파일\INTRO</Filter>
     </ClInclude>
+    <ClInclude Include="cIntroLogo.h">
+      <Filter>소스 파일\INTRO</Filter>
+    </ClInclude>
+    <ClInclude Include="cIntroUI.h">
+      <Filter>소스 파일\INTRO</Filter>
+    </ClInclude>
+    <ClInclude Include="Assets.h">
+      <Filter>소스 파일\WORLDMAP\WMManager</Filter>
+    </ClInclude>
+    <ClInclude Include="image.h">
+      <Filter>소스 파일\WORLDMAP\WMManager</Filter>
+    </ClInclude>
+    <ClInclude Include="imageManager.h">
+      <Filter>소스 파일\WORLDMAP\WMManager</Filter>
+    </ClInclude>
+    <ClInclude Include="textureManager.h">
+      <Filter>소스 파일\WORLDMAP\WMManager</Filter>
+    </ClInclude>
+    <ClInclude Include="UIButton.h">
+      <Filter>소스 파일\WORLDMAP\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="UIImage.h">
+      <Filter>소스 파일\WORLDMAP\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="UIText.h">
+      <Filter>소스 파일\WORLDMAP\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="iUIObject.h">
+      <Filter>소스 파일\WORLDMAP\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="IMoveObject.h">
+      <Filter>소스 파일\WORLDMAP\INTERFACE</Filter>
+    </ClInclude>
+    <ClInclude Include="IDisplayObject.h">
+      <Filter>소스 파일\WORLDMAP\INTERFACE</Filter>
+    </ClInclude>
+    <ClInclude Include="cWorldMapObj.h">
+      <Filter>소스 파일\WORLDMAP\INTERFACE</Filter>
+    </ClInclude>
+    <ClInclude Include="cWMDefinition.h">
+      <Filter>소스 파일\WORLDMAP\WMManager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="stdafx.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="D3Dx.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
@@ -407,19 +443,7 @@
     <ClCompile Include="cChefRunPuff.cpp">
       <Filter>소스 파일\Chef</Filter>
     </ClCompile>
-    <ClCompile Include="Assets.cpp">
-      <Filter>소스 파일\WORLDMAP</Filter>
-    </ClCompile>
-    <ClCompile Include="imageManager.cpp">
-      <Filter>소스 파일\WORLDMAP</Filter>
-    </ClCompile>
-    <ClCompile Include="textureManager.cpp">
-      <Filter>소스 파일\WORLDMAP</Filter>
-    </ClCompile>
     <ClCompile Include="UIController.cpp">
-      <Filter>소스 파일\WORLDMAP</Filter>
-    </ClCompile>
-    <ClCompile Include="image.cpp">
       <Filter>소스 파일\WORLDMAP</Filter>
     </ClCompile>
     <ClCompile Include="cWorldMapScene.cpp">
@@ -427,6 +451,51 @@
     </ClCompile>
     <ClCompile Include="cIntroScene.cpp">
       <Filter>소스 파일\INTRO</Filter>
+    </ClCompile>
+    <ClCompile Include="cIntroLogo.cpp">
+      <Filter>소스 파일\INTRO</Filter>
+    </ClCompile>
+    <ClCompile Include="cIntroUI.cpp">
+      <Filter>소스 파일\INTRO</Filter>
+    </ClCompile>
+    <ClCompile Include="Assets.cpp">
+      <Filter>소스 파일\WORLDMAP\WMManager</Filter>
+    </ClCompile>
+    <ClCompile Include="image.cpp">
+      <Filter>소스 파일\WORLDMAP\WMManager</Filter>
+    </ClCompile>
+    <ClCompile Include="imageManager.cpp">
+      <Filter>소스 파일\WORLDMAP\WMManager</Filter>
+    </ClCompile>
+    <ClCompile Include="textureManager.cpp">
+      <Filter>소스 파일\WORLDMAP\WMManager</Filter>
+    </ClCompile>
+    <ClCompile Include="iUIObject.cpp">
+      <Filter>소스 파일\WORLDMAP\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="UIButton.cpp">
+      <Filter>소스 파일\WORLDMAP\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="UIImage.cpp">
+      <Filter>소스 파일\WORLDMAP\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="UIText.cpp">
+      <Filter>소스 파일\WORLDMAP\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="cWorldMapObj.cpp">
+      <Filter>소스 파일\WORLDMAP\INTERFACE</Filter>
+    </ClCompile>
+    <ClCompile Include="IDisplayObject.cpp">
+      <Filter>소스 파일\WORLDMAP\INTERFACE</Filter>
+    </ClCompile>
+    <ClCompile Include="IMoveObject.cpp">
+      <Filter>소스 파일\WORLDMAP\INTERFACE</Filter>
+    </ClCompile>
+    <ClCompile Include="cWMDefinition.cpp">
+      <Filter>소스 파일\WORLDMAP\WMManager</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

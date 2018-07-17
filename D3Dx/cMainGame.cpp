@@ -58,9 +58,10 @@ void cMainGame::Setup()
 	SCENEMANAGER->AddScene("TestScene0", new cTestScene0);
 	SCENEMANAGER->AddScene("TestScene1", new cTestScene1);
 	SCENEMANAGER->AddScene("TestScene2", new cTestScene2);
-	SCENEMANAGER->AddScene("TestScene3", new cTestScene3);
+	SCENEMANAGER->AddScene("WMScene", m_pWMScene);
+	SCENEMANAGER->AddScene("IntroScene", new cIntroScene);
 	
-	SCENEMANAGER->ChangeScene("StageMapTool");
+	SCENEMANAGER->ChangeScene("IntroScene");
 
 	m_pWMScene->setCamera(m_pCamera);
 
