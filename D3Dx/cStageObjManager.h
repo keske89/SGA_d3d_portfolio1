@@ -84,9 +84,6 @@ private:
 	cOnion*					m_Onion;
 	
 	int m_buttonSelect;
-
-	SYNTHESIZE(cChef*, m_player1, Player1);
-	SYNTHESIZE(cChef*, m_player2, Player2);
 	SYNTHESIZE(std::list<cIGObj*>, m_listObj, ListObj);
 
 
@@ -99,10 +96,7 @@ public:
 	void Render();
 	void DeleteObject(std::list<cIGObj*>::iterator objectIter);
 
-	void ActionControl();
-	void IsCollison();
-	
-	
+	void ActionControl();	
 
 	// cActionDelegate을(를) 통해 상속됨
 

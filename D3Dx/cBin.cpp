@@ -38,7 +38,7 @@ void cBin::Setup(D3DXMATRIX matWorld, D3DXVECTOR3 pos, int lidtype)
 	m_matLocal = matS;
 
 	m_eState = OBJ_STATIC;
-
+	m_nObjectType = lidtype;
 	m_vPos.x = matWorld._41;
 	m_vPos.y = matWorld._42;
 	m_vPos.z = matWorld._43;

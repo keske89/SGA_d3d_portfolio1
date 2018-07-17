@@ -35,10 +35,8 @@ public:
 	SYNTHESIZE(D3DXVECTOR3, m_vDir, Dir);
 	SYNTHESIZE(D3DXVECTOR3, m_vPos, Pos);
 	SYNTHESIZE(cActionDelegate*, m_pDelegate, Delegate);
-	SYNTHESIZE(cChef*, m_player1, player1);
-	SYNTHESIZE(cChef*, m_player2, player2);
+	SYNTHESIZE(cChef*, m_player, player);
 	
-
 public:
 	cIGObj();
 	virtual ~cIGObj();
@@ -49,6 +47,7 @@ public:
 	virtual void SetInven(cIGObj* object) { m_Inven = object; }
 	void AddChild(cIGObj* childNode);
 	void SetWorldMatrix(D3DXMATRIX matWorld);
+	D3DXMATRIX GetWorldMat() {	return (m_matLocal * m_matWorld);}
 	inline int GetObjectType() { return m_nObjectType; }
 	inline int GetCollisonType() { return m_eState; }
 };

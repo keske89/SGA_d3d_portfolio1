@@ -34,7 +34,7 @@ void cCrateLid::Setup(D3DXMATRIX matWorld, D3DXVECTOR3 pos, int objectType)
 	D3DXMatrixTranslation(&matT, trans.x, trans.y, trans.z);
 	m_matLocal = matT;
 	m_eState = OBJ_STATIC;
-
+	m_nObjectType = objectType;
 	m_vPos.x = matWorld._41;
 	m_vPos.y = matWorld._42;
 	m_vPos.z = matWorld._43;
@@ -117,20 +117,17 @@ void cCrateLid::Update()
 
 void cCrateLid::Render()
 {
-	
-	g_pD3DDevice->SetTransform(D3DTS_WORLD, &(m_matLocal* m_matWorld));
-	g_pD3DDevice->SetFVF(ST_PNT_VERTEX::FVF);
-
-	g_pD3DDevice->SetTexture(0, m_pTexture);
-	m_pMesh->DrawSubset(0);
-	g_pD3DDevice->SetTexture(0, m_pTexture2);
-	m_pMesh->DrawSubset(1);
-	if (m_pChild)
+	if (!m_bInteraction)
 	{
-		m_pChild->Render();
+		g_pD3DDevice->SetTransform(D3DTS_WORLD, &(m_matLocal* m_matWorld));
+		g_pD3DDevice->SetFVF(ST_PNT_VERTEX::FVF);
+
+		g_pD3DDevice->SetTexture(0, m_pTexture);
+		m_pMesh->DrawSubset(0);
+		g_pD3DDevice->SetTexture(0, m_pTexture2);
+		m_pMesh->DrawSubset(1);
 	}
 	
-
 
 }
 

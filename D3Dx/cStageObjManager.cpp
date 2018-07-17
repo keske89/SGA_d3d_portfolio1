@@ -59,33 +59,13 @@ void cStageObjManager::Setup()
 
 void cStageObjManager::Update()
 {
-	//for (int i = 0; i < m_vecObj.size(); i++);
-	//{
-	//	m_vecObj[i].
-	//}
-	/*if (KEYMANAGER->isOnceKeyDown('P'))
-	{
 
-		m_crateLid->SetInven(m_Tomato);
-	}*/
-	//
-	//if (KEYMANAGER->isOnceKeyDown('L'))
-	//{
-	//	m_crateLid->GetInven();
-	//}
-
-	if (m_player1 && m_player2)
-	{
-		for (auto p : m_listObj)
-		{
-			m_player1->GetPos();
-			m_player2->GetPos();
-		}
-	}
 	
 	
 	for (auto p : m_listObj)
 	{
+		p->SetInteraction(false);
+		p->Setplayer(NULL);
 		p->Update();
 	}
 
@@ -97,6 +77,7 @@ void cStageObjManager::Render()
 {
 	for (auto p : m_listObj)
 	{
+		
 		p->Render();
 	}
 }
@@ -134,37 +115,48 @@ void cStageObjManager::ActionControl()
 	}
 }
 
-void cStageObjManager::IsCollison()
-{
-	for (auto p : m_listObj)
-	{
-		if (fabs(p->GetPos().x - m_player1->GetPos().x) <= 1.0f &&
-			fabs(p->GetPos().z - m_player1->GetPos().z) <= 1.0f)
-		{
-			p->SetInteraction(true);
-		}
-
-		else if (fabs(p->GetPos().x - m_player2->GetPos().x) <= 1.0f &&
-			fabs(p->GetPos().z - m_player2->GetPos().z) <= 1.0f)
-		{
-			p->SetInteraction(true);
-		}
-		else
-		{
-			p->SetInteraction(false);
-		}
-	}
-}
-
 void cStageObjManager::OnAction(cIGObj* pSender) //신호를 주는 객체에서 신호가 들어왔다.
 {
 	switch (pSender->m_nObjectType)
 	{
+		// CRATE = 10~ 
+		//CRATE_LID = 10,
+	case CRATE_TOMATO :
+		break;
+	case CRATE_POTATO:
+		break;
+	case CRATE_MUSHROOM:
+		break;
+	case CRATE_ONION:
+		break;
+	case AOBJ_BIN:
+		break;
+	case AOBJ_CHOPPIGNBOARD:
+		break;
+	case AOBJ_COOKER:
+		break;
+	case AOBJ_PASS:
+		break;
+	case AOBJ_PLATE:
+		break;
+	case AOBJ_PLATERETURNBOX:
+		break;
+	case AOBJ_POT:
+		break;
+	case AOBJ_SINK:
+		break;
+	case FOBJ_POTATO:
+		break;
+	case FOBJ_TOMATO:
+		break;
+	case FOBJ_MUSHROOM:
+		break;
+	case FOBJ_ONION:
+		break;
 	default:
 		break;
 	}
 }
-
 
 std::list<cIGObj*>::iterator cStageObjManager:: SetIngameObject(OBJECTTYPE objtype, D3DXMATRIX matWorld)
 {

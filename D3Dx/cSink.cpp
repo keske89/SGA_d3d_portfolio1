@@ -54,6 +54,7 @@ void cSink::Setup(D3DXMATRIX matWorld, D3DXVECTOR3 pos, int lidtype)
 	D3DXMatrixScaling(&matS, 0.8f, 1.0f, 1.0f);
 	m_matLocal = matS;
 	m_matWorld =  matWorld;
+	m_nObjectType = lidtype;
 	m_bInteraction = false;
 	m_bIsUse = false;
 	m_pMesh = ObJMANAGER->GetMesh(L"Sink1.obj");

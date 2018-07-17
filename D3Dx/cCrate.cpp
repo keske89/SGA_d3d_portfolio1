@@ -18,13 +18,14 @@ void cCrate::Setup(D3DXMATRIX matWorld, D3DXVECTOR3 pos, int objectType)
 	D3DXMatrixTranslation(&matT, trans.x, trans.y, trans.z);
 	m_matLocal = matT;
 	m_eState = OBJ_STATIC;
+	m_nObjectType = objectType;
 	m_matWorld = matWorld;
 	m_bInteraction = false;
 	m_bIsUse = false;
 	m_pMesh = ObJMANAGER->GetMesh(L"Crate_mesh.obj");
 	m_pTexture = g_pTextureManager->GetTexture(L"Resources/Texture2D/Crate.png");
 
-	m_nObjectType = objectType;
+	
 
 }
 

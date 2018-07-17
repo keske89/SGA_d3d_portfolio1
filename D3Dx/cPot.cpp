@@ -75,6 +75,7 @@ void cPot::Setup(D3DXMATRIX matWorld, D3DXVECTOR3 pos, int lidtype)
 	m_isAction = false;
 	m_matWorld = matWorld;
 	m_eState = OBJ_DYNAMIC;
+	m_nObjectType = lidtype;
 	m_pMesh = ObJMANAGER->GetMesh(L"Pot_Mesh.obj");
 	m_pTexture = g_pTextureManager->GetTexture(L"Resources/Texture2D/Pot_Texture.png");
 	m_vecFood.resize(3);

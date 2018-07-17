@@ -64,9 +64,7 @@ void cTestScene1::Setup()
 		
 	}
 
-	m_SOM->SetPlayer1(m_pChef[0]);
-	m_SOM->SetPlayer2(m_pChef[1]);
-	
+
 
 
 
