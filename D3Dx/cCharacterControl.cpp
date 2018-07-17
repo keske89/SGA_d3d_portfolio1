@@ -405,10 +405,7 @@ void cCharacterControl::Move(IN cChef * _Chef)
 			else
 			{
 				m_vecCharacter[i]->GetPos() += m_StPlayerAtrribute[i].st_vDirection *  (CharacterSpeed + m_StPlayerAtrribute[i].st_fCharacterBOOSTERSpeed);
-				if (m_vecCharacter[i]->GetRoot()->GetCHEF_STATE() == CHEF_STATE_MOVE || m_vecCharacter[i]->GetRoot()->GetCHEF_STATE() == CHEF_STATE_TRANCEPORT_MOVE)
-					m_vecCharacter[i]->GetToGo() += m_StPlayerAtrribute[i].st_vDirection *  (CharacterSpeed + m_StPlayerAtrribute[i].st_fCharacterBOOSTERSpeed);
-				else
-					m_vecCharacter[i]->GetToGo() = D3DXVECTOR3(0, 0, 0);
+				m_vecCharacter[i]->GetToGo() = m_StPlayerAtrribute[i].st_vDirection *  (CharacterSpeed + m_StPlayerAtrribute[i].st_fCharacterBOOSTERSpeed);
 			}
 			D3DXMATRIX matR1P, matT1P;
 
