@@ -33,7 +33,7 @@ cChef::~cChef()
 	}
 }
 
-void cChef::SetUp(D3DXVECTOR3 vPos, cCharacterControl * _pControl)
+void cChef::SetUp(IN D3DXVECTOR3 vPos, cCharacterControl * _pControl)
 {
 	m_pControl = _pControl;
 	m_vPosition = vPos;
@@ -99,6 +99,11 @@ void cChef::SetMaterial()
 	m_stMtl.Ambient = D3DXCOLOR(0.0f, 0.0f, 0.0f, 1.0f);
 	m_stMtl.Diffuse = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
 	m_stMtl.Specular = D3DXCOLOR(0.3f, 0.3f, 0.3f, 1.0f);
+}
+
+cIGObj * cChef::GetcIGObject()
+{
+	return nullptr;
 }
 
 void cChef::runPuffCreate()

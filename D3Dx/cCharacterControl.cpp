@@ -85,7 +85,7 @@ void cCharacterControl::ControlAction()
 			else
 				m_vecCharacter[m_Bswitch]->GetRoot()->SetChefAnimation(CHEF_STATE_TRANCEPORT_MOVE);
 			m_StPlayerAtrribute[m_Bswitch].st_vDirectionX = D3DXVECTOR3(-1, 0, 0);
-			m_vecCharacter[m_Bswitch]->GetDirX() = D3DXVECTOR3(-1, 0, 0);
+			m_vecCharacter[m_Bswitch]->Getv_DirX() = D3DXVECTOR3(-1, 0, 0);
 		}
 		if (KEYMANAGER->isStayKeyDown(VK_RIGHT))
 		{
@@ -94,7 +94,7 @@ void cCharacterControl::ControlAction()
 			else
 				m_vecCharacter[m_Bswitch]->GetRoot()->SetChefAnimation(CHEF_STATE_TRANCEPORT_MOVE);
 			m_StPlayerAtrribute[m_Bswitch].st_vDirectionX = D3DXVECTOR3(1, 0, 0);
-			m_vecCharacter[m_Bswitch]->GetDirX() = D3DXVECTOR3(1, 0, 0);
+			m_vecCharacter[m_Bswitch]->Getv_DirX() = D3DXVECTOR3(1, 0, 0);
 		}
 		if (KEYMANAGER->isStayKeyDown(VK_UP))
 		{
@@ -103,7 +103,7 @@ void cCharacterControl::ControlAction()
 			else
 				m_vecCharacter[m_Bswitch]->GetRoot()->SetChefAnimation(CHEF_STATE_TRANCEPORT_MOVE);
 			m_StPlayerAtrribute[m_Bswitch].st_vDirectionZ = D3DXVECTOR3(0, 0, 1);
-			m_vecCharacter[m_Bswitch]->GetDirZ() = D3DXVECTOR3(0, 0, 1);
+			m_vecCharacter[m_Bswitch]->Getv_DirZ() = D3DXVECTOR3(0, 0, 1);
 		}
 		if (KEYMANAGER->isStayKeyDown(VK_DOWN))
 		{
@@ -112,7 +112,7 @@ void cCharacterControl::ControlAction()
 			else
 				m_vecCharacter[m_Bswitch]->GetRoot()->SetChefAnimation(CHEF_STATE_TRANCEPORT_MOVE);
 			m_StPlayerAtrribute[m_Bswitch].st_vDirectionZ = D3DXVECTOR3(0, 0, -1);
-			m_vecCharacter[m_Bswitch]->GetDirZ() = D3DXVECTOR3(0, 0, -1);
+			m_vecCharacter[m_Bswitch]->Getv_DirZ() = D3DXVECTOR3(0, 0, -1);
 		}
 		if (KEYMANAGER->isOnceKeyUp(VK_DOWN))
 		{
@@ -122,7 +122,7 @@ void cCharacterControl::ControlAction()
 				m_vecCharacter[m_Bswitch]->GetRoot()->SetChefAnimation(CHEF_STATE_TRANCEPORT_IDLE);
 
 			m_StPlayerAtrribute[m_Bswitch].st_vDirectionZ = D3DXVECTOR3(0, 0, 0);
-			m_vecCharacter[m_Bswitch]->GetDirZ() = D3DXVECTOR3(0, 0, 0);
+			m_vecCharacter[m_Bswitch]->Getv_DirZ() = D3DXVECTOR3(0, 0, 0);
 		}
 		if (KEYMANAGER->isOnceKeyUp(VK_UP))
 		{
@@ -132,7 +132,7 @@ void cCharacterControl::ControlAction()
 				m_vecCharacter[m_Bswitch]->GetRoot()->SetChefAnimation(CHEF_STATE_TRANCEPORT_IDLE);
 
 			m_StPlayerAtrribute[m_Bswitch].st_vDirectionZ = D3DXVECTOR3(0, 0, 0);
-			m_vecCharacter[m_Bswitch]->GetDirZ() = D3DXVECTOR3(0, 0, 0);
+			m_vecCharacter[m_Bswitch]->Getv_DirZ() = D3DXVECTOR3(0, 0, 0);
 		}
 		if (KEYMANAGER->isOnceKeyUp(VK_RIGHT))
 		{
@@ -142,7 +142,7 @@ void cCharacterControl::ControlAction()
 				m_vecCharacter[m_Bswitch]->GetRoot()->SetChefAnimation(CHEF_STATE_TRANCEPORT_IDLE);
 
 			m_StPlayerAtrribute[m_Bswitch].st_vDirectionX = D3DXVECTOR3(0, 0, 0);
-			m_vecCharacter[m_Bswitch]->GetDirX() = D3DXVECTOR3(0, 0, 0);
+			m_vecCharacter[m_Bswitch]->Getv_DirX() = D3DXVECTOR3(0, 0, 0);
 		}
 		if (KEYMANAGER->isOnceKeyUp(VK_LEFT))
 		{
@@ -152,7 +152,7 @@ void cCharacterControl::ControlAction()
 				m_vecCharacter[m_Bswitch]->GetRoot()->SetChefAnimation(CHEF_STATE_TRANCEPORT_IDLE);
 
 			m_StPlayerAtrribute[m_Bswitch].st_vDirectionX = D3DXVECTOR3(0, 0, 0);
-			m_vecCharacter[m_Bswitch]->GetDirX() = D3DXVECTOR3(0, 0, 0);
+			m_vecCharacter[m_Bswitch]->Getv_DirX() = D3DXVECTOR3(0, 0, 0);
 
 		}
 
