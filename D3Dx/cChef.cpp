@@ -65,7 +65,9 @@ void cChef::Relese()
 
 void cChef::Update()
 {
-	m_pControl->Control();
+	if (m_pControl)
+		m_pControl->Control(this);
+
 	Animation(m_pRoot);
 
 	if (m_pRoot)
