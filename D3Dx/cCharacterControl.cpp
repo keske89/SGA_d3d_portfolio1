@@ -63,11 +63,13 @@ void cCharacterControl::ControlAction()
 		}
 		if (KEYMANAGER->isStayKeyDown('X'))
 		{
-			m_StPlayerAtrribute[m_Bswitch].st_fFrictional = 0.05f;
-			m_StPlayerAtrribute[m_Bswitch].st_fCharacterBOOSTERSpeed = 0.5f;
-			m_vecCharacter[m_Bswitch]->GetRoot()->SetChefAnimation(CHEF_STATE_BOOSTER_MOVE);
-			m_StPlayerAtrribute[m_Bswitch].st_BisBooster = true;
-
+			if (!m_StPlayerAtrribute[m_Bswitch].st_BisBooster)
+			{
+				m_StPlayerAtrribute[m_Bswitch].st_fFrictional = 0.05f;
+				m_StPlayerAtrribute[m_Bswitch].st_fCharacterBOOSTERSpeed = 0.5f;
+				m_vecCharacter[m_Bswitch]->GetRoot()->SetChefAnimation(CHEF_STATE_BOOSTER_MOVE);
+				m_StPlayerAtrribute[m_Bswitch].st_BisBooster = true;
+			}
 		}
 		if (KEYMANAGER->isOnceKeyDown('C'))
 		{
@@ -441,9 +443,11 @@ void cCharacterControl::Booster()
 		}
 		if (m_StPlayerAtrribute[i].st_fCharacterBOOSTERSpeed <= 0.0f)
 		{
+			if(m_StPlayerAtrribute[i].st_BisBooster)
+				m_vecCharacter[i]->GetRoot()->SetChefAnimation(CHEF_STATE_IDLE);
 			m_StPlayerAtrribute[i].st_BisBooster = false;
 			m_StPlayerAtrribute[i].st_fCharacterBOOSTERSpeed = 0.0f;
-			m_vecCharacter[i]->GetRoot()->SetChefAnimation(CHEF_STATE_IDLE);
+		
 		}
 	}
 }
