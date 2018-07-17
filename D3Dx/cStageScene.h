@@ -7,6 +7,7 @@ class cStageGrid;
 class cStageObjManager;
 class cChef;
 class cCharacterControl;
+class cCollision;
 
 class cStageScene : public cGameNode
 {
@@ -17,6 +18,7 @@ private:
 	cStageObjManager*				m_pSOM;
 	cChef*							m_pChef[2];
 	cCharacterControl*				m_pControl;
+	cCollision*						m_pCollision;
 
 	D3DXVECTOR3						m_vecPos;				//Ä«¸Þ¶ó ·è¾Ü Æ÷Áö¼Ç
 	vector<pair<int, D3DXMATRIX>>	m_vNewObjData;

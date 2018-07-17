@@ -151,6 +151,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\temp2\D3Dx\cCollision.h" />
     <ClInclude Include="Assets.h" />
     <ClInclude Include="cActionObj.h" />
     <ClInclude Include="cBin.h" />
@@ -161,7 +162,6 @@
     <ClInclude Include="cChefKnife.h" />
     <ClInclude Include="cChefRunPuff.h" />
     <ClInclude Include="cChoppingBoard.h" />
-    <ClInclude Include="cCollison.h" />
     <ClInclude Include="cCooker.h" />
     <ClInclude Include="cCounterTop.h" />
     <ClInclude Include="cCrate.h" />
@@ -229,6 +229,7 @@
     <ClInclude Include="UIText.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\temp2\D3Dx\cCollision.cpp" />
     <ClCompile Include="Assets.cpp" />
     <ClCompile Include="cActionObj.cpp" />
     <ClCompile Include="cBin.cpp" />
@@ -239,7 +240,6 @@
     <ClCompile Include="cChefKnife.cpp" />
     <ClCompile Include="cChefRunPuff.cpp" />
     <ClCompile Include="cChoppingBoard.cpp" />
-    <ClCompile Include="cCollison.cpp" />
     <ClCompile Include="cCooker.cpp" />
     <ClCompile Include="cCounterTop.cpp" />
     <ClCompile Include="cCrate.cpp" />

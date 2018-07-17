@@ -6,6 +6,7 @@
 #include "cStageObjManager.h"
 #include "cChef.h"
 #include "cCharacterControl.h"
+#include "cCollision.h"
 
 
 cStageScene::cStageScene()
@@ -15,6 +16,7 @@ cStageScene::cStageScene()
 	, m_vecPos(0, 0, 0)
 	, m_pSOM(NULL)
 	, m_pControl(NULL)
+	, m_pCollision(NULL)
 {
 	m_pChef[0] = NULL;
 	m_pChef[1] = NULL;
@@ -30,12 +32,13 @@ cStageScene::~cStageScene()
 	SAFE_DELETE(m_pControl);
 	SAFE_DELETE(m_pChef[0]);
 	SAFE_DELETE(m_pChef[1]);
+	SAFE_DELETE(m_pCollision);
 }
 
 void cStageScene::Setup()
 {
 	m_pStage = new cStage;
-	m_pStage->Setup(3, m_vNewObjData, m_vSetObjData, m_mapIsBlockedData, m_vecChefPos[0], m_vecChefPos[1]);
+	m_pStage->Setup(1, m_vNewObjData, m_vSetObjData, m_mapIsBlockedData, m_vecChefPos[0], m_vecChefPos[1]);
 
 	m_pCamera = new cCamera;
 	m_pCamera->Setup();
@@ -61,6 +64,13 @@ void cStageScene::Setup()
 		m_pChef[i]->SetUp(m_vecChefPos[i], m_pControl);
 		m_pControl->AddcCharacter(m_pChef[i]);
 	}
+
+	m_pCollision = new cCollision;
+	m_pCollision->setPlayerMemoryAddressLink(0, m_pChef[0]);
+	m_pCollision->setPlayerMemoryAddressLink(1, m_pChef[1]);
+	m_pCollision->setStageObjManagerMemoryAddressLink(m_pSOM);
+	m_pCollision->setMapIsBlockedData(m_mapIsBlockedData);
+	m_pCollision->Setup();
 }
 
 void cStageScene::Update()
@@ -78,6 +88,9 @@ void cStageScene::Update()
 	{
 		m_pChef[i]->Update();
 	}
+
+	if (m_pCollision)
+		m_pCollision->Update();
 }
 
 void cStageScene::Render()
