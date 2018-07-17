@@ -16,7 +16,8 @@ cChef::cChef()
 	, m_vPosition(0, 0, 0)
 	, m_vdir(0, 0, 0)
 	, m_vToGo(0, 0, 0)
-	, m_pObjRoot(NULL)
+	, m_pIven(NULL)
+	, m_pDetect(NULL)
 	, m_fRadius(0.5f)
 {
 }

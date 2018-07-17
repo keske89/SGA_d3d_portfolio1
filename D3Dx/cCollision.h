@@ -23,9 +23,10 @@ public:
 	void Setup();
 	void Update();
 
-	bool WallCollisionX(int playerNum, int moveX, D3DXVECTOR3& pos);
-	bool WallCollisionZ(int playerNum, int moveZ, D3DXVECTOR3& pos);
-	void WallVertexCollision(int playerNum, D3DXVECTOR3& pos);
+	bool PlayerWallCollisionX(int playerNum, int moveX, D3DXVECTOR3& pos);
+	bool PlayerWallCollisionZ(int playerNum, int moveZ, D3DXVECTOR3& pos);
+	void PlayerWallVertexCollision(int playerNum, D3DXVECTOR3& pos);
+	cIGObj* PlayerDetectObject(int playerNum);
 	void StaticLineXCollision(int playerNum, int keyFirst, int keySecond, int moveX, D3DXVECTOR3& pos);
 	void StaticLineZCollision(int playerNum, int keyFirst, int keySecond, int moveZ, D3DXVECTOR3& pos);
 	void StaticVertexCollision(int playerNum, int keyFirst, int keySecond);

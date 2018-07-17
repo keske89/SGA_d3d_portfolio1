@@ -44,20 +44,21 @@ void cCollision::Setup()
 void cCollision::Update()
 {
 	D3DXVECTOR3 pos = m_pPlayer[0]->GetPos();
-	int keyFirst = pos.x;
-	int keySecond = pos.z;
 	int moveX = 0;
 	int moveZ = 0;
 	if (DetectMovement(0, moveX, moveZ))
 	{
-		WallCollisionX(0, moveX, pos);
-		WallCollisionZ(0, moveZ, pos);
+		PlayerWallCollisionX(0, moveX, pos);
+		PlayerWallCollisionZ(0, moveZ, pos);
+		//m_pPlayer[0]->SetcIGObject(PlayerDetectObject(0));
+		cIGObj* test = PlayerDetectObject(0);
+		int test2 = 0;
 		//StaticLineXCollision(0, keyFirst, keySecond, moveX, pos);
 		//StaticLineZCollision(0, keyFirst, keySecond, moveZ, pos);
 	}
 }
 
-bool cCollision::WallCollisionX(int playerNum, int moveX, D3DXVECTOR3& pos)
+bool cCollision::PlayerWallCollisionX(int playerNum, int moveX, D3DXVECTOR3& pos)
 {
 	int keyFirst = (pos.x + (moveX / 2.0f));
 	int keySecond = pos.z;
@@ -71,7 +72,7 @@ bool cCollision::WallCollisionX(int playerNum, int moveX, D3DXVECTOR3& pos)
 	return false;
 }
 
-bool cCollision::WallCollisionZ(int playerNum, int moveZ, D3DXVECTOR3& pos)
+bool cCollision::PlayerWallCollisionZ(int playerNum, int moveZ, D3DXVECTOR3& pos)
 {
 	int keyFirst = pos.x;
 	int keySecond = (pos.z + (moveZ / 2.0f));
@@ -85,7 +86,7 @@ bool cCollision::WallCollisionZ(int playerNum, int moveZ, D3DXVECTOR3& pos)
 	return false;
 }
 
-void cCollision::WallVertexCollision(int playerNum, D3DXVECTOR3& pos)
+void cCollision::PlayerWallVertexCollision(int playerNum, D3DXVECTOR3& pos)
 {
 	int keyFirst = pos.x;
 	int keySecond = pos.z;
@@ -93,6 +94,33 @@ void cCollision::WallVertexCollision(int playerNum, D3DXVECTOR3& pos)
 	{
 
 	}
+}
+
+cIGObj* cCollision::PlayerDetectObject(int playerNum)
+{
+	D3DXVECTOR3 pos = m_pPlayer[playerNum]->GetPos(); 
+	D3DXVECTOR3 dir = m_pPlayer[playerNum]->GetDir();
+	D3DXVec3Normalize(&dir, &dir);
+	pos = pos + dir * 0.7;
+	int keyFirst = pos.x;
+	int keySecond = pos.z;
+	float distance = 10000000.0f;
+	cIGObj* tempAddress = NULL;
+	m_iterObject = m_mapObject.find(make_pair(keyFirst, keySecond));
+	if (m_iterObject != m_mapObject.end())
+	{
+		for (int j = 0; j < m_iterObject->second.size(); ++j)
+		{
+			float tempDist = GetDistance(m_pPlayer[playerNum]->GetPos(), m_iterObject->second[j]->GetPos());
+			if (tempDist > distance) continue;
+			else if (tempDist < distance)
+			{
+				distance = tempDist;
+				tempAddress = m_iterObject->second[j];
+			}
+		}
+	}
+	return tempAddress;
 }
 
 void cCollision::StaticLineXCollision(int playerNum, int keyFirst, int keySecond, int moveX, D3DXVECTOR3& pos)
