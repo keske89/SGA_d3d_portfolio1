@@ -5,11 +5,10 @@
 
 
 cCrateLid::cCrateLid()
-	: m_CrateState(NORMAL)
-	, m_bCheck(false)
-	, m_fAnimationRot(0.0f)
+	: m_fAnimationRot(0.0f)
 	, m_bAni(false)
 	, m_pTexture2(NULL)
+	, m_player(NULL)
 {
 }
 
@@ -117,7 +116,7 @@ void cCrateLid::Update()
 
 void cCrateLid::Render()
 {
-	if (!m_bInteraction)
+	if (m_bInteraction)
 	{
 		g_pD3DDevice->SetTransform(D3DTS_WORLD, &(m_matLocal* m_matWorld));
 		g_pD3DDevice->SetFVF(ST_PNT_VERTEX::FVF);
@@ -126,6 +125,8 @@ void cCrateLid::Render()
 		m_pMesh->DrawSubset(0);
 		g_pD3DDevice->SetTexture(0, m_pTexture2);
 		m_pMesh->DrawSubset(1);
+
+		m_pChild->Render();
 	}
 	
 
@@ -133,48 +134,48 @@ void cCrateLid::Render()
 
 void cCrateLid::Action()
 {
-	if (m_bInteraction)
-	{
-		if (GetKeyState(VK_SPACE) & 0x8000)
-		{
-			if (m_CrateState == COLLISIONWITHPLAYER)
-			{
-				m_CrateState = SELECTED;
+	//if (m_bInteraction)
+	//{
+	//	if (GetKeyState(VK_SPACE) & 0x8000)
+	//	{
+	//		if (m_bInteraction)
+	//		{
+	//			m_CrateState = SELECTED;
 
-			}
-		}
-		else
-		{
-			if (m_CrateState == SELECTED) //
-			{
-				//Animation용
-				m_bAni = true;
+	//		}
+	//	}
+	//	else
+	//	{
+	//		if (m_CrateState == SELECTED) //
+	//		{
+	//			//Animation용
+	//			m_bAni = true;
 
-				if (m_pDelegate)
-					m_pDelegate->OnAction(this); //Delegate의 OnAction함수 호출 : LidType에 맞는 FoodObj를 new해준다.
-			}
-			m_CrateState = COLLISIONWITHPLAYER;
+	//			if (m_pDelegate)
+	//				m_pDelegate->OnAction(this); //Delegate의 OnAction함수 호출 : LidType에 맞는 FoodObj를 new해준다.
+	//		}
+	//		m_CrateState = COLLISIONWITHPLAYER;
 
-		}
-	}
-	else
-	{
-		if (GetKeyState(VK_SPACE) & 0x8000)
-		{
+	//	}
+	//}
+	//else
+	//{
+	//	if (GetKeyState(VK_SPACE) & 0x8000)
+	//	{
 
-		}
-		else
-		{
-			m_CrateState = NORMAL;
-			// 맵툴에서 사용할때 lid 좌표가 고정되어버리는 현상발생으로 해결 방안 찾아봐야할듯
+	//	}
+	//	else
+	//	{
+	//		m_CrateState = NORMAL;
+	//		// 맵툴에서 사용할때 lid 좌표가 고정되어버리는 현상발생으로 해결 방안 찾아봐야할듯
 
-			//D3DXMATRIX matT;
-			//D3DXMatrixTranslation(&matT, m_vPos.x, m_vPos.y-0.5f, m_vPos.z);
-			//m_matWorld = m_matLocal;
-			//m_fAnimationRot = 0.0f;
-			//m_bAni = false;
-		}
-	}
+	//		D3DXMATRIX matT;
+	//		D3DXMatrixTranslation(&matT, m_vPos.x, m_vPos.y-0.5f, m_vPos.z);
+	//		m_matWorld = m_matLocal;
+	//		m_fAnimationRot = 0.0f;
+	//		m_bAni = false;
+	//	}
+	//}
 }
 
 void cCrateLid::Animation()

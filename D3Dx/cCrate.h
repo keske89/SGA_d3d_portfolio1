@@ -1,8 +1,6 @@
 #pragma once
 #include "cActionObj.h"
 
-class cStageObjManager;
-
 class cCrateLid;
 
 class cCrate : public cActionObj

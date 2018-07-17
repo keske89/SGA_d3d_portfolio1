@@ -44,24 +44,10 @@ void cStageObjManager::Setup()
 	D3DXMatrixIdentity(&matWorld);
 	D3DXVECTOR3 mPos(0, 0, 0);
 
-	
-
-
-	/*m_Counter = new cCounterTop;
-	m_Counter->Setup(matWorld, mPos, 0);
-	m_listObj.push_back(m_Counter);
-
-	m_Tomato = new cTomato;
-	m_Tomato->Setup(matWorld, mPos, 0);
-	m_listObj.push_back(m_Tomato);
-*/
 }
 
 void cStageObjManager::Update()
 {
-
-	
-	
 	for (auto p : m_listObj)
 	{
 		p->SetInteraction(false);
@@ -69,8 +55,6 @@ void cStageObjManager::Update()
 		p->Update();
 	}
 
-	//IsCollison();
-	//ActionControl();
 }
 
 void cStageObjManager::Render()
@@ -90,30 +74,6 @@ void cStageObjManager::DeleteObject(std::list<cIGObj*>::iterator objectIter)
 
 }
 
-void cStageObjManager::ActionControl()
-{
-	if (KEYMANAGER->isOnceKeyDown(VK_DOWN))
-	{
-		m_buttonSelect++;
-		if (m_buttonSelect > 1) m_buttonSelect = BUTTON_1;
-	}
-
-	if (KEYMANAGER->isOnceKeyDown(VK_UP))
-	{
-
-		m_buttonSelect--;
-		if (m_buttonSelect < 0) m_buttonSelect = BUTTON_2;
-	}
-
-	if (m_buttonSelect == BUTTON_1)
-	{
-		//m_crateLid->GetLid()->SetCheck(true);
-	}
-	else if (m_buttonSelect == BUTTON_2)
-	{
-		//m_crate->GetLid()->SetCheck(false);
-	}
-}
 
 void cStageObjManager::OnAction(cIGObj* pSender) //신호를 주는 객체에서 신호가 들어왔다.
 {
