@@ -43,18 +43,20 @@ void cCollision::Setup()
 
 void cCollision::Update()
 {
-	D3DXVECTOR3 pos = m_pPlayer[0]->GetPos();
+	D3DXVECTOR3 pos[2]; 
 	int moveX = 0;
 	int moveZ = 0;
-	if (DetectMovement(0, moveX, moveZ))
+	for (int i = 0; i < 2; ++i)
 	{
-		PlayerWallCollisionX(0, moveX, pos);
-		PlayerWallCollisionZ(0, moveZ, pos);
-		//m_pPlayer[0]->SetcIGObject(PlayerDetectObject(0));
-		cIGObj* test = PlayerDetectObject(0);
-		int test2 = 0;
-		//StaticLineXCollision(0, keyFirst, keySecond, moveX, pos);
-		//StaticLineZCollision(0, keyFirst, keySecond, moveZ, pos);
+		pos[i] = m_pPlayer[i]->GetPos();
+		if (DetectMovement(i, moveX, moveZ))
+		{
+			PlayerWallCollisionX(i, moveX, pos[i]);
+			PlayerWallCollisionZ(i, moveZ, pos[i]);
+			m_pPlayer[i]->SetDetect(PlayerDetectObject(i));
+			//StaticLineXCollision(0, keyFirst, keySecond, moveX, pos);
+			//StaticLineZCollision(0, keyFirst, keySecond, moveZ, pos);
+		}
 	}
 }
 
