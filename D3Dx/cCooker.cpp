@@ -13,9 +13,6 @@ cCooker::~cCooker()
 
 void cCooker::Setup()
 {
-	
-	
-
 }
 
 void cCooker::Update()

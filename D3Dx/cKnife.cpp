@@ -10,7 +10,6 @@ cKnife::cKnife()
 
 cKnife::~cKnife()
 {
-	
 }
 
 void cKnife::Setup()

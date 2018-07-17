@@ -68,12 +68,12 @@ void cChef::Update()
 	if (m_pControl)
 		m_pControl->Control(this);
 	
-	if (m_pDetect)
-	{
-		m_pDetect->SetInteraction(true);
-		m_pDetect->Setplayer(this);
-
-	}
+	//if (m_pDetect)
+	//{
+	//	m_pDetect->SetInteraction(true);
+	//	m_pDetect->Setplayer(this);
+	//
+	//}
 	Animation(m_pRoot);
 
 	if (m_pRoot)

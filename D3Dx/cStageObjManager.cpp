@@ -24,7 +24,9 @@
 #include "cCrateLid.h"
 
 cStageObjManager::cStageObjManager()
-	:m_buttonSelect(BUTTON_2)
+	: m_buttonSelect(BUTTON_2)
+	, m_player1(NULL)
+	, m_player2(NULL)
 {
 }
 
@@ -36,6 +38,8 @@ cStageObjManager::~cStageObjManager()
 	{
 		SAFE_DELETE(*iter);
 	}
+	SAFE_RELEASE(m_player1);
+	SAFE_RELEASE(m_player2);
 }
 
 void cStageObjManager::Setup()
@@ -50,11 +54,38 @@ void cStageObjManager::Update()
 {
 	for (auto p : m_listObj)
 	{
-		p->SetInteraction(false);
-		p->Setplayer(NULL);
+		if (m_player1 && m_player2)
+		{
+			if (m_player1->GetDetect() == p)
+			{
+				p->Setplayer(m_player1);
+				p->SetInteraction(true);
+				if (KEYMANAGER->isOnceKeyDown('C'))
+				{
+					//p->SetDelegate(this);
+					m_pDelegate = this;
+					OnAction(p);
+					
+				}
+			}
+			else if (m_player2->GetDetect() == p)
+			{
+				p->Setplayer(m_player2);
+				p->SetInteraction(true);
+			}
+
+			else
+			{
+				p->SetInteraction(false);
+				p->Setplayer(NULL);
+			}
+		}
+		
+		
 		p->Update();
 	}
 
+	//OnAction();
 }
 
 void cStageObjManager::Render()
@@ -77,6 +108,9 @@ void cStageObjManager::DeleteObject(std::list<cIGObj*>::iterator objectIter)
 
 void cStageObjManager::OnAction(cIGObj* pSender) //신호를 주는 객체에서 신호가 들어왔다.
 {
+	D3DXMATRIX mat;
+	D3DXMatrixIdentity(&mat);
+
 	switch (pSender->m_nObjectType)
 	{
 		// CRATE = 10~ 
@@ -88,6 +122,10 @@ void cStageObjManager::OnAction(cIGObj* pSender) //신호를 주는 객체에서 신호가 �
 	case CRATE_MUSHROOM:
 		break;
 	case CRATE_ONION:
+		m_Onion = new cOnion;
+		m_Onion->Setup(pSender->GetWorldMat(), pSender->Getplayer()->GetPos(), FOBJ_ONION);
+		m_listObj.push_back(m_Onion);
+		pSender->Getplayer()->SetIven(m_Onion);
 		break;
 	case AOBJ_BIN:
 		break;
@@ -133,6 +171,7 @@ std::list<cIGObj*>::iterator cStageObjManager:: SetIngameObject(OBJECTTYPE objty
 	{
 		cCrateLid * pCrateLid = new cCrateLid;
 		pCrateLid->Setup(matWorld, D3DXVECTOR3(matWorld._41, matWorld._42, matWorld._43), (int)CRATE_TOMATO);
+		pCrateLid->SetDelegate(this);
 		cCrate* pCrate = new cCrate;
 		pCrate->Setup(matWorld, D3DXVECTOR3(matWorld._41, matWorld._42, matWorld._43), (int)CRATE_TOMATO);
 		pCrateLid->AddChild(pCrate);
@@ -144,6 +183,7 @@ std::list<cIGObj*>::iterator cStageObjManager:: SetIngameObject(OBJECTTYPE objty
 	{
 		cCrateLid * pCrateLid = new cCrateLid;
 		pCrateLid->Setup(matWorld, D3DXVECTOR3(matWorld._41, matWorld._42, matWorld._43), (int)CRATE_POTATO);
+		pCrateLid->SetDelegate(this);
 		cCrate* pCrate = new cCrate;
 		pCrate->Setup(matWorld, D3DXVECTOR3(matWorld._41, matWorld._42, matWorld._43), (int)CRATE_POTATO);
 		pCrateLid->AddChild(pCrate);
@@ -155,6 +195,7 @@ std::list<cIGObj*>::iterator cStageObjManager:: SetIngameObject(OBJECTTYPE objty
 	{
 		cCrateLid * pCrateLid = new cCrateLid;
 		pCrateLid->Setup(matWorld, D3DXVECTOR3(matWorld._41, matWorld._42, matWorld._43), (int)CRATE_MUSHROOM);
+		pCrateLid->SetDelegate(this);
 		cCrate* pCrate = new cCrate;
 		pCrate->Setup(matWorld, D3DXVECTOR3(matWorld._41, matWorld._42, matWorld._43), (int)CRATE_MUSHROOM);
 		pCrateLid->AddChild(pCrate);
@@ -166,6 +207,7 @@ std::list<cIGObj*>::iterator cStageObjManager:: SetIngameObject(OBJECTTYPE objty
 	{
 		cCrateLid * pCrateLid = new cCrateLid;
 		pCrateLid->Setup(matWorld, D3DXVECTOR3(matWorld._41, matWorld._42, matWorld._43), (int)CRATE_ONION);
+		//pCrateLid->SetDelegate(this);
 		cCrate* pCrate = new cCrate;
 		pCrate->Setup(matWorld, D3DXVECTOR3(matWorld._41, matWorld._42, matWorld._43), (int)CRATE_ONION);
 		pCrateLid->AddChild(pCrate);
@@ -176,54 +218,63 @@ std::list<cIGObj*>::iterator cStageObjManager:: SetIngameObject(OBJECTTYPE objty
 	case AOBJ_BIN:
 		m_Bin = new cBin;
 		m_Bin->Setup(matWorld, D3DXVECTOR3(matWorld._41, matWorld._42, matWorld._43), AOBJ_BIN);
+		m_Bin->SetDelegate(this);
 		iter = m_listObj.insert(m_listObj.end(), m_Bin);
 		return iter;
 		break;
 	case AOBJ_CHOPPIGNBOARD:
 		m_ChoppingBoard = new cChoppingBoard;
 		m_ChoppingBoard->Setup(matWorld, D3DXVECTOR3(matWorld._41, matWorld._42, matWorld._43), AOBJ_CHOPPIGNBOARD);
+		m_ChoppingBoard->SetDelegate(this);
 		iter = m_listObj.insert(m_listObj.end(), m_ChoppingBoard);
 		return iter;
 		break;
 	case AOBJ_COOKER:
 		m_Cooker = new cCooker;
 		m_Cooker->Setup(matWorld, D3DXVECTOR3(matWorld._41, matWorld._42, matWorld._43), AOBJ_COOKER);
+		m_Cooker->SetDelegate(this);
 		iter = m_listObj.insert(m_listObj.end(), m_Cooker);
 		return iter;
 		break;
 	case AOBJ_PASS:
 		m_Pass = new cPass;
 		m_Pass->Setup(matWorld, D3DXVECTOR3(matWorld._41, matWorld._42, matWorld._43), AOBJ_PASS);
+		m_Pass->SetDelegate(this);
 		iter = m_listObj.insert(m_listObj.end(), m_Pass);
 		return iter;
 		break;
 	case AOBJ_PLATE:
 		m_Plate = new cPlate;
 		m_Plate->Setup(matWorld, D3DXVECTOR3(matWorld._41, matWorld._42, matWorld._43), AOBJ_PLATE);
+		m_Plate->SetDelegate(this);
 		iter = m_listObj.insert(m_listObj.end(), m_Plate);
 		return iter;
 		break;
 	case AOBJ_PLATERETURNBOX:
 		m_PlateReturnBox = new cPlateReturnBox;
 		m_PlateReturnBox->Setup(matWorld, D3DXVECTOR3(matWorld._41, matWorld._42, matWorld._43), AOBJ_PLATERETURNBOX);
+		m_PlateReturnBox->SetDelegate(this);
 		iter = m_listObj.insert(m_listObj.end(), m_PlateReturnBox);
 		return iter;
 		break;
 	case AOBJ_POT:
 		m_Pot = new cPot;
 		m_Pot->Setup(matWorld, D3DXVECTOR3(matWorld._41, matWorld._42, matWorld._43), AOBJ_POT);
+		m_Pot->SetDelegate(this);
 		iter = m_listObj.insert(m_listObj.end(), m_Pot);
 		return iter;
 		break;
 	case AOBJ_SINK:
 		m_Sink = new cSink;
 		m_Sink->Setup(matWorld, D3DXVECTOR3(matWorld._41, matWorld._42, matWorld._43), AOBJ_SINK);
+		m_Sink->SetDelegate(this);
 		iter = m_listObj.insert(m_listObj.end(), m_Sink);
 		return iter;
 		break;
 	case AOBJ_TABLE:
 		m_Counter = new cCounterTop;
 		m_Counter->Setup(matWorld, D3DXVECTOR3(matWorld._41, matWorld._42, matWorld._43), AOBJ_TABLE);
+		m_Counter->SetDelegate(this);
 		iter = m_listObj.insert(m_listObj.end(), m_Counter);
 		return iter;
 		break;

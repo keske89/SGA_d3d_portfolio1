@@ -13,8 +13,6 @@ cSink::~cSink()
 
 void cSink::Setup()
 {
-	
-	
 }
 
 void cSink::Update()

@@ -8,7 +8,6 @@ cCrateLid::cCrateLid()
 	: m_fAnimationRot(0.0f)
 	, m_bAni(false)
 	, m_pTexture2(NULL)
-	, m_player(NULL)
 {
 }
 
@@ -134,48 +133,26 @@ void cCrateLid::Render()
 
 void cCrateLid::Action()
 {
-	//if (m_bInteraction)
-	//{
-	//	if (GetKeyState(VK_SPACE) & 0x8000)
-	//	{
-	//		if (m_bInteraction)
-	//		{
-	//			m_CrateState = SELECTED;
+	if (m_bInteraction)
+	{
+	
+			
+			
 
-	//		}
-	//	}
-	//	else
-	//	{
-	//		if (m_CrateState == SELECTED) //
-	//		{
-	//			//Animation용
-	//			m_bAni = true;
+		
+	}
+	else
+	{
+		
+			// 맵툴에서 사용할때 lid 좌표가 고정되어버리는 현상발생으로 해결 방안 찾아봐야할듯
 
-	//			if (m_pDelegate)
-	//				m_pDelegate->OnAction(this); //Delegate의 OnAction함수 호출 : LidType에 맞는 FoodObj를 new해준다.
-	//		}
-	//		m_CrateState = COLLISIONWITHPLAYER;
-
-	//	}
-	//}
-	//else
-	//{
-	//	if (GetKeyState(VK_SPACE) & 0x8000)
-	//	{
-
-	//	}
-	//	else
-	//	{
-	//		m_CrateState = NORMAL;
-	//		// 맵툴에서 사용할때 lid 좌표가 고정되어버리는 현상발생으로 해결 방안 찾아봐야할듯
-
-	//		D3DXMATRIX matT;
-	//		D3DXMatrixTranslation(&matT, m_vPos.x, m_vPos.y-0.5f, m_vPos.z);
-	//		m_matWorld = m_matLocal;
-	//		m_fAnimationRot = 0.0f;
-	//		m_bAni = false;
-	//	}
-	//}
+			/*D3DXMATRIX matT;
+			D3DXMatrixTranslation(&matT, m_vPos.x, m_vPos.y-0.5f, m_vPos.z);
+			m_matWorld = m_matLocal;
+			m_fAnimationRot = 0.0f;
+			m_bAni = false;*/
+		
+	}
 }
 
 void cCrateLid::Animation()

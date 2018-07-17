@@ -39,6 +39,7 @@ public:
 	cIGObj * GetcIGObject();
 	void SetIven(IN cIGObj * _object) { m_pIven = _object; };
 	void SetDetect(IN cIGObj * _object) { m_pDetect = _object; }
+	cIGObj* GetDetect() { return m_pDetect; }
 	void setcStageObjManagerAdressLink(cStageObjManager* _StageObject) { m_pStageOBJ = _StageObject; }
 	void runPuffCreate();
 	void runPuffUpdate();
