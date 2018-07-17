@@ -85,7 +85,6 @@ void cCharacterControl::ControlAction()
 			else
 				m_vecCharacter[m_Bswitch]->GetRoot()->SetChefAnimation(CHEF_STATE_TRANCEPORT_MOVE);
 			m_StPlayerAtrribute[m_Bswitch].st_vDirectionX = D3DXVECTOR3(-1, 0, 0);
-			m_vecCharacter[m_Bswitch]->Getv_DirX() = D3DXVECTOR3(-1, 0, 0);
 		}
 		if (KEYMANAGER->isStayKeyDown(VK_RIGHT))
 		{
@@ -94,7 +93,6 @@ void cCharacterControl::ControlAction()
 			else
 				m_vecCharacter[m_Bswitch]->GetRoot()->SetChefAnimation(CHEF_STATE_TRANCEPORT_MOVE);
 			m_StPlayerAtrribute[m_Bswitch].st_vDirectionX = D3DXVECTOR3(1, 0, 0);
-			m_vecCharacter[m_Bswitch]->Getv_DirX() = D3DXVECTOR3(1, 0, 0);
 		}
 		if (KEYMANAGER->isStayKeyDown(VK_UP))
 		{
@@ -103,7 +101,6 @@ void cCharacterControl::ControlAction()
 			else
 				m_vecCharacter[m_Bswitch]->GetRoot()->SetChefAnimation(CHEF_STATE_TRANCEPORT_MOVE);
 			m_StPlayerAtrribute[m_Bswitch].st_vDirectionZ = D3DXVECTOR3(0, 0, 1);
-			m_vecCharacter[m_Bswitch]->Getv_DirZ() = D3DXVECTOR3(0, 0, 1);
 		}
 		if (KEYMANAGER->isStayKeyDown(VK_DOWN))
 		{
@@ -112,7 +109,6 @@ void cCharacterControl::ControlAction()
 			else
 				m_vecCharacter[m_Bswitch]->GetRoot()->SetChefAnimation(CHEF_STATE_TRANCEPORT_MOVE);
 			m_StPlayerAtrribute[m_Bswitch].st_vDirectionZ = D3DXVECTOR3(0, 0, -1);
-			m_vecCharacter[m_Bswitch]->Getv_DirZ() = D3DXVECTOR3(0, 0, -1);
 		}
 		if (KEYMANAGER->isOnceKeyUp(VK_DOWN))
 		{
@@ -122,7 +118,6 @@ void cCharacterControl::ControlAction()
 				m_vecCharacter[m_Bswitch]->GetRoot()->SetChefAnimation(CHEF_STATE_TRANCEPORT_IDLE);
 
 			m_StPlayerAtrribute[m_Bswitch].st_vDirectionZ = D3DXVECTOR3(0, 0, 0);
-			m_vecCharacter[m_Bswitch]->Getv_DirZ() = D3DXVECTOR3(0, 0, 0);
 		}
 		if (KEYMANAGER->isOnceKeyUp(VK_UP))
 		{
@@ -132,7 +127,6 @@ void cCharacterControl::ControlAction()
 				m_vecCharacter[m_Bswitch]->GetRoot()->SetChefAnimation(CHEF_STATE_TRANCEPORT_IDLE);
 
 			m_StPlayerAtrribute[m_Bswitch].st_vDirectionZ = D3DXVECTOR3(0, 0, 0);
-			m_vecCharacter[m_Bswitch]->Getv_DirZ() = D3DXVECTOR3(0, 0, 0);
 		}
 		if (KEYMANAGER->isOnceKeyUp(VK_RIGHT))
 		{
@@ -142,7 +136,6 @@ void cCharacterControl::ControlAction()
 				m_vecCharacter[m_Bswitch]->GetRoot()->SetChefAnimation(CHEF_STATE_TRANCEPORT_IDLE);
 
 			m_StPlayerAtrribute[m_Bswitch].st_vDirectionX = D3DXVECTOR3(0, 0, 0);
-			m_vecCharacter[m_Bswitch]->Getv_DirX() = D3DXVECTOR3(0, 0, 0);
 		}
 		if (KEYMANAGER->isOnceKeyUp(VK_LEFT))
 		{
@@ -152,7 +145,6 @@ void cCharacterControl::ControlAction()
 				m_vecCharacter[m_Bswitch]->GetRoot()->SetChefAnimation(CHEF_STATE_TRANCEPORT_IDLE);
 
 			m_StPlayerAtrribute[m_Bswitch].st_vDirectionX = D3DXVECTOR3(0, 0, 0);
-			m_vecCharacter[m_Bswitch]->Getv_DirX() = D3DXVECTOR3(0, 0, 0);
 
 		}
 
@@ -367,8 +359,12 @@ void cCharacterControl::Move(IN cChef * _Chef)
 	{
 		if (m_vecCharacter[i] == _Chef)
 		{
+			_Chef->GetDir() = m_StPlayerAtrribute[i].st_vDirectionX + m_StPlayerAtrribute[i].st_vDirectionZ;
 			if (m_vecCharacter[i]->GetRoot()->GetCHEF_STATE() != CHEF_STATE_BOOSTER_MOVE)
+			{
 				D3DXVec3Normalize(&m_StPlayerAtrribute[i].st_vDirection, &(m_StPlayerAtrribute[i].st_vDirectionX + m_StPlayerAtrribute[i].st_vDirectionZ));
+				
+			}
 			else if (m_vecCharacter[i]->GetRoot()->GetCHEF_STATE() != CHEF_STATE_IDLE)
 			{
 				D3DXVec3Normalize(&m_StPlayerAtrribute[i].st_vDirection, &(m_StPlayerAtrribute[i].st_vDirectionX + m_StPlayerAtrribute[i].st_vDirectionZ));
@@ -400,13 +396,8 @@ void cCharacterControl::Move(IN cChef * _Chef)
 				}
 			}
 
-			if (CheckChefIntersect())
-				ChefIntersectMove();
-			else
-			{
-				m_vecCharacter[i]->GetPos() += m_StPlayerAtrribute[i].st_vDirection *  (CharacterSpeed + m_StPlayerAtrribute[i].st_fCharacterBOOSTERSpeed);
-				m_vecCharacter[i]->GetToGo() = m_StPlayerAtrribute[i].st_vDirection *  (CharacterSpeed + m_StPlayerAtrribute[i].st_fCharacterBOOSTERSpeed);
-			}
+			m_vecCharacter[i]->GetPos() += m_StPlayerAtrribute[i].st_vDirection *  (CharacterSpeed + m_StPlayerAtrribute[i].st_fCharacterBOOSTERSpeed);
+			m_vecCharacter[i]->GetToGo() = m_StPlayerAtrribute[i].st_vDirection *  (CharacterSpeed + m_StPlayerAtrribute[i].st_fCharacterBOOSTERSpeed);
 			D3DXMATRIX matR1P, matT1P;
 
 			if (m_vecCharacter[i]->GetRoot()->GetCHEF_STATE() == CHEF_STATE_MOVE || m_vecCharacter[i]->GetRoot()->GetCHEF_STATE() == CHEF_STATE_TRANCEPORT_MOVE)
