@@ -6,6 +6,7 @@
 class cChefRoot;
 class cStageObjManager;
 class cCharacterControl;
+class cCollision;
 
 class cChef :public cChefAnimation, public cActionDelegate
 {
