@@ -5,10 +5,6 @@
 cCharacterControl::cCharacterControl()
 	: m_enmPlayerMod(PLAYERMOD_PLAY1P)
 	, m_Bswitch(false)
-	, m_vbooster(0, 0, 0)
-	, m_fCharacterBOOSTERSpeed(0.0f)
-	, m_fFrictional(0.0f)
-	, m_pAnimation(NULL)
 {
 }
 
@@ -34,14 +30,12 @@ void cCharacterControl::Update()
 
 void cCharacterControl::Render()
 {
-	for (int i = 0; i < m_vecCharacter.size(); i++)
-		m_vecCharacter[i]->Render();
 }
 
-void cCharacterControl::Control()
+void cCharacterControl::Control(IN cChef * _Chef)
 {
 	ControlAction();
-	Move();
+	Move(_Chef);
 	Booster();
 }
 
@@ -91,6 +85,7 @@ void cCharacterControl::ControlAction()
 			else
 				m_vecCharacter[m_Bswitch]->GetRoot()->SetChefAnimation(CHEF_STATE_TRANCEPORT_MOVE);
 			m_StPlayerAtrribute[m_Bswitch].st_vDirectionX = D3DXVECTOR3(-1, 0, 0);
+			m_vecCharacter[m_Bswitch]->Getv_DirX() = D3DXVECTOR3(-1, 0, 0);
 		}
 		if (KEYMANAGER->isStayKeyDown(VK_RIGHT))
 		{
@@ -99,6 +94,7 @@ void cCharacterControl::ControlAction()
 			else
 				m_vecCharacter[m_Bswitch]->GetRoot()->SetChefAnimation(CHEF_STATE_TRANCEPORT_MOVE);
 			m_StPlayerAtrribute[m_Bswitch].st_vDirectionX = D3DXVECTOR3(1, 0, 0);
+			m_vecCharacter[m_Bswitch]->Getv_DirX() = D3DXVECTOR3(1, 0, 0);
 		}
 		if (KEYMANAGER->isStayKeyDown(VK_UP))
 		{
@@ -107,6 +103,7 @@ void cCharacterControl::ControlAction()
 			else
 				m_vecCharacter[m_Bswitch]->GetRoot()->SetChefAnimation(CHEF_STATE_TRANCEPORT_MOVE);
 			m_StPlayerAtrribute[m_Bswitch].st_vDirectionZ = D3DXVECTOR3(0, 0, 1);
+			m_vecCharacter[m_Bswitch]->Getv_DirZ() = D3DXVECTOR3(0, 0, 1);
 		}
 		if (KEYMANAGER->isStayKeyDown(VK_DOWN))
 		{
@@ -115,6 +112,7 @@ void cCharacterControl::ControlAction()
 			else
 				m_vecCharacter[m_Bswitch]->GetRoot()->SetChefAnimation(CHEF_STATE_TRANCEPORT_MOVE);
 			m_StPlayerAtrribute[m_Bswitch].st_vDirectionZ = D3DXVECTOR3(0, 0, -1);
+			m_vecCharacter[m_Bswitch]->Getv_DirZ() = D3DXVECTOR3(0, 0, -1);
 		}
 		if (KEYMANAGER->isOnceKeyUp(VK_DOWN))
 		{
@@ -124,6 +122,7 @@ void cCharacterControl::ControlAction()
 				m_vecCharacter[m_Bswitch]->GetRoot()->SetChefAnimation(CHEF_STATE_TRANCEPORT_IDLE);
 
 			m_StPlayerAtrribute[m_Bswitch].st_vDirectionZ = D3DXVECTOR3(0, 0, 0);
+			m_vecCharacter[m_Bswitch]->Getv_DirZ() = D3DXVECTOR3(0, 0, 0);
 		}
 		if (KEYMANAGER->isOnceKeyUp(VK_UP))
 		{
@@ -133,6 +132,7 @@ void cCharacterControl::ControlAction()
 				m_vecCharacter[m_Bswitch]->GetRoot()->SetChefAnimation(CHEF_STATE_TRANCEPORT_IDLE);
 
 			m_StPlayerAtrribute[m_Bswitch].st_vDirectionZ = D3DXVECTOR3(0, 0, 0);
+			m_vecCharacter[m_Bswitch]->Getv_DirZ() = D3DXVECTOR3(0, 0, 0);
 		}
 		if (KEYMANAGER->isOnceKeyUp(VK_RIGHT))
 		{
@@ -142,6 +142,7 @@ void cCharacterControl::ControlAction()
 				m_vecCharacter[m_Bswitch]->GetRoot()->SetChefAnimation(CHEF_STATE_TRANCEPORT_IDLE);
 
 			m_StPlayerAtrribute[m_Bswitch].st_vDirectionX = D3DXVECTOR3(0, 0, 0);
+			m_vecCharacter[m_Bswitch]->Getv_DirX() = D3DXVECTOR3(0, 0, 0);
 		}
 		if (KEYMANAGER->isOnceKeyUp(VK_LEFT))
 		{
@@ -151,6 +152,8 @@ void cCharacterControl::ControlAction()
 				m_vecCharacter[m_Bswitch]->GetRoot()->SetChefAnimation(CHEF_STATE_TRANCEPORT_IDLE);
 
 			m_StPlayerAtrribute[m_Bswitch].st_vDirectionX = D3DXVECTOR3(0, 0, 0);
+			m_vecCharacter[m_Bswitch]->Getv_DirX() = D3DXVECTOR3(0, 0, 0);
+
 		}
 
 	}
@@ -167,6 +170,7 @@ void cCharacterControl::Control1P()
 	{
 		m_StPlayerAtrribute[0].st_fFrictional = 0.05f;
 		m_StPlayerAtrribute[0].st_fCharacterBOOSTERSpeed = 0.5f;
+		m_vecCharacter[0]->GetRoot()->SetChefAnimation(CHEF_STATE_BOOSTER_MOVE);
 		m_StPlayerAtrribute[0].st_BisBooster = true;
 	}
 	if (KEYMANAGER->isOnceKeyDown('E'))
@@ -260,6 +264,7 @@ void cCharacterControl::Control2P()
 	{
 		m_StPlayerAtrribute[1].st_fFrictional = 0.05f;
 		m_StPlayerAtrribute[1].st_fCharacterBOOSTERSpeed = 0.5f;
+		m_vecCharacter[1]->GetRoot()->SetChefAnimation(CHEF_STATE_BOOSTER_MOVE);
 		m_StPlayerAtrribute[1].st_BisBooster = true;
 	}
 	if (KEYMANAGER->isOnceKeyDown('O'))
@@ -348,52 +353,76 @@ void cCharacterControl::Control2P()
 		m_StPlayerAtrribute[1].st_vDirectionZ = D3DXVECTOR3(0, 0, 0);
 	}
 }
-void cCharacterControl::Move()
+void cCharacterControl::SetPos1P(D3DXVECTOR3 _pos)
 {
-
-	D3DXVec3Normalize(&m_StPlayerAtrribute[0].st_vDirection, &(m_StPlayerAtrribute[0].st_vDirectionX + m_StPlayerAtrribute[0].st_vDirectionZ));
-	if (CheckChefIntersect())
-		ChefIntersectMove();
-	else
-		m_vecCharacter[0]->GetPos() += m_StPlayerAtrribute[0].st_vDirection *  (CharacterSpeed + m_StPlayerAtrribute[0].st_fCharacterBOOSTERSpeed);
-
-	D3DXMATRIX matR1P, matT1P;
-
-	if (m_vecCharacter[0]->GetRoot()->GetCHEF_STATE() == CHEF_STATE_MOVE || m_vecCharacter[0]->GetRoot()->GetCHEF_STATE() == CHEF_STATE_TRANCEPORT_MOVE)
+	m_vecCharacter[0]->SetPos(_pos);
+}
+void cCharacterControl::SetPos2P(D3DXVECTOR3 _pos)
+{
+	m_vecCharacter[1]->SetPos(_pos);
+}
+void cCharacterControl::Move(IN cChef * _Chef)
+{
+	for (int i = 0; i < 2; i++)
 	{
-		m_StPlayerAtrribute[0].st_fAngle = atan2f(-m_StPlayerAtrribute[0].st_vDirection.z, m_StPlayerAtrribute[0].st_vDirection.x) + D3DX_PI / 2.0f;
+		if (m_vecCharacter[i] == _Chef)
+		{
+			if (m_vecCharacter[i]->GetRoot()->GetCHEF_STATE() != CHEF_STATE_BOOSTER_MOVE)
+				D3DXVec3Normalize(&m_StPlayerAtrribute[i].st_vDirection, &(m_StPlayerAtrribute[i].st_vDirectionX + m_StPlayerAtrribute[i].st_vDirectionZ));
+			else if (m_vecCharacter[i]->GetRoot()->GetCHEF_STATE() != CHEF_STATE_IDLE)
+			{
+				D3DXVec3Normalize(&m_StPlayerAtrribute[i].st_vDirection, &(m_StPlayerAtrribute[i].st_vDirectionX + m_StPlayerAtrribute[i].st_vDirectionZ));
+				if (m_StPlayerAtrribute[i].st_vDirection == D3DXVECTOR3(0, 0, 0))
+				{
+					if (m_StPlayerAtrribute[i].st_fAngle == 0.0f)
+						m_StPlayerAtrribute[i].st_vDirection = D3DXVECTOR3(0, 0, 1);
+					//45도
+					else if (m_StPlayerAtrribute[i].st_fAngle == D3DX_PI / 4)
+						m_StPlayerAtrribute[i].st_vDirection = D3DXVECTOR3(1, 0, 1);
+					//90도
+					else if (m_StPlayerAtrribute[i].st_fAngle == D3DX_PI / 2)
+						m_StPlayerAtrribute[i].st_vDirection = D3DXVECTOR3(1, 0, 0);
+					//135도
+					else if (m_StPlayerAtrribute[i].st_fAngle == D3DX_PI / 4 * 3)
+						m_StPlayerAtrribute[i].st_vDirection = D3DXVECTOR3(1, 0, -1);
+					//180도
+					else if (m_StPlayerAtrribute[i].st_fAngle == D3DX_PI)
+						m_StPlayerAtrribute[i].st_vDirection = D3DXVECTOR3(0, 0, -1);
+					//225도
+					else if (m_StPlayerAtrribute[i].st_fAngle == D3DX_PI / 4 * 5)
+						m_StPlayerAtrribute[i].st_vDirection = D3DXVECTOR3(-1, 0, -1);
+					//270도
+					else if (m_StPlayerAtrribute[i].st_fAngle == -D3DX_PI / 2)
+						m_StPlayerAtrribute[i].st_vDirection = D3DXVECTOR3(-1, 0, 0);
+					//315도
+					else if (m_StPlayerAtrribute[i].st_fAngle == -D3DX_PI / 4)
+						m_StPlayerAtrribute[i].st_vDirection = D3DXVECTOR3(-1, 0, 1);
+				}
+			}
+
+			if (CheckChefIntersect())
+				ChefIntersectMove();
+			else
+			{
+				m_vecCharacter[i]->GetPos() += m_StPlayerAtrribute[i].st_vDirection *  (CharacterSpeed + m_StPlayerAtrribute[i].st_fCharacterBOOSTERSpeed);
+				m_vecCharacter[i]->GetToGo() = m_StPlayerAtrribute[i].st_vDirection *  (CharacterSpeed + m_StPlayerAtrribute[i].st_fCharacterBOOSTERSpeed);
+			}
+			D3DXMATRIX matR1P, matT1P;
+
+			if (m_vecCharacter[i]->GetRoot()->GetCHEF_STATE() == CHEF_STATE_MOVE || m_vecCharacter[i]->GetRoot()->GetCHEF_STATE() == CHEF_STATE_TRANCEPORT_MOVE)
+			{
+				m_StPlayerAtrribute[i].st_fAngle = atan2f(-m_StPlayerAtrribute[i].st_vDirection.z, m_StPlayerAtrribute[i].st_vDirection.x) + D3DX_PI / 2.0f;
+			}
+			D3DXMatrixRotationY(&matR1P, m_StPlayerAtrribute[i].st_fAngle);
+
+			D3DXMatrixTranslation(&matT1P, m_vecCharacter[i]->GetPos().x, m_vecCharacter[i]->GetPos().y, m_vecCharacter[i]->GetPos().z);
+			D3DXVec3TransformNormal(&m_StPlayerAtrribute[i].st_vDirection, &D3DXVECTOR3(0, 0, 1), &matT1P);
+
+
+			m_StPlayerAtrribute[i].st_matPlayer = matR1P * matT1P;
+			m_vecCharacter[i]->GetRoot()->SetParentWorldTM(&m_StPlayerAtrribute[i].st_matPlayer);
+		}
 	}
-	D3DXMatrixRotationY(&matR1P, m_StPlayerAtrribute[0].st_fAngle);
-
-	D3DXMatrixTranslation(&matT1P, m_vecCharacter[0]->GetPos().x, m_vecCharacter[0]->GetPos().y, m_vecCharacter[0]->GetPos().z);
-	D3DXVec3TransformNormal(&m_StPlayerAtrribute[0].st_vDirection, &D3DXVECTOR3(0, 0, 1), &matT1P);
-
-
-	m_StPlayerAtrribute[0].st_matPlayer = matR1P * matT1P;
-	m_vecCharacter[0]->GetRoot()->SetParentWorldTM(&m_StPlayerAtrribute[0].st_matPlayer);
-	//=================================================================================================================
-	D3DXVec3Normalize(&m_StPlayerAtrribute[1].st_vDirection, &(m_StPlayerAtrribute[1].st_vDirectionX + m_StPlayerAtrribute[1].st_vDirectionZ));
-	if (CheckChefIntersect())
-		ChefIntersectMove();
-	else
-		m_vecCharacter[1]->GetPos() += m_StPlayerAtrribute[1].st_vDirection *  (CharacterSpeed + m_StPlayerAtrribute[1].st_fCharacterBOOSTERSpeed);
-
-	D3DXMATRIX matR2P, matT2P;
-
-	if (m_vecCharacter[1]->GetRoot()->GetCHEF_STATE() == CHEF_STATE_MOVE || m_vecCharacter[1]->GetRoot()->GetCHEF_STATE() == CHEF_STATE_TRANCEPORT_MOVE)
-	{
-		m_StPlayerAtrribute[1].st_fAngle = atan2f(-m_StPlayerAtrribute[1].st_vDirection.z, m_StPlayerAtrribute[1].st_vDirection.x) + D3DX_PI / 2.0f;
-	}
-	D3DXMatrixRotationY(&matR2P, m_StPlayerAtrribute[1].st_fAngle);
-
-
-
-	D3DXMatrixTranslation(&matT2P, m_vecCharacter[1]->GetPos().x, m_vecCharacter[1]->GetPos().y, m_vecCharacter[1]->GetPos().z);
-	D3DXVec3TransformNormal(&m_StPlayerAtrribute[1].st_vDirection, &D3DXVECTOR3(0, 0, 1), &matT2P);
-
-
-	m_StPlayerAtrribute[1].st_matPlayer = matR2P * matT2P;
-	m_vecCharacter[1]->GetRoot()->SetParentWorldTM(&m_StPlayerAtrribute[1].st_matPlayer);
 
 
 }
@@ -413,33 +442,17 @@ void cCharacterControl::AddcCharacter(IN cChef * Chef)
 void cCharacterControl::Booster()
 {
 
-	if (PLAYERMOD_PLAY1P == m_enmPlayerMod)
+	for (int i = 0; i < 2; i++)
 	{
-		if (m_StPlayerAtrribute[m_Bswitch].st_BisBooster)
+		if (m_StPlayerAtrribute[i].st_BisBooster)
 		{
-			m_StPlayerAtrribute[m_Bswitch].st_vPosition += m_StPlayerAtrribute[m_Bswitch].st_vBooster * m_StPlayerAtrribute[m_Bswitch].st_fCharacterBOOSTERSpeed;
-			m_StPlayerAtrribute[m_Bswitch].st_fCharacterBOOSTERSpeed -= m_StPlayerAtrribute[m_Bswitch].st_fFrictional;
+			m_StPlayerAtrribute[i].st_fCharacterBOOSTERSpeed -= m_StPlayerAtrribute[i].st_fFrictional;
 		}
-		if (m_StPlayerAtrribute[m_Bswitch].st_fCharacterBOOSTERSpeed <= 0.0f)
+		if (m_StPlayerAtrribute[i].st_fCharacterBOOSTERSpeed <= 0.0f)
 		{
-			m_StPlayerAtrribute[m_Bswitch].st_BisBooster = false;
-			m_StPlayerAtrribute[m_Bswitch].st_fCharacterBOOSTERSpeed = 0.0f;
-		}
-	}
-	else if (PLAYERMOD_PLAY2P == m_enmPlayerMod)
-	{
-		for (int i = 0; i < 2; i++)
-		{
-			if (m_StPlayerAtrribute[i].st_BisBooster)
-			{
-				m_StPlayerAtrribute[i].st_vPosition += m_StPlayerAtrribute[i].st_vBooster * m_StPlayerAtrribute[i].st_fCharacterBOOSTERSpeed;
-				m_StPlayerAtrribute[i].st_fCharacterBOOSTERSpeed -= m_StPlayerAtrribute[i].st_fFrictional;
-			}
-			if (m_StPlayerAtrribute[i].st_fCharacterBOOSTERSpeed <= 0.0f)
-			{
-				m_StPlayerAtrribute[i].st_BisBooster = false;
-				m_StPlayerAtrribute[i].st_fCharacterBOOSTERSpeed = 0.0f;
-			}
+			m_StPlayerAtrribute[i].st_BisBooster = false;
+			m_StPlayerAtrribute[i].st_fCharacterBOOSTERSpeed = 0.0f;
+			m_vecCharacter[i]->GetRoot()->SetChefAnimation(CHEF_STATE_IDLE);
 		}
 	}
 }
@@ -459,43 +472,28 @@ BOOL cCharacterControl::CheckChefIntersect()
 
 void cCharacterControl::ChefIntersectMove()
 {
-	if (PLAYERMOD_PLAY1P == m_enmPlayerMod)
-	{
-		D3DXVECTOR3 vChefIntersect = -(m_vecCharacter[m_Bswitch]->GetPos() - m_vecCharacter[!m_Bswitch]->GetPos());
-		D3DXVec3Normalize(&vChefIntersect, &vChefIntersect);
-		m_vecCharacter[!m_Bswitch]->GetPos() += vChefIntersect * (CharacterSpeed + m_StPlayerAtrribute[m_Bswitch].st_fCharacterBOOSTERSpeed);
-		D3DXMATRIX  matR, matT;
-		D3DXMatrixIdentity(&matR);
-		D3DXMatrixIdentity(&matT);
-		D3DXMatrixRotationY(&matR, m_StPlayerAtrribute[!m_Bswitch].st_fAngle);
-		D3DXMatrixTranslation(&matT, m_vecCharacter[!m_Bswitch]->GetPos().x, m_vecCharacter[!m_Bswitch]->GetPos().y, m_vecCharacter[!m_Bswitch]->GetPos().z);
-		D3DXVec3TransformNormal(&m_StPlayerAtrribute[!m_Bswitch].st_vDirection, &D3DXVECTOR3(0, 0, 1), &matT);
-		m_StPlayerAtrribute[!m_Bswitch].st_matPlayer = matR * matT;
-		m_vecCharacter[!m_Bswitch]->GetRoot()->SetParentWorldTM(&m_StPlayerAtrribute[!m_Bswitch].st_matPlayer);
-	}
-	else if (PLAYERMOD_PLAY2P == m_enmPlayerMod)
-	{
-		D3DXVECTOR3 vChefIntersect1 = -(m_vecCharacter[0]->GetPos() - m_vecCharacter[1]->GetPos());
-		D3DXVec3Normalize(&vChefIntersect1, &vChefIntersect1);
-		m_vecCharacter[1]->GetPos() += vChefIntersect1 * (CharacterSpeed + m_StPlayerAtrribute[0].st_fCharacterBOOSTERSpeed);
-		D3DXMATRIX  matR1, matT1;
-		D3DXMatrixIdentity(&matT1);
-		D3DXMatrixRotationY(&matR1, m_StPlayerAtrribute[1].st_fAngle);
-		D3DXMatrixTranslation(&matT1, m_vecCharacter[1]->GetPos().x, m_vecCharacter[1]->GetPos().y, m_vecCharacter[1]->GetPos().z);
-		D3DXVec3TransformNormal(&m_StPlayerAtrribute[1].st_vDirection, &D3DXVECTOR3(0, 0, 1), &matT1);
-		m_StPlayerAtrribute[1].st_matPlayer = matR1 * matT1;
-		m_vecCharacter[1]->GetRoot()->SetParentWorldTM(&m_StPlayerAtrribute[1].st_matPlayer);
+
+	D3DXVECTOR3 vChefIntersect1 = -(m_vecCharacter[0]->GetPos() - m_vecCharacter[1]->GetPos());
+	D3DXVec3Normalize(&vChefIntersect1, &vChefIntersect1);
+	m_vecCharacter[1]->GetPos() += vChefIntersect1 * (CharacterSpeed + m_StPlayerAtrribute[0].st_fCharacterBOOSTERSpeed);
+	D3DXMATRIX  matR1, matT1;
+	D3DXMatrixIdentity(&matT1);
+	D3DXMatrixRotationY(&matR1, m_StPlayerAtrribute[1].st_fAngle);
+	D3DXMatrixTranslation(&matT1, m_vecCharacter[1]->GetPos().x, m_vecCharacter[1]->GetPos().y, m_vecCharacter[1]->GetPos().z);
+	D3DXVec3TransformNormal(&m_StPlayerAtrribute[1].st_vDirection, &D3DXVECTOR3(0, 0, 1), &matT1);
+	m_StPlayerAtrribute[1].st_matPlayer = matR1 * matT1;
+	m_vecCharacter[1]->GetRoot()->SetParentWorldTM(&m_StPlayerAtrribute[1].st_matPlayer);
 
 
-		D3DXVECTOR3 vChefIntersect2 = -(m_vecCharacter[1]->GetPos() - m_vecCharacter[0]->GetPos());
-		D3DXVec3Normalize(&vChefIntersect2, &vChefIntersect2);
-		m_vecCharacter[0]->GetPos() += vChefIntersect2 * (CharacterSpeed + m_StPlayerAtrribute[1].st_fCharacterBOOSTERSpeed);
-		D3DXMATRIX matR2, matT2;
-		D3DXMatrixIdentity(&matT2);
-		D3DXMatrixTranslation(&matT2, m_vecCharacter[0]->GetPos().x, m_vecCharacter[0]->GetPos().y, m_vecCharacter[0]->GetPos().z);
-		D3DXMatrixRotationY(&matR2, m_StPlayerAtrribute[0].st_fAngle);
-		D3DXVec3TransformNormal(&m_StPlayerAtrribute[0].st_vDirection, &D3DXVECTOR3(0, 0, 1), &matT2);
-		m_StPlayerAtrribute[0].st_matPlayer = matR2 * matT2;
-		m_vecCharacter[0]->GetRoot()->SetParentWorldTM(&m_StPlayerAtrribute[0].st_matPlayer);
-	}
+	D3DXVECTOR3 vChefIntersect2 = -(m_vecCharacter[1]->GetPos() - m_vecCharacter[0]->GetPos());
+	D3DXVec3Normalize(&vChefIntersect2, &vChefIntersect2);
+	m_vecCharacter[0]->GetPos() += vChefIntersect2 * (CharacterSpeed + m_StPlayerAtrribute[1].st_fCharacterBOOSTERSpeed);
+	D3DXMATRIX matR2, matT2;
+	D3DXMatrixIdentity(&matT2);
+	D3DXMatrixTranslation(&matT2, m_vecCharacter[0]->GetPos().x, m_vecCharacter[0]->GetPos().y, m_vecCharacter[0]->GetPos().z);
+	D3DXMatrixRotationY(&matR2, m_StPlayerAtrribute[0].st_fAngle);
+	D3DXVec3TransformNormal(&m_StPlayerAtrribute[0].st_vDirection, &D3DXVECTOR3(0, 0, 1), &matT2);
+	m_StPlayerAtrribute[0].st_matPlayer = matR2 * matT2;
+	m_vecCharacter[0]->GetRoot()->SetParentWorldTM(&m_StPlayerAtrribute[0].st_matPlayer);
+
 }

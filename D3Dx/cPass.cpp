@@ -29,10 +29,17 @@ void cPass::Render()
 	g_pD3DDevice->SetTexture(0, m_pTexture);
 	g_pD3DDevice->SetFVF(ST_PNT_VERTEX::FVF);
 	m_pMesh->DrawSubset(0);
+	if (m_PassScroll)
+		m_PassScroll->Render();
 }
 
 void cPass::Setup(D3DXMATRIX matWorld, D3DXVECTOR3 pos, int lidtype)
 {
+	D3DXMATRIX matS;
+	D3DXMatrixIdentity(&matS);
+	D3DXMatrixScaling(&matS, 0.9f, 1.0f, 0.6f);
+	m_matLocal = matS;
+	m_eState = OBJ_STATIC;
 	m_vPos.x = matWorld._41;
 	m_vPos.y = matWorld._42;
 	m_vPos.z = matWorld._43;
@@ -41,6 +48,7 @@ void cPass::Setup(D3DXMATRIX matWorld, D3DXVECTOR3 pos, int lidtype)
 	m_bIsUse = false;
 	m_pMesh = ObJMANAGER->GetMesh(L"ThePass.obj");
 	m_pTexture = g_pTextureManager->GetTexture(L"Resources/Texture2D/ThePass.png");
+
 
 	m_PassScroll = new cPassScroll;
 	m_PassScroll->Setup(matWorld, pos, lidtype);

@@ -14,6 +14,10 @@
 cChef::cChef()
 	: m_pRoot(NULL)
 	, m_vPosition(0, 0, 0)
+	, m_vdir(0, 0, 0)
+	, m_vdirX(0, 0, 0)
+	, m_vdirZ(0, 0, 0)
+	, m_vToGo(0, 0, 0)
 	, m_pObjRoot(NULL)
 	, m_fRadius(0.5f)
 {
@@ -29,7 +33,7 @@ cChef::~cChef()
 	}
 }
 
-void cChef::SetUp(D3DXVECTOR3 vPos, cCharacterControl * _pControl)
+void cChef::SetUp(IN D3DXVECTOR3 vPos, cCharacterControl * _pControl)
 {
 	m_pControl = _pControl;
 	m_vPosition = vPos;
@@ -61,7 +65,9 @@ void cChef::Relese()
 
 void cChef::Update()
 {
-	m_pControl->Control();
+	if (m_pControl)
+		m_pControl->Control(this);
+
 	Animation(m_pRoot);
 
 	if (m_pRoot)
@@ -100,10 +106,6 @@ void cChef::SetMaterial()
 cIGObj * cChef::GetcIGObject()
 {
 	return nullptr;
-}
-
-void cChef::SetcIGObject(cIGObj * _object)
-{
 }
 
 void cChef::runPuffCreate()

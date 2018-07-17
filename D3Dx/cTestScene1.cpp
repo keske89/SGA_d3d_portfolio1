@@ -99,6 +99,7 @@ void cTestScene1::Update()
 			m_pControl->SetPlaterMod(2);
 	}
 	
+	
 }
 
 void cTestScene1::Render()

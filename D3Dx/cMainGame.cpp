@@ -61,7 +61,11 @@ void cMainGame::Setup()
 	SCENEMANAGER->AddScene("WMScene", m_pWMScene);
 	SCENEMANAGER->AddScene("IntroScene", new cIntroScene);
 	
+<<<<<<< HEAD
 	SCENEMANAGER->ChangeScene("IntroScene");
+=======
+	SCENEMANAGER->ChangeScene("TestScene2");
+>>>>>>> d86ae0f893bb0bbf29e3f19b5c9cc57658af9d83
 
 	m_pWMScene->setCamera(m_pCamera);
 

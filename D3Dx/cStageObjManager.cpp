@@ -155,7 +155,7 @@ void cStageObjManager::IsCollison()
 	}
 }
 
-void cStageObjManager::OnAction(cIGObj * pSender) //신호를 주는 객체에서 신호가 들어왔다.
+void cStageObjManager::OnAction(cIGObj* pSender) //신호를 주는 객체에서 신호가 들어왔다.
 {
 	//if (pSender == m_crate->GetLid())
 	//{

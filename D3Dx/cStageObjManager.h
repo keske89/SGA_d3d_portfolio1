@@ -26,7 +26,6 @@ class cPlateReturnBox;
 class cTomato;
 class cCounterTop;
 
-
 enum OBJECTTYPE
 {
 	// CRATE = 10~ 
@@ -80,7 +79,7 @@ private:
 	cPlateReturnBox*		m_PlateReturnBox;
 	cTomato*				m_Tomato;
 	cCounterTop*			m_Counter;
-
+	
 	int m_buttonSelect;
 
 	SYNTHESIZE(cChef*, m_player1, Player1);
@@ -99,6 +98,9 @@ public:
 
 	void ActionControl();
 	void IsCollison();
+	// player는 자신의 인벤토리에 있는것을 대상에게 넘겨주는 방식으로 
+	// 플레이어와 충돌한 오브젝트를 먼저 
+	
 
 
 	// cActionDelegate을(를) 통해 상속됨

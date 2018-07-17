@@ -279,6 +279,9 @@
     <ClInclude Include="cWMDefinition.h">
       <Filter>소스 파일\WORLDMAP\WMManager</Filter>
     </ClInclude>
+    <ClInclude Include="cCollison.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="D3Dx.cpp">
@@ -495,6 +498,9 @@
       <Filter>소스 파일\WORLDMAP\WMManager</Filter>
     </ClCompile>
     <ClCompile Include="stdafx.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="cCollison.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
