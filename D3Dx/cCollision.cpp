@@ -103,15 +103,15 @@ void cCollision::StaticLineXCollision(int playerNum, int keyFirst, int keySecond
 	{
 		for (int j = 0; j < m_iterObject->second.size(); ++j)
 		{
-			if (m_iterObject->second[j]->GetCollisionType() == OBJ_STATIC)
-			{
-				distance = abs(m_pPlayer[0]->GetPos().x - m_iterObject->second[j]->GetPos().x);
-				if (distance < 1)
-				{
-					pos.x -= moveX * (1 - distance);
-					m_pPlayer[0]->SetPos(pos);
-				}
-			}
+			//if (m_iterObject->second[j]->GetCollisionType() == OBJ_STATIC)
+			//{
+			//	distance = abs(m_pPlayer[0]->GetPos().x - m_iterObject->second[j]->GetPos().x);
+			//	if (distance < 1)
+			//	{
+			//		pos.x -= moveX * (1 - distance);
+			//		m_pPlayer[0]->SetPos(pos);
+			//	}
+			//}
 		}
 	}
 }
@@ -124,15 +124,15 @@ void cCollision::StaticLineZCollision(int playerNum, int keyFirst, int keySecond
 	{
 		for (int j = 0; j < m_iterObject->second.size(); ++j)
 		{
-			if (m_iterObject->second[j]->GetCollisionType() == OBJ_STATIC)
-			{
-				distance = abs(m_pPlayer[0]->GetPos().z - m_iterObject->second[j]->GetPos().z);
-				if (distance < 1)
-				{
-					pos.z -= moveZ * (1 - distance);
-					m_pPlayer[0]->SetPos(pos);
-				}
-			}
+			//if (m_iterObject->second[j]->GetCollisionType() == OBJ_STATIC)
+			//{
+			//	distance = abs(m_pPlayer[0]->GetPos().z - m_iterObject->second[j]->GetPos().z);
+			//	if (distance < 1)
+			//	{
+			//		pos.z -= moveZ * (1 - distance);
+			//		m_pPlayer[0]->SetPos(pos);
+			//	}
+			//}
 		}
 	}
 }
