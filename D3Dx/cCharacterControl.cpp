@@ -61,7 +61,7 @@ void cCharacterControl::ControlAction()
 			//else if(m_vecCharacter[(int)m_Bswitch]->GetcIGObject())
 			//	m_vecCharacter[m_Bswitch]->GetRoot()->SetChefAnimation(CHEF_STATE_DISHWASHING);
 		}
-		if (KEYMANAGER->isStayKeyDown('X'))
+		if (KEYMANAGER->isOnceKeyDown('X'))
 		{
 			if (!m_StPlayerAtrribute[m_Bswitch].st_BisBooster)
 			{
@@ -498,4 +498,9 @@ void cCharacterControl::ChefIntersectMove()
 	m_StPlayerAtrribute[0].st_matPlayer = matR2 * matT2;
 	m_vecCharacter[0]->GetRoot()->SetParentWorldTM(&m_StPlayerAtrribute[0].st_matPlayer);
 
+}
+
+cChef * cCharacterControl::GetControlPlayer()
+{
+	return m_vecCharacter[m_Bswitch];
 }

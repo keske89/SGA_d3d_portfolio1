@@ -74,5 +74,7 @@ public:
 			return &m_StPlayerAtrribute[1];
 		}
 	}
+
+	cChef * GetControlPlayer();
 };
 
