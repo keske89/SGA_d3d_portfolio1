@@ -55,6 +55,24 @@
     <Filter Include="소스 파일\DB">
       <UniqueIdentifier>{c3cef63f-2004-4e53-9334-474bff2240bf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\WORLDMAP\WMSTAGE">
+      <UniqueIdentifier>{26afa8c6-89d4-4ad4-9dae-eb4bc0250579}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\WORLDMAP\WMSTAGE\WMGRID">
+      <UniqueIdentifier>{3f8da2ed-b75e-4049-b0f9-a1d5cfc64951}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\WORLDMAP\WMSTAGE\WMObject">
+      <UniqueIdentifier>{f3b24a08-1336-4033-9dcb-b40f2b332ef0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\WORLDMAP\WMCAR">
+      <UniqueIdentifier>{54641a62-34e3-4961-8a91-b4a1cdadeca5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\WORLDMAP\WMSTAGE\WMObject\WMPath">
+      <UniqueIdentifier>{cf32839a-ab68-46f1-9311-d4adc3a926af}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\WORLDMAP\UI\WMUI">
+      <UniqueIdentifier>{f46f0e43-6156-4959-a117-ef46242411fd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -231,9 +249,6 @@
     <ClInclude Include="cChefRunPuff.h">
       <Filter>소스 파일\Chef</Filter>
     </ClInclude>
-    <ClInclude Include="UIController.h">
-      <Filter>소스 파일\WORLDMAP</Filter>
-    </ClInclude>
     <ClInclude Include="cWorldMapScene.h">
       <Filter>소스 파일\WORLDMAP</Filter>
     </ClInclude>
@@ -287,6 +302,54 @@
     </ClInclude>
     <ClInclude Include="database.h">
       <Filter>소스 파일\DB</Filter>
+    </ClInclude>
+    <ClInclude Include="cWMCarBody.h">
+      <Filter>소스 파일\WORLDMAP\WMCAR</Filter>
+    </ClInclude>
+    <ClInclude Include="cWMCarPuff.h">
+      <Filter>소스 파일\WORLDMAP\WMCAR</Filter>
+    </ClInclude>
+    <ClInclude Include="cWorldMapCar.h">
+      <Filter>소스 파일\WORLDMAP\WMCAR</Filter>
+    </ClInclude>
+    <ClInclude Include="cWorldStage.h">
+      <Filter>소스 파일\WORLDMAP\WMSTAGE</Filter>
+    </ClInclude>
+    <ClInclude Include="cWorldGrid.h">
+      <Filter>소스 파일\WORLDMAP\WMSTAGE\WMGRID</Filter>
+    </ClInclude>
+    <ClInclude Include="cWMObbBox.h">
+      <Filter>소스 파일\WORLDMAP\WMSTAGE\WMGRID</Filter>
+    </ClInclude>
+    <ClInclude Include="cWMBorder.h">
+      <Filter>소스 파일\WORLDMAP\WMSTAGE\WMGRID</Filter>
+    </ClInclude>
+    <ClInclude Include="cPath.h">
+      <Filter>소스 파일\WORLDMAP\WMSTAGE\WMObject\WMPath</Filter>
+    </ClInclude>
+    <ClInclude Include="cPathMaker.h">
+      <Filter>소스 파일\WORLDMAP\WMSTAGE\WMObject\WMPath</Filter>
+    </ClInclude>
+    <ClInclude Include="cSphere.h">
+      <Filter>소스 파일\WORLDMAP\WMSTAGE\WMObject</Filter>
+    </ClInclude>
+    <ClInclude Include="cWMCloud.h">
+      <Filter>소스 파일\WORLDMAP\WMSTAGE\WMObject</Filter>
+    </ClInclude>
+    <ClInclude Include="cWMStageNum.h">
+      <Filter>소스 파일\WORLDMAP\WMSTAGE\WMObject</Filter>
+    </ClInclude>
+    <ClInclude Include="cWMStarBoard.h">
+      <Filter>소스 파일\WORLDMAP\WMSTAGE\WMObject</Filter>
+    </ClInclude>
+    <ClInclude Include="cWorldTile.h">
+      <Filter>소스 파일\WORLDMAP\WMSTAGE\WMObject</Filter>
+    </ClInclude>
+    <ClInclude Include="cWMapMenu.h">
+      <Filter>소스 파일\WORLDMAP\UI\WMUI</Filter>
+    </ClInclude>
+    <ClInclude Include="UIController.h">
+      <Filter>소스 파일\WORLDMAP\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -452,9 +515,6 @@
     <ClCompile Include="cChefRunPuff.cpp">
       <Filter>소스 파일\Chef</Filter>
     </ClCompile>
-    <ClCompile Include="UIController.cpp">
-      <Filter>소스 파일\WORLDMAP</Filter>
-    </ClCompile>
     <ClCompile Include="cWorldMapScene.cpp">
       <Filter>소스 파일\WORLDMAP</Filter>
     </ClCompile>
@@ -511,6 +571,54 @@
     </ClCompile>
     <ClCompile Include="database.cpp">
       <Filter>소스 파일\DB</Filter>
+    </ClCompile>
+    <ClCompile Include="cWMCarBody.cpp">
+      <Filter>소스 파일\WORLDMAP\WMCAR</Filter>
+    </ClCompile>
+    <ClCompile Include="cWMCarPuff.cpp">
+      <Filter>소스 파일\WORLDMAP\WMCAR</Filter>
+    </ClCompile>
+    <ClCompile Include="cWorldMapCar.cpp">
+      <Filter>소스 파일\WORLDMAP\WMCAR</Filter>
+    </ClCompile>
+    <ClCompile Include="cWorldStage.cpp">
+      <Filter>소스 파일\WORLDMAP\WMSTAGE</Filter>
+    </ClCompile>
+    <ClCompile Include="cWorldGrid.cpp">
+      <Filter>소스 파일\WORLDMAP\WMSTAGE\WMGRID</Filter>
+    </ClCompile>
+    <ClCompile Include="cWMObbBox.cpp">
+      <Filter>소스 파일\WORLDMAP\WMSTAGE\WMGRID</Filter>
+    </ClCompile>
+    <ClCompile Include="cWMBorder.cpp">
+      <Filter>소스 파일\WORLDMAP\WMSTAGE\WMGRID</Filter>
+    </ClCompile>
+    <ClCompile Include="cPath.cpp">
+      <Filter>소스 파일\WORLDMAP\WMSTAGE\WMObject\WMPath</Filter>
+    </ClCompile>
+    <ClCompile Include="cPathMaker.cpp">
+      <Filter>소스 파일\WORLDMAP\WMSTAGE\WMObject\WMPath</Filter>
+    </ClCompile>
+    <ClCompile Include="cSphere.cpp">
+      <Filter>소스 파일\WORLDMAP\WMSTAGE\WMObject</Filter>
+    </ClCompile>
+    <ClCompile Include="cWMStageNum.cpp">
+      <Filter>소스 파일\WORLDMAP\WMSTAGE\WMObject</Filter>
+    </ClCompile>
+    <ClCompile Include="cWMCloud.cpp">
+      <Filter>소스 파일\WORLDMAP\WMSTAGE\WMObject</Filter>
+    </ClCompile>
+    <ClCompile Include="cWMStarBoard.cpp">
+      <Filter>소스 파일\WORLDMAP\WMSTAGE\WMObject</Filter>
+    </ClCompile>
+    <ClCompile Include="cWorldTile.cpp">
+      <Filter>소스 파일\WORLDMAP\WMSTAGE\WMObject</Filter>
+    </ClCompile>
+    <ClCompile Include="cWMapMenu.cpp">
+      <Filter>소스 파일\WORLDMAP\UI\WMUI</Filter>
+    </ClCompile>
+    <ClCompile Include="UIController.cpp">
+      <Filter>소스 파일\WORLDMAP\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
