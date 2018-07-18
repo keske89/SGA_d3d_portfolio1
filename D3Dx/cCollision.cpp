@@ -55,6 +55,8 @@ void cCollision::Update()
 	D3DXVECTOR3 dir[2];
 	int moveX[2];
 	int moveZ[2];
+	bool CDX = false;
+	bool CDZ = false;
 	for (int i = 0; i < 2; ++i)
 	{
 		pos[i] = m_pPlayer[i]->GetPos();
@@ -65,8 +67,9 @@ void cCollision::Update()
 	{
 		if (DetectMovement(moveX[i], moveZ[i], dir[i]))
 		{
-			PlayerWallCollisionX(moveX[i], pos[i], dir[i]);
-			PlayerWallCollisionZ(moveZ[i], pos[i], dir[i]);
+			CDX = PlayerWallCollisionX(moveX[i], pos[i], dir[i]);
+			CDZ = PlayerWallCollisionZ(moveZ[i], pos[i], dir[i]);
+			if (CDX == false && CDZ == false) PlayerWallVertexCollision(moveX[i], moveZ[i], pos[i], dir[i]);
 			m_pPlayer[i]->SetPos(pos[i]);
 			m_pPlayer[i]->SetDetect(PlayerDetectObject(i));
 		}
@@ -137,14 +140,80 @@ bool cCollision::PlayerWallCollisionZ(int moveZ, D3DXVECTOR3& pos, D3DXVECTOR3& 
 	return false;
 }
 
-void cCollision::PlayerWallVertexCollision(int playerNum, D3DXVECTOR3& pos)
+bool cCollision::PlayerWallVertexCollision(int moveX, int moveZ, D3DXVECTOR3& pos, D3DXVECTOR3& dir)
 {
 	int keyFirst = pos.x;
 	int keySecond = pos.z;
-	for (int i = 0; i < 4; ++i)
+	float distance = 0.0f;
+	if (moveX == 0)
 	{
-
+		if (pos.x - keyFirst < 0.5f)
+		{
+			if (m_mapIsBlockedData.find(make_pair(keyFirst - 1, keySecond + moveZ)) != m_mapIsBlockedData.end())
+			{
+				distance = GetDistance(pos, D3DXVECTOR3(keyFirst, 0, keySecond + (moveZ + 1) * 0.5f));
+				D3DXVECTOR3 push = pos - D3DXVECTOR3(keyFirst, 0, keySecond + (moveZ + 1) * 0.5f);
+				if (distance < 0.6f)
+				{
+					pos += (0.6f - distance) * push;
+					return true;
+				}
+			}
+		}
+		else
+		{
+			if (m_mapIsBlockedData.find(make_pair(keyFirst + 1, keySecond + moveZ)) != m_mapIsBlockedData.end())
+			{
+				distance = GetDistance(pos, D3DXVECTOR3(keyFirst + 1, 0, keySecond + (moveZ + 1) * 0.5f));
+				D3DXVECTOR3 push = pos - D3DXVECTOR3(keyFirst + 1, 0, keySecond + (moveZ + 1) * 0.5f);
+				if (distance < 0.6f)
+				{
+					pos += (0.6f - distance) * push;
+					return true;
+				}
+			}
+		}
 	}
+	else if (moveZ == 0)
+	{
+		if (pos.z - keySecond < 0.5f)
+		{
+			if (m_mapIsBlockedData.find(make_pair(keyFirst + moveX, keySecond - 1)) != m_mapIsBlockedData.end())
+			{
+				distance = GetDistance(pos, D3DXVECTOR3(keyFirst + (moveX + 1) * 0.5f, 0, keySecond));
+				D3DXVECTOR3 push = pos - D3DXVECTOR3(keyFirst + (moveX + 1) * 0.5f, 0, keySecond);
+				if (distance < 0.6f)
+				{
+					pos += (0.6f - distance) * push;
+					return true;
+				}
+			}
+		}
+		else
+		{
+			if (m_mapIsBlockedData.find(make_pair(keyFirst + moveX, keySecond + 1)) != m_mapIsBlockedData.end())
+			{
+				distance = GetDistance(pos, D3DXVECTOR3(keyFirst + (moveX + 1) * 0.5f, 0, keySecond + 1));
+				D3DXVECTOR3 push = pos - D3DXVECTOR3(keyFirst + (moveX + 1) * 0.5f, 0, keySecond + 1);
+				if (distance < 0.6f)
+				{
+					pos += (0.6f - distance) * push;
+					return true;
+				}
+			}
+		}
+	}
+	else
+	{
+		distance = GetDistance(pos, D3DXVECTOR3(keyFirst + (moveX + 1) * 0.5f, 0, keySecond + (moveZ + 1) * 0.5f));
+		D3DXVECTOR3 push = pos - D3DXVECTOR3(keyFirst + (moveX + 1) * 0.5f, 0, keySecond + (moveZ + 1) * 0.5f);
+		if (distance < 0.6f)
+		{
+			pos += (0.6f - distance) * push;
+			return true;
+		}
+	}
+	return false;
 }
 
 cIGObj* cCollision::PlayerDetectObject(int playerNum)

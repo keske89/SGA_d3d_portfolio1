@@ -35,7 +35,7 @@ public:
 	bool PlayerPlayerCollision(D3DXVECTOR3& pos1, D3DXVECTOR3& pos2, D3DXVECTOR3& dir1, D3DXVECTOR3& dir2);
 	bool PlayerWallCollisionX(int moveX, D3DXVECTOR3& pos, D3DXVECTOR3& dir);
 	bool PlayerWallCollisionZ(int moveZ, D3DXVECTOR3& pos, D3DXVECTOR3& dir);
-	void PlayerWallVertexCollision(int playerNum, D3DXVECTOR3& pos);
+	bool PlayerWallVertexCollision(int moveX, int moveZ, D3DXVECTOR3& pos, D3DXVECTOR3& dir);
 	cIGObj* PlayerDetectObject(int playerNum);
 	void StaticLineXCollision(int playerNum, int keyFirst, int keySecond, int moveX, D3DXVECTOR3& pos);
 	void StaticLineZCollision(int playerNum, int keyFirst, int keySecond, int moveZ, D3DXVECTOR3& pos);
