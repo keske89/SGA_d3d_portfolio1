@@ -10,10 +10,18 @@ private:
 	cStageObjManager*								m_pSOM;
 
 	int												m_nListSize;
+	int												m_nNewObjSize;
+
 	list<cIGObj*>									m_objList;
 	list<cIGObj*>::iterator							m_iterList;
-	map<pair<int, int>, vector<cIGObj*>>			m_mapObject;
-	map<pair<int, int>, vector<cIGObj*>>::iterator	m_iterObject;
+	list<cIGObj*>::reverse_iterator					m_riterList;
+
+	map<pair<int, int>, vector<cIGObj*>>			m_mapStaticObject;
+	map<pair<int, int>, vector<cIGObj*>>::iterator	m_iterStaticObject;
+
+	map<cIGObj*, bool>								m_mapDynamicObject;
+	map<cIGObj*, bool>::iterator					m_iterDynamicObject;
+
 	map<pair<int, int>, int>						m_mapIsBlockedData;
 	map<pair<int, int>, int>::iterator				m_IterBlockedData;
 public:

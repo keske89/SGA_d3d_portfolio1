@@ -8,6 +8,7 @@
 cCollision::cCollision()
 	: m_pSOM(NULL)
 	, m_nListSize(0)
+	, m_nNewObjSize(0)
 {
 	m_pPlayer[0] = NULL;
 	m_pPlayer[1] = NULL;
@@ -26,19 +27,25 @@ void cCollision::Setup()
 	{
 		vector<cIGObj*> tempVec;
 		pair<int, int> tempPair;
-		tempPair.first = (*m_iterList)->GetPos().x;
-		tempPair.second = (*m_iterList)->GetPos().z;
-		if (m_mapObject.find(tempPair) == m_mapObject.end())
+		if ((*m_iterList)->GetCollisonType() == OBJ_DYNAMIC)
 		{
-			tempVec.push_back((*m_iterList));
-			m_mapObject.insert(make_pair(tempPair, tempVec));
+			m_mapDynamicObject.insert(make_pair((*m_iterList), false));
 		}
-		else
+		else if ((*m_iterList)->GetCollisonType() == OBJ_STATIC)
 		{
-			m_mapObject.find(tempPair)->second.push_back((*m_iterList));
+			tempPair.first = (*m_iterList)->GetPos().x;
+			tempPair.second = (*m_iterList)->GetPos().z;
+			if (m_mapStaticObject.find(tempPair) == m_mapStaticObject.end())
+			{
+				tempVec.push_back((*m_iterList));
+				m_mapStaticObject.insert(make_pair(tempPair, tempVec));
+			}
+			else
+			{
+				m_mapStaticObject.find(tempPair)->second.push_back((*m_iterList));
+			}
 		}
 	}
-	int test = 0;
 }
 
 void cCollision::Update()
@@ -68,23 +75,18 @@ void cCollision::Update()
 
 void cCollision::ListUpdate()
 {
-	if (m_nListSize = m_pSOM->GetListObj().size()) return;
-	else
+	if ((m_nListSize + m_nNewObjSize) != m_pSOM->GetListObj().size())
 	{
-		m_mapObject.clear();
-		m_nListSize = m_pSOM->GetListObj().size();
-		vector<cIGObj*> tempVec;
-		pair<int, int> tempPair;
-		tempPair.first = (*m_iterList)->GetPos().x;
-		tempPair.second = (*m_iterList)->GetPos().z;
-		if (m_mapObject.find(tempPair) == m_mapObject.end())
+		m_objList = m_pSOM->GetListObj();
+		m_nNewObjSize = m_pSOM->GetListObj().size() - m_nListSize;
+		m_riterList = m_objList.rbegin();
+		for (int i = 0; i < m_nNewObjSize - 1; ++i)
 		{
-			tempVec.push_back((*m_iterList));
-			m_mapObject.insert(make_pair(tempPair, tempVec));
-		}
-		else
-		{
-			m_mapObject.find(tempPair)->second.push_back((*m_iterList));
+			if (m_mapDynamicObject.find((*m_riterList)) == m_mapDynamicObject.end())
+			{
+
+			}
+			++m_iterList;
 		}
 	}
 }
@@ -150,23 +152,33 @@ cIGObj* cCollision::PlayerDetectObject(int playerNum)
 	D3DXVECTOR3 pos = m_pPlayer[playerNum]->GetPos(); 
 	D3DXVECTOR3 dir = m_pPlayer[playerNum]->GetDir();
 	D3DXVec3Normalize(&dir, &dir);
-	pos = pos + dir * 0.7;
+	pos = pos + dir * 0.8;
 	int keyFirst = pos.x;
 	int keySecond = pos.z;
 	float distance = 10000000.0f;
 	cIGObj* tempAddress = NULL;
-	m_iterObject = m_mapObject.find(make_pair(keyFirst, keySecond));
-	if (m_iterObject != m_mapObject.end())
+	m_iterStaticObject = m_mapStaticObject.find(make_pair(keyFirst, keySecond));
+	if (m_iterStaticObject != m_mapStaticObject.end())
 	{
-		for (int j = 0; j < m_iterObject->second.size(); ++j)
+		for (int j = 0; j < m_iterStaticObject->second.size(); ++j)
 		{
-			float tempDist = GetDistance(m_pPlayer[playerNum]->GetPos(), m_iterObject->second[j]->GetPos());
+			float tempDist = GetDistance(m_pPlayer[playerNum]->GetPos(), m_iterStaticObject->second[j]->GetPos());
 			if (tempDist > distance) continue;
 			else if (tempDist < distance)
 			{
 				distance = tempDist;
-				tempAddress = m_iterObject->second[j];
+				tempAddress = m_iterStaticObject->second[j];
 			}
+		}
+	}
+	for (m_iterDynamicObject = m_mapDynamicObject.begin(); m_iterDynamicObject != m_mapDynamicObject.end(); ++m_iterDynamicObject)
+	{
+		float tempDist = GetDistance(m_pPlayer[playerNum]->GetPos(), m_iterDynamicObject->first->GetPos());
+		if (tempDist > distance) continue;
+		else if (tempDist < distance)
+		{
+			distance = tempDist;
+			tempAddress = m_iterDynamicObject->first;
 		}
 	}
 	return tempAddress;
@@ -174,44 +186,48 @@ cIGObj* cCollision::PlayerDetectObject(int playerNum)
 
 void cCollision::StaticLineXCollision(int playerNum, int keyFirst, int keySecond, int moveX, D3DXVECTOR3& pos)
 {
+	/*
 	float distance = 0.0f;
 	m_iterObject = m_mapObject.find(make_pair(keyFirst + moveX, keySecond));
 	if (m_iterObject != m_mapObject.end())
 	{
 		for (int j = 0; j < m_iterObject->second.size(); ++j)
 		{
-			//if (m_iterObject->second[j]->GetCollisionType() == OBJ_STATIC)
-			//{
-			//	distance = abs(m_pPlayer[0]->GetPos().x - m_iterObject->second[j]->GetPos().x);
-			//	if (distance < 1)
-			//	{
-			//		pos.x -= moveX * (1 - distance);
-			//		m_pPlayer[0]->SetPos(pos);
-			//	}
-			//}
+			if (m_iterObject->second[j]->GetCollisionType() == OBJ_STATIC)
+			{
+				distance = abs(m_pPlayer[0]->GetPos().x - m_iterObject->second[j]->GetPos().x);
+				if (distance < 1)
+				{
+					pos.x -= moveX * (1 - distance);
+					m_pPlayer[0]->SetPos(pos);
+				}
+			}
 		}
 	}
+	*/
 }
 
 void cCollision::StaticLineZCollision(int playerNum, int keyFirst, int keySecond, int moveZ, D3DXVECTOR3& pos)
 {
+	/*
 	float distance = 0.0f;
 	m_iterObject = m_mapObject.find(make_pair(keyFirst, keySecond + moveZ));
 	if (m_iterObject != m_mapObject.end())
 	{
 		for (int j = 0; j < m_iterObject->second.size(); ++j)
 		{
-			//if (m_iterObject->second[j]->GetCollisionType() == OBJ_STATIC)
-			//{
-			//	distance = abs(m_pPlayer[0]->GetPos().z - m_iterObject->second[j]->GetPos().z);
-			//	if (distance < 1)
-			//	{
-			//		pos.z -= moveZ * (1 - distance);
-			//		m_pPlayer[0]->SetPos(pos);
-			//	}
-			//}
+			if (m_iterObject->second[j]->GetCollisionType() == OBJ_STATIC)
+			{
+				distance = abs(m_pPlayer[0]->GetPos().z - m_iterObject->second[j]->GetPos().z);
+				if (distance < 1)
+				{
+					pos.z -= moveZ * (1 - distance);
+					m_pPlayer[0]->SetPos(pos);
+				}
+			}
 		}
 	}
+	*/
 }
 
 void cCollision::StaticVertexCollision(int playerNum, int keyFirst, int keySecond)
