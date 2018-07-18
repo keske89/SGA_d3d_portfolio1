@@ -89,9 +89,9 @@ void cIntroUI::Update()
 		_alpha++;
 		if (_alpha >= 255)
 		{
-			if (_nextScene == "TestScene3")
+			if (_nextScene == "WMScene")
 			{
-				SCENEMANAGER->ChangeScene("TestScene3");
+				SCENEMANAGER->ChangeScene("WMScene");
 				SCENEMANAGER->Setup();
 			}
 		}
@@ -172,7 +172,7 @@ void cIntroUI::OnClick(UIButton * pSender)
 {
 	if (pSender->GetName() == _T("button1"))
 	{
-		_nextScene = "TestScene3";
+		_nextScene = "WMScene";
 		_isChange = true;
 	}
 	else if (pSender->GetName() == _T("button2"))
