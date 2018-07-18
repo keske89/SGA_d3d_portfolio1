@@ -19,7 +19,7 @@ private:
 	SYNTHESIZE_REF(D3DXVECTOR3, m_vdirX, DirX);
 	SYNTHESIZE_REF(D3DXVECTOR3, m_vdirZ, DirZ);
 	SYNTHESIZE_REF(D3DXVECTOR3, m_vToGo, ToGo);
-	SYNTHESIZE(cIGObj *,m_pInven, Inven);
+	SYNTHESIZE(cIGObj *, m_pInven, Inven);
 	cIGObj *				m_pDetect;
 	cStageObjManager*		m_pStageOBJ;
 	SYNTHESIZE(float, m_fRadius, radius);
@@ -27,7 +27,8 @@ private:
 	LPD3DXMESH				m_pMesh;
 	BOOL					m_bRender;
 private:
-	std::list<cChefRunPuff *> m_listPuff;
+	std::vector<cChefRunPuff *> m_vecPuff;
+	std::vector<cChefRunPuff *>::iterator m_vecItPuff;
 public:
 	cChef();
 	~cChef();
@@ -41,7 +42,7 @@ public:
 	void setcStageObjManagerAdressLink(cStageObjManager* _StageObject) { m_pStageOBJ = _StageObject; }
 	void runPuffCreate();
 	void runPuffUpdate();
-	void runPuffDelete(IN std::list<cChefRunPuff *> ::iterator cChefIter);
+	void runPuffDelete(int num);
 	virtual void OnAction(IN cIGObj* pSender) override;
 };
 

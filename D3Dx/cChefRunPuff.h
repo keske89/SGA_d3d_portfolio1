@@ -15,6 +15,6 @@ public:
 	void SetUp(D3DXVECTOR3 vPos);
 	void Update();
 	void Render();
-	void BoomMod();
+	void BoomMod(D3DXVECTOR3 dir);
 };
 

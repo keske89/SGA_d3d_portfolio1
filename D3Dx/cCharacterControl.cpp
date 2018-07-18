@@ -71,6 +71,7 @@ void cCharacterControl::ControlAction()
 				m_StPlayerAtrribute[m_Bswitch].st_fFrictional = 0.05f;
 				m_StPlayerAtrribute[m_Bswitch].st_fCharacterBOOSTERSpeed = 0.5f;
 				m_vecCharacter[m_Bswitch]->GetRoot()->SetChefAnimation(CHEF_STATE_BOOSTER_MOVE);
+				m_StPlayerAtrribute[m_Bswitch].st_vBooster = m_vecCharacter[m_Bswitch]->GetPos() - m_vecCharacter[m_Bswitch]->GetDir();
 				m_StPlayerAtrribute[m_Bswitch].st_BisBooster = true;
 			}
 		}
