@@ -45,6 +45,7 @@ public:
 	virtual void Update() = 0;
 	virtual void Render() = 0;
 	virtual void SetInven(cIGObj* object) { m_Inven = object; }
+	virtual cIGObj * GetInven() { return m_Inven; }
 	void AddChild(cIGObj* childNode);
 	void SetWorldMatrix(D3DXMATRIX matWorld);
 	D3DXMATRIX GetWorldMat() {	return (m_matLocal * m_matWorld);}

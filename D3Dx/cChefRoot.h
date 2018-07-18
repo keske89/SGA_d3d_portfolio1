@@ -8,7 +8,8 @@ enum CHEF_STATE
 	CHEF_STATE_TRANCEPORT_IDLE,				//무엇인가를 들고 가만히 있는상태
 	CHEF_STATE_TRANCEPORT_MOVE,				//무엇인가를 들고 움직이는 상태
 	CHEF_STATE_CHOP,						//음식을 썰고 있는 상태
-	CHEF_STATE_DISHWASHING					//설거지를 하는 상태
+	CHEF_STATE_DISHWASHING,					//설거지를 하는 상태
+	CHEF_STATE_ACTION						//무엇인가를 들 준비상태
 };
 class cChefRoot
 {

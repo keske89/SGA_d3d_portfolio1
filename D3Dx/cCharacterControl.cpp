@@ -43,6 +43,9 @@ void cCharacterControl::ControlAction()
 {
 	if (PLAYERMOD_PLAY1P == m_enmPlayerMod)
 	{
+		if(m_vecCharacter[m_Bswitch]->GetInven())
+			m_vecCharacter[m_Bswitch]->GetRoot()->SetChefAnimation(CHEF_STATE_TRANCEPORT_IDLE);
+
 		if (KEYMANAGER->isOnceKeyDown(VK_LSHIFT))
 		{
 			if (m_Bswitch)
@@ -73,8 +76,23 @@ void cCharacterControl::ControlAction()
 		}
 		if (KEYMANAGER->isOnceKeyDown('C'))
 		{
-			if (m_vecCharacter[m_Bswitch]->GetInven() == NULL)
-				m_vecCharacter[m_Bswitch]->GetRoot()->SetChefAnimation(CHEF_STATE_TRANCEPORT_IDLE);
+			//오브젝트
+			if (m_vecCharacter[m_Bswitch]->GetDetect())
+			{
+				if (m_vecCharacter[m_Bswitch]->GetInven() == NULL)
+					m_vecCharacter[m_Bswitch]->GetRoot()->SetChefAnimation(CHEF_STATE_ACTION);
+				else
+				{
+					//오브젝트의 인벤이 비워져있으면!!!
+					if (!m_vecCharacter[m_Bswitch]->GetDetect()->GetInven())
+					{
+						m_vecCharacter[m_Bswitch]->GetDetect()->SetInven(m_vecCharacter[m_Bswitch]->GetInven());
+						m_vecCharacter[m_Bswitch]->SetInven(NULL);
+						m_vecCharacter[m_Bswitch]->GetRoot()->SetChefAnimation(CHEF_STATE_IDLE);
+					}
+				}
+			}
+			// 타일
 			else
 			{
 				m_vecCharacter[m_Bswitch]->SetInven(NULL);
