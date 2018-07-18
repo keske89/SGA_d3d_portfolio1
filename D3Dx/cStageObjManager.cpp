@@ -60,6 +60,7 @@ void cStageObjManager::Update()
 			{
 				p->Setplayer(m_player1);
 				p->SetInteraction(true);
+
 				if (KEYMANAGER->isOnceKeyDown('C'))
 				{
 					//p->SetDelegate(this);
@@ -85,8 +86,6 @@ void cStageObjManager::Update()
 		
 		p->Update();
 	}
-
-	//OnAction();
 }
 
 void cStageObjManager::Render()

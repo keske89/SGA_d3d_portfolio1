@@ -35,6 +35,7 @@ public:
 	SYNTHESIZE(D3DXVECTOR3, m_vPos, Pos);
 	SYNTHESIZE(cActionDelegate*, m_pDelegate, Delegate);
 	SYNTHESIZE(cChef*, m_player, player);
+	SYNTHESIZE(bool, m_bIsEquipped, IsEquipped);
 	
 public:
 	cIGObj();
