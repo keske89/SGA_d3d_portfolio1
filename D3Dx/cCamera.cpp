@@ -8,7 +8,7 @@ cCamera::cCamera()
 	, m_vLookAt(0, 0, 0)
 	, m_fRotX(0)
 	, m_fRotY(0)
-	, m_fDistance(20.0f)
+	, m_fDistance(10.0f)
 	, m_isRButtonDown(false)
 {
 }

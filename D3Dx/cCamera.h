@@ -22,6 +22,7 @@ public:
 	void WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 	inline void setVLookAt(D3DXVECTOR3 vector) { m_vLookAt = vector; }
 	inline void setVEye(D3DXVECTOR3 vector) { m_vEye = vector; }
+	inline void setRotX(float angle) { m_fRotX = angle; }
 	inline void setDistance(float distance) { m_fDistance = distance; }
 };
 

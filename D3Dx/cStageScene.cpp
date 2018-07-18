@@ -40,6 +40,9 @@ void cStageScene::Setup()
 	m_pStage = new cStage;
 	m_pStage->Setup(1, m_vNewObjData, m_vSetObjData, m_mapIsBlockedData, m_vecChefPos[0], m_vecChefPos[1]);
 
+	m_pCamera = new cCamera;
+	m_pCamera->Setup();
+
 	m_pGrid = new cStageGrid;
 	m_pGrid->Setup();
 
@@ -61,10 +64,11 @@ void cStageScene::Setup()
 		m_pChef[i]->SetUp(m_vecChefPos[i], m_pControl);
 		m_pControl->AddcCharacter(m_pChef[i]);
 	}
+	m_pSOM->Setplayer1(m_pChef[0]);
+	m_pSOM->Setplayer2(m_pChef[1]);
 
-	m_pCamera = new cCamera;
-	m_pCamera->Setup();
-
+	m_pCamera->setVLookAt(m_pControl->GetControlPlayer()->GetPos());
+	m_pCamera->setRotX(D3DX_PI / 3);
 
 	m_pCollision = new cCollision;
 	m_pCollision->setPlayerMemoryAddressLink(0, m_pChef[0]);
@@ -79,6 +83,7 @@ void cStageScene::Update()
 	if (m_pCamera)
 	{
 		m_pCamera->Update();
+		m_pCamera->setVLookAt(m_pControl->GetControlPlayer()->GetPos());
 		Control();
 	}
 
