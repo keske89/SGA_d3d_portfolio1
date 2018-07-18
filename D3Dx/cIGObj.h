@@ -1,8 +1,7 @@
 #pragma once
 
-class cChef;
 class cIGObj;
-
+class cChef;
 class cActionDelegate //Action¿ë delegate class
 {
 public:

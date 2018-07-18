@@ -1,10 +1,13 @@
 #pragma once
 #include "cIGObj.h"
 
-typedef 
+
 
 class cIGObj;
 class cChef;
+
+
+
 
 // action obj
 class cCrateLid;
@@ -83,7 +86,7 @@ private:
 	cCounterTop*			m_Counter;
 	cOnion*					m_Onion;
 	
-	int m_buttonSelect;
+	int						m_buttonSelect;
 	SYNTHESIZE(std::list<cIGObj*>, m_listObj, ListObj);
 	SYNTHESIZE(cActionDelegate*, m_pDelegate, Delegate);
 	SYNTHESIZE(cChef*, m_player1, player1);

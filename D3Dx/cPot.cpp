@@ -5,7 +5,9 @@
 
 
 cPot::cPot()
-	:m_size(1)
+	: m_pPgbar(NULL)
+	, m_size(1)
+	, m_bIsAction(false)
 {
 	m_vecFood.clear();
 }
@@ -32,10 +34,21 @@ void cPot::Update()
 	temp.y = m_vPos.y - 0.05f;
 	temp.z = m_vPos.z - 0.05f;
 
-	if (m_pPgbar)
+
+	if (m_vecFood.size() != NULL)	// 냄비에 재료가 들어왔고
 	{
-		m_pPgbar->SetPos(m_vPos);
-		//m_pPgbar->Update(temp, m_size);
+		if (!m_pPgbar)				// 프로그레스 바가 아직 없다면 만들고 
+		{
+			m_pPgbar->Setup(m_matWorld,m_vPos);
+		}
+		if (m_pPgbar)				// 프로그레스 바 있으면
+		{
+			if (m_bIsAction)			// Cooker에 올라가 있는 상태면
+			{
+				m_pPgbar->Update(temp, m_size);	// 프로그레스 바 업데이트를 돌린다.
+			}
+		}
+
 	}
 	
 
@@ -72,15 +85,14 @@ void cPot::Setup(D3DXMATRIX matWorld, D3DXVECTOR3 pos, int lidtype)
 	m_vPos.x = matWorld._41;
 	m_vPos.y = matWorld._42;
 	m_vPos.z = matWorld._43;
-	m_isAction = false;
 	m_matWorld = matWorld;
 	m_eState = OBJ_DYNAMIC;
 	m_nObjectType = lidtype;
 	m_pMesh = ObJMANAGER->GetMesh(L"Pot_Mesh.obj");
 	m_pTexture = g_pTextureManager->GetTexture(L"Resources/Texture2D/Pot_Texture.png");
 	m_vecFood.resize(3);
-	m_pPgbar = new cProgressbar;
-	m_pPgbar->Setup(matWorld,pos);
+	//m_pPgbar = new cProgressbar;
+	//m_pPgbar->Setup(matWorld,pos);
 
 }
 

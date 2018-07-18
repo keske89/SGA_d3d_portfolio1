@@ -11,7 +11,7 @@ public:
 	cProgressbar*			m_pPgbar;
 	std::vector<cFoodObj*>	m_vecFood;
 	int						m_size;
-	bool					m_isAction;
+	//bool					m_bIsAction;
 
 public:
 	cPot();
@@ -22,7 +22,7 @@ public:
 	virtual void Render();
 
 	void SetFood(cFoodObj* foodobject);
-
+	SYNTHESIZE(bool, m_bIsAction, IsAction);
 
 	// cActionObj을(를) 통해 상속됨
 	virtual void Setup(D3DXMATRIX matWorld, D3DXVECTOR3 pos, int lidtype) override;
