@@ -17,7 +17,7 @@ cChef::cChef()
 	, m_vPosition(0, 0, 0)
 	, m_vdir(0, 0, 0)
 	, m_vToGo(0, 0, 0)
-	, m_pIven(NULL)
+	, m_pInven(NULL)
 	, m_pDetect(NULL)
 	, m_fRadius(0.5f)
 {
@@ -109,10 +109,6 @@ void cChef::SetMaterial()
 	m_stMtl.Specular = D3DXCOLOR(0.3f, 0.3f, 0.3f, 1.0f);
 }
 
-cIGObj * cChef::GetcIGObject()
-{
-	return nullptr;
-}
 
 void cChef::runPuffCreate()
 {

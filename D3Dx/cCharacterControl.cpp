@@ -73,16 +73,19 @@ void cCharacterControl::ControlAction()
 		}
 		if (KEYMANAGER->isOnceKeyDown('C'))
 		{
-			if (m_vecCharacter[m_Bswitch]->GetcIGObject() == NULL)
+			if (m_vecCharacter[m_Bswitch]->GetInven() == NULL)
 				m_vecCharacter[m_Bswitch]->GetRoot()->SetChefAnimation(CHEF_STATE_TRANCEPORT_IDLE);
 			else
+			{
+				m_vecCharacter[m_Bswitch]->SetInven(NULL);
 				m_vecCharacter[m_Bswitch]->GetRoot()->SetChefAnimation(CHEF_STATE_IDLE);
+			}
 		}
 
 
 		if (KEYMANAGER->isStayKeyDown(VK_LEFT))
 		{
-			if (!m_vecCharacter[m_Bswitch]->GetcIGObject())
+			if (!m_vecCharacter[m_Bswitch]->GetInven())
 				m_vecCharacter[m_Bswitch]->GetRoot()->SetChefAnimation(CHEF_STATE_MOVE);
 			else
 				m_vecCharacter[m_Bswitch]->GetRoot()->SetChefAnimation(CHEF_STATE_TRANCEPORT_MOVE);
@@ -90,7 +93,7 @@ void cCharacterControl::ControlAction()
 		}
 		if (KEYMANAGER->isStayKeyDown(VK_RIGHT))
 		{
-			if (!m_vecCharacter[m_Bswitch]->GetcIGObject())
+			if (!m_vecCharacter[m_Bswitch]->GetInven())
 				m_vecCharacter[m_Bswitch]->GetRoot()->SetChefAnimation(CHEF_STATE_MOVE);
 			else
 				m_vecCharacter[m_Bswitch]->GetRoot()->SetChefAnimation(CHEF_STATE_TRANCEPORT_MOVE);
@@ -98,7 +101,7 @@ void cCharacterControl::ControlAction()
 		}
 		if (KEYMANAGER->isStayKeyDown(VK_UP))
 		{
-			if (!m_vecCharacter[m_Bswitch]->GetcIGObject())
+			if (!m_vecCharacter[m_Bswitch]->GetInven())
 				m_vecCharacter[m_Bswitch]->GetRoot()->SetChefAnimation(CHEF_STATE_MOVE);
 			else
 				m_vecCharacter[m_Bswitch]->GetRoot()->SetChefAnimation(CHEF_STATE_TRANCEPORT_MOVE);
@@ -106,7 +109,7 @@ void cCharacterControl::ControlAction()
 		}
 		if (KEYMANAGER->isStayKeyDown(VK_DOWN))
 		{
-			if (!m_vecCharacter[m_Bswitch]->GetcIGObject())
+			if (!m_vecCharacter[m_Bswitch]->GetInven())
 				m_vecCharacter[m_Bswitch]->GetRoot()->SetChefAnimation(CHEF_STATE_MOVE);
 			else
 				m_vecCharacter[m_Bswitch]->GetRoot()->SetChefAnimation(CHEF_STATE_TRANCEPORT_MOVE);
@@ -114,7 +117,7 @@ void cCharacterControl::ControlAction()
 		}
 		if (KEYMANAGER->isOnceKeyUp(VK_DOWN))
 		{
-			if (!m_vecCharacter[m_Bswitch]->GetcIGObject())
+			if (!m_vecCharacter[m_Bswitch]->GetInven())
 				m_vecCharacter[m_Bswitch]->GetRoot()->SetChefAnimation(CHEF_STATE_IDLE);
 			else
 				m_vecCharacter[m_Bswitch]->GetRoot()->SetChefAnimation(CHEF_STATE_TRANCEPORT_IDLE);
@@ -123,7 +126,7 @@ void cCharacterControl::ControlAction()
 		}
 		if (KEYMANAGER->isOnceKeyUp(VK_UP))
 		{
-			if (!m_vecCharacter[m_Bswitch]->GetcIGObject())
+			if (!m_vecCharacter[m_Bswitch]->GetInven())
 				m_vecCharacter[m_Bswitch]->GetRoot()->SetChefAnimation(CHEF_STATE_IDLE);
 			else
 				m_vecCharacter[m_Bswitch]->GetRoot()->SetChefAnimation(CHEF_STATE_TRANCEPORT_IDLE);
@@ -132,7 +135,7 @@ void cCharacterControl::ControlAction()
 		}
 		if (KEYMANAGER->isOnceKeyUp(VK_RIGHT))
 		{
-			if (!m_vecCharacter[m_Bswitch]->GetcIGObject())
+			if (!m_vecCharacter[m_Bswitch]->GetInven())
 				m_vecCharacter[m_Bswitch]->GetRoot()->SetChefAnimation(CHEF_STATE_IDLE);
 			else
 				m_vecCharacter[m_Bswitch]->GetRoot()->SetChefAnimation(CHEF_STATE_TRANCEPORT_IDLE);
@@ -141,7 +144,7 @@ void cCharacterControl::ControlAction()
 		}
 		if (KEYMANAGER->isOnceKeyUp(VK_LEFT))
 		{
-			if (!m_vecCharacter[m_Bswitch]->GetcIGObject())
+			if (!m_vecCharacter[m_Bswitch]->GetInven())
 				m_vecCharacter[m_Bswitch]->GetRoot()->SetChefAnimation(CHEF_STATE_IDLE);
 			else
 				m_vecCharacter[m_Bswitch]->GetRoot()->SetChefAnimation(CHEF_STATE_TRANCEPORT_IDLE);
@@ -176,14 +179,14 @@ void cCharacterControl::Control1P()
 	}
 	if (KEYMANAGER->isOnceKeyDown('W'))
 	{
-		if (m_vecCharacter[0]->GetcIGObject() == NULL)
+		if (m_vecCharacter[0]->GetInven() == NULL)
 			m_vecCharacter[0]->GetRoot()->SetChefAnimation(CHEF_STATE_TRANCEPORT_IDLE);
 		else
 			m_vecCharacter[0]->GetRoot()->SetChefAnimation(CHEF_STATE_IDLE);
 	}
 	if (KEYMANAGER->isStayKeyDown('F'))
 	{
-		if (!m_vecCharacter[0]->GetcIGObject())
+		if (!m_vecCharacter[0]->GetInven())
 			m_vecCharacter[0]->GetRoot()->SetChefAnimation(CHEF_STATE_MOVE);
 		else
 			m_vecCharacter[0]->GetRoot()->SetChefAnimation(CHEF_STATE_TRANCEPORT_MOVE);
@@ -192,7 +195,7 @@ void cCharacterControl::Control1P()
 	}
 	if (KEYMANAGER->isStayKeyDown('H'))
 	{
-		if (!m_vecCharacter[0]->GetcIGObject())
+		if (!m_vecCharacter[0]->GetInven())
 			m_vecCharacter[0]->GetRoot()->SetChefAnimation(CHEF_STATE_MOVE);
 		else
 			m_vecCharacter[0]->GetRoot()->SetChefAnimation(CHEF_STATE_TRANCEPORT_MOVE);
@@ -201,7 +204,7 @@ void cCharacterControl::Control1P()
 	}
 	if (KEYMANAGER->isOnceKeyUp('F'))
 	{
-		if (!m_vecCharacter[0]->GetcIGObject())
+		if (!m_vecCharacter[0]->GetInven())
 			m_vecCharacter[0]->GetRoot()->SetChefAnimation(CHEF_STATE_IDLE);
 		else
 			m_vecCharacter[0]->GetRoot()->SetChefAnimation(CHEF_STATE_TRANCEPORT_IDLE);
@@ -209,7 +212,7 @@ void cCharacterControl::Control1P()
 	}
 	if (KEYMANAGER->isOnceKeyUp('H'))
 	{
-		if (!m_vecCharacter[0]->GetcIGObject())
+		if (!m_vecCharacter[0]->GetInven())
 			m_vecCharacter[0]->GetRoot()->SetChefAnimation(CHEF_STATE_IDLE);
 		else
 			m_vecCharacter[0]->GetRoot()->SetChefAnimation(CHEF_STATE_TRANCEPORT_IDLE);
@@ -217,7 +220,7 @@ void cCharacterControl::Control1P()
 	}
 	if (KEYMANAGER->isStayKeyDown('T'))
 	{
-		if (!m_vecCharacter[0]->GetcIGObject())
+		if (!m_vecCharacter[0]->GetInven())
 			m_vecCharacter[0]->GetRoot()->SetChefAnimation(CHEF_STATE_MOVE);
 		else
 			m_vecCharacter[0]->GetRoot()->SetChefAnimation(CHEF_STATE_TRANCEPORT_MOVE);
@@ -226,7 +229,7 @@ void cCharacterControl::Control1P()
 	}
 	if (KEYMANAGER->isStayKeyDown('G'))
 	{
-		if (!m_vecCharacter[0]->GetcIGObject())
+		if (!m_vecCharacter[0]->GetInven())
 			m_vecCharacter[0]->GetRoot()->SetChefAnimation(CHEF_STATE_MOVE);
 		else
 			m_vecCharacter[0]->GetRoot()->SetChefAnimation(CHEF_STATE_TRANCEPORT_MOVE);
@@ -235,7 +238,7 @@ void cCharacterControl::Control1P()
 	}
 	if (KEYMANAGER->isOnceKeyUp('T'))
 	{
-		if (!m_vecCharacter[0]->GetcIGObject())
+		if (!m_vecCharacter[0]->GetInven())
 			m_vecCharacter[0]->GetRoot()->SetChefAnimation(CHEF_STATE_IDLE);
 		else
 			m_vecCharacter[0]->GetRoot()->SetChefAnimation(CHEF_STATE_TRANCEPORT_IDLE);
@@ -244,7 +247,7 @@ void cCharacterControl::Control1P()
 	}
 	if (KEYMANAGER->isOnceKeyUp('G'))
 	{
-		if (!m_vecCharacter[0]->GetcIGObject())
+		if (!m_vecCharacter[0]->GetInven())
 			m_vecCharacter[0]->GetRoot()->SetChefAnimation(CHEF_STATE_IDLE);
 		else
 			m_vecCharacter[0]->GetRoot()->SetChefAnimation(CHEF_STATE_TRANCEPORT_IDLE);
@@ -270,14 +273,14 @@ void cCharacterControl::Control2P()
 	}
 	if (KEYMANAGER->isOnceKeyDown('P'))
 	{
-		if (m_vecCharacter[1]->GetcIGObject() == NULL)
+		if (m_vecCharacter[1]->GetInven() == NULL)
 			m_vecCharacter[1]->GetRoot()->SetChefAnimation(CHEF_STATE_TRANCEPORT_IDLE);
 		else
 			m_vecCharacter[1]->GetRoot()->SetChefAnimation(CHEF_STATE_IDLE);
 	}
 	if (KEYMANAGER->isStayKeyDown(VK_NUMPAD6))
 	{
-		if (!m_vecCharacter[1]->GetcIGObject())
+		if (!m_vecCharacter[1]->GetInven())
 			m_vecCharacter[1]->GetRoot()->SetChefAnimation(CHEF_STATE_MOVE);
 		else
 			m_vecCharacter[1]->GetRoot()->SetChefAnimation(CHEF_STATE_TRANCEPORT_MOVE);
@@ -286,7 +289,7 @@ void cCharacterControl::Control2P()
 	}
 	if (KEYMANAGER->isStayKeyDown(VK_NUMPAD4))
 	{
-		if (!m_vecCharacter[1]->GetcIGObject())
+		if (!m_vecCharacter[1]->GetInven())
 			m_vecCharacter[1]->GetRoot()->SetChefAnimation(CHEF_STATE_MOVE);
 		else
 			m_vecCharacter[1]->GetRoot()->SetChefAnimation(CHEF_STATE_TRANCEPORT_MOVE);
@@ -295,7 +298,7 @@ void cCharacterControl::Control2P()
 	}
 	if (KEYMANAGER->isOnceKeyUp(VK_NUMPAD4))
 	{
-		if (!m_vecCharacter[1]->GetcIGObject())
+		if (!m_vecCharacter[1]->GetInven())
 			m_vecCharacter[1]->GetRoot()->SetChefAnimation(CHEF_STATE_IDLE);
 		else
 			m_vecCharacter[1]->GetRoot()->SetChefAnimation(CHEF_STATE_TRANCEPORT_IDLE);
@@ -304,7 +307,7 @@ void cCharacterControl::Control2P()
 	}
 	if (KEYMANAGER->isOnceKeyUp(VK_NUMPAD6))
 	{
-		if (!m_vecCharacter[1]->GetcIGObject())
+		if (!m_vecCharacter[1]->GetInven())
 			m_vecCharacter[1]->GetRoot()->SetChefAnimation(CHEF_STATE_IDLE);
 		else
 			m_vecCharacter[1]->GetRoot()->SetChefAnimation(CHEF_STATE_TRANCEPORT_IDLE);
@@ -312,7 +315,7 @@ void cCharacterControl::Control2P()
 	}
 	if (KEYMANAGER->isStayKeyDown(VK_NUMPAD8))
 	{
-		if (!m_vecCharacter[1]->GetcIGObject())
+		if (!m_vecCharacter[1]->GetInven())
 			m_vecCharacter[1]->GetRoot()->SetChefAnimation(CHEF_STATE_MOVE);
 		else
 			m_vecCharacter[1]->GetRoot()->SetChefAnimation(CHEF_STATE_TRANCEPORT_MOVE);
@@ -321,7 +324,7 @@ void cCharacterControl::Control2P()
 	}
 	if (KEYMANAGER->isStayKeyDown(VK_NUMPAD5))
 	{
-		if (!m_vecCharacter[1]->GetcIGObject())
+		if (!m_vecCharacter[1]->GetInven())
 			m_vecCharacter[1]->GetRoot()->SetChefAnimation(CHEF_STATE_MOVE);
 		else
 			m_vecCharacter[1]->GetRoot()->SetChefAnimation(CHEF_STATE_TRANCEPORT_MOVE);
@@ -330,7 +333,7 @@ void cCharacterControl::Control2P()
 	}
 	if (KEYMANAGER->isOnceKeyUp(VK_NUMPAD8))
 	{
-		if (!m_vecCharacter[1]->GetcIGObject())
+		if (!m_vecCharacter[1]->GetInven())
 			m_vecCharacter[1]->GetRoot()->SetChefAnimation(CHEF_STATE_IDLE);
 		else
 			m_vecCharacter[1]->GetRoot()->SetChefAnimation(CHEF_STATE_TRANCEPORT_IDLE);
@@ -339,7 +342,7 @@ void cCharacterControl::Control2P()
 	}
 	if (KEYMANAGER->isOnceKeyUp(VK_NUMPAD5))
 	{
-		if (!m_vecCharacter[1]->GetcIGObject())
+		if (!m_vecCharacter[1]->GetInven())
 			m_vecCharacter[1]->GetRoot()->SetChefAnimation(CHEF_STATE_IDLE);
 		else
 			m_vecCharacter[1]->GetRoot()->SetChefAnimation(CHEF_STATE_TRANCEPORT_IDLE);

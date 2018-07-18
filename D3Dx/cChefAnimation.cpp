@@ -120,7 +120,7 @@ void cChefAnimation::Animation(cChefRoot * _cChefRoot)
 				if (m_fRotZ > 0.4f)
 					m_fRotZ += 0;
 				else
-					m_fRotZ += m_fRotDeltaX;
+					m_fRotZ += m_fRotDeltaZ;
 				f_tempAngle = -D3DX_PI / 2;
 			}
 			//¿À¸¥ÂÊ
@@ -129,7 +129,7 @@ void cChefAnimation::Animation(cChefRoot * _cChefRoot)
 				if (m_fRotZ > 0.4f)
 					m_fRotZ += 0;
 				else
-					m_fRotZ += m_fRotDeltaX;
+					m_fRotZ += m_fRotDeltaZ;
 
 				f_tempAngle = D3DX_PI / 2;
 			}
@@ -139,7 +139,9 @@ void cChefAnimation::Animation(cChefRoot * _cChefRoot)
 			D3DXVECTOR3 temp = _cChefRoot->GetChild()[i]->GetPos();
 			D3DXMatrixRotationZ(&matRZ, f_tempAngle);
 			D3DXMatrixTranslation(&matT, temp.x, temp.y + 1.0f, m_fRotZ);
-
+			if (i == 0)
+				matAni = matT2;
+			else
 			matAni = matRZ * matT;
 			_cChefRoot->GetChild()[i]->SetmatLocal(matAni);
 		}
@@ -147,6 +149,7 @@ void cChefAnimation::Animation(cChefRoot * _cChefRoot)
 	break;
 	case CHEF_STATE_TRANCEPORT_MOVE:
 	{
+		D3DXMatrixIdentity(&matT2);
 		D3DXMatrixTranslation(&matT2, 3.43f, 0, 0);
 		float f_tempAngle = 0;
 		for (int i = 0; i < _cChefRoot->GetChild().size() - 1; i++)
@@ -179,7 +182,6 @@ void cChefAnimation::Animation(cChefRoot * _cChefRoot)
 					m_fRotDeltaX *= -1.0f;
 				}
 
-				f_tempAngle = 0;
 			}
 			//¿ÞÂÊ
 			else if (1 == i)
@@ -211,7 +213,7 @@ void cChefAnimation::Animation(cChefRoot * _cChefRoot)
 			D3DXMatrixRotationZ(&matRZ, D3DX_PI / 2);
 			D3DXMatrixTranslation(&matT, temp.x, temp.y, temp.z);
 			if (i == 0)
-				matAni = matT2 * matRX * matRY * matT;
+				matAni = /*matT2 * */matRX * matRY * matT;
 			else
 				matAni = matRX * matRY * matT;
 			_cChefRoot->GetChild()[i]->SetmatLocal(matAni);
@@ -221,10 +223,10 @@ void cChefAnimation::Animation(cChefRoot * _cChefRoot)
 	case CHEF_STATE_CHOP:
 	{
 
-		m_fRotX += m_fRotDeltaX;
-		if (m_fRotX > D3DX_PI / 8.0f)
+		m_fRotX += (m_fRotDeltaX*2.0f);
+		if (m_fRotX > D3DX_PI / 2.0f)
 		{
-			m_fRotX = D3DX_PI / 8.0f;
+			m_fRotX = D3DX_PI / 2.0f;
 			m_fRotDeltaX *= -1.0;
 		}
 
@@ -237,7 +239,7 @@ void cChefAnimation::Animation(cChefRoot * _cChefRoot)
 		D3DXVECTOR3 temp = _cChefRoot->GetChild()[2]->GetPos();
 
 		D3DXMatrixRotationX(&matRX, m_fRotX);
-		D3DXMatrixTranslation(&matT, temp.x, temp.y, temp.z);
+		D3DXMatrixTranslation(&matT, temp.x+0.2f, temp.y+0.6f, temp.z);
 		matAni = matRX * matT;
 		_cChefRoot->GetChild()[2]->SetmatLocal(matAni);
 		_cChefRoot->GetChild()[3]->SetmatLocal(matAni);

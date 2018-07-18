@@ -19,7 +19,7 @@ private:
 	SYNTHESIZE_REF(D3DXVECTOR3, m_vdirX, DirX);
 	SYNTHESIZE_REF(D3DXVECTOR3, m_vdirZ, DirZ);
 	SYNTHESIZE_REF(D3DXVECTOR3, m_vToGo, ToGo);
-	cIGObj *				m_pIven;
+	SYNTHESIZE(cIGObj *,m_pInven, Inven);
 	cIGObj *				m_pDetect;
 	cStageObjManager*		m_pStageOBJ;
 	SYNTHESIZE(float, m_fRadius, radius);
@@ -36,8 +36,6 @@ public:
 	void Update();
 	void Render();
 	void SetMaterial();
-	cIGObj * GetcIGObject();
-	void SetIven(IN cIGObj * _object) { m_pIven = _object; };
 	void SetDetect(IN cIGObj * _object) { m_pDetect = _object; }
 	cIGObj* GetDetect() { return m_pDetect; }
 	void setcStageObjManagerAdressLink(cStageObjManager* _StageObject) { m_pStageOBJ = _StageObject; }

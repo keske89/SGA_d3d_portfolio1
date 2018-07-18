@@ -127,7 +127,7 @@ void cStageObjManager::OnAction(cIGObj* pSender) //신호를 주는 객체에서 신호가 �
 		m_Onion = new cOnion;
 		m_Onion->Setup(pSender->GetWorldMat(), pSender->Getplayer()->GetPos(), FOBJ_ONION);
 		m_listObj.push_back(m_Onion);
-		pSender->Getplayer()->SetIven(m_Onion);
+		pSender->Getplayer()->SetInven(m_Onion);
 		break;
 	case AOBJ_BIN:
 		break;
