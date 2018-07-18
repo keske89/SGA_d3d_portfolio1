@@ -86,7 +86,7 @@ void cCollision::ListUpdate()
 			{
 
 			}
-			++m_iterList;
+			++m_riterList;
 		}
 	}
 }

@@ -20,7 +20,8 @@ public:
 	void Update(D3DXVECTOR3 * pTarget = NULL);
 
 	void WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
-	inline void setVLookAt(D3DXVECTOR3 vector) { m_vLookAt = vector + D3DXVECTOR3(0, 0, 0); }
+	inline void setVLookAt(D3DXVECTOR3 vector) { m_vLookAt = vector; }
+	inline void setVEye(D3DXVECTOR3 vector) { m_vEye = vector; }
 	inline void setDistance(float distance) { m_fDistance = distance; }
 };
 
