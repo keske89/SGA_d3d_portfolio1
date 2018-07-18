@@ -16,6 +16,7 @@ cChef::cChef()
 	: m_pRoot(NULL)
 	, m_vPosition(0, 0, 0)
 	, m_vdir(0, 0, 0)
+	, m_vdirs(0,0,0)
 	, m_vToGo(0, 0, 0)
 	, m_pInven(NULL)
 	, m_pDetect(NULL)
@@ -68,12 +69,16 @@ void cChef::Update()
 	if (m_pControl)
 		m_pControl->Control(this);
 	
-	//if (m_pDetect)
-	//{
-	//	m_pDetect->SetInteraction(true);
-	//	m_pDetect->Setplayer(this);
-	//
-	//}
+	if (m_pInven)
+	{
+		D3DXVECTOR3 vtemp = m_vPosition + (m_vdirs*0.7f);
+		D3DXMATRIX matT,mat;
+		mat = m_pRoot->GetmatLocal();
+		D3DXMatrixTranslation(&matT, vtemp.x, vtemp.y, vtemp.z);
+		mat *= matT;
+		m_pInven->SetWorldMatrix(mat);
+	}
+	
 	Animation(m_pRoot);
 
 	if (m_pRoot)

@@ -81,14 +81,13 @@ void cChefAnimation::Animation(cChefRoot * _cChefRoot)
 				if (m_fRotX > D3DX_PI / 8.0f)
 				{
 					m_fRotX = D3DX_PI / 8.0f;
-					m_fRotDeltaX *= -1.0;
 				}
 
 				if (m_fRotX < -D3DX_PI / 8.0f)
 				{
 					m_fRotX = -D3DX_PI / 8.0f;
-					m_fRotDeltaX *= -1.0;
 				}
+				m_fRotDeltaX *= -1.0;
 
 			}
 			D3DXMatrixIdentity(&matRX);
@@ -98,7 +97,7 @@ void cChefAnimation::Animation(cChefRoot * _cChefRoot)
 			D3DXMatrixRotationY(&matRY, m_fRotY);
 			D3DXMatrixTranslation(&matT, temp.x, temp.y, temp.z);
 			if(i == 0)
-				matAni = matT2 *matRX * matRY * matT;
+				matAni = matT2  * matRY * matT;
 			else
 				matAni = matRX * matRY * matT;
 			_cChefRoot->GetChild()[i]->SetmatLocal(matAni);
@@ -108,10 +107,12 @@ void cChefAnimation::Animation(cChefRoot * _cChefRoot)
 	break;
 	case CHEF_STATE_TRANCEPORT_IDLE:
 	{
-		float f_tempAngle = 0;
+		D3DXMatrixTranslation(&matT2, 3.43f, 0, 0);
 		D3DXMatrixTranslation(&matT, 0, -100, 0);
-		_cChefRoot->GetChild()[3]->SetmatLocal(matT);
+		_cChefRoot->GetChild()[0]->SetmatLocal(matT2);
 		_cChefRoot->GetChild()[2]->Setmesh(ObJMANAGER->GetMesh(L"Hand_Open_R #000539.obj"));
+		_cChefRoot->GetChild()[3]->SetmatLocal(matT);
+		float f_tempAngle = 0;
 		for (int i = 1; i < _cChefRoot->GetChild().size() - 1; i++)
 		{
 			//¿ÞÂÊ
@@ -149,8 +150,11 @@ void cChefAnimation::Animation(cChefRoot * _cChefRoot)
 	break;
 	case CHEF_STATE_TRANCEPORT_MOVE:
 	{
-		D3DXMatrixIdentity(&matT2);
 		D3DXMatrixTranslation(&matT2, 3.43f, 0, 0);
+		D3DXMatrixTranslation(&matT, 0, -100, 0);
+		_cChefRoot->GetChild()[0]->SetmatLocal(matT2);
+		_cChefRoot->GetChild()[2]->Setmesh(ObJMANAGER->GetMesh(L"Hand_Open_R #000539.obj"));
+		_cChefRoot->GetChild()[3]->SetmatLocal(matT);
 		float f_tempAngle = 0;
 		for (int i = 0; i < _cChefRoot->GetChild().size() - 1; i++)
 		{
@@ -185,37 +189,31 @@ void cChefAnimation::Animation(cChefRoot * _cChefRoot)
 			}
 			//¿ÞÂÊ
 			else if (1 == i)
-			{
-				if (m_fRotZ > 0.4f)
-					m_fRotZ += 0;
-				else
-					m_fRotZ += m_fRotDeltaX;
 				f_tempAngle = -D3DX_PI / 2;
-			}
 			//¿À¸¥ÂÊ
 			else if (2 == i)
-			{
-				if (m_fRotZ > 0.4f)
-					m_fRotZ += 0;
-				else
-					m_fRotZ += m_fRotDeltaX;
-
 				f_tempAngle = D3DX_PI / 2;
 
-			}
+
 			D3DXVECTOR3 temp = _cChefRoot->GetChild()[i]->GetPos();
 
-			D3DXMatrixIdentity(&matRZ);
+			D3DXMatrixIdentity(&matRX);
 			D3DXMatrixIdentity(&matRY);
+			D3DXMatrixIdentity(&matRZ);
 			D3DXMatrixIdentity(&matT);
-
+			
 			D3DXMatrixRotationY(&matRY, m_fRotY);
 			D3DXMatrixRotationZ(&matRZ, D3DX_PI / 2);
-			D3DXMatrixTranslation(&matT, temp.x, temp.y, temp.z);
 			if (i == 0)
-				matAni = /*matT2 * */matRX * matRY * matT;
+			{
+				D3DXMatrixTranslation(&matT, temp.x, temp.y, temp.z);
+				matAni = matT2 * matRX * matRY * matT;
+			}
 			else
-				matAni = matRX * matRY * matT;
+			{
+				D3DXMatrixTranslation(&matT, temp.x, temp.y, temp.z+0.4f);
+				matAni = matRZ * matT;
+			}
 			_cChefRoot->GetChild()[i]->SetmatLocal(matAni);
 		}
 	}

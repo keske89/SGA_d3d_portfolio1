@@ -369,6 +369,31 @@ void cCharacterControl::Move(IN cChef * _Chef)
 			{
 				D3DXVec3Normalize(&m_StPlayerAtrribute[i].st_vDirection, &(m_StPlayerAtrribute[i].st_vDirectionX + m_StPlayerAtrribute[i].st_vDirectionZ));
 				
+					if (m_StPlayerAtrribute[i].st_fAngle == 0.0f)
+						_Chef->GetDirs() =  D3DXVECTOR3(0, 0, 1);
+					//45도
+					else if (m_StPlayerAtrribute[i].st_fAngle == D3DX_PI / 4)
+						_Chef->GetDirs() = D3DXVECTOR3(1, 0, 1);
+					//90도
+					else if (m_StPlayerAtrribute[i].st_fAngle == D3DX_PI / 2)
+						_Chef->GetDirs() = D3DXVECTOR3(1, 0, 0);
+					//135도
+					else if (m_StPlayerAtrribute[i].st_fAngle == D3DX_PI / 4 * 3)
+						_Chef->GetDirs() = D3DXVECTOR3(1, 0, -1);
+					//180도
+					else if (m_StPlayerAtrribute[i].st_fAngle == D3DX_PI)
+						_Chef->GetDirs() = D3DXVECTOR3(0, 0, -1);
+					//225도
+					else if (m_StPlayerAtrribute[i].st_fAngle == D3DX_PI / 4 * 5)
+						_Chef->GetDirs() = D3DXVECTOR3(-1, 0, -1);
+					//270도
+					else if (m_StPlayerAtrribute[i].st_fAngle == -D3DX_PI / 2)
+						_Chef->GetDirs() = D3DXVECTOR3(-1, 0, 0);
+					//315도
+					else if (m_StPlayerAtrribute[i].st_fAngle == -D3DX_PI / 4)
+						_Chef->GetDirs() = D3DXVECTOR3(-1, 0, 1);
+
+				
 			}
 			else if (m_vecCharacter[i]->GetRoot()->GetCHEF_STATE() != CHEF_STATE_IDLE)
 			{
@@ -398,6 +423,7 @@ void cCharacterControl::Move(IN cChef * _Chef)
 					//315도
 					else if (m_StPlayerAtrribute[i].st_fAngle == -D3DX_PI / 4)
 						m_StPlayerAtrribute[i].st_vDirection = D3DXVECTOR3(-1, 0, 1);
+
 				}
 			}
 
