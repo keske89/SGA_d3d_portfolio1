@@ -213,6 +213,7 @@
     <ClInclude Include="cWorldMapObj.h" />
     <ClInclude Include="cWorldMapScene.h" />
     <ClInclude Include="D3Dx.h" />
+    <ClInclude Include="database.h" />
     <ClInclude Include="IDisplayObject.h" />
     <ClInclude Include="image.h" />
     <ClInclude Include="imageManager.h" />
@@ -291,6 +292,7 @@
     <ClCompile Include="cWorldMapObj.cpp" />
     <ClCompile Include="cWorldMapScene.cpp" />
     <ClCompile Include="D3Dx.cpp" />
+    <ClCompile Include="database.cpp" />
     <ClCompile Include="IDisplayObject.cpp" />
     <ClCompile Include="image.cpp" />
     <ClCompile Include="imageManager.cpp" />

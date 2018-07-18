@@ -52,6 +52,9 @@
     <Filter Include="소스 파일\WORLDMAP\WMManager">
       <UniqueIdentifier>{38a28251-75ea-41b6-993b-332cb03bc4b6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\DB">
+      <UniqueIdentifier>{c3cef63f-2004-4e53-9334-474bff2240bf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -282,6 +285,9 @@
     <ClInclude Include="cCollision.h">
       <Filter>소스 파일\Stage</Filter>
     </ClInclude>
+    <ClInclude Include="database.h">
+      <Filter>소스 파일\DB</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="D3Dx.cpp">
@@ -502,6 +508,9 @@
     </ClCompile>
     <ClCompile Include="cCollision.cpp">
       <Filter>소스 파일\Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="database.cpp">
+      <Filter>소스 파일\DB</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
