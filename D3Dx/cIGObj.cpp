@@ -10,6 +10,7 @@ cIGObj::cIGObj()
 	//, m_pDelegate(NULL)
 	, m_Inven(NULL)
 	, m_pChild(NULL)
+	, m_bIsEquipped(false)
 {	
 	D3DXMatrixIdentity(&m_matLocal);
 	D3DXMatrixIdentity(&m_matWorld);
