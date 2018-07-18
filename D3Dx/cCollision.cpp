@@ -205,12 +205,15 @@ bool cCollision::PlayerWallVertexCollision(int moveX, int moveZ, D3DXVECTOR3& po
 	}
 	else
 	{
-		distance = GetDistance(pos, D3DXVECTOR3(keyFirst + (moveX + 1) * 0.5f, 0, keySecond + (moveZ + 1) * 0.5f));
-		D3DXVECTOR3 push = pos - D3DXVECTOR3(keyFirst + (moveX + 1) * 0.5f, 0, keySecond + (moveZ + 1) * 0.5f);
-		if (distance < 0.6f)
+		if (m_mapIsBlockedData.find(make_pair(keyFirst + moveX, keySecond + moveZ)) != m_mapIsBlockedData.end())
 		{
-			pos += (0.6f - distance) * push;
-			return true;
+			distance = GetDistance(pos, D3DXVECTOR3(keyFirst + (moveX + 1) * 0.5f, 0, keySecond + (moveZ + 1) * 0.5f));
+			D3DXVECTOR3 push = pos - D3DXVECTOR3(keyFirst + (moveX + 1) * 0.5f, 0, keySecond + (moveZ + 1) * 0.5f);
+			if (distance < 0.6f)
+			{
+				pos += (0.6f - distance) * push;
+				return true;
+			}
 		}
 	}
 	return false;
