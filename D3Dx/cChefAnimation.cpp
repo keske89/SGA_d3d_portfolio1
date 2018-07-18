@@ -203,7 +203,7 @@ void cChefAnimation::Animation(cChefRoot * _cChefRoot)
 			D3DXMatrixIdentity(&matT);
 			
 			D3DXMatrixRotationY(&matRY, m_fRotY);
-			D3DXMatrixRotationZ(&matRZ, D3DX_PI / 2);
+			D3DXMatrixRotationZ(&matRZ, f_tempAngle);
 			if (i == 0)
 			{
 				D3DXMatrixTranslation(&matT, temp.x, temp.y, temp.z);
@@ -211,7 +211,7 @@ void cChefAnimation::Animation(cChefRoot * _cChefRoot)
 			}
 			else
 			{
-				D3DXMatrixTranslation(&matT, temp.x, temp.y, temp.z+0.4f);
+				D3DXMatrixTranslation(&matT, temp.x, temp.y+1.0f, 0.4f);
 				matAni = matRZ * matT;
 			}
 			_cChefRoot->GetChild()[i]->SetmatLocal(matAni);
