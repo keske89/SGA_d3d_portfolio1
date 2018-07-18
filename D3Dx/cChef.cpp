@@ -28,7 +28,6 @@ cChef::~cChef()
 {
 	for (m_vecItPuff = m_vecPuff.begin(); m_vecItPuff != m_vecPuff.end();)
 	{
-		if ((*m_vecItPuff)->Getscale() < 0)
 			m_vecItPuff = m_vecPuff.erase(m_vecItPuff);
 	}
 }
@@ -84,12 +83,19 @@ void cChef::Update()
 	if (m_pRoot)
 		m_pRoot->Update();
 
-	for (int i = 0; i < m_vecPuff.size(); i++)
+	for (int i = 0; i < m_vecPuff.size();i++)
 	{
 		if (m_pRoot->GetCHEF_STATE() == CHEF_STATE_BOOSTER_MOVE)
 			m_vecPuff[i]->BoomMod(m_vdir);
 		else
 			m_vecPuff[i]->Update();
+	}
+	for (int i = 0; i < m_vecPuff.size(); )
+	{
+		if (m_vecPuff[i]->Getscale() <= 0)
+			runPuffDelete(i);
+		else
+			i++;
 	}
 
 }
