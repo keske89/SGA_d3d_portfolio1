@@ -8,8 +8,8 @@ class cCrateLid : public cActionObj
 private:
 
 	LPDIRECT3DTEXTURE9			m_pTexture2;
-	bool m_bCheck;
-	bool m_bAni;
+	bool						m_bCheck;
+	bool						m_bAni;
 	cCrate*						m_crate;
 	float						m_fAnimationRot;
 

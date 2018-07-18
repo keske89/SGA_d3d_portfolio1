@@ -105,6 +105,7 @@ public:
 	// cActionDelegate을(를) 통해 상속됨
 
 	virtual void OnAction(cIGObj* pSender) override;
+	void ObjAction(cChef* pSender);
 	
 	std::list<cIGObj*>::iterator SetIngameObject(OBJECTTYPE objtype, D3DXMATRIX matWorld);
 };

@@ -7,6 +7,7 @@
 #include "cChef.h"
 #include "cCharacterControl.h"
 #include "cCollision.h"
+#include "cChefRoot.h"
 
 
 cTestScene1::cTestScene1()
@@ -63,6 +64,7 @@ void cTestScene1::Setup()
 		m_pChef[i] = new cChef;
 		m_pChef[i]->SetUp(m_vecChefPos[i], m_pControl);
 		m_pControl->AddcCharacter(m_pChef[i]);
+		m_pChef[i]->setcStageObjManagerAdressLink(m_pSOM);
 		
 	}
 	m_pSOM->Setplayer1(m_pChef[0]);
@@ -90,10 +92,25 @@ void cTestScene1::Update()
 	for (int i = 0; i < 2; i++)
 	{
 		m_pChef[i]->Update();
+
+		
 	}
 
 	if (m_pCollision)
 		m_pCollision->Update();
+
+
+	if (m_pChef[0]->GetDetect())
+	{
+		//if (m_pChef[0]->GetRoot()->GetCHEF_STATE() == CHEF_STATE::CHEF_STATE_ACTION)
+		//{
+		//	m_pChef[0]->m_pStageOBJ->ObjAction(m_pChef[0]);
+		//}
+
+	}
+
+	
+	
 }
 
 void cTestScene1::Render()

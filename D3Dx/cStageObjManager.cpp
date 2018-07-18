@@ -58,39 +58,39 @@ void cStageObjManager::Update()
 {
 	for (auto p : m_listObj)
 	{
-		if (m_player1 && m_player2)
-		{
-			if (m_player1->GetDetect() == p)
-			{
-				p->Setplayer(m_player1);
-				p->SetInteraction(true);
+		//if (m_player1 && m_player2)
+		//{
+		//	if (m_player1->GetDetect() == p)
+		//	{
+		//		p->Setplayer(m_player1);
+		//		p->SetInteraction(true);
 
-				if (p->Getplayer()->GetRoot()->GetCHEF_STATE() == CHEF_STATE::CHEF_STATE_TRANCEPORT_IDLE)
-				{
-					if (m_player1->GetInven() != NULL)	// 인벤토리에 담겨있는게 있으면
-					{
-						m_player1->GetDetect()->SetInven(m_player1->GetInven());
-						m_player1->SetInven(NULL);
-					}
-					//p->SetDelegate(this);
-					m_pDelegate = this;
-					//if(p->Getplayer()) 플레이어의 인벤토리가 비어있으면 생성
-					OnAction(p);
-					
-				}
-			}
-			else if (m_player2->GetDetect() == p)
-			{
-				p->Setplayer(m_player2);
-				p->SetInteraction(true);
-			}
+		//		if (p->Getplayer()->GetRoot()->GetCHEF_STATE() == CHEF_STATE::CHEF_STATE_TRANCEPORT_IDLE)
+		//		{
+		//			if (m_player1->GetInven() != NULL)	// 인벤토리에 담겨있는게 있으면
+		//			{
+		//				m_player1->GetDetect()->SetInven(m_player1->GetInven());
+		//				m_player1->SetInven(NULL);
+		//			}
+		//			//p->SetDelegate(this);
+		//			//m_pDelegate = this;
+		//			//if(p->Getplayer()) 플레이어의 인벤토리가 비어있으면 생성
+		//			OnAction(p);
+		//			
+		//		}
+		//	}
+		//	else if (m_player2->GetDetect() == p)
+		//	{
+		//		p->Setplayer(m_player2);
+		//		p->SetInteraction(true);
+		//	}
 
-			else
-			{
-				p->SetInteraction(false);
-				p->Setplayer(NULL);
-			}
-		}
+		//	else
+		//	{
+		//		p->SetInteraction(false);
+		//		p->Setplayer(NULL);
+		//	}
+		//}
 		
 		
 		p->Update();
@@ -142,7 +142,7 @@ void cStageObjManager::OnAction(cIGObj* pSender) //신호를 주는 객체에서 신호가 �
 	case CRATE_MUSHROOM:
 		break;
 	case CRATE_ONION:
-		//pSender->
+		//pSender
 		m_Onion = new cOnion;
 		m_Onion->Setup(pSender->GetWorldMat(), pSender->Getplayer()->GetPos(), FOBJ_ONION);
 		m_listFoodObj.push_back(m_Onion);
@@ -157,6 +157,62 @@ void cStageObjManager::OnAction(cIGObj* pSender) //신호를 주는 객체에서 신호가 �
 		m_Pot->Setup(pSender->GetWorldMat(), pSender->Getplayer()->GetPos(), AOBJ_COOKER);
 		m_listObj.push_back(m_Pot);
 		pSender->SetInven(m_Pot);
+		break;
+	case AOBJ_PASS:
+		break;
+	case AOBJ_PLATE:
+		break;
+	case AOBJ_PLATERETURNBOX:
+		break;
+	case AOBJ_POT:
+		break;
+	case AOBJ_SINK:
+		break;
+	case FOBJ_POTATO:
+		break;
+	case FOBJ_TOMATO:
+		break;
+	case FOBJ_MUSHROOM:
+		break;
+	case FOBJ_ONION:
+		break;
+	default:
+		break;
+	}
+}
+
+void cStageObjManager::ObjAction(cChef * pSender)
+{
+	D3DXMATRIX mat;
+	D3DXMatrixIdentity(&mat);
+	D3DXVECTOR3	pos(0, 0, 0);
+
+	switch (pSender->GetDetect()->GetObjectType())
+	{
+		// CRATE = 10~ 
+		//CRATE_LID = 10,
+	case CRATE_TOMATO:
+		break;
+	case CRATE_POTATO:
+		break;
+	case CRATE_MUSHROOM:
+		break;
+	case CRATE_ONION:
+		//pSender
+		m_Onion = new cOnion;
+		m_Onion->Setup(mat, pos, FOBJ_ONION);
+		pSender->SetInven(m_Onion);
+		m_listFoodObj.push_back(m_Onion);
+		break;
+	case AOBJ_BIN:
+		break;
+	case AOBJ_CHOPPIGNBOARD:
+		break;
+	case AOBJ_COOKER:
+		/*m_Pot = new cPot;
+		m_Pot->Setup(pSender->GetWorldMat(), pSender->Getplayer()->GetPos(), AOBJ_COOKER);
+		m_listObj.push_back(m_Pot);
+		pSender->SetInven(m_Pot);*/
 		break;
 	case AOBJ_PASS:
 		break;

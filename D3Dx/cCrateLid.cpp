@@ -115,7 +115,8 @@ void cCrateLid::Update()
 
 void cCrateLid::Render()
 {
-	
+	if (m_bInteraction)
+	{
 		g_pD3DDevice->SetTransform(D3DTS_WORLD, &(m_matLocal* m_matWorld));
 		g_pD3DDevice->SetFVF(ST_PNT_VERTEX::FVF);
 
@@ -125,6 +126,8 @@ void cCrateLid::Render()
 		m_pMesh->DrawSubset(1);
 
 		m_pChild->Render();
+	}
+		
 }
 
 void cCrateLid::Action()
@@ -141,12 +144,12 @@ void cCrateLid::Action()
 	{
 		
 			// 맵툴에서 사용할때 lid 좌표가 고정되어버리는 현상발생으로 해결 방안 찾아봐야할듯
-
-			/*D3DXMATRIX matT;
-			D3DXMatrixTranslation(&matT, m_vPos.x, m_vPos.y-0.5f, m_vPos.z);
-			m_matWorld = m_matLocal;
-			m_fAnimationRot = 0.0f;
-			m_bAni = false;*/
+		//D3DXMATRIX matT;
+		//D3DXMatrixTranslation(&matT, m_vPos.x, m_vPos.y - 0.5f, m_vPos.z);
+		//m_matWorld = m_matLocal;
+		//m_fAnimationRot = 0.0f;
+		//m_bAni = false;
+			
 		
 	}
 }
