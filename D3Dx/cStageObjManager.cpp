@@ -16,6 +16,7 @@
 #include "cCounterTop.h"
 #include "cChef.h"
 #include "cOnion.h"
+#include "cChefRoot.h"
 
 
 
@@ -38,8 +39,11 @@ cStageObjManager::~cStageObjManager()
 	{
 		SAFE_DELETE(*iter);
 	}
-	SAFE_RELEASE(m_player1);
-	SAFE_RELEASE(m_player2);
+	for (iter = m_listFoodObj.begin(); iter != m_listFoodObj.end(); ++iter)
+	{
+		SAFE_DELETE(*iter);
+	}
+	
 }
 
 void cStageObjManager::Setup()
@@ -61,8 +65,13 @@ void cStageObjManager::Update()
 				p->Setplayer(m_player1);
 				p->SetInteraction(true);
 
-				if (KEYMANAGER->isOnceKeyDown('C'))
+				if (p->Getplayer()->GetRoot()->GetCHEF_STATE() == CHEF_STATE::CHEF_STATE_TRANCEPORT_IDLE)
 				{
+					if (m_player1->GetInven() != NULL)	// 인벤토리에 담겨있는게 있으면
+					{
+						m_player1->GetDetect()->SetInven(m_player1->GetInven());
+						m_player1->SetInven(NULL);
+					}
 					//p->SetDelegate(this);
 					m_pDelegate = this;
 					//if(p->Getplayer()) 플레이어의 인벤토리가 비어있으면 생성
@@ -86,6 +95,11 @@ void cStageObjManager::Update()
 		
 		p->Update();
 	}
+
+	for (auto p : m_listFoodObj)
+	{
+		p->Update();
+	}
 }
 
 void cStageObjManager::Render()
@@ -95,6 +109,12 @@ void cStageObjManager::Render()
 		
 		p->Render();
 	}
+
+	for (auto p : m_listFoodObj)
+	{
+		p->Render();
+	}
+
 }
 
 
@@ -125,7 +145,7 @@ void cStageObjManager::OnAction(cIGObj* pSender) //신호를 주는 객체에서 신호가 �
 		//pSender->
 		m_Onion = new cOnion;
 		m_Onion->Setup(pSender->GetWorldMat(), pSender->Getplayer()->GetPos(), FOBJ_ONION);
-		m_listObj.push_back(m_Onion);
+		m_listFoodObj.push_back(m_Onion);
 		pSender->Getplayer()->SetInven(m_Onion);
 		break;
 	case AOBJ_BIN:
@@ -279,10 +299,10 @@ std::list<cIGObj*>::iterator cStageObjManager:: SetIngameObject(OBJECTTYPE objty
 	case FOBJ_MUSHROOM:
 		break;
 	case FOBJ_ONION:
-		m_Onion = new cOnion;
-		m_Onion->Setup(matWorld, D3DXVECTOR3(matWorld._41, matWorld._42, matWorld._43), FOBJ_ONION);
-		iter = m_listObj.insert(m_listObj.end(), m_Onion);
-		return iter;
+		//m_Onion = new cOnion;
+		//m_Onion->Setup(matWorld, D3DXVECTOR3(matWorld._41, matWorld._42, matWorld._43), FOBJ_ONION);
+		//iter = m_listObj.insert(m_listObj.end(), m_Onion);
+		//return iter;
 		break;
 	default:
 		break;

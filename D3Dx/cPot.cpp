@@ -90,7 +90,7 @@ void cPot::Setup(D3DXMATRIX matWorld, D3DXVECTOR3 pos, int lidtype)
 	m_nObjectType = lidtype;
 	m_pMesh = ObJMANAGER->GetMesh(L"Pot_Mesh.obj");
 	m_pTexture = g_pTextureManager->GetTexture(L"Resources/Texture2D/Pot_Texture.png");
-	m_vecFood.resize(3);
+	//m_vecFood.resize(3);
 	//m_pPgbar = new cProgressbar;
 	//m_pPgbar->Setup(matWorld,pos);
 

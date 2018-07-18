@@ -115,8 +115,7 @@ void cCrateLid::Update()
 
 void cCrateLid::Render()
 {
-	if (m_bInteraction)
-	{
+	
 		g_pD3DDevice->SetTransform(D3DTS_WORLD, &(m_matLocal* m_matWorld));
 		g_pD3DDevice->SetFVF(ST_PNT_VERTEX::FVF);
 
@@ -126,9 +125,6 @@ void cCrateLid::Render()
 		m_pMesh->DrawSubset(1);
 
 		m_pChild->Render();
-	}
-	
-
 }
 
 void cCrateLid::Action()

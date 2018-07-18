@@ -88,6 +88,7 @@ private:
 	
 	int						m_buttonSelect;
 	SYNTHESIZE(std::list<cIGObj*>, m_listObj, ListObj);
+	SYNTHESIZE(std::list<cIGObj*>, m_listFoodObj, ListFoodObj);
 	SYNTHESIZE(cActionDelegate*, m_pDelegate, Delegate);
 	SYNTHESIZE(cChef*, m_player1, player1);
 	SYNTHESIZE(cChef*, m_player2, player2);
