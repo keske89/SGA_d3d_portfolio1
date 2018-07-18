@@ -198,7 +198,6 @@ void cStageObjManager::ObjAction(cChef * pSender)
 	case CRATE_MUSHROOM:
 		break;
 	case CRATE_ONION:
-		//pSender
 		m_Onion = new cOnion;
 		m_Onion->Setup(mat, pos, FOBJ_ONION);
 		pSender->SetInven(m_Onion);
@@ -223,6 +222,9 @@ void cStageObjManager::ObjAction(cChef * pSender)
 	case AOBJ_POT:
 		break;
 	case AOBJ_SINK:
+		break;
+	case AOBJ_TABLE:
+
 		break;
 	case FOBJ_POTATO:
 		break;
@@ -303,6 +305,10 @@ std::list<cIGObj*>::iterator cStageObjManager:: SetIngameObject(OBJECTTYPE objty
 		m_ChoppingBoard = new cChoppingBoard;
 		m_ChoppingBoard->Setup(matWorld, D3DXVECTOR3(matWorld._41, matWorld._42, matWorld._43), AOBJ_CHOPPIGNBOARD);
 		iter = m_listObj.insert(m_listObj.end(), m_ChoppingBoard);
+		m_Knife = new cKnife;
+		m_Knife->Setup(matWorld, D3DXVECTOR3(matWorld._41, matWorld._42, matWorld._43), 0);
+		m_ChoppingBoard->AddChild(m_Knife);
+	
 		return iter;
 		break;
 	case AOBJ_COOKER:
@@ -341,9 +347,30 @@ std::list<cIGObj*>::iterator cStageObjManager:: SetIngameObject(OBJECTTYPE objty
 		iter = m_listObj.insert(m_listObj.end(), m_Sink);
 		return iter;
 		break;
-	case AOBJ_TABLE:
+	case AOBJ_TABLE: // 기본
 		m_Counter = new cCounterTop;
 		m_Counter->Setup(matWorld, D3DXVECTOR3(matWorld._41, matWorld._42, matWorld._43), AOBJ_TABLE);
+		iter = m_listObj.insert(m_listObj.end(), m_Counter);
+		return iter;
+		break;
+	case AOBJ_TABLE2: // 접시
+		m_Counter = new cCounterTop;
+		m_Counter->Setup(matWorld, D3DXVECTOR3(matWorld._41, matWorld._42, matWorld._43), AOBJ_TABLE);
+		m_Plate = new cPlate;
+		m_Plate->Setup(matWorld, D3DXVECTOR3(matWorld._41, matWorld._42, matWorld._43), AOBJ_PLATE);
+		m_Counter->SetInven(m_Plate);
+		iter = m_listObj.insert(m_listObj.end(), m_Counter);
+		return iter;
+		break;
+	case AOBJ_TABLE3: //도마
+		m_Counter = new cCounterTop;
+		m_Counter->Setup(matWorld, D3DXVECTOR3(matWorld._41, matWorld._42, matWorld._43), AOBJ_TABLE);
+		m_ChoppingBoard = new cChoppingBoard;
+		m_ChoppingBoard->Setup(matWorld, D3DXVECTOR3(matWorld._41, matWorld._42, matWorld._43), AOBJ_CHOPPIGNBOARD);
+		m_Knife = new cKnife;
+		m_Knife->Setup(matWorld, D3DXVECTOR3(matWorld._41, matWorld._42, matWorld._43), 0);
+		m_ChoppingBoard->AddChild(m_Knife);
+		m_Counter->SetInven(m_ChoppingBoard);
 		iter = m_listObj.insert(m_listObj.end(), m_Counter);
 		return iter;
 		break;

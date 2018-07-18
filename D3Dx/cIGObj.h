@@ -25,7 +25,7 @@ public:
 	LPD3DXMESH			m_pMesh;
 	D3DXMATRIX			m_matWorld;
 	D3DXMATRIX			m_matLocal;
-	cIGObj*				m_Inven;
+	//cIGObj*				m_Inven;
 	cIGObj*				m_pChild;
 	int					m_nObjectType;
 	COLLISONTYPE		m_eState;
@@ -36,7 +36,7 @@ public:
 	SYNTHESIZE(cActionDelegate*, m_pDelegate, Delegate);
 	SYNTHESIZE(cChef*, m_player, player);
 	SYNTHESIZE(bool, m_bIsEquipped, IsEquipped);
-	
+	SYNTHESIZE(cIGObj*, m_Inven, Inven);
 public:
 	cIGObj();
 	virtual ~cIGObj();
@@ -44,8 +44,6 @@ public:
 	virtual void Setup()= 0;
 	virtual void Update() = 0;
 	virtual void Render() = 0;
-	virtual void SetInven(cIGObj* object) { m_Inven = object; }
-	virtual cIGObj * GetInven() { return m_Inven; }
 	void AddChild(cIGObj* childNode);
 	void SetWorldMatrix(D3DXMATRIX matWorld);
 	D3DXMATRIX GetWorldMat() {	return (m_matLocal * m_matWorld);}

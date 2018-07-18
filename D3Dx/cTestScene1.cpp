@@ -92,8 +92,6 @@ void cTestScene1::Update()
 	for (int i = 0; i < 2; i++)
 	{
 		m_pChef[i]->Update();
-
-		
 	}
 
 	if (m_pCollision)
@@ -108,9 +106,6 @@ void cTestScene1::Update()
 		}
 
 	}
-
-	
-	
 }
 
 void cTestScene1::Render()

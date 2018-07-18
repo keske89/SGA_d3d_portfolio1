@@ -20,6 +20,8 @@ void cPlateReturnBox::Update()
 	m_vPos.x = m_matWorld._41;
 	m_vPos.y = m_matWorld._42;
 	m_vPos.z = m_matWorld._43;
+
+	Inventory();
 }
 
 void cPlateReturnBox::Render()
@@ -57,4 +59,16 @@ void cPlateReturnBox::SetWorldMat(D3DXMATRIX matWorld)
 	m_vPos.x = matWorld._41;
 	m_vPos.y = matWorld._42;
 	m_vPos.z = matWorld._43;
+}
+
+void cPlateReturnBox::Inventory()
+{
+	if (m_Inven != NULL)
+	{
+		D3DXMATRIX matT;
+		D3DXMatrixIdentity(&matT);
+		D3DXMatrixTranslation(&matT, 0, 1.0f, 0);
+
+		m_Inven->SetWorldMatrix(matT * m_matLocal * m_matWorld);
+	}
 }

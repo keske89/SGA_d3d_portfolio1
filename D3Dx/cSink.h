@@ -16,6 +16,7 @@ public:
 
 	virtual void SetWorldMat(D3DXMATRIX matWorld);
 	virtual void Setup(D3DXMATRIX matWorld, D3DXVECTOR3 pos, int lidtype);
+	void Inventory();
 };
 
 

@@ -30,6 +30,7 @@ class cTomato;
 class cCounterTop;
 
 class cOnion;
+class cKnife;
 
 enum OBJECTTYPE
 {
@@ -53,9 +54,11 @@ enum OBJECTTYPE
 	AOBJ_POT = 26,
 	AOBJ_SINK = 27,
 	AOBJ_TABLE = 28,
+	AOBJ_TABLE2 = 29, // 접시
+	AOBJ_TABLE3 = 30, // 도마
 
-	// FOOD OBJ 30~
-	FOBJ_POTATO = 30,
+	// FOOD OBJ 31~
+	FOBJ_POTATO = 34,
 	FOBJ_TOMATO = 31,
 	FOBJ_MUSHROOM = 32,
 	FOBJ_ONION = 33,
@@ -85,7 +88,8 @@ private:
 	cTomato*				m_Tomato;
 	cCounterTop*			m_Counter;
 	cOnion*					m_Onion;
-	
+	cKnife*					m_Knife;
+
 	int						m_buttonSelect;
 	SYNTHESIZE(std::list<cIGObj*>, m_listObj, ListObj);
 	SYNTHESIZE(std::list<cIGObj*>, m_listFoodObj, ListFoodObj);
