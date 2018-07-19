@@ -47,6 +47,8 @@ void cTestScene2::Update()
 {
 	if (m_pCamera)
 		m_pCamera->Update();
+	if (m_pControl)
+		m_pControl->Control();
 	for (int i = 0; i < 2; i++)
 	{
 		m_pChef[i]->Update();

@@ -88,11 +88,13 @@ void cTestScene1::Update()
 
 	if (m_pSOM)
 		m_pSOM->Update();
-
+	
 	for (int i = 0; i < 2; i++)
 	{
 		m_pChef[i]->Update();
 	}
+	if (m_pControl)
+		m_pControl->Control();
 
 	if (m_pCollision)
 		m_pCollision->Update();

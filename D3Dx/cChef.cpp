@@ -26,10 +26,6 @@ cChef::cChef()
 
 cChef::~cChef()
 {
-	for (m_vecItPuff = m_vecPuff.begin(); m_vecItPuff != m_vecPuff.end();)
-	{
-			m_vecItPuff = m_vecPuff.erase(m_vecItPuff);
-	}
 }
 
 void cChef::SetUp(IN D3DXVECTOR3 vPos, cCharacterControl * _pControl)
@@ -64,9 +60,6 @@ void cChef::Relese()
 
 void cChef::Update()
 {
-
-	if (m_pControl)
-		m_pControl->Control(this);
 	runPuffCreate();
 	if (m_pInven)
 	{
@@ -82,12 +75,19 @@ void cChef::Update()
 
 	if (m_pRoot)
 		m_pRoot->Update();
+	if (m_pDetect)
+	{
+		if (m_pRoot->GetCHEF_STATE() == CHEF_STATE::CHEF_STATE_ACTION)
+		{
+			m_pStageOBJ->ObjAction(this);
+		}
 
+	}
 	for (int i = 0; i < m_vecPuff.size();i++)
 	{
 		if (m_pRoot->GetCHEF_STATE() == CHEF_STATE_BOOSTER_MOVE)
 		{
-			if(i<10)
+			if(i<20)
 				m_vecPuff[i]->BoomMod(m_vdir);
 			else
 				m_vecPuff[i]->Update();
@@ -151,7 +151,7 @@ void cChef::runPuffCreate()
 	}
 	else if (m_pRoot->GetCHEF_STATE() == CHEF_STATE_BOOSTER_MOVE)
 	{
-		for (int i = 0; i < 10; i++)
+		for (int i = 0; i < 20; i++)
 		{
 			cChefRunPuff * _runPuff = new cChefRunPuff;
 			_runPuff->SetUp(m_pControl->GetAtribute(this)->st_vBooster);

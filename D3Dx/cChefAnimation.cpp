@@ -30,6 +30,7 @@ void cChefAnimation::Animation(cChefRoot * _cChefRoot)
 		D3DXMatrixTranslation(&matT, 0, -100, 0);
 		_cChefRoot->GetChild()[0]->SetmatLocal(matT2);
 		_cChefRoot->GetChild()[1]->SetmatLocal(matOld);
+		_cChefRoot->GetChild()[2]->SetmatLocal(matOld);
 		_cChefRoot->GetChild()[3]->SetmatLocal(matT);
 		_cChefRoot->GetChild()[2]->Setmesh(ObJMANAGER->GetMesh(L"Hand_Open_R #000539.obj"));
 	}

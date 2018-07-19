@@ -53,13 +53,14 @@ public:
 	void SetUp();
 	void Update();
 	void Render();
-	void Control(IN cChef * _Chef);
+	void Control();
 	void ControlAction();
 	void Control1P();
 	void Control2P();
 	void SetPos1P(D3DXVECTOR3 _pos);
 	void SetPos2P(D3DXVECTOR3 _pos);
-	void Move(IN cChef * _Chef);
+	void Move();
+
 	void Booster();
 	BOOL CheckChefIntersect();
 	void ChefIntersectMove();

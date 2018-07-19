@@ -57,7 +57,7 @@ void cChefRunPuff::BoomMod(D3DXVECTOR3 dir)
 	if (m_fangle < D3DX_PI * 2)
 		m_fangle += 1.0f;
 	if (m_fScale > 0)
-		m_fScale -= 0.5f;
+		m_fScale -= 0.3f;
 	else
 		m_fScale = 0;
 	D3DXMATRIX matS, matR, matR2, matT, matT2;

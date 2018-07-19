@@ -32,10 +32,10 @@ void cCharacterControl::Render()
 {
 }
 
-void cCharacterControl::Control(IN cChef * _Chef)
+void cCharacterControl::Control()
 {
 	ControlAction();
-	Move(_Chef);
+	Move();
 	Booster();
 }
 
@@ -48,10 +48,14 @@ void cCharacterControl::ControlAction()
 			if (m_Bswitch)
 			{
 				m_Bswitch = false;
+				if (m_vecCharacter[m_Bswitch]->GetRoot()->GetCHEF_STATE() != CHEF_STATE_CHOP || m_vecCharacter[m_Bswitch]->GetRoot()->GetCHEF_STATE() != CHEF_STATE_DISHWASHING)
+					m_vecCharacter[m_Bswitch]->GetRoot()->SetChefAnimation(CHEF_STATE_IDLE);
 			}
 			else
 			{
 				m_Bswitch = true;
+				if (m_vecCharacter[m_Bswitch]->GetRoot()->GetCHEF_STATE() != CHEF_STATE_CHOP || m_vecCharacter[m_Bswitch]->GetRoot()->GetCHEF_STATE() != CHEF_STATE_DISHWASHING)
+					m_vecCharacter[m_Bswitch]->GetRoot()->SetChefAnimation(CHEF_STATE_IDLE);
 			}
 		}
 		for (int i = 0; i < 2; i++)
@@ -440,53 +444,58 @@ void cCharacterControl::SetPos2P(D3DXVECTOR3 _pos)
 {
 	m_vecCharacter[1]->SetPos(_pos);
 }
-void cCharacterControl::Move(IN cChef * _Chef)
+void cCharacterControl::Move()
 {
+
 	for (int i = 0; i < 2; i++)
 	{
-		if (m_vecCharacter[i] == _Chef)
-		{
-			_Chef->GetDir() = m_StPlayerAtrribute[i].st_vDirectionX + m_StPlayerAtrribute[i].st_vDirectionZ;
+		
+			m_vecCharacter[i]->GetDir() = m_StPlayerAtrribute[i].st_vDirectionX + m_StPlayerAtrribute[i].st_vDirectionZ;
 			
 			D3DXVec3Normalize(&m_StPlayerAtrribute[i].st_vDirection, &(m_StPlayerAtrribute[i].st_vDirectionX + m_StPlayerAtrribute[i].st_vDirectionZ));
 			if (m_StPlayerAtrribute[i].st_vDirection == D3DXVECTOR3(0, 0, 0))
 			{
 				if (m_StPlayerAtrribute[i].st_fAngle == 0.0f)
-					_Chef->GetDir() = D3DXVECTOR3(0, 0, 1);
+					m_vecCharacter[i]->GetDir() = D3DXVECTOR3(0, 0, 1);
 				//45도
 				else if (m_StPlayerAtrribute[i].st_fAngle == D3DX_PI / 4)
-					_Chef->GetDir() = D3DXVECTOR3(1, 0, 1);
+					m_vecCharacter[i]->GetDir() = D3DXVECTOR3(1, 0, 1);
 				//90도
 				else if (m_StPlayerAtrribute[i].st_fAngle == D3DX_PI / 2)
-					_Chef->GetDir() = D3DXVECTOR3(1, 0, 0);
+					m_vecCharacter[i]->GetDir() = D3DXVECTOR3(1, 0, 0);
 				//135도
 				else if (m_StPlayerAtrribute[i].st_fAngle == D3DX_PI / 4 * 3)
-					_Chef->GetDir() = D3DXVECTOR3(1, 0, -1);
+					m_vecCharacter[i]->GetDir() = D3DXVECTOR3(1, 0, -1);
 				//180도
 				else if (m_StPlayerAtrribute[i].st_fAngle == D3DX_PI)
-					_Chef->GetDir() = D3DXVECTOR3(0, 0, -1);
+					m_vecCharacter[i]->GetDir() = D3DXVECTOR3(0, 0, -1);
 				//225도
 				else if (m_StPlayerAtrribute[i].st_fAngle == D3DX_PI / 4 * 5)
-					_Chef->GetDir() = D3DXVECTOR3(-1, 0, -1);
+					m_vecCharacter[i]->GetDir() = D3DXVECTOR3(-1, 0, -1);
 				//270도
 				else if (m_StPlayerAtrribute[i].st_fAngle == -D3DX_PI / 2)
-					_Chef->GetDir() = D3DXVECTOR3(-1, 0, 0);
+					m_vecCharacter[i]->GetDir() = D3DXVECTOR3(-1, 0, 0);
 				//315도
 				else if (m_StPlayerAtrribute[i].st_fAngle == -D3DX_PI / 4)
-					_Chef->GetDir() = D3DXVECTOR3(-1, 0, 1);
+					m_vecCharacter[i]->GetDir() = D3DXVECTOR3(-1, 0, 1);
 			}
-				
 			
-
 			if (m_vecCharacter[i]->GetRoot()->GetCHEF_STATE() == CHEF_STATE_BOOSTER_MOVE)
 			{
-				m_vecCharacter[i]->GetPos() += _Chef->GetDir() *  (CharacterSpeed + m_StPlayerAtrribute[i].st_fCharacterBOOSTERSpeed);
-				m_vecCharacter[i]->GetToGo() = _Chef->GetDir() *  (CharacterSpeed + m_StPlayerAtrribute[i].st_fCharacterBOOSTERSpeed);
+				m_vecCharacter[i]->GetPos() += m_vecCharacter[i]->GetDir() *  (CharacterSpeed + m_StPlayerAtrribute[i].st_fCharacterBOOSTERSpeed);
+				m_vecCharacter[i]->GetToGo() = m_vecCharacter[i]->GetDir() *  (CharacterSpeed + m_StPlayerAtrribute[i].st_fCharacterBOOSTERSpeed);
 			}
 			else
 			{
-				m_vecCharacter[i]->GetPos() += m_StPlayerAtrribute[i].st_vDirection *  (CharacterSpeed + m_StPlayerAtrribute[i].st_fCharacterBOOSTERSpeed);
-				m_vecCharacter[i]->GetToGo() = m_StPlayerAtrribute[i].st_vDirection *  (CharacterSpeed + m_StPlayerAtrribute[i].st_fCharacterBOOSTERSpeed);
+				if (m_vecCharacter[i]->GetRoot()->GetCHEF_STATE() == CHEF_STATE_IDLE || m_vecCharacter[i]->GetRoot()->GetCHEF_STATE() == CHEF_STATE_TRANCEPORT_IDLE)
+				{
+					m_vecCharacter[i]->GetPos() += m_StPlayerAtrribute[i].st_vDirection *  (0.0f);
+				}
+				else
+				{
+					m_vecCharacter[i]->GetPos() += m_StPlayerAtrribute[i].st_vDirection *  (CharacterSpeed + m_StPlayerAtrribute[i].st_fCharacterBOOSTERSpeed);
+					m_vecCharacter[i]->GetToGo() = m_StPlayerAtrribute[i].st_vDirection *  (CharacterSpeed + m_StPlayerAtrribute[i].st_fCharacterBOOSTERSpeed);
+				}
 			}
 			
 			D3DXMATRIX matR, matT;
@@ -504,10 +513,12 @@ void cCharacterControl::Move(IN cChef * _Chef)
 			m_StPlayerAtrribute[i].st_matPlayer = matR * matT;
 			m_vecCharacter[i]->GetRoot()->SetParentWorldTM(&m_StPlayerAtrribute[i].st_matPlayer);
 		}
-	}
+	
 
 
 }
+
+
 
 void cCharacterControl::SetPlaterMod(int num)
 {
