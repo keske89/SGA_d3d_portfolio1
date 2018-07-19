@@ -7,8 +7,6 @@ cCharacterControl::cCharacterControl()
 	, m_Bswitch(false)
 {
 }
-
-
 cCharacterControl::~cCharacterControl()
 {
 	for (int i = 0; i < m_vecCharacter.size(); i++)
@@ -95,7 +93,17 @@ void cCharacterControl::ControlAction()
 			if (m_vecCharacter[m_Bswitch]->GetDetect())
 			{
 				if (m_vecCharacter[m_Bswitch]->GetInven() == NULL)
-					m_vecCharacter[m_Bswitch]->SetChefAnimation(CHEF_STATE_ACTION);
+				{
+					if (m_vecCharacter[m_Bswitch]->GetDetect()->GetInven())
+					{
+						m_vecCharacter[m_Bswitch]->SetInven(m_vecCharacter[m_Bswitch]->GetDetect()->GetInven());
+						m_vecCharacter[m_Bswitch]->GetDetect()->SetInven(NULL);
+					}
+					else
+					{
+						m_vecCharacter[0]->SetChefAnimation(CHEF_STATE_ACTION);
+					}
+				}
 				else
 				{
 					//오브젝트의 인벤이 비워져있으면!!!
