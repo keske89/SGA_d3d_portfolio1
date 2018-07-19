@@ -35,7 +35,7 @@ namespace DXUtil
 
 	void InitVertexBuffer(LPDIRECT3DVERTEXBUFFER9& pVB, LPVOID vertices, DWORD fvf, UINT vtxCnt, UINT stride);
 	void InitIndexBuffer(LPDIRECT3DINDEXBUFFER9& pIB, LPVOID indices, UINT idxCnt, UINT stride);
-	static D3DXVECTOR2 Convert3DTo2D(D3DXVECTOR3 v);
-	static POINT MakePoint(float x, float y);
+	D3DXVECTOR2 Convert3DTo2D(D3DXVECTOR3 v);
+	POINT MakePoint(float x, float y);
 }
 

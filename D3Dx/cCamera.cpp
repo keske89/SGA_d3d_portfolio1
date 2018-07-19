@@ -3,12 +3,12 @@
 
 
 cCamera::cCamera()
-	: m_vEye(0, 0, -5)
+	: m_vEye(0, 0, -10.0f)
 	, m_vUp(0, 1, 0)
 	, m_vLookAt(0, 0, 0)
-	, m_fRotX(0)
+	, m_fRotX(0.8f)
 	, m_fRotY(0)
-	, m_fDistance(10.0f)
+	, m_fDistance(20.0f)
 	, m_isRButtonDown(false)
 {
 }

@@ -33,6 +33,7 @@ cMainGame::~cMainGame()
 	SAFE_RELEASE(SPRITE);
 	IMAGEMANAGER->release();
 	TEXTUREMANAGER->release();
+	DATABASE->Release();
 	//
 
 	ObJMANAGER->Destroy();
@@ -43,6 +44,7 @@ cMainGame::~cMainGame()
 
 void cMainGame::Setup()
 {
+	DATABASE->Setup();
 	SetLight();
 	g_pD3DDevice->SetRenderState(D3DRS_LIGHTING, false);
 
@@ -61,7 +63,7 @@ void cMainGame::Setup()
 	SCENEMANAGER->AddScene("WMScene", m_pWMScene);
 	SCENEMANAGER->AddScene("IntroScene", new cIntroScene);
 	
-	SCENEMANAGER->ChangeScene("StageMapTool");
+	SCENEMANAGER->ChangeScene("IntroScene");
 
 
 
@@ -74,6 +76,7 @@ void cMainGame::Update()
 {
 	m_pCamera->Update();
 	SCENEMANAGER->Update();
+	DATABASE->Update();
 
 }
 

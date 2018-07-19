@@ -1,6 +1,6 @@
 #pragma once
 #include "cGameNode.h"
-//#include "iUIObject.h"
+#include "iUIObject.h"
 
 class cWorldGrid;
 class cWorldMapCar;
@@ -12,7 +12,7 @@ class cWMCloud;
 
 class cWorldStage;
 
-class SampleUI;
+class cWMapMenu;
 
 class cCamera;
 
@@ -21,22 +21,30 @@ class cWorldMapScene : public cGameNode
 private:
 	LPD3DXFONT				m_pFont;
 
-	cWorldGrid*	m_pWorldGrid;
+	cWorldGrid*	m_pWorldGrid; //Grid
 
-	cWorldMapCar* m_pCar;
+	cWorldMapCar* m_pCar; //Car
 
-	cWorldStage* m_pStage[10];
+	cWorldStage* m_pStage[10]; //Stage Sphere + Path
+	bool m_bIsStageclear[10]; //CLAER 
+	int m_nStar[10]; //star
 
-	SampleUI* m_UI;
+	cWMapMenu* m_UI; // UI
 
-	cCamera* m_pCamera;
+	cCamera* m_pCamera; //CAMERA
 
-	cWMCloud* m_pCloud[10];
+	cWMCloud* m_pCloud[10]; //CLOUD
 
 	D3DXMATRIX m_matWorld;
 
+	//INTRO TO WM
 	BYTE _alpha;
 	bool _isChangeDone;
+
+	//WM TO STAGE
+	BYTE _alpha1;
+	bool _isChange;
+	string _nextScene;
 
 public:
 	cWorldMapScene();
@@ -47,4 +55,6 @@ public:
 	virtual void Render() override;
 
 	void setCamera(cCamera* camera) { m_pCamera = camera; }
+	void WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
+	void Control();
 };

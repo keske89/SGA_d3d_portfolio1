@@ -106,7 +106,7 @@ namespace DXUtil
 		pIB->Unlock();
 	}
 
-	static D3DXVECTOR2 Convert3DTo2D(D3DXVECTOR3 v)
+	D3DXVECTOR2 Convert3DTo2D(D3DXVECTOR3 v)
 	{
 		D3DXMATRIX proj, view, world;
 		D3DVIEWPORT9 vp;
@@ -118,7 +118,7 @@ namespace DXUtil
 		return D3DXVECTOR2(v.x, v.y);
 	}
 
-	static POINT MakePoint(float x, float y)
+	POINT MakePoint(float x, float y)
 	{
 		POINT pt;
 		pt.x = x; pt.y = y;

@@ -312,9 +312,6 @@
     <ClInclude Include="cWorldMapCar.h">
       <Filter>소스 파일\WORLDMAP\WMCAR</Filter>
     </ClInclude>
-    <ClInclude Include="cWorldStage.h">
-      <Filter>소스 파일\WORLDMAP\WMSTAGE</Filter>
-    </ClInclude>
     <ClInclude Include="cWorldGrid.h">
       <Filter>소스 파일\WORLDMAP\WMSTAGE\WMGRID</Filter>
     </ClInclude>
@@ -350,6 +347,9 @@
     </ClInclude>
     <ClInclude Include="UIController.h">
       <Filter>소스 파일\WORLDMAP\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="cWorldStage.h">
+      <Filter>소스 파일\WORLDMAP\WMSTAGE</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

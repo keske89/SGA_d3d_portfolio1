@@ -3,19 +3,23 @@
 #include <vector>
 #include <map>
 
-class database : public singletonBase <database>
+#define DATABASE database::GetInstance()
+
+class database
 {
+	SINGLETONE(database)
+
 private:
 	bool m_bIsStageclear[10];
+	int m_nStageStar[10];
 
 public:
-	database();
-	~database();
 
 	void Setup();
 	void Update();
 	void Release();
 
-	inline bool getIsStageClear(int num) { return m_bIsStageclear[num - 1]; }
+	inline bool getIsStageClear(int num) { return m_bIsStageclear[num]; }
+	inline int getStageStar(int num) { return m_nStageStar[num]; }
 };
 
