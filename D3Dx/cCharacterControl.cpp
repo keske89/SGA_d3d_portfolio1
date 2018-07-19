@@ -2,6 +2,7 @@
 #include "cCharacterControl.h"
 #include "cChef.h"
 #include "cChefRoot.h"
+#include "cStageObjManager.h"
 cCharacterControl::cCharacterControl()
 	: m_enmPlayerMod(PLAYERMOD_PLAY1P)
 	, m_Bswitch(false)
@@ -61,12 +62,22 @@ void cCharacterControl::ControlAction()
 			if (m_vecCharacter[i]->GetDetect())
 			{
 				m_vecCharacter[i]->GetDetect()->Setplayer(m_vecCharacter[i]);
-				if (KEYMANAGER->isOnceKeyDown(VK_LCONTROL))
+				if (m_vecCharacter[i]->GetDetect()->GetObjectType() != OBJECTTYPE::AOBJ_TABLE)
 				{
-					if (m_vecCharacter[i]->GetDetect()->GetObjectType() == 30)
-						m_vecCharacter[i]->SetChefAnimation(CHEF_STATE_CHOP);
-					else if (m_vecCharacter[i]->GetDetect()->GetObjectType() == 27)
-						m_vecCharacter[i]->SetChefAnimation(CHEF_STATE_DISHWASHING);
+					if (KEYMANAGER->isOnceKeyDown(VK_LCONTROL))
+					{
+						if (m_vecCharacter[i]->GetDetect()->GetObjectType() == OBJECTTYPE::AOBJ_CHOPPIGNBOARD)
+						{
+							if (!m_vecCharacter[m_Bswitch]->GetDetect()->GetInven())
+							m_vecCharacter[i]->SetChefAnimation(CHEF_STATE_CHOP);
+						}
+						else if (m_vecCharacter[i]->GetDetect()->GetObjectType() == OBJECTTYPE::AOBJ_SINK)
+							m_vecCharacter[i]->SetChefAnimation(CHEF_STATE_DISHWASHING);
+					}
+				}
+				else
+				{
+					m_vecCharacter[i]->SetChefAnimation(CHEF_STATE_IDLE);
 				}
 			}
 			else

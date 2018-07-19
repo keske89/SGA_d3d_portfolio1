@@ -6,10 +6,11 @@
 #include "cIGObj.h"
 #include "cCollision.h"
 // parts
-#include"cChefBody.h"
-#include"cChefHead.h"
-#include"cChefLeftHand.h"
-#include"cChefRightHand.h"
+#include "cChefBody.h"
+#include "cChefHead.h"
+#include "cChefHat.h"
+#include "cChefLeftHand.h"
+#include "cChefRightHand.h"
 #include "cChefKnife.h"
 
 cChef::cChef()
@@ -40,6 +41,9 @@ void cChef::SetUp(IN D3DXVECTOR3 vPos, cCharacterControl * _pControl)
 	cChefHead* pHead = new cChefHead;
 	pHead->SetUp();
 	m_pRoot->AddChild(pHead);
+	cChefHat * pHat = new cChefHat;
+	pHat->SetUp();
+	m_pRoot->AddChild(pHat);
 	cChefLeftHand * pLHand = new cChefLeftHand;
 	pLHand->SetUp();
 	m_pRoot->AddChild(pLHand);
@@ -49,6 +53,7 @@ void cChef::SetUp(IN D3DXVECTOR3 vPos, cCharacterControl * _pControl)
 	cChefKnife * pKnife = new cChefKnife;
 	pKnife->SetUp();
 	m_pRoot->AddChild(pKnife);
+	
 	D3DXMATRIX matT;
 	D3DXMatrixTranslation(&matT, vPos.x, vPos.y, vPos.z);
 	m_pRoot->SetParentWorldTM(&matT);
@@ -64,10 +69,10 @@ void cChef::Update()
 	runPuffCreate();
 	if (m_pInven)
 	{
-		D3DXVECTOR3 vtemp = m_vPosition + (m_vdir*0.5f);
+		D3DXVECTOR3 vtemp = m_vPosition + (m_vdir*0.7f);
 		D3DXMATRIX matT, mat;
 		mat = m_pRoot->GetmatLocal();
-		D3DXMatrixTranslation(&matT, vtemp.x, vtemp.y, vtemp.z);
+		D3DXMatrixTranslation(&matT, vtemp.x, vtemp.y+0.5f, vtemp.z);
 		mat *= matT;
 		m_pInven->SetWorldMatrix(mat);
 	}

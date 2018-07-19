@@ -29,10 +29,10 @@ void cChefAnimation::Animation(cChefRoot * _cChefRoot, int _CHEF_STATE)
 			D3DXMatrixTranslation(&matT2, 3.43f, 0, 0);
 			D3DXMatrixTranslation(&matT, 0, -100, 0);
 			_cChefRoot->GetChild()[0]->SetmatLocal(matT2);
-			_cChefRoot->GetChild()[1]->SetmatLocal(matOld);
 			_cChefRoot->GetChild()[2]->SetmatLocal(matOld);
-			_cChefRoot->GetChild()[2]->Setmesh(ObJMANAGER->GetMesh(L"Hand_Open_R #000539.obj"));
-			_cChefRoot->GetChild()[3]->SetmatLocal(matT);
+			_cChefRoot->GetChild()[3]->SetmatLocal(matOld);
+			_cChefRoot->GetChild()[3]->Setmesh(ObJMANAGER->GetMesh(L"Hand_Open_R #000539.obj"));
+			_cChefRoot->GetChild()[4]->SetmatLocal(matT);
 		}
 		break;
 		case CHEF_STATE_MOVE:
@@ -40,8 +40,8 @@ void cChefAnimation::Animation(cChefRoot * _cChefRoot, int _CHEF_STATE)
 			D3DXMatrixTranslation(&matT2, 3.43f, 0, 0);
 			D3DXMatrixTranslation(&matT, 0, -100, 0);
 			_cChefRoot->GetChild()[0]->SetmatLocal(matT2);
-			_cChefRoot->GetChild()[2]->Setmesh(ObJMANAGER->GetMesh(L"Hand_Open_R #000539.obj"));
-			_cChefRoot->GetChild()[3]->SetmatLocal(matT);
+			_cChefRoot->GetChild()[3]->Setmesh(ObJMANAGER->GetMesh(L"Hand_Open_R #000539.obj"));
+			_cChefRoot->GetChild()[4]->SetmatLocal(matT);
 			for (int i = 0; i < _cChefRoot->GetChild().size() - 1; i++)
 			{
 				//赣府
@@ -111,13 +111,13 @@ void cChefAnimation::Animation(cChefRoot * _cChefRoot, int _CHEF_STATE)
 			D3DXMatrixTranslation(&matT2, 3.43f, 0, 0);
 			D3DXMatrixTranslation(&matT, 0, -100, 0);
 			_cChefRoot->GetChild()[0]->SetmatLocal(matT2);
-			_cChefRoot->GetChild()[2]->Setmesh(ObJMANAGER->GetMesh(L"Hand_Open_R #000539.obj"));
-			_cChefRoot->GetChild()[3]->SetmatLocal(matT);
+			_cChefRoot->GetChild()[3]->Setmesh(ObJMANAGER->GetMesh(L"Hand_Open_R #000539.obj"));
+			_cChefRoot->GetChild()[4]->SetmatLocal(matT);
 			float f_tempAngle = 0;
-			for (int i = 1; i < _cChefRoot->GetChild().size() - 1; i++)
+			for (int i = 2; i < _cChefRoot->GetChild().size() - 1; i++)
 			{
 				//哭率
-				if (1 == i)
+				if (2 == i)
 				{
 					if (m_fRotZ > 0.4f)
 						m_fRotZ += 0;
@@ -126,7 +126,7 @@ void cChefAnimation::Animation(cChefRoot * _cChefRoot, int _CHEF_STATE)
 					f_tempAngle = -D3DX_PI / 2;
 				}
 				//坷弗率
-				else if (2 == i)
+				else if (3 == i)
 				{
 					if (m_fRotZ > 0.4f)
 						m_fRotZ += 0;
@@ -141,9 +141,6 @@ void cChefAnimation::Animation(cChefRoot * _cChefRoot, int _CHEF_STATE)
 				D3DXVECTOR3 temp = _cChefRoot->GetChild()[i]->GetPos();
 				D3DXMatrixRotationZ(&matRZ, f_tempAngle);
 				D3DXMatrixTranslation(&matT, temp.x, temp.y + 1.0f, m_fRotZ);
-				if (i == 0)
-					matAni = matT2;
-				else
 				matAni = matRZ * matT;
 				_cChefRoot->GetChild()[i]->SetmatLocal(matAni);
 			}
@@ -154,12 +151,12 @@ void cChefAnimation::Animation(cChefRoot * _cChefRoot, int _CHEF_STATE)
 			D3DXMatrixTranslation(&matT2, 3.43f, 0, 0);
 			D3DXMatrixTranslation(&matT, 0, -100, 0);
 			_cChefRoot->GetChild()[0]->SetmatLocal(matT2);
-			_cChefRoot->GetChild()[2]->Setmesh(ObJMANAGER->GetMesh(L"Hand_Open_R #000539.obj"));
-			_cChefRoot->GetChild()[3]->SetmatLocal(matT);
+			_cChefRoot->GetChild()[3]->Setmesh(ObJMANAGER->GetMesh(L"Hand_Open_R #000539.obj"));
+			_cChefRoot->GetChild()[4]->SetmatLocal(matT);
 			float f_tempAngle = 0;
 			for (int i = 0; i < _cChefRoot->GetChild().size() - 1; i++)
 			{
-				if (0 == i)
+				if (0 == i || 1 ==i)
 				{
 					m_fRotY += m_fRotDeltaY;
 					if (m_fRotY > D3DX_PI / 8.0f)
@@ -189,10 +186,10 @@ void cChefAnimation::Animation(cChefRoot * _cChefRoot, int _CHEF_STATE)
 
 				}
 				//哭率
-				else if (1 == i)
+				else if (2 == i)
 					f_tempAngle = -D3DX_PI / 2;
 				//坷弗率
-				else if (2 == i)
+				else if (3 == i)
 					f_tempAngle = D3DX_PI / 2;
 
 
@@ -209,6 +206,11 @@ void cChefAnimation::Animation(cChefRoot * _cChefRoot, int _CHEF_STATE)
 				{
 					D3DXMatrixTranslation(&matT, temp.x, temp.y, temp.z);
 					matAni = matT2 * matRX * matRY * matT;
+				}
+				else if (i == 1)
+				{
+					D3DXMatrixTranslation(&matT, temp.x, temp.y, temp.z);
+					matAni =  matRX * matRY * matT;
 				}
 				else
 				{
@@ -235,22 +237,23 @@ void cChefAnimation::Animation(cChefRoot * _cChefRoot, int _CHEF_STATE)
 				m_fRotDeltaX *= -1.0;
 			}
 
-			D3DXVECTOR3 temp = _cChefRoot->GetChild()[2]->GetPos();
+			D3DXVECTOR3 temp = _cChefRoot->GetChild()[3]->GetPos();
 
 			D3DXMatrixRotationX(&matRX, m_fRotX);
 			D3DXMatrixTranslation(&matT, temp.x+0.2f, temp.y+0.6f, temp.z);
 			matAni = matRX * matT;
-			_cChefRoot->GetChild()[2]->SetmatLocal(matAni);
 			_cChefRoot->GetChild()[3]->SetmatLocal(matAni);
-			_cChefRoot->GetChild()[2]->Setmesh(ObJMANAGER->GetMesh(L"Hand_Grip_R #010449.obj"));
+			_cChefRoot->GetChild()[3]->Setmesh(ObJMANAGER->GetMesh(L"Hand_Grip_R #010449.obj"));
+			_cChefRoot->GetChild()[4]->SetmatLocal(matAni);
+			
 		}
 		break;
 		case CHEF_STATE_DISHWASHING:
 		{
-			for (int i = 1; i <_cChefRoot->GetChild().size() - 1; i++)
+			for (int i = 2; i <_cChefRoot->GetChild().size() - 1; i++)
 			{
 				//哭率
-				if (1 == i)
+				if (2 == i)
 				{
 					if (m_fRotZ > 0.4f)
 						m_fRotZ += 0;
@@ -272,7 +275,7 @@ void cChefAnimation::Animation(cChefRoot * _cChefRoot, int _CHEF_STATE)
 					}
 				}
 				//坷弗率
-				else if (2 == i)
+				else if (3 == i)
 				{
 					if (m_fRotZ > 0.4f)
 						m_fRotZ += 0;
@@ -285,7 +288,7 @@ void cChefAnimation::Animation(cChefRoot * _cChefRoot, int _CHEF_STATE)
 				D3DXMatrixIdentity(&matT);
 				D3DXVECTOR3 temp = _cChefRoot->GetChild()[i]->GetPos();
 				D3DXMatrixRotationZ(&matRZ, D3DX_PI / 4);
-				if (i == 1)
+				if (i == 2)
 				{
 					D3DXMatrixTranslation(&matT, temp.x, temp.y - 0.2f, m_fRotZ);
 					D3DXMatrixRotationY(&matRY, m_fRotY);
