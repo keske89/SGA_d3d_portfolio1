@@ -7,6 +7,7 @@
 #include "cChef.h"
 #include "cCharacterControl.h"
 #include "cCollision.h"
+#include "cBackground.h"
 
 
 cStageScene::cStageScene()
@@ -40,9 +41,10 @@ cStageScene::~cStageScene()
 void cStageScene::Setup()
 {
 	m_pStage = new cStage;
-	m_pStage->Setup(4, m_vNewObjData, m_vSetObjData, m_mapIsBlockedData, m_vecChefPos[0], m_vecChefPos[1]);
+	m_pStage->Setup(2, m_vNewObjData, m_vSetObjData, m_mapIsBlockedData, m_vecChefPos[0], m_vecChefPos[1]);
 
-	
+	m_pBG = new cBackground;
+	m_pBG->Setup(2);
 
 	m_pCamera = new cCamera;
 	m_pCamera->Setup();
@@ -108,6 +110,7 @@ void cStageScene::Update()
 
 	if (m_pCollision)
 		m_pCollision->Update();
+
 }
 
 void cStageScene::Render()
@@ -125,6 +128,9 @@ void cStageScene::Render()
 	{
 		m_pChef[i]->Render();
 	}
+
+	if (m_pBG)
+		m_pBG->Render(2);
 }
 
 void cStageScene::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)

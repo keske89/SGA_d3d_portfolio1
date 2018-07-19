@@ -131,16 +131,16 @@ void cBackground::Setup(int num)
 	else if (num == 2)
 	{
 		cObjLoader * obj = NULL;
-		D3DXMatrixTranslation(&matTrans1, 0.3, -0.2f, -1.5);
+		D3DXMatrixTranslation(&matTrans1, 0.26f, -0.163f, -1.55);
 		D3DXMatrixScaling(&matScale, 50.0f, 50.0f, 50.0f);
-		m_matWorld[0] = matTrans1 * matScale;
+		m_matWorld[1] = matTrans1 * matScale;
 		m_pMesh = obj->LoadMesh(L"./Resources/Mesh/Object/", L"Map_PirateShip.obj", &matIden);
 	}
 }
 
 void cBackground::Render(int num)
 {
-	g_pD3DDevice->SetTransform(D3DTS_WORLD, &m_matWorld[0]);
+	g_pD3DDevice->SetTransform(D3DTS_WORLD, &m_matWorld[num - 1]);
 	g_pD3DDevice->SetTexture(0, TEXTUREMANAGER->findTexture(m_strBackgroundName[num - 1]));
 	m_pMesh->DrawSubset(0);
 }

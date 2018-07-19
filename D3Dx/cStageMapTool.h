@@ -4,6 +4,7 @@
 #include "cObjLoader.h"
 #define TOKEN_SIZE 128
 #define BLOCK_HEIGHT 5.0f
+#define TEST_BG 2
 
 class cCamera;
 class cStageGrid;

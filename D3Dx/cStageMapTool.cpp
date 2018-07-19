@@ -55,7 +55,7 @@ void cStageMapTool::Setup()
 	m_pSOM->Setup();
 
 	m_pBG = new cBackground;
-	m_pBG->Setup(1);
+	m_pBG->Setup(TEST_BG);
 
 	//바닥 타일의 기초가 되는 사각형 셋팅
 	ST_PNT_VERTEX tempV;
@@ -255,8 +255,8 @@ void cStageMapTool::Render()
 	if (m_pUI)
 		m_pUI->Render();
 
-	//if (m_pBG)
-	//	m_pBG->Render(1);
+	if (m_pBG)
+		m_pBG->Render(TEST_BG);
 
 
 	g_pD3DDevice->SetFVF(ST_PNT_VERTEX::FVF);

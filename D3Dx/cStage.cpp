@@ -71,17 +71,17 @@ void cStage::Setup(int stageNum, vector<pair<int, D3DXMATRIX>>& vecNewObj, vecto
 	memcpy(attribute, &vecAttribute[0], vecAttribute.size() * sizeof(DWORD));
 	m_pMesh->UnlockAttributeBuffer();
 
-	vector<DWORD> adjacencyInfo(m_pMesh->GetNumFaces() * 3);
-	vector<DWORD> optimizedAdjacencyInfo(m_pMesh->GetNumFaces() * 3);
-	m_pMesh->GenerateAdjacency(0.0f, &adjacencyInfo[0]);
-	m_pMesh->OptimizeInplace(
-		D3DXMESHOPT_ATTRSORT |
-		D3DXMESHOPT_COMPACT |
-		D3DXMESHOPT_VERTEXCACHE,
-		&adjacencyInfo[0],
-		&optimizedAdjacencyInfo[0],
-		0,
-		0);
+	//vector<DWORD> adjacencyInfo(m_pMesh->GetNumFaces() * 3);
+	//vector<DWORD> optimizedAdjacencyInfo(m_pMesh->GetNumFaces() * 3);
+	//m_pMesh->GenerateAdjacency(0.0f, &adjacencyInfo[0]);
+	//m_pMesh->OptimizeInplace(
+	//	D3DXMESHOPT_ATTRSORT |
+	//	D3DXMESHOPT_COMPACT |
+	//	D3DXMESHOPT_VERTEXCACHE,
+	//	&adjacencyInfo[0],
+	//	&optimizedAdjacencyInfo[0],
+	//	0,
+	//	0);
 
 	int maxObjSize = 0;
 	D3DXMATRIX matTemp;
@@ -124,6 +124,7 @@ void cStage::Update()
 
 void cStage::Render()
 {
+	SetupMaterials();
 	D3DXMATRIX mat;
 	D3DXMatrixIdentity(&mat);
 	g_pD3DDevice->SetTransform(D3DTS_WORLD, &mat);
@@ -133,4 +134,15 @@ void cStage::Render()
 		g_pD3DDevice->SetTexture(0, g_pTextureManager->GetTexture(m_vecTex[i].c_str()));
 		m_pMesh->DrawSubset(i);
 	}
+}
+
+void cStage::SetupMaterials()
+{
+	D3DMATERIAL9 mtrl;
+	ZeroMemory(&mtrl, sizeof(D3DMATERIAL9));
+	mtrl.Diffuse.r = mtrl.Ambient.r = mtrl.Specular.r = 1.0f;
+	mtrl.Diffuse.g = mtrl.Ambient.g = mtrl.Specular.g = 1.0f;
+	mtrl.Diffuse.b = mtrl.Ambient.b = mtrl.Specular.b = 1.0f;
+	mtrl.Diffuse.a = mtrl.Ambient.a = mtrl.Specular.a = 1.0f;
+	g_pD3DDevice->SetMaterial(&mtrl);
 }
