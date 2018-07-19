@@ -58,8 +58,26 @@ void cTestScene2::Update()
 void cTestScene2::Render()
 {
 	RECT rc;
-	SetRect(&rc, 10, 200, 1000, 1000);
-	char m_str[256];
+	SetRect(&rc, 10, 100, 1000, 1000);
+	bool chef = m_pChef[0]->GetInven();
+	char str[128];
+	sprintf_s(str, "Pos :: %d", chef);
+	WCHAR strX[1024];
+	MultiByteToWideChar(CP_ACP, 0, str, -1, strX, 1024);
+
+	m_pFont->DrawText(NULL, strX, strlen(str), &rc,
+		DT_LEFT | DT_TOP | DT_NOCLIP, D3DCOLOR_XRGB(255, 0, 0));
+
+	RECT rcz;
+	SetRect(&rcz, 10, 300, 1000, 1000);
+	bool chefs = m_pChef[1]->GetInven();
+	char strs[128];
+	sprintf_s(strs, " Pos; %d", chefs);
+	WCHAR strXs[1024];
+	MultiByteToWideChar(CP_ACP, 0, strs, -1, strXs, 1024);
+
+	m_pFont->DrawText(NULL, strXs, strlen(strs), &rcz,
+		DT_LEFT | DT_TOP | DT_NOCLIP, D3DCOLOR_XRGB(255, 0, 0));
 
 	for (int i = 0; i < 2; i++)
 	{

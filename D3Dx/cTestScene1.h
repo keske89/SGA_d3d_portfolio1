@@ -19,7 +19,7 @@ private:
 	cChef*							m_pChef[2];
 	cCharacterControl*				m_pControl;
 	cCollision*						m_pCollision;
-
+	LPD3DXFONT						m_pFont;
 	D3DXVECTOR3						m_vecPos;				//Ä«¸Þ¶ó ·è¾Ü Æ÷Áö¼Ç
 	vector<pair<int, D3DXMATRIX>>	m_vNewObjData;
 	vector<pair<int, D3DXMATRIX>>	m_vSetObjData;

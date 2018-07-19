@@ -111,12 +111,10 @@ void cCharacterControl::ControlAction()
 				{
 					if (m_vecCharacter[m_Bswitch]->GetDetect()->GetInven())
 					{
-						if (m_vecCharacter[!m_Bswitch]->GetDetect()->GetObjectType() != OBJECTTYPE::AOBJ_CHOPPIGNBOARD &&
-							m_vecCharacter[!m_Bswitch]->GetCHEF_STATE() != CHEF_STATE_CHOP)
-						{
-							m_vecCharacter[m_Bswitch]->SetInven(m_vecCharacter[m_Bswitch]->GetDetect()->GetInven());
-							m_vecCharacter[m_Bswitch]->GetDetect()->SetInven(NULL);
-						}
+						
+						m_vecCharacter[m_Bswitch]->SetInven(m_vecCharacter[m_Bswitch]->GetDetect()->GetInven());
+						m_vecCharacter[m_Bswitch]->GetDetect()->SetInven(NULL);
+						
 					}
 					else
 					{
