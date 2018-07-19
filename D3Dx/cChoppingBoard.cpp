@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "cChoppingBoard.h"
-
+#include "cProgressbar.h"
 
 cChoppingBoard::cChoppingBoard()
 {
@@ -17,7 +17,34 @@ void cChoppingBoard::Setup()
 
 void cChoppingBoard::Update()
 {
+	
+	D3DXVECTOR3 temp = m_vPos;
+	temp.y = m_vPos.y - 0.05f;
+	temp.z = m_vPos.z - 0.05f;
+	if (!m_player)
+	{
+		m_bIsAction = false;
+	}
+
+	if (m_Inven != NULL)	// 냄비에 재료가 들어왔고
+	{
+		if (!m_pPgbar)				// 프로그레스 바가 아직 없다면 만들고 
+		{
+			m_pPgbar = new cProgressbar;
+			m_pPgbar->Setup(m_matWorld, m_vPos);
+		}
+		if (m_pPgbar)				// 프로그레스 바 있으면
+		{
+			if (m_bIsAction)			// Cooker에 올라가 있는 상태면
+			{
+				m_pPgbar->Update(temp, m_size);	// 프로그레스 바 업데이트를 돌린다.
+			}
+		}
+
+	}
+
 	m_player = NULL;
+	
 	m_vPos.x = m_matWorld._41;
 	m_vPos.y = m_matWorld._42;
 	m_vPos.z = m_matWorld._43;
@@ -34,8 +61,12 @@ void cChoppingBoard::Render()
 	g_pD3DDevice->SetFVF(ST_PNT_VERTEX::FVF);
 	m_pMesh->DrawSubset(0);
 
-	m_pChild->Render();
-}
+	if (!m_bIsAction)
+	{
+		m_pChild->Render();
+	}
+	}
+	
 
 void cChoppingBoard::Setup(D3DXMATRIX matWorld, D3DXVECTOR3 pos, int lidtype)
 {
@@ -46,7 +77,7 @@ void cChoppingBoard::Setup(D3DXMATRIX matWorld, D3DXVECTOR3 pos, int lidtype)
 	D3DXMatrixIdentity(&matT);
 	D3DXMatrixTranslation(&matT, 0, 0.1f, 0);
 	D3DXMatrixRotationAxis(&matR, &v, (float)3.14 * 0.5f);
-
+	m_size = 1;
 	m_eState = OBJ_STATIC;
 	m_nObjectType = lidtype;
 	m_vPos.x = matWorld._41;
@@ -92,8 +123,8 @@ void cChoppingBoard::Inventory()
 	{
 		D3DXMATRIX matT;
 		D3DXMatrixIdentity(&matT);
-		D3DXMatrixTranslation(&matT, 0, 1.0f, 0);
+		//D3DXMatrixTranslation(&matT, -1.0f , 1.0f, 0);
 
-		m_Inven->SetWorldMatrix(matT * m_matLocal * m_matWorld);
+		m_Inven->SetWorldMatrix(m_matWorld);
 	}
 }

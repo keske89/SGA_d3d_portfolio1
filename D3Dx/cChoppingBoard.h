@@ -1,7 +1,14 @@
 #pragma once
 #include "cActionObj.h"
+
+class cProgressbar;
+
 class cChoppingBoard : public cActionObj
 {
+public:
+	cProgressbar* m_pPgbar;
+	int				m_size;
+
 public:
 	cChoppingBoard();
 	~cChoppingBoard();

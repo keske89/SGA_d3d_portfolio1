@@ -136,6 +136,7 @@ void cStageObjManager::OnAction(cIGObj* pSender) //신호를 주는 객체에서 신호가 �
 	case AOBJ_BIN:
 		break;
 	case AOBJ_CHOPPIGNBOARD:
+		
 		break;
 	case AOBJ_COOKER:
 		m_Pot = new cPot;
@@ -199,6 +200,8 @@ void cStageObjManager::ObjAction(cChef * pSender)
 	case AOBJ_BIN:
 		break;
 	case AOBJ_CHOPPIGNBOARD:
+		
+
 		break;
 	case AOBJ_COOKER:
 		/*m_Pot = new cPot;

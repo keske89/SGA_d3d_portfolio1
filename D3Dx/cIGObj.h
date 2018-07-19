@@ -38,6 +38,7 @@ public:
 	SYNTHESIZE(cActionDelegate*, m_pDelegate, Delegate);
 	SYNTHESIZE(cChef*, m_player, player);
 	SYNTHESIZE(bool, m_bIsEquipped, IsEquipped);
+	SYNTHESIZE(bool, m_bIsAction, IsAction);
 	SYNTHESIZE(cIGObj*, m_Inven, Inven);
 public:
 	cIGObj();
