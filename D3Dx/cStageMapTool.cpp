@@ -230,6 +230,7 @@ void cStageMapTool::Setup()
 	
 	m_stNewObjTemplate.p = NULL;
 	m_stNewObjTemplate.type = CRATE_ONION;
+
 }
 
 void cStageMapTool::Update()
@@ -426,6 +427,10 @@ void cStageMapTool::Control()
 		{
 			if (menuNum != MT_NEWOBJ && m_stNewObjTemplate.p != NULL)
 			{
+				if ((*m_stNewObjTemplate.iter)->GetInven())
+				{
+					m_pSOM->DeleteFood((*m_stNewObjTemplate.iter)->GetInven());
+				}
 				m_pSOM->DeleteObject(m_stNewObjTemplate.iter);
 				m_stNewObjTemplate.p = NULL;
 			}
@@ -464,6 +469,10 @@ void cStageMapTool::Control()
 		else if (m_nMenuNum == MT_NEWOBJ && m_nNewObjNum == NOT_CRATE && m_pUI->SelectSubMenu() == true)
 		{
 			bool temp;
+			if ((*m_stNewObjTemplate.iter)->GetInven())
+			{
+				m_pSOM->DeleteFood((*m_stNewObjTemplate.iter)->GetInven());
+			}
 			m_pSOM->DeleteObject(m_stNewObjTemplate.iter);
 			m_stNewObjTemplate.type = getObjectType(temp);
 			m_stNewObjTemplate.iter = m_pSOM->SetIngameObject((OBJECTTYPE)m_stNewObjTemplate.type, matIden);
@@ -474,6 +483,10 @@ void cStageMapTool::Control()
 			if (m_nNewObjNum == NOT_CRATE)
 			{
 				bool temp;
+				if ((*m_stNewObjTemplate.iter)->GetInven())
+				{
+					m_pSOM->DeleteFood((*m_stNewObjTemplate.iter)->GetInven());
+				}
 				m_pSOM->DeleteObject(m_stNewObjTemplate.iter);
 				m_stNewObjTemplate.type = getObjectType(temp);
 				m_stNewObjTemplate.iter = m_pSOM->SetIngameObject((OBJECTTYPE)m_stNewObjTemplate.type, matIden);
@@ -507,6 +520,10 @@ void cStageMapTool::Control()
 				m_iterSetObject = m_mapSetObject.find(make_pair(m_nIndexX, m_nIndexZ));
 				if (m_iterSetObject != m_mapSetObject.end())
 				{
+					if ((*m_iterSetObject->second.iter)->GetInven())
+					{
+						m_pSOM->DeleteFood((*m_iterSetObject->second.iter)->GetInven());
+					}
 					m_pSOM->DeleteObject(m_iterSetObject->second.iter);
 					m_mapSetObject.erase(m_iterSetObject);
 				}
@@ -516,6 +533,10 @@ void cStageMapTool::Control()
 				m_iterNewObject = m_mapNewObject.find(make_pair(m_nIndexX, m_nIndexZ));
 				if (m_iterNewObject != m_mapNewObject.end())
 				{
+					if ((*m_iterNewObject->second.iter)->GetInven())
+					{
+						m_pSOM->DeleteFood((*m_iterNewObject->second.iter)->GetInven());
+					}
 					m_pSOM->DeleteObject(m_iterNewObject->second.iter);
 					m_mapNewObject.erase(m_iterNewObject);
 				}
@@ -577,6 +598,10 @@ void cStageMapTool::Control()
 			m_iterNewObject = m_mapNewObject.find(make_pair(m_nIndexX, m_nIndexZ));
 			if (m_iterNewObject != m_mapNewObject.end())
 			{
+				if ((*m_iterNewObject->second.iter)->GetInven())
+				{
+					m_pSOM->DeleteFood((*m_iterNewObject->second.iter)->GetInven());
+				}
 				m_pSOM->DeleteObject(m_iterNewObject->second.iter);
 				m_mapNewObject.erase(m_iterNewObject);
 			}
