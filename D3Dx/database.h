@@ -12,6 +12,7 @@ class database
 private:
 	bool m_bIsStageclear[10];
 	int m_nStageStar[10];
+	SYNTHESIZE(int, m_nStageNum, stageNum);
 
 public:
 
