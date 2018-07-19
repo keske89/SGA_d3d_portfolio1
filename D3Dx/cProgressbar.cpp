@@ -16,6 +16,7 @@ cProgressbar::~cProgressbar()
 {
 	SAFE_RELEASE(m_pTexture);
 	SAFE_RELEASE(m_pSprite);
+	SAFE_RELEASE(m_pUITexture);
 }
 
 void cProgressbar::Setup(D3DXMATRIX matWorld, D3DXVECTOR3 pos)

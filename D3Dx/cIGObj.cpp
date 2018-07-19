@@ -18,6 +18,7 @@ cIGObj::cIGObj()
 
 cIGObj::~cIGObj()
 {
+	
 	//SAFE_RELEASE(m_pDelegate);
 }
 

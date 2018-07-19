@@ -15,7 +15,7 @@ cPot::cPot()
 
 cPot::~cPot()
 {
-	delete m_pPgbar;
+	SAFE_DELETE(m_pPgbar);
 	m_vecFood.clear();
 }
 

@@ -200,8 +200,7 @@ void cStageObjManager::ObjAction(cChef * pSender)
 	case AOBJ_BIN:
 		break;
 	case AOBJ_CHOPPIGNBOARD:
-		
-
+		//pSender->GetInven() 
 		break;
 	case AOBJ_COOKER:
 		/*m_Pot = new cPot;
@@ -216,11 +215,16 @@ void cStageObjManager::ObjAction(cChef * pSender)
 	case AOBJ_PLATERETURNBOX:
 		break;
 	case AOBJ_POT:
+		if (pSender->GetInven()->Getchopped())
+		{
+
+			pSender->GetDetect()->SetInven(pSender->GetInven());
+			pSender->SetInven(NULL);
+		}
 		break;
 	case AOBJ_SINK:
 		break;
 	case AOBJ_TABLE:
-
 		break;
 	case FOBJ_POTATO:
 		break;

@@ -2,6 +2,7 @@
 #include "cActionObj.h"
 
 class cProgressbar;
+class cFoodObj;
 
 class cChoppingBoard : public cActionObj
 {

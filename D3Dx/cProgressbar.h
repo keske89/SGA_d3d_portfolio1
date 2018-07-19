@@ -39,6 +39,7 @@ public:
 	bool Complete();
 	void SetIsAction(bool action) { m_isAction = action; }
 	void SetPos(D3DXVECTOR3 pos) { m_vPos = pos; }
+	
 
 };
 
