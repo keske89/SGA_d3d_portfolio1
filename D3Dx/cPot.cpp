@@ -32,10 +32,11 @@ void cPot::Update()
 	temp.z = m_vPos.z - 0.05f;
 
 
-	if (m_vecFood.size() != NULL)	// 냄비에 재료가 들어왔고
+	if (m_Inven != NULL)	// 냄비에 재료가 들어왔고
 	{
 		if (!m_pPgbar)				// 프로그레스 바가 아직 없다면 만들고 
 		{
+			m_pPgbar = new cProgressbar;
 			m_pPgbar->Setup(m_matWorld,m_vPos);
 		}
 		if (m_pPgbar)				// 프로그레스 바 있으면

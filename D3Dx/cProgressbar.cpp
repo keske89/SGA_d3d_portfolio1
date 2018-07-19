@@ -5,6 +5,7 @@
 cProgressbar::cProgressbar()
 	: m_isComplete(false)
 {
+	D3DXMatrixIdentity(&m_matLocal);
 	D3DXMatrixIdentity(&m_matWorld);
 	m_vecVertexBottom.clear();
 	m_vecVertexTop.clear();
@@ -19,6 +20,10 @@ cProgressbar::~cProgressbar()
 
 void cProgressbar::Setup(D3DXMATRIX matWorld, D3DXVECTOR3 pos)
 {
+	D3DXMATRIX matT;
+	D3DXMatrixIdentity(&matT);
+	D3DXMatrixTranslation(&matT, 0, 1.5f, 0);
+	m_matLocal = matT;
 	m_matWorld = matWorld;
 	m_vPos.x = matWorld._41;
 	m_vPos.y = matWorld._42;
@@ -59,11 +64,6 @@ void cProgressbar::Setup(D3DXMATRIX matWorld, D3DXVECTOR3 pos)
 	m_vecVertexBottom[3].t.x = 1.0f; m_vecVertexBottom[3].t.y = 0.4f;
 	m_vecVertexBottom[4].t.x = 0.1f; m_vecVertexBottom[4].t.y = 0.4f;
 	m_vecVertexBottom[5].t.x = 1.0f; m_vecVertexBottom[5].t.y = 0.1f;
-
-	for (auto p : m_vecVertexBottom)
-	{
-	
-	}
 
 	//////////////////////////// top ///////////////////////////
 	v[0].p = D3DXVECTOR3(m_vPos.x - m_fBottomGauge / 2.0f + 0.1f, m_vPos.y - m_fHeight / 2.0f + 0.05f, m_vPos.z);
@@ -195,7 +195,7 @@ void cProgressbar::Render()
 		{
 			D3DXMATRIX mat;
 			D3DXMatrixIdentity(&mat);
-			g_pD3DDevice->SetTransform(D3DTS_WORLD, &(mat));
+			g_pD3DDevice->SetTransform(D3DTS_WORLD, &(m_matLocal * mat));
 			g_pD3DDevice->SetTexture(0, m_pTexture);
 			g_pD3DDevice->SetFVF(ST_PT_VERTEX::FVF);
 			g_pD3DDevice->DrawPrimitiveUP(D3DPT_TRIANGLELIST,
@@ -203,7 +203,7 @@ void cProgressbar::Render()
 				&m_vecVertexBottom[0],
 				sizeof(ST_PT_VERTEX));
 
-			g_pD3DDevice->SetTransform(D3DTS_WORLD, &mat);
+			g_pD3DDevice->SetTransform(D3DTS_WORLD, &(m_matLocal* mat));
 			g_pD3DDevice->DrawPrimitiveUP(D3DPT_TRIANGLELIST,
 				m_vecVertexTop.size() / 3,
 				&m_vecVertexTop[0],
@@ -211,7 +211,7 @@ void cProgressbar::Render()
 		}
 		else if (Complete())
 		{
-			g_pD3DDevice->SetTransform(D3DTS_WORLD, &m_matWorld);
+			g_pD3DDevice->SetTransform(D3DTS_WORLD, &(m_matLocal * m_matWorld));
 			m_pTexture = g_pTextureManager->GetTexture(L"Resources/Texture2D/CookingTick.png");
 			g_pD3DDevice->SetTexture(0, m_pTexture);
 			g_pD3DDevice->SetFVF(ST_PT_VERTEX::FVF);

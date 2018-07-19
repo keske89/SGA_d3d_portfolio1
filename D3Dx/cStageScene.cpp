@@ -40,7 +40,7 @@ cStageScene::~cStageScene()
 void cStageScene::Setup()
 {
 	m_pStage = new cStage;
-	m_pStage->Setup(1, m_vNewObjData, m_vSetObjData, m_mapIsBlockedData, m_vecChefPos[0], m_vecChefPos[1]);
+	m_pStage->Setup(4, m_vNewObjData, m_vSetObjData, m_mapIsBlockedData, m_vecChefPos[0], m_vecChefPos[1]);
 
 	
 
@@ -93,6 +93,12 @@ void cStageScene::Update()
 
 	if (m_pSOM)
 		m_pSOM->Update();
+
+	if (m_pControl)
+	{
+		m_pControl->Control();
+	}
+
 
 	for (int i = 0; i < 2; i++)
 	{

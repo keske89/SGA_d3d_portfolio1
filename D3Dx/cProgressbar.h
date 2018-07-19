@@ -6,6 +6,7 @@ class cProgressbar
 private:
 	D3DXVECTOR3				m_vPos;
 	LPDIRECT3DTEXTURE9		m_pTexture;
+	D3DXMATRIX				m_matLocal;
 	D3DXMATRIX				m_matWorld;
 	LPD3DXSPRITE			m_pSprite;
 	

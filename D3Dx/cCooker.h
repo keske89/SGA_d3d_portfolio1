@@ -1,6 +1,8 @@
 #pragma once
 #include "cActionObj.h"
 
+class cPot; 
+
 class cCooker : public cActionObj
 {
 public:
