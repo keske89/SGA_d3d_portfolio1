@@ -239,7 +239,14 @@ cIGObj* cCollision::PlayerDetectObject(int playerNum)
 			else if (tempDist < distance)
 			{
 				distance = tempDist;
-				tempAddress = m_iterStaticObject->second[j];
+				if (m_iterStaticObject->second[j]->GetInven() && m_iterStaticObject->second[j]->GetInven()->GetCollisonType() == OBJ_STATIC)
+				{
+					tempAddress = m_iterStaticObject->second[j]->GetInven();
+				}
+				else
+				{
+					tempAddress = m_iterStaticObject->second[j];
+				}
 			}
 		}
 	}

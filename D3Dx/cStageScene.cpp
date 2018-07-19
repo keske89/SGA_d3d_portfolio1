@@ -67,6 +67,7 @@ void cStageScene::Setup()
 		m_pChef[i] = new cChef;
 		m_pChef[i]->SetUp(m_vecChefPos[i], m_pControl);
 		m_pControl->AddcCharacter(m_pChef[i]);
+		m_pChef[i]->setcStageObjManagerAdressLink(m_pSOM);
 	}
 	m_pSOM->Setplayer1(m_pChef[0]);
 	m_pSOM->Setplayer2(m_pChef[1]);
