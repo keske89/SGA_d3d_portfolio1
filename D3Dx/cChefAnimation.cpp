@@ -254,7 +254,7 @@ void cChefAnimation::Animation(cChefRoot * _cChefRoot)
 				if (m_fRotZ > 0.4f)
 					m_fRotZ += 0;
 				else
-					m_fRotZ += m_fRotDeltaX;
+					m_fRotZ += m_fRotDeltaZ;
 
 
 				m_fRotY += m_fRotDeltaY;
@@ -276,7 +276,7 @@ void cChefAnimation::Animation(cChefRoot * _cChefRoot)
 				if (m_fRotZ > 0.4f)
 					m_fRotZ += 0;
 				else
-					m_fRotZ += m_fRotDeltaX;
+					m_fRotZ += m_fRotDeltaZ;
 			}
 
 			D3DXMatrixIdentity(&matRY);

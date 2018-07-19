@@ -86,7 +86,12 @@ void cChef::Update()
 	for (int i = 0; i < m_vecPuff.size();i++)
 	{
 		if (m_pRoot->GetCHEF_STATE() == CHEF_STATE_BOOSTER_MOVE)
-			m_vecPuff[i]->BoomMod(m_vdir);
+		{
+			if(i<10)
+				m_vecPuff[i]->BoomMod(m_vdir);
+			else
+				m_vecPuff[i]->Update();
+		}
 		else
 			m_vecPuff[i]->Update();
 	}
@@ -129,8 +134,20 @@ void cChef::runPuffCreate()
 	if (m_pRoot->GetCHEF_STATE() == CHEF_STATE_MOVE || m_pRoot->GetCHEF_STATE() == CHEF_STATE_TRANCEPORT_MOVE)
 	{
 		cChefRunPuff * _runPuff = new cChefRunPuff;
-		_runPuff->SetUp(D3DXVECTOR3(m_vPosition.x, m_vPosition.y + 0.3f, m_vPosition.z));
+		D3DXVECTOR3 vP = m_vPosition - (m_vdir*0.5f);
+		_runPuff->SetUp(D3DXVECTOR3(vP.x, vP.y + 0.3f, vP.z));
 		m_vecPuff.push_back(_runPuff);
+		if (m_vecPuff.size() > 0)
+		{
+			cChefRunPuff * temp ;
+			for (int i = 0; i < m_vecPuff.size()-1; i++)
+			{
+				temp = m_vecPuff[i];
+				m_vecPuff[i] = m_vecPuff[i + 1];
+				m_vecPuff[i + 1] = temp;
+			}
+
+		}
 	}
 	else if (m_pRoot->GetCHEF_STATE() == CHEF_STATE_BOOSTER_MOVE)
 	{

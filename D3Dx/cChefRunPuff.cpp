@@ -3,10 +3,11 @@
 
 cChefRunPuff::cChefRunPuff()
 	: m_fangle(0)
-	, m_fScale(10.0f)
 {
 	D3DXMatrixIdentity(&m_matWorld);
 	D3DXMatrixIdentity(&m_matLocal);
+	m_fScale = rand()%15 + 1.0f;
+
 }
 
 

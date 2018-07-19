@@ -43,9 +43,6 @@ void cCharacterControl::ControlAction()
 {
 	if (PLAYERMOD_PLAY1P == m_enmPlayerMod)
 	{
-		if(m_vecCharacter[m_Bswitch]->GetInven())
-			m_vecCharacter[m_Bswitch]->GetRoot()->SetChefAnimation(CHEF_STATE_TRANCEPORT_IDLE);
-
 		if (KEYMANAGER->isOnceKeyDown(VK_LSHIFT))
 		{
 			if (m_Bswitch)
@@ -57,13 +54,26 @@ void cCharacterControl::ControlAction()
 				m_Bswitch = true;
 			}
 		}
-		if (KEYMANAGER->isOnceKeyDown(VK_LCONTROL))
+		for (int i = 0; i < 2; i++)
 		{
-			//if (m_vecCharacter[(int)m_Bswitch]->GetcIGObject())
-			m_vecCharacter[m_Bswitch]->GetRoot()->SetChefAnimation(CHEF_STATE_CHOP);
-			//else if(m_vecCharacter[(int)m_Bswitch]->GetcIGObject())
-			//	m_vecCharacter[m_Bswitch]->GetRoot()->SetChefAnimation(CHEF_STATE_DISHWASHING);
+			if (m_vecCharacter[i]->GetDetect())
+			{
+				if (KEYMANAGER->isOnceKeyDown(VK_LCONTROL))
+				{
+					if (m_vecCharacter[i]->GetDetect()->GetObjectType() == 30)
+						m_vecCharacter[i]->GetRoot()->SetChefAnimation(CHEF_STATE_CHOP);
+					else if (m_vecCharacter[i]->GetDetect()->GetObjectType() == 27)
+						m_vecCharacter[i]->GetRoot()->SetChefAnimation(CHEF_STATE_DISHWASHING);
+				}
+			}
+			else
+			{
+				m_vecCharacter[i]->GetRoot()->SetChefAnimation(CHEF_STATE_IDLE);
+			}
 		}
+		if (m_vecCharacter[m_Bswitch]->GetInven())
+			m_vecCharacter[m_Bswitch]->GetRoot()->SetChefAnimation(CHEF_STATE_TRANCEPORT_IDLE);
+
 		if (KEYMANAGER->isOnceKeyDown('X'))
 		{
 			if (!m_StPlayerAtrribute[m_Bswitch].st_BisBooster)
@@ -189,19 +199,45 @@ void cCharacterControl::Control1P()
 		m_vecCharacter[0]->GetRoot()->SetChefAnimation(CHEF_STATE_BOOSTER_MOVE);
 		m_StPlayerAtrribute[0].st_BisBooster = true;
 	}
-	if (KEYMANAGER->isOnceKeyDown('E'))
+	if (m_vecCharacter[0]->GetDetect())
 	{
-		//if (m_vecCharacter[(int)m_Bswitch]->GetcIGObject())
-		m_vecCharacter[0]->GetRoot()->SetChefAnimation(CHEF_STATE_CHOP);
-		//else if(m_vecCharacter[(int)m_Bswitch]->GetcIGObject())
-		//	m_vecCharacter[m_Bswitch]->GetRoot()->SetChefAnimation(CHEF_STATE_DISHWASHING);
+		if (KEYMANAGER->isOnceKeyDown('E'))
+		{
+			if (m_vecCharacter[0]->GetDetect()->GetObjectType() == 30)
+				m_vecCharacter[0]->GetRoot()->SetChefAnimation(CHEF_STATE_CHOP);
+			else if (m_vecCharacter[0]->GetDetect()->GetObjectType() == 27)
+				m_vecCharacter[0]->GetRoot()->SetChefAnimation(CHEF_STATE_DISHWASHING);
+		}
 	}
+	else
+	{
+		m_vecCharacter[0]->GetRoot()->SetChefAnimation(CHEF_STATE_IDLE);
+	}
+	if (m_vecCharacter[0]->GetInven())
+		m_vecCharacter[0]->GetRoot()->SetChefAnimation(CHEF_STATE_TRANCEPORT_IDLE);
 	if (KEYMANAGER->isOnceKeyDown('W'))
 	{
-		if (m_vecCharacter[0]->GetInven() == NULL)
-			m_vecCharacter[0]->GetRoot()->SetChefAnimation(CHEF_STATE_TRANCEPORT_IDLE);
+		if (m_vecCharacter[0]->GetDetect())
+		{
+			if (m_vecCharacter[0]->GetInven() == NULL)
+				m_vecCharacter[0]->GetRoot()->SetChefAnimation(CHEF_STATE_ACTION);
+			else
+			{
+				//오브젝트의 인벤이 비워져있으면!!!
+				if (!m_vecCharacter[0]->GetDetect()->GetInven())
+				{
+					m_vecCharacter[0]->GetDetect()->SetInven(m_vecCharacter[0]->GetInven());
+					m_vecCharacter[0]->SetInven(NULL);
+					m_vecCharacter[0]->GetRoot()->SetChefAnimation(CHEF_STATE_IDLE);
+				}
+			}
+		}
+		// 타일
 		else
+		{
+			m_vecCharacter[0]->SetInven(NULL);
 			m_vecCharacter[0]->GetRoot()->SetChefAnimation(CHEF_STATE_IDLE);
+		}
 	}
 	if (KEYMANAGER->isStayKeyDown('F'))
 	{
@@ -283,19 +319,46 @@ void cCharacterControl::Control2P()
 		m_vecCharacter[1]->GetRoot()->SetChefAnimation(CHEF_STATE_BOOSTER_MOVE);
 		m_StPlayerAtrribute[1].st_BisBooster = true;
 	}
-	if (KEYMANAGER->isOnceKeyDown('O'))
+	if (m_vecCharacter[1]->GetDetect())
 	{
-		//if (m_vecCharacter[(int)m_Bswitch]->GetcIGObject())
-		m_vecCharacter[1]->GetRoot()->SetChefAnimation(CHEF_STATE_CHOP);
-		//else if(m_vecCharacter[(int)m_Bswitch]->GetcIGObject())
-		//	m_vecCharacter[m_Bswitch]->GetRoot()->SetChefAnimation(CHEF_STATE_DISHWASHING);
+		if (KEYMANAGER->isOnceKeyDown('O'))
+		{
+			if (m_vecCharacter[1]->GetDetect()->GetObjectType() == 30)
+				m_vecCharacter[1]->GetRoot()->SetChefAnimation(CHEF_STATE_CHOP);
+			else if (m_vecCharacter[1]->GetDetect()->GetObjectType() == 27)
+				m_vecCharacter[1]->GetRoot()->SetChefAnimation(CHEF_STATE_DISHWASHING);
+
+		}
 	}
+	else
+	{
+		m_vecCharacter[1]->GetRoot()->SetChefAnimation(CHEF_STATE_IDLE);
+	}
+	if (m_vecCharacter[1]->GetInven())
+		m_vecCharacter[1]->GetRoot()->SetChefAnimation(CHEF_STATE_TRANCEPORT_IDLE);
 	if (KEYMANAGER->isOnceKeyDown('P'))
 	{
-		if (m_vecCharacter[1]->GetInven() == NULL)
-			m_vecCharacter[1]->GetRoot()->SetChefAnimation(CHEF_STATE_TRANCEPORT_IDLE);
+		if (m_vecCharacter[1]->GetDetect())
+		{
+			if (m_vecCharacter[1]->GetInven() == NULL)
+				m_vecCharacter[1]->GetRoot()->SetChefAnimation(CHEF_STATE_ACTION);
+			else
+			{
+				//오브젝트의 인벤이 비워져있으면!!!
+				if (!m_vecCharacter[1]->GetDetect()->GetInven())
+				{
+					m_vecCharacter[1]->GetDetect()->SetInven(m_vecCharacter[1]->GetInven());
+					m_vecCharacter[1]->SetInven(NULL);
+					m_vecCharacter[1]->GetRoot()->SetChefAnimation(CHEF_STATE_IDLE);
+				}
+			}
+		}
+		// 타일
 		else
+		{
+			m_vecCharacter[1]->SetInven(NULL);
 			m_vecCharacter[1]->GetRoot()->SetChefAnimation(CHEF_STATE_IDLE);
+		}
 	}
 	if (KEYMANAGER->isStayKeyDown(VK_NUMPAD6))
 	{
@@ -426,19 +489,19 @@ void cCharacterControl::Move(IN cChef * _Chef)
 				m_vecCharacter[i]->GetToGo() = m_StPlayerAtrribute[i].st_vDirection *  (CharacterSpeed + m_StPlayerAtrribute[i].st_fCharacterBOOSTERSpeed);
 			}
 			
-			D3DXMATRIX matR1P, matT1P;
+			D3DXMATRIX matR, matT;
 
 			if (m_vecCharacter[i]->GetRoot()->GetCHEF_STATE() == CHEF_STATE_MOVE || m_vecCharacter[i]->GetRoot()->GetCHEF_STATE() == CHEF_STATE_TRANCEPORT_MOVE)
 			{
 				m_StPlayerAtrribute[i].st_fAngle = atan2f(-m_StPlayerAtrribute[i].st_vDirection.z, m_StPlayerAtrribute[i].st_vDirection.x) + D3DX_PI / 2.0f;
 			}
-			D3DXMatrixRotationY(&matR1P, m_StPlayerAtrribute[i].st_fAngle);
+			D3DXMatrixRotationY(&matR, m_StPlayerAtrribute[i].st_fAngle);
 
-			D3DXMatrixTranslation(&matT1P, m_vecCharacter[i]->GetPos().x, m_vecCharacter[i]->GetPos().y, m_vecCharacter[i]->GetPos().z);
-			D3DXVec3TransformNormal(&m_StPlayerAtrribute[i].st_vDirection, &D3DXVECTOR3(0, 0, 1), &matT1P);
+			D3DXMatrixTranslation(&matT, m_vecCharacter[i]->GetPos().x, m_vecCharacter[i]->GetPos().y, m_vecCharacter[i]->GetPos().z);
+			D3DXVec3TransformNormal(&m_StPlayerAtrribute[i].st_vDirection, &D3DXVECTOR3(0, 0, 1), &matT);
 
 
-			m_StPlayerAtrribute[i].st_matPlayer = matR1P * matT1P;
+			m_StPlayerAtrribute[i].st_matPlayer = matR * matT;
 			m_vecCharacter[i]->GetRoot()->SetParentWorldTM(&m_StPlayerAtrribute[i].st_matPlayer);
 		}
 	}

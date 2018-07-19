@@ -51,9 +51,6 @@ void cTestScene2::Update()
 	{
 		m_pChef[i]->Update();
 	}
-
-	if (KEYMANAGER->isOnceKeyDown(VK_RETURN))
-		m_pControl->SetPlaterMod(2);
 }
 
 void cTestScene2::Render()

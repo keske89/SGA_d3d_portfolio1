@@ -106,6 +106,7 @@ void cTestScene1::Update()
 		}
 
 	}
+
 }
 
 void cTestScene1::Render()
