@@ -18,6 +18,7 @@ void cCounterTop::Setup()
 
 void cCounterTop::Update()
 {
+	m_player = NULL;
 	m_vPos.x = m_matWorld._41;
 	m_vPos.y = m_matWorld._42;
 	m_vPos.z = m_matWorld._43;
@@ -27,10 +28,30 @@ void cCounterTop::Update()
 
 void cCounterTop::Render()
 {
+	SetLight();
+	g_pD3DDevice->SetMaterial(&m_stMtl);
 	g_pD3DDevice->SetTransform(D3DTS_WORLD, &(m_matLocal * m_matWorld));
 	g_pD3DDevice->SetFVF(ST_PNT_VERTEX::FVF);
 	g_pD3DDevice->SetTexture(0, m_pTexture);
 	m_pMesh->DrawSubset(0);
+}
+
+void cCounterTop::SetLight()
+{
+	if (m_player) // 플레이어 연결됐음
+	{
+		ZeroMemory(&m_stMtl, sizeof(D3DMATERIAL9));
+		m_stMtl.Ambient = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
+		m_stMtl.Diffuse = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
+		m_stMtl.Specular = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
+	}
+	else
+	{
+		ZeroMemory(&m_stMtl, sizeof(D3DMATERIAL9));
+		m_stMtl.Ambient = D3DXCOLOR	(0.3f, 0.3f, 0.3f, 0.5f);
+		m_stMtl.Diffuse = D3DXCOLOR (0.3f, 0.3f, 0.3f, 0.5f);
+		m_stMtl.Specular = D3DXCOLOR(0.3f, 0.3f, 0.3f,0.5f);
+	}
 }
 
 void cCounterTop::Setup(D3DXMATRIX matWorld, D3DXVECTOR3 pos, int objectType)
@@ -38,7 +59,7 @@ void cCounterTop::Setup(D3DXMATRIX matWorld, D3DXVECTOR3 pos, int objectType)
 	
 	D3DXMATRIX matS;
 	D3DXMatrixIdentity(&matS);
-	D3DXMatrixScaling(&matS, 0.9f, 1.0f, 0.9f);
+	D3DXMatrixScaling(&matS, 0.88f, 1.0f, 0.9f);
 	m_matLocal = matS;
 	m_eState = OBJ_STATIC;
 	m_vPos.x = matWorld._41;

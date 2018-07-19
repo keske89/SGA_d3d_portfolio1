@@ -17,7 +17,7 @@
 #include "cChef.h"
 #include "cOnion.h"
 #include "cChefRoot.h"
-
+#include "cWMDefinition.h"
 
 
 
@@ -56,43 +56,9 @@ void cStageObjManager::Setup()
 
 void cStageObjManager::Update()
 {
+
 	for (auto p : m_listObj)
-	{
-		//if (m_player1 && m_player2)
-		//{
-		//	if (m_player1->GetDetect() == p)
-		//	{
-		//		p->Setplayer(m_player1);
-		//		p->SetInteraction(true);
-
-		//		if (p->Getplayer()->GetRoot()->GetCHEF_STATE() == CHEF_STATE::CHEF_STATE_TRANCEPORT_IDLE)
-		//		{
-		//			if (m_player1->GetInven() != NULL)	// 인벤토리에 담겨있는게 있으면
-		//			{
-		//				m_player1->GetDetect()->SetInven(m_player1->GetInven());
-		//				m_player1->SetInven(NULL);
-		//			}
-		//			//p->SetDelegate(this);
-		//			//m_pDelegate = this;
-		//			//if(p->Getplayer()) 플레이어의 인벤토리가 비어있으면 생성
-		//			OnAction(p);
-		//			
-		//		}
-		//	}
-		//	else if (m_player2->GetDetect() == p)
-		//	{
-		//		p->Setplayer(m_player2);
-		//		p->SetInteraction(true);
-		//	}
-
-		//	else
-		//	{
-		//		p->SetInteraction(false);
-		//		p->Setplayer(NULL);
-		//	}
-		//}
-		
-		
+	{		
 		p->Update();
 	}
 
@@ -104,9 +70,14 @@ void cStageObjManager::Update()
 
 void cStageObjManager::Render()
 {
+	D3DXVECTOR3 dir(-1, -1, -1);
+	D3DXVec3Normalize(&dir, &dir);
+	D3DLIGHT9 light = DXUtil::InitDirectional(&dir, &D3DXCOLOR(2.0f, 2.0f, 2.0f, 2.0f));
+	g_pD3DDevice->SetLight(0, &light);
+	g_pD3DDevice->LightEnable(0, true);
+
 	for (auto p : m_listObj)
 	{
-		
 		p->Render();
 	}
 
@@ -123,6 +94,20 @@ void cStageObjManager::DeleteObject(std::list<cIGObj*>::iterator objectIter)
 	SAFE_DELETE(*objectIter);
 	m_listObj.erase(objectIter);
 
+}
+
+void cStageObjManager::DeleteFood(cIGObj * foodPointer)
+{
+	list<cIGObj*>::iterator iter = m_listFoodObj.begin();
+	for (; iter != m_listFoodObj.end(); ++iter)
+	{
+		if ((*iter) == foodPointer)
+		{
+			m_listFoodObj.erase(iter);
+			SAFE_DELETE(foodPointer);
+			break;
+		}
+	}
 }
 
 
@@ -192,8 +177,16 @@ void cStageObjManager::ObjAction(cChef * pSender)
 		// CRATE = 10~ 
 		//CRATE_LID = 10,
 	case CRATE_TOMATO:
+		m_Tomato = new cTomato;
+		m_Tomato->Setup(mat, pos, CRATE_TOMATO);
+		pSender->SetInven(m_Tomato);
+		m_listFoodObj.push_back(m_Tomato);
 		break;
 	case CRATE_POTATO:
+		//m_Potato = new cOnion;
+		//m_Onion->Setup(mat, pos, FOBJ_ONION);
+		//pSender->SetInven(m_Onion);
+		//m_listFoodObj.push_back(m_Onion);
 		break;
 	case CRATE_MUSHROOM:
 		break;
@@ -314,6 +307,10 @@ std::list<cIGObj*>::iterator cStageObjManager:: SetIngameObject(OBJECTTYPE objty
 	case AOBJ_COOKER:
 		m_Cooker = new cCooker;
 		m_Cooker->Setup(matWorld, D3DXVECTOR3(matWorld._41, matWorld._42, matWorld._43), AOBJ_COOKER);
+		m_Pot = new cPot;
+		m_Pot->Setup(matWorld, D3DXVECTOR3(matWorld._41, matWorld._42, matWorld._43), AOBJ_POT);
+		m_Cooker->SetInven(m_Pot);
+		m_listFoodObj.push_back(m_Pot);
 		iter = m_listObj.insert(m_listObj.end(), m_Cooker);
 		return iter;
 		break;

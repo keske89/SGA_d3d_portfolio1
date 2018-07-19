@@ -23,3 +23,4 @@ void cActionObj::Update()
 void cActionObj::Render()
 {
 }
+

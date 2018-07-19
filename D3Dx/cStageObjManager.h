@@ -29,6 +29,7 @@ class cPlateReturnBox;
 class cTomato;
 class cCounterTop;
 
+
 class cOnion;
 class cKnife;
 
@@ -75,7 +76,7 @@ enum BUTTONSELECT
 class cStageObjManager : public cActionDelegate
 {
 private:
-
+	
 	cCrateLid*				m_crateLid;
 	cSink*					m_Sink;
 	cCooker*				m_Cooker;
@@ -105,6 +106,7 @@ public:
 	void Update();
 	void Render();
 	void DeleteObject(std::list<cIGObj*>::iterator objectIter);
+	void DeleteFood(cIGObj * foodPointer);
 
 	// cActionDelegate을(를) 통해 상속됨
 

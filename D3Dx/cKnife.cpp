@@ -19,6 +19,7 @@ void cKnife::Setup()
 
 void cKnife::Update()
 {
+	m_player = NULL;
 	m_vPos.x = m_matWorld._41;
 	m_vPos.y = m_matWorld._42;
 	m_vPos.z = m_matWorld._43;
@@ -26,6 +27,7 @@ void cKnife::Update()
 
 void cKnife::Render()
 {
+	SetLight();
 	g_pD3DDevice->SetTransform(D3DTS_WORLD, &(m_matLocal * m_matWorld));
 	g_pD3DDevice->SetTexture(0, m_pTexture);
 	g_pD3DDevice->SetFVF(ST_PNT_VERTEX::FVF);
@@ -60,6 +62,24 @@ void cKnife::Setup(D3DXMATRIX matWorld, D3DXVECTOR3 pos, int lidtype)
 	m_bIsUse = false;
 	m_pMesh = ObJMANAGER->GetMesh(L"Knife.obj");
 	m_pTexture = g_pTextureManager->GetTexture(L"Resources/Texture2D/Knife.png");
+}
+
+void cKnife::SetLight()
+{
+	if (m_player) // 플레이어 연결됐음
+	{
+		ZeroMemory(&m_stMtl, sizeof(D3DMATERIAL9));
+		m_stMtl.Ambient = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
+		m_stMtl.Diffuse = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
+		m_stMtl.Specular = D3DXCOLOR(0.3f, 0.3f, 0.3f, 1.0f);
+	}
+	else
+	{
+		ZeroMemory(&m_stMtl, sizeof(D3DMATERIAL9));
+		m_stMtl.Ambient = D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.5f);
+		m_stMtl.Diffuse = D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.5f);
+		m_stMtl.Specular = D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.5f);
+	}
 }
 
 void cKnife::SetWorldMat(D3DXMATRIX matWorld)

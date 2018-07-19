@@ -46,7 +46,7 @@ void cMainGame::Setup()
 {
 	DATABASE->Setup();
 	SetLight();
-	g_pD3DDevice->SetRenderState(D3DRS_LIGHTING, false);
+	g_pD3DDevice->SetRenderState(D3DRS_LIGHTING, true);
 
 
 	//WM
@@ -63,7 +63,7 @@ void cMainGame::Setup()
 	SCENEMANAGER->AddScene("WMScene", m_pWMScene);
 	SCENEMANAGER->AddScene("IntroScene", new cIntroScene);
 	
-	SCENEMANAGER->ChangeScene("IntroScene");
+	SCENEMANAGER->ChangeScene("TestScene1");
 
 
 

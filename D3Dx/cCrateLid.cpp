@@ -82,10 +82,29 @@ void cCrateLid::SetWorldMat(D3DXMATRIX matWorld)
 	m_vPos.z = matWorld._43;
 }
 
+void cCrateLid::SetLight()
+{
+	if (m_player) // 플레이어 연결됐음
+	{
+		ZeroMemory(&m_stMtl, sizeof(D3DMATERIAL9));
+		m_stMtl.Ambient = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
+		m_stMtl.Diffuse = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
+		m_stMtl.Specular = D3DXCOLOR(0.3f, 0.3f, 0.3f, 1.0f);
+	}
+	else
+	{
+		ZeroMemory(&m_stMtl, sizeof(D3DMATERIAL9));
+		m_stMtl.Ambient = D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.5f);
+		m_stMtl.Diffuse = D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.5f);
+		m_stMtl.Specular = D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.5f);
+	}
+}
+
 
 
 void cCrateLid::Update()
 {	
+	m_player = NULL;
 	this->Action();
 	
 	if (m_bAni)
@@ -100,16 +119,17 @@ void cCrateLid::Update()
 
 void cCrateLid::Render()
 {
-	
-		g_pD3DDevice->SetTransform(D3DTS_WORLD, &(m_matLocal* m_matWorld));
-		g_pD3DDevice->SetFVF(ST_PNT_VERTEX::FVF);
+	SetLight();
+	g_pD3DDevice->SetMaterial(&m_stMtl);
+	g_pD3DDevice->SetTransform(D3DTS_WORLD, &(m_matLocal* m_matWorld));
+	g_pD3DDevice->SetFVF(ST_PNT_VERTEX::FVF);
 
-		g_pD3DDevice->SetTexture(0, m_pTexture);
-		m_pMesh->DrawSubset(0);
-		g_pD3DDevice->SetTexture(0, m_pTexture2);
-		m_pMesh->DrawSubset(1);
+	g_pD3DDevice->SetTexture(0, m_pTexture);
+	m_pMesh->DrawSubset(0);
+	g_pD3DDevice->SetTexture(0, m_pTexture2);
+	m_pMesh->DrawSubset(1);
 
-		m_pChild->Render();
+	m_pChild->Render();
 }
 
 void cCrateLid::Action()

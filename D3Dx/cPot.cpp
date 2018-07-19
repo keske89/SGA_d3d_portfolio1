@@ -26,10 +26,7 @@ void cPot::Setup()
 
 void cPot::Update()
 {
-	if (KEYMANAGER->isOnceKeyDown ('W'))
-	{
-		m_size += 1;
-	}
+	m_player = NULL;
 	D3DXVECTOR3 temp = m_vPos;
 	temp.y = m_vPos.y - 0.05f;
 	temp.z = m_vPos.z - 0.05f;
@@ -59,7 +56,9 @@ void cPot::Update()
 
 void cPot::Render()
 {
-	g_pD3DDevice->SetTransform(D3DTS_WORLD, &m_matWorld);
+	SetLight();
+	g_pD3DDevice->SetMaterial(&m_stMtl);
+	g_pD3DDevice->SetTransform(D3DTS_WORLD, &(m_matLocal * m_matWorld));
 	g_pD3DDevice->SetTexture(0, m_pTexture);
 	g_pD3DDevice->SetFVF(ST_PNT_VERTEX::FVF);
 	m_pMesh->DrawSubset(0);
@@ -82,9 +81,13 @@ void cPot::SetFood(cFoodObj* foodobject)
 
 void cPot::Setup(D3DXMATRIX matWorld, D3DXVECTOR3 pos, int lidtype)
 {
+	D3DXMATRIX matT;
+	D3DXMatrixIdentity(&matT);
+	D3DXMatrixTranslation(&matT, 0, 0, 0);
 	m_vPos.x = matWorld._41;
 	m_vPos.y = matWorld._42;
 	m_vPos.z = matWorld._43;
+	m_matLocal = matT;
 	m_matWorld = matWorld;
 	m_eState = OBJ_DYNAMIC;
 	m_nObjectType = lidtype;
@@ -94,6 +97,24 @@ void cPot::Setup(D3DXMATRIX matWorld, D3DXVECTOR3 pos, int lidtype)
 	//m_pPgbar = new cProgressbar;
 	//m_pPgbar->Setup(matWorld,pos);
 
+}
+
+void cPot::SetLight()
+{
+	if (m_player) // 플레이어 연결됐음
+	{
+		ZeroMemory(&m_stMtl, sizeof(D3DMATERIAL9));
+		m_stMtl.Ambient = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
+		m_stMtl.Diffuse = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
+		m_stMtl.Specular = D3DXCOLOR(0.3f, 0.3f, 0.3f, 1.0f);
+	}
+	else
+	{
+		ZeroMemory(&m_stMtl, sizeof(D3DMATERIAL9));
+		m_stMtl.Ambient = D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.5f);
+		m_stMtl.Diffuse = D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.5f);
+		m_stMtl.Specular = D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.5f);
+	}
 }
 
 void cPot::SetWorldMat(D3DXMATRIX matWorld)

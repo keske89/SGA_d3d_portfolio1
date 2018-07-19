@@ -16,6 +16,7 @@ enum COLLISONTYPE
 
 }; 
 
+
 class cIGObj
 {
 public:
@@ -23,6 +24,7 @@ public:
 	//bool				m_bInteraction;
 	LPDIRECT3DTEXTURE9	m_pTexture;
 	LPD3DXMESH			m_pMesh;
+	D3DMATERIAL9		m_stMtl;
 	D3DXMATRIX			m_matWorld;
 	D3DXMATRIX			m_matLocal;
 	//cIGObj*				m_Inven;
@@ -50,4 +52,11 @@ public:
 	inline int GetObjectType() { return m_nObjectType; }
 	inline int GetCollisonType() { return m_eState; }
 };
-
+//
+//void cIGObj::SetMaterial()
+//{
+//	ZeroMemory(&m_stMtl, sizeof(D3DMATERIAL9));
+//	m_stMtl.Ambient = D3DXCOLOR(0.0f, 0.0f, 0.0f, 1.0f);
+//	m_stMtl.Diffuse = D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f);
+//	m_stMtl.Specular = D3DXCOLOR(0.3f, 0.3f, 0.3f, 1.0f);
+//}

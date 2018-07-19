@@ -17,6 +17,7 @@ void cCooker::Setup()
 
 void cCooker::Update()
 {
+	m_player = NULL;
 	m_vPos.x = m_matWorld._41;
 	m_vPos.y = m_matWorld._42;
 	m_vPos.z = m_matWorld._43;
@@ -26,6 +27,8 @@ void cCooker::Update()
 
 void cCooker::Render()
 {
+	SetLight();
+	g_pD3DDevice->SetMaterial(&m_stMtl);
 	g_pD3DDevice->SetTransform(D3DTS_WORLD, &(m_matLocal *m_matWorld));
 	g_pD3DDevice->SetTexture(0, m_pTexture);
 	g_pD3DDevice->SetFVF(ST_PNT_VERTEX::FVF);
@@ -59,16 +62,33 @@ void cCooker::SetWorldMat(D3DXMATRIX matWorld)
 
 }
 
+void cCooker::SetLight()
+{
+	if (m_player) // 플레이어 연결됐음
+	{
+		ZeroMemory(&m_stMtl, sizeof(D3DMATERIAL9));
+		m_stMtl.Ambient = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
+		m_stMtl.Diffuse = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
+		m_stMtl.Specular = D3DXCOLOR(0.3f, 0.3f, 0.3f, 1.0f);
+	}
+	else
+	{
+		ZeroMemory(&m_stMtl, sizeof(D3DMATERIAL9));
+		m_stMtl.Ambient = D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.5f);
+		m_stMtl.Diffuse = D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.5f);
+		m_stMtl.Specular = D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.5f);
+	}
+}
+
 void cCooker::Inventory()
 {
-	//if (m_Inven != NULL)
-	//{
-	//	m_Inven.set
-	//	D3DXMATRIX matT;
-	//	D3DXMatrixIdentity(&matT);
-	//	D3DXMatrixTranslation(&matT, 0, 1.0f, 0);
+	if (m_Inven != NULL)
+	{
+		D3DXMATRIX matT;
+		D3DXMatrixIdentity(&matT);
+		D3DXMatrixTranslation(&matT, 0, 0.6f, 0);
 
-	//	m_Inven->SetWorldMatrix(matT * m_matLocal * m_matWorld);
-	//}
+		m_Inven->SetWorldMatrix(matT * m_matLocal * m_matWorld);
+	}
 
 }

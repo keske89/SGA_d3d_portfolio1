@@ -16,7 +16,7 @@ public:
 
 	// cFoodObj을(를) 통해 상속됨
 	virtual void Setup(D3DXMATRIX matWorld, D3DXVECTOR3 pos, int lidtype) override;
-
+	virtual void SetLight() override;
 	virtual void SetWorldMat(D3DXMATRIX matWorld) override;
 
 };

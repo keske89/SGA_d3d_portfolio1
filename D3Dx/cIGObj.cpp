@@ -4,10 +4,9 @@
 
 cIGObj::cIGObj()
 	: m_bInteraction(false)
-	, m_pMesh(NULL)
 	, m_pTexture(NULL)
+	, m_pMesh(NULL)
 	, m_vPos(0.0f, 0.0f, 0.0f)
-	//, m_pDelegate(NULL)
 	, m_Inven(NULL)
 	, m_pChild(NULL)
 	, m_bIsEquipped(false)
@@ -21,6 +20,7 @@ cIGObj::~cIGObj()
 {
 	//SAFE_RELEASE(m_pDelegate);
 }
+
 
 void cIGObj::AddChild(cIGObj * childNode)
 {
