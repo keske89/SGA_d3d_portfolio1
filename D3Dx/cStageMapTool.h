@@ -11,6 +11,7 @@ class cStageMapToolUI;
 class cStageObjManager;
 class cIGObj;
 class cActionObj;
+class cBackground;
 
 class cStageMapTool : public cGameNode
 {
@@ -33,6 +34,7 @@ private:
 	cStageGrid*				m_pGrid;				
 	cStageMapToolUI*		m_pUI;		
 	cStageObjManager*		m_pSOM;
+	cBackground*			m_pBG;
 
 	D3DXVECTOR3				m_vecPos;				//Ä«¸Þ¶ó ·è¾Ü Æ÷Áö¼Ç
 													

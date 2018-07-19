@@ -17,6 +17,7 @@ cStageScene::cStageScene()
 	, m_pSOM(NULL)
 	, m_pControl(NULL)
 	, m_pCollision(NULL)
+	, m_pBG(NULL)
 {
 	m_pChef[0] = NULL;
 	m_pChef[1] = NULL;
@@ -33,12 +34,15 @@ cStageScene::~cStageScene()
 	SAFE_DELETE(m_pChef[0]);
 	SAFE_DELETE(m_pChef[1]);
 	SAFE_DELETE(m_pCollision);
+	SAFE_DELETE(m_pBG);
 }
 
 void cStageScene::Setup()
 {
 	m_pStage = new cStage;
 	m_pStage->Setup(1, m_vNewObjData, m_vSetObjData, m_mapIsBlockedData, m_vecChefPos[0], m_vecChefPos[1]);
+
+	
 
 	m_pCamera = new cCamera;
 	m_pCamera->Setup();

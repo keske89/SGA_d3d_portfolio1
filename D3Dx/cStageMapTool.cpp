@@ -8,6 +8,7 @@
 #include "cActionObj.h"
 #include "cIGObj.h"
 #include "cCrate.h"
+#include "cBackground.h"
 
 
 cStageMapTool::cStageMapTool()
@@ -25,6 +26,7 @@ cStageMapTool::cStageMapTool()
 	, m_nNewObjNum(0)
 	, m_nMenuNum(0)
 	, m_nCharacterSelect(0)
+	, m_pBG(NULL)
 {
 }
 
@@ -35,6 +37,7 @@ cStageMapTool::~cStageMapTool()
 	SAFE_DELETE(m_pGrid);
 	SAFE_DELETE(m_pUI);
 	SAFE_DELETE(m_pSOM);
+	SAFE_DELETE(m_pBG);
 }
 
 void cStageMapTool::Setup()
@@ -50,6 +53,9 @@ void cStageMapTool::Setup()
 
 	m_pSOM = new cStageObjManager;
 	m_pSOM->Setup();
+
+	m_pBG = new cBackground;
+	m_pBG->Setup(1);
 
 	//바닥 타일의 기초가 되는 사각형 셋팅
 	ST_PNT_VERTEX tempV;
@@ -247,6 +253,9 @@ void cStageMapTool::Render()
 
 	if (m_pUI)
 		m_pUI->Render();
+
+	if (m_pBG)
+		m_pBG->Render(1);
 
 
 	g_pD3DDevice->SetFVF(ST_PNT_VERTEX::FVF);
@@ -917,13 +926,13 @@ int cStageMapTool::getObjectType(bool& isSetObject)
 		break;
 		case(NOT_CHOPPINGBOARD):
 		{
-			isSetObject = true;
-			return(AOBJ_CHOPPIGNBOARD);
+			isSetObject = false;
+			return(AOBJ_TABLE3);
 		}
 		break;
 		case(NOT_COOKER):
 		{
-			isSetObject = true;
+			isSetObject = false;
 			return(AOBJ_COOKER);
 		}
 		break;
@@ -935,8 +944,8 @@ int cStageMapTool::getObjectType(bool& isSetObject)
 		break;
 		case(NOT_PLATE):
 		{
-			isSetObject = true;
-			return(AOBJ_PLATE);
+			isSetObject = false;
+			return(AOBJ_TABLE2);
 		}
 		break;
 		case(NOT_PLATERETURNBOX):
@@ -947,7 +956,7 @@ int cStageMapTool::getObjectType(bool& isSetObject)
 		break;
 		case(NOT_POT):
 		{
-			isSetObject = true;
+			isSetObject = false;
 			return(AOBJ_POT);
 		}
 		break;

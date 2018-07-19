@@ -351,6 +351,9 @@
     <ClInclude Include="cWorldStage.h">
       <Filter>소스 파일\WORLDMAP\WMSTAGE</Filter>
     </ClInclude>
+    <ClInclude Include="cBackground.h">
+      <Filter>소스 파일\Stage</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="D3Dx.cpp">
@@ -619,6 +622,9 @@
     </ClCompile>
     <ClCompile Include="UIController.cpp">
       <Filter>소스 파일\WORLDMAP\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="cBackground.cpp">
+      <Filter>소스 파일\Stage</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

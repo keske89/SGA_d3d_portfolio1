@@ -63,7 +63,7 @@ void cMainGame::Setup()
 	SCENEMANAGER->AddScene("WMScene", m_pWMScene);
 	SCENEMANAGER->AddScene("IntroScene", new cIntroScene);
 	
-	SCENEMANAGER->ChangeScene("IntroScene");
+	SCENEMANAGER->ChangeScene("StageMapTool");
 
 
 

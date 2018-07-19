@@ -153,6 +153,7 @@
   <ItemGroup>
     <ClInclude Include="Assets.h" />
     <ClInclude Include="cActionObj.h" />
+    <ClInclude Include="cBackground.h" />
     <ClInclude Include="cBin.h" />
     <ClInclude Include="cCamera.h" />
     <ClInclude Include="cChef.h" />
@@ -247,6 +248,7 @@
   <ItemGroup>
     <ClCompile Include="Assets.cpp" />
     <ClCompile Include="cActionObj.cpp" />
+    <ClCompile Include="cBackground.cpp" />
     <ClCompile Include="cBin.cpp" />
     <ClCompile Include="cCamera.cpp" />
     <ClCompile Include="cChef.cpp" />

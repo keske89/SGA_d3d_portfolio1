@@ -2,6 +2,7 @@
 #include "cGameNode.h"
 
 class cStage;
+class cBackground;
 class cCamera;
 class cStageGrid;
 class cStageObjManager;
@@ -13,6 +14,7 @@ class cStageScene : public cGameNode
 {
 private:
 	cStage*							m_pStage;
+	cBackground*					m_pBG;
 	cCamera*						m_pCamera;
 	cStageGrid*						m_pGrid;
 	cStageObjManager*				m_pSOM;
