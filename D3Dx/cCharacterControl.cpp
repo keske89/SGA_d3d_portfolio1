@@ -48,14 +48,14 @@ void cCharacterControl::ControlAction()
 			if (m_Bswitch)
 			{
 				m_Bswitch = false;
-				if (m_vecCharacter[m_Bswitch]->GetRoot()->GetCHEF_STATE() != CHEF_STATE_CHOP || m_vecCharacter[m_Bswitch]->GetRoot()->GetCHEF_STATE() != CHEF_STATE_DISHWASHING)
-					m_vecCharacter[m_Bswitch]->GetRoot()->SetChefAnimation(CHEF_STATE_IDLE);
+				if (m_vecCharacter[m_Bswitch]->GetCHEF_STATE() != CHEF_STATE_CHOP || m_vecCharacter[m_Bswitch]->GetCHEF_STATE() != CHEF_STATE_DISHWASHING)
+					m_vecCharacter[m_Bswitch]->SetChefAnimation(CHEF_STATE_IDLE);
 			}
 			else
 			{
 				m_Bswitch = true;
-				if (m_vecCharacter[m_Bswitch]->GetRoot()->GetCHEF_STATE() != CHEF_STATE_CHOP || m_vecCharacter[m_Bswitch]->GetRoot()->GetCHEF_STATE() != CHEF_STATE_DISHWASHING)
-					m_vecCharacter[m_Bswitch]->GetRoot()->SetChefAnimation(CHEF_STATE_IDLE);
+				if (m_vecCharacter[m_Bswitch]->GetCHEF_STATE() != CHEF_STATE_CHOP || m_vecCharacter[m_Bswitch]->GetCHEF_STATE() != CHEF_STATE_DISHWASHING)
+					m_vecCharacter[m_Bswitch]->SetChefAnimation(CHEF_STATE_IDLE);
 			}
 		}
 		for (int i = 0; i < 2; i++)
@@ -65,18 +65,18 @@ void cCharacterControl::ControlAction()
 				if (KEYMANAGER->isOnceKeyDown(VK_LCONTROL))
 				{
 					if (m_vecCharacter[i]->GetDetect()->GetObjectType() == 30)
-						m_vecCharacter[i]->GetRoot()->SetChefAnimation(CHEF_STATE_CHOP);
+						m_vecCharacter[i]->SetChefAnimation(CHEF_STATE_CHOP);
 					else if (m_vecCharacter[i]->GetDetect()->GetObjectType() == 27)
-						m_vecCharacter[i]->GetRoot()->SetChefAnimation(CHEF_STATE_DISHWASHING);
+						m_vecCharacter[i]->SetChefAnimation(CHEF_STATE_DISHWASHING);
 				}
 			}
 			else
 			{
-				m_vecCharacter[i]->GetRoot()->SetChefAnimation(CHEF_STATE_IDLE);
+				m_vecCharacter[i]->SetChefAnimation(CHEF_STATE_IDLE);
 			}
 		}
 		if (m_vecCharacter[m_Bswitch]->GetInven())
-			m_vecCharacter[m_Bswitch]->GetRoot()->SetChefAnimation(CHEF_STATE_TRANCEPORT_IDLE);
+			m_vecCharacter[m_Bswitch]->SetChefAnimation(CHEF_STATE_TRANCEPORT_IDLE);
 
 		if (KEYMANAGER->isOnceKeyDown('X'))
 		{
@@ -84,7 +84,7 @@ void cCharacterControl::ControlAction()
 			{
 				m_StPlayerAtrribute[m_Bswitch].st_fFrictional = 0.05f;
 				m_StPlayerAtrribute[m_Bswitch].st_fCharacterBOOSTERSpeed = 0.5f;
-				m_vecCharacter[m_Bswitch]->GetRoot()->SetChefAnimation(CHEF_STATE_BOOSTER_MOVE);
+				m_vecCharacter[m_Bswitch]->SetChefAnimation(CHEF_STATE_BOOSTER_MOVE);
 				m_StPlayerAtrribute[m_Bswitch].st_vBooster = m_vecCharacter[m_Bswitch]->GetPos() - m_vecCharacter[m_Bswitch]->GetDir();
 				m_StPlayerAtrribute[m_Bswitch].st_BisBooster = true;
 			}
@@ -95,7 +95,7 @@ void cCharacterControl::ControlAction()
 			if (m_vecCharacter[m_Bswitch]->GetDetect())
 			{
 				if (m_vecCharacter[m_Bswitch]->GetInven() == NULL)
-					m_vecCharacter[m_Bswitch]->GetRoot()->SetChefAnimation(CHEF_STATE_ACTION);
+					m_vecCharacter[m_Bswitch]->SetChefAnimation(CHEF_STATE_ACTION);
 				else
 				{
 					//오브젝트의 인벤이 비워져있으면!!!
@@ -103,7 +103,7 @@ void cCharacterControl::ControlAction()
 					{
 						m_vecCharacter[m_Bswitch]->GetDetect()->SetInven(m_vecCharacter[m_Bswitch]->GetInven());
 						m_vecCharacter[m_Bswitch]->SetInven(NULL);
-						m_vecCharacter[m_Bswitch]->GetRoot()->SetChefAnimation(CHEF_STATE_IDLE);
+						m_vecCharacter[m_Bswitch]->SetChefAnimation(CHEF_STATE_IDLE);
 					}
 				}
 			}
@@ -111,7 +111,7 @@ void cCharacterControl::ControlAction()
 			else
 			{
 				m_vecCharacter[m_Bswitch]->SetInven(NULL);
-				m_vecCharacter[m_Bswitch]->GetRoot()->SetChefAnimation(CHEF_STATE_IDLE);
+				m_vecCharacter[m_Bswitch]->SetChefAnimation(CHEF_STATE_IDLE);
 			}
 		}
 
@@ -119,68 +119,68 @@ void cCharacterControl::ControlAction()
 		if (KEYMANAGER->isStayKeyDown(VK_LEFT))
 		{
 			if (!m_vecCharacter[m_Bswitch]->GetInven())
-				m_vecCharacter[m_Bswitch]->GetRoot()->SetChefAnimation(CHEF_STATE_MOVE);
+				m_vecCharacter[m_Bswitch]->SetChefAnimation(CHEF_STATE_MOVE);
 			else
-				m_vecCharacter[m_Bswitch]->GetRoot()->SetChefAnimation(CHEF_STATE_TRANCEPORT_MOVE);
+				m_vecCharacter[m_Bswitch]->SetChefAnimation(CHEF_STATE_TRANCEPORT_MOVE);
 			m_StPlayerAtrribute[m_Bswitch].st_vDirectionX = D3DXVECTOR3(-1, 0, 0);
 		}
 		if (KEYMANAGER->isStayKeyDown(VK_RIGHT))
 		{
 			if (!m_vecCharacter[m_Bswitch]->GetInven())
-				m_vecCharacter[m_Bswitch]->GetRoot()->SetChefAnimation(CHEF_STATE_MOVE);
+				m_vecCharacter[m_Bswitch]->SetChefAnimation(CHEF_STATE_MOVE);
 			else
-				m_vecCharacter[m_Bswitch]->GetRoot()->SetChefAnimation(CHEF_STATE_TRANCEPORT_MOVE);
+				m_vecCharacter[m_Bswitch]->SetChefAnimation(CHEF_STATE_TRANCEPORT_MOVE);
 			m_StPlayerAtrribute[m_Bswitch].st_vDirectionX = D3DXVECTOR3(1, 0, 0);
 		}
 		if (KEYMANAGER->isStayKeyDown(VK_UP))
 		{
 			if (!m_vecCharacter[m_Bswitch]->GetInven())
-				m_vecCharacter[m_Bswitch]->GetRoot()->SetChefAnimation(CHEF_STATE_MOVE);
+				m_vecCharacter[m_Bswitch]->SetChefAnimation(CHEF_STATE_MOVE);
 			else
-				m_vecCharacter[m_Bswitch]->GetRoot()->SetChefAnimation(CHEF_STATE_TRANCEPORT_MOVE);
+				m_vecCharacter[m_Bswitch]->SetChefAnimation(CHEF_STATE_TRANCEPORT_MOVE);
 			m_StPlayerAtrribute[m_Bswitch].st_vDirectionZ = D3DXVECTOR3(0, 0, 1);
 		}
 		if (KEYMANAGER->isStayKeyDown(VK_DOWN))
 		{
 			if (!m_vecCharacter[m_Bswitch]->GetInven())
-				m_vecCharacter[m_Bswitch]->GetRoot()->SetChefAnimation(CHEF_STATE_MOVE);
+				m_vecCharacter[m_Bswitch]->SetChefAnimation(CHEF_STATE_MOVE);
 			else
-				m_vecCharacter[m_Bswitch]->GetRoot()->SetChefAnimation(CHEF_STATE_TRANCEPORT_MOVE);
+				m_vecCharacter[m_Bswitch]->SetChefAnimation(CHEF_STATE_TRANCEPORT_MOVE);
 			m_StPlayerAtrribute[m_Bswitch].st_vDirectionZ = D3DXVECTOR3(0, 0, -1);
 		}
 		if (KEYMANAGER->isOnceKeyUp(VK_DOWN))
 		{
 			if (!m_vecCharacter[m_Bswitch]->GetInven())
-				m_vecCharacter[m_Bswitch]->GetRoot()->SetChefAnimation(CHEF_STATE_IDLE);
+				m_vecCharacter[m_Bswitch]->SetChefAnimation(CHEF_STATE_IDLE);
 			else
-				m_vecCharacter[m_Bswitch]->GetRoot()->SetChefAnimation(CHEF_STATE_TRANCEPORT_IDLE);
+				m_vecCharacter[m_Bswitch]->SetChefAnimation(CHEF_STATE_TRANCEPORT_IDLE);
 
 			m_StPlayerAtrribute[m_Bswitch].st_vDirectionZ = D3DXVECTOR3(0, 0, 0);
 		}
 		if (KEYMANAGER->isOnceKeyUp(VK_UP))
 		{
 			if (!m_vecCharacter[m_Bswitch]->GetInven())
-				m_vecCharacter[m_Bswitch]->GetRoot()->SetChefAnimation(CHEF_STATE_IDLE);
+				m_vecCharacter[m_Bswitch]->SetChefAnimation(CHEF_STATE_IDLE);
 			else
-				m_vecCharacter[m_Bswitch]->GetRoot()->SetChefAnimation(CHEF_STATE_TRANCEPORT_IDLE);
+				m_vecCharacter[m_Bswitch]->SetChefAnimation(CHEF_STATE_TRANCEPORT_IDLE);
 
 			m_StPlayerAtrribute[m_Bswitch].st_vDirectionZ = D3DXVECTOR3(0, 0, 0);
 		}
 		if (KEYMANAGER->isOnceKeyUp(VK_RIGHT))
 		{
 			if (!m_vecCharacter[m_Bswitch]->GetInven())
-				m_vecCharacter[m_Bswitch]->GetRoot()->SetChefAnimation(CHEF_STATE_IDLE);
+				m_vecCharacter[m_Bswitch]->SetChefAnimation(CHEF_STATE_IDLE);
 			else
-				m_vecCharacter[m_Bswitch]->GetRoot()->SetChefAnimation(CHEF_STATE_TRANCEPORT_IDLE);
+				m_vecCharacter[m_Bswitch]->SetChefAnimation(CHEF_STATE_TRANCEPORT_IDLE);
 
 			m_StPlayerAtrribute[m_Bswitch].st_vDirectionX = D3DXVECTOR3(0, 0, 0);
 		}
 		if (KEYMANAGER->isOnceKeyUp(VK_LEFT))
 		{
 			if (!m_vecCharacter[m_Bswitch]->GetInven())
-				m_vecCharacter[m_Bswitch]->GetRoot()->SetChefAnimation(CHEF_STATE_IDLE);
+				m_vecCharacter[m_Bswitch]->SetChefAnimation(CHEF_STATE_IDLE);
 			else
-				m_vecCharacter[m_Bswitch]->GetRoot()->SetChefAnimation(CHEF_STATE_TRANCEPORT_IDLE);
+				m_vecCharacter[m_Bswitch]->SetChefAnimation(CHEF_STATE_TRANCEPORT_IDLE);
 
 			m_StPlayerAtrribute[m_Bswitch].st_vDirectionX = D3DXVECTOR3(0, 0, 0);
 
@@ -200,7 +200,7 @@ void cCharacterControl::Control1P()
 	{
 		m_StPlayerAtrribute[0].st_fFrictional = 0.05f;
 		m_StPlayerAtrribute[0].st_fCharacterBOOSTERSpeed = 0.5f;
-		m_vecCharacter[0]->GetRoot()->SetChefAnimation(CHEF_STATE_BOOSTER_MOVE);
+		m_vecCharacter[0]->SetChefAnimation(CHEF_STATE_BOOSTER_MOVE);
 		m_StPlayerAtrribute[0].st_BisBooster = true;
 	}
 	if (m_vecCharacter[0]->GetDetect())
@@ -208,23 +208,23 @@ void cCharacterControl::Control1P()
 		if (KEYMANAGER->isOnceKeyDown('E'))
 		{
 			if (m_vecCharacter[0]->GetDetect()->GetObjectType() == 30)
-				m_vecCharacter[0]->GetRoot()->SetChefAnimation(CHEF_STATE_CHOP);
+				m_vecCharacter[0]->SetChefAnimation(CHEF_STATE_CHOP);
 			else if (m_vecCharacter[0]->GetDetect()->GetObjectType() == 27)
-				m_vecCharacter[0]->GetRoot()->SetChefAnimation(CHEF_STATE_DISHWASHING);
+				m_vecCharacter[0]->SetChefAnimation(CHEF_STATE_DISHWASHING);
 		}
 	}
 	else
 	{
-		m_vecCharacter[0]->GetRoot()->SetChefAnimation(CHEF_STATE_IDLE);
+		m_vecCharacter[0]->SetChefAnimation(CHEF_STATE_IDLE);
 	}
 	if (m_vecCharacter[0]->GetInven())
-		m_vecCharacter[0]->GetRoot()->SetChefAnimation(CHEF_STATE_TRANCEPORT_IDLE);
+		m_vecCharacter[0]->SetChefAnimation(CHEF_STATE_TRANCEPORT_IDLE);
 	if (KEYMANAGER->isOnceKeyDown('W'))
 	{
 		if (m_vecCharacter[0]->GetDetect())
 		{
 			if (m_vecCharacter[0]->GetInven() == NULL)
-				m_vecCharacter[0]->GetRoot()->SetChefAnimation(CHEF_STATE_ACTION);
+				m_vecCharacter[0]->SetChefAnimation(CHEF_STATE_ACTION);
 			else
 			{
 				//오브젝트의 인벤이 비워져있으면!!!
@@ -232,7 +232,7 @@ void cCharacterControl::Control1P()
 				{
 					m_vecCharacter[0]->GetDetect()->SetInven(m_vecCharacter[0]->GetInven());
 					m_vecCharacter[0]->SetInven(NULL);
-					m_vecCharacter[0]->GetRoot()->SetChefAnimation(CHEF_STATE_IDLE);
+					m_vecCharacter[0]->SetChefAnimation(CHEF_STATE_IDLE);
 				}
 			}
 		}
@@ -240,76 +240,76 @@ void cCharacterControl::Control1P()
 		else
 		{
 			m_vecCharacter[0]->SetInven(NULL);
-			m_vecCharacter[0]->GetRoot()->SetChefAnimation(CHEF_STATE_IDLE);
+			m_vecCharacter[0]->SetChefAnimation(CHEF_STATE_IDLE);
 		}
 	}
 	if (KEYMANAGER->isStayKeyDown('F'))
 	{
 		if (!m_vecCharacter[0]->GetInven())
-			m_vecCharacter[0]->GetRoot()->SetChefAnimation(CHEF_STATE_MOVE);
+			m_vecCharacter[0]->SetChefAnimation(CHEF_STATE_MOVE);
 		else
-			m_vecCharacter[0]->GetRoot()->SetChefAnimation(CHEF_STATE_TRANCEPORT_MOVE);
+			m_vecCharacter[0]->SetChefAnimation(CHEF_STATE_TRANCEPORT_MOVE);
 
 		m_StPlayerAtrribute[0].st_vDirectionX = D3DXVECTOR3(-1, 0, 0);
 	}
 	if (KEYMANAGER->isStayKeyDown('H'))
 	{
 		if (!m_vecCharacter[0]->GetInven())
-			m_vecCharacter[0]->GetRoot()->SetChefAnimation(CHEF_STATE_MOVE);
+			m_vecCharacter[0]->SetChefAnimation(CHEF_STATE_MOVE);
 		else
-			m_vecCharacter[0]->GetRoot()->SetChefAnimation(CHEF_STATE_TRANCEPORT_MOVE);
+			m_vecCharacter[0]->SetChefAnimation(CHEF_STATE_TRANCEPORT_MOVE);
 
 		m_StPlayerAtrribute[0].st_vDirectionX = D3DXVECTOR3(1, 0, 0);
 	}
 	if (KEYMANAGER->isOnceKeyUp('F'))
 	{
 		if (!m_vecCharacter[0]->GetInven())
-			m_vecCharacter[0]->GetRoot()->SetChefAnimation(CHEF_STATE_IDLE);
+			m_vecCharacter[0]->SetChefAnimation(CHEF_STATE_IDLE);
 		else
-			m_vecCharacter[0]->GetRoot()->SetChefAnimation(CHEF_STATE_TRANCEPORT_IDLE);
+			m_vecCharacter[0]->SetChefAnimation(CHEF_STATE_TRANCEPORT_IDLE);
 		m_StPlayerAtrribute[0].st_vDirectionX = D3DXVECTOR3(0, 0, 0);
 	}
 	if (KEYMANAGER->isOnceKeyUp('H'))
 	{
 		if (!m_vecCharacter[0]->GetInven())
-			m_vecCharacter[0]->GetRoot()->SetChefAnimation(CHEF_STATE_IDLE);
+			m_vecCharacter[0]->SetChefAnimation(CHEF_STATE_IDLE);
 		else
-			m_vecCharacter[0]->GetRoot()->SetChefAnimation(CHEF_STATE_TRANCEPORT_IDLE);
+			m_vecCharacter[0]->SetChefAnimation(CHEF_STATE_TRANCEPORT_IDLE);
 		m_StPlayerAtrribute[0].st_vDirectionX = D3DXVECTOR3(0, 0, 0);
 	}
 	if (KEYMANAGER->isStayKeyDown('T'))
 	{
 		if (!m_vecCharacter[0]->GetInven())
-			m_vecCharacter[0]->GetRoot()->SetChefAnimation(CHEF_STATE_MOVE);
+			m_vecCharacter[0]->SetChefAnimation(CHEF_STATE_MOVE);
 		else
-			m_vecCharacter[0]->GetRoot()->SetChefAnimation(CHEF_STATE_TRANCEPORT_MOVE);
+			m_vecCharacter[0]->SetChefAnimation(CHEF_STATE_TRANCEPORT_MOVE);
 
 		m_StPlayerAtrribute[0].st_vDirectionZ = D3DXVECTOR3(0, 0, 1);
 	}
 	if (KEYMANAGER->isStayKeyDown('G'))
 	{
 		if (!m_vecCharacter[0]->GetInven())
-			m_vecCharacter[0]->GetRoot()->SetChefAnimation(CHEF_STATE_MOVE);
+			m_vecCharacter[0]->SetChefAnimation(CHEF_STATE_MOVE);
 		else
-			m_vecCharacter[0]->GetRoot()->SetChefAnimation(CHEF_STATE_TRANCEPORT_MOVE);
+			m_vecCharacter[0]->SetChefAnimation(CHEF_STATE_TRANCEPORT_MOVE);
 
 		m_StPlayerAtrribute[0].st_vDirectionZ = D3DXVECTOR3(0, 0, -1);
 	}
 	if (KEYMANAGER->isOnceKeyUp('T'))
 	{
 		if (!m_vecCharacter[0]->GetInven())
-			m_vecCharacter[0]->GetRoot()->SetChefAnimation(CHEF_STATE_IDLE);
+			m_vecCharacter[0]->SetChefAnimation(CHEF_STATE_IDLE);
 		else
-			m_vecCharacter[0]->GetRoot()->SetChefAnimation(CHEF_STATE_TRANCEPORT_IDLE);
+			m_vecCharacter[0]->SetChefAnimation(CHEF_STATE_TRANCEPORT_IDLE);
 
 		m_StPlayerAtrribute[0].st_vDirectionZ = D3DXVECTOR3(0, 0, 0);
 	}
 	if (KEYMANAGER->isOnceKeyUp('G'))
 	{
 		if (!m_vecCharacter[0]->GetInven())
-			m_vecCharacter[0]->GetRoot()->SetChefAnimation(CHEF_STATE_IDLE);
+			m_vecCharacter[0]->SetChefAnimation(CHEF_STATE_IDLE);
 		else
-			m_vecCharacter[0]->GetRoot()->SetChefAnimation(CHEF_STATE_TRANCEPORT_IDLE);
+			m_vecCharacter[0]->SetChefAnimation(CHEF_STATE_TRANCEPORT_IDLE);
 
 		m_StPlayerAtrribute[0].st_vDirectionZ = D3DXVECTOR3(0, 0, 0);
 	}
@@ -320,7 +320,7 @@ void cCharacterControl::Control2P()
 	{
 		m_StPlayerAtrribute[1].st_fFrictional = 0.05f;
 		m_StPlayerAtrribute[1].st_fCharacterBOOSTERSpeed = 0.5f;
-		m_vecCharacter[1]->GetRoot()->SetChefAnimation(CHEF_STATE_BOOSTER_MOVE);
+		m_vecCharacter[1]->SetChefAnimation(CHEF_STATE_BOOSTER_MOVE);
 		m_StPlayerAtrribute[1].st_BisBooster = true;
 	}
 	if (m_vecCharacter[1]->GetDetect())
@@ -328,24 +328,24 @@ void cCharacterControl::Control2P()
 		if (KEYMANAGER->isOnceKeyDown('O'))
 		{
 			if (m_vecCharacter[1]->GetDetect()->GetObjectType() == 30)
-				m_vecCharacter[1]->GetRoot()->SetChefAnimation(CHEF_STATE_CHOP);
+				m_vecCharacter[1]->SetChefAnimation(CHEF_STATE_CHOP);
 			else if (m_vecCharacter[1]->GetDetect()->GetObjectType() == 27)
-				m_vecCharacter[1]->GetRoot()->SetChefAnimation(CHEF_STATE_DISHWASHING);
+				m_vecCharacter[1]->SetChefAnimation(CHEF_STATE_DISHWASHING);
 
 		}
 	}
 	else
 	{
-		m_vecCharacter[1]->GetRoot()->SetChefAnimation(CHEF_STATE_IDLE);
+		m_vecCharacter[1]->SetChefAnimation(CHEF_STATE_IDLE);
 	}
 	if (m_vecCharacter[1]->GetInven())
-		m_vecCharacter[1]->GetRoot()->SetChefAnimation(CHEF_STATE_TRANCEPORT_IDLE);
+		m_vecCharacter[1]->SetChefAnimation(CHEF_STATE_TRANCEPORT_IDLE);
 	if (KEYMANAGER->isOnceKeyDown('P'))
 	{
 		if (m_vecCharacter[1]->GetDetect())
 		{
 			if (m_vecCharacter[1]->GetInven() == NULL)
-				m_vecCharacter[1]->GetRoot()->SetChefAnimation(CHEF_STATE_ACTION);
+				m_vecCharacter[1]->SetChefAnimation(CHEF_STATE_ACTION);
 			else
 			{
 				//오브젝트의 인벤이 비워져있으면!!!
@@ -353,7 +353,7 @@ void cCharacterControl::Control2P()
 				{
 					m_vecCharacter[1]->GetDetect()->SetInven(m_vecCharacter[1]->GetInven());
 					m_vecCharacter[1]->SetInven(NULL);
-					m_vecCharacter[1]->GetRoot()->SetChefAnimation(CHEF_STATE_IDLE);
+					m_vecCharacter[1]->SetChefAnimation(CHEF_STATE_IDLE);
 				}
 			}
 		}
@@ -361,77 +361,77 @@ void cCharacterControl::Control2P()
 		else
 		{
 			m_vecCharacter[1]->SetInven(NULL);
-			m_vecCharacter[1]->GetRoot()->SetChefAnimation(CHEF_STATE_IDLE);
+			m_vecCharacter[1]->SetChefAnimation(CHEF_STATE_IDLE);
 		}
 	}
 	if (KEYMANAGER->isStayKeyDown(VK_NUMPAD6))
 	{
 		if (!m_vecCharacter[1]->GetInven())
-			m_vecCharacter[1]->GetRoot()->SetChefAnimation(CHEF_STATE_MOVE);
+			m_vecCharacter[1]->SetChefAnimation(CHEF_STATE_MOVE);
 		else
-			m_vecCharacter[1]->GetRoot()->SetChefAnimation(CHEF_STATE_TRANCEPORT_MOVE);
+			m_vecCharacter[1]->SetChefAnimation(CHEF_STATE_TRANCEPORT_MOVE);
 
 		m_StPlayerAtrribute[1].st_vDirectionX = D3DXVECTOR3(1, 0, 0);
 	}
 	if (KEYMANAGER->isStayKeyDown(VK_NUMPAD4))
 	{
 		if (!m_vecCharacter[1]->GetInven())
-			m_vecCharacter[1]->GetRoot()->SetChefAnimation(CHEF_STATE_MOVE);
+			m_vecCharacter[1]->SetChefAnimation(CHEF_STATE_MOVE);
 		else
-			m_vecCharacter[1]->GetRoot()->SetChefAnimation(CHEF_STATE_TRANCEPORT_MOVE);
+			m_vecCharacter[1]->SetChefAnimation(CHEF_STATE_TRANCEPORT_MOVE);
 
 		m_StPlayerAtrribute[1].st_vDirectionX = D3DXVECTOR3(-1, 0, 0);
 	}
 	if (KEYMANAGER->isOnceKeyUp(VK_NUMPAD4))
 	{
 		if (!m_vecCharacter[1]->GetInven())
-			m_vecCharacter[1]->GetRoot()->SetChefAnimation(CHEF_STATE_IDLE);
+			m_vecCharacter[1]->SetChefAnimation(CHEF_STATE_IDLE);
 		else
-			m_vecCharacter[1]->GetRoot()->SetChefAnimation(CHEF_STATE_TRANCEPORT_IDLE);
+			m_vecCharacter[1]->SetChefAnimation(CHEF_STATE_TRANCEPORT_IDLE);
 
 		m_StPlayerAtrribute[1].st_vDirectionX = D3DXVECTOR3(0, 0, 0);
 	}
 	if (KEYMANAGER->isOnceKeyUp(VK_NUMPAD6))
 	{
 		if (!m_vecCharacter[1]->GetInven())
-			m_vecCharacter[1]->GetRoot()->SetChefAnimation(CHEF_STATE_IDLE);
+			m_vecCharacter[1]->SetChefAnimation(CHEF_STATE_IDLE);
 		else
-			m_vecCharacter[1]->GetRoot()->SetChefAnimation(CHEF_STATE_TRANCEPORT_IDLE);
+			m_vecCharacter[1]->SetChefAnimation(CHEF_STATE_TRANCEPORT_IDLE);
 		m_StPlayerAtrribute[1].st_vDirectionX = D3DXVECTOR3(0, 0, 0);
 	}
 	if (KEYMANAGER->isStayKeyDown(VK_NUMPAD8))
 	{
 		if (!m_vecCharacter[1]->GetInven())
-			m_vecCharacter[1]->GetRoot()->SetChefAnimation(CHEF_STATE_MOVE);
+			m_vecCharacter[1]->SetChefAnimation(CHEF_STATE_MOVE);
 		else
-			m_vecCharacter[1]->GetRoot()->SetChefAnimation(CHEF_STATE_TRANCEPORT_MOVE);
+			m_vecCharacter[1]->SetChefAnimation(CHEF_STATE_TRANCEPORT_MOVE);
 
 		m_StPlayerAtrribute[1].st_vDirectionZ = D3DXVECTOR3(0, 0, 1);
 	}
 	if (KEYMANAGER->isStayKeyDown(VK_NUMPAD5))
 	{
 		if (!m_vecCharacter[1]->GetInven())
-			m_vecCharacter[1]->GetRoot()->SetChefAnimation(CHEF_STATE_MOVE);
+			m_vecCharacter[1]->SetChefAnimation(CHEF_STATE_MOVE);
 		else
-			m_vecCharacter[1]->GetRoot()->SetChefAnimation(CHEF_STATE_TRANCEPORT_MOVE);
+			m_vecCharacter[1]->SetChefAnimation(CHEF_STATE_TRANCEPORT_MOVE);
 
 		m_StPlayerAtrribute[1].st_vDirectionZ = D3DXVECTOR3(0, 0, -1);
 	}
 	if (KEYMANAGER->isOnceKeyUp(VK_NUMPAD8))
 	{
 		if (!m_vecCharacter[1]->GetInven())
-			m_vecCharacter[1]->GetRoot()->SetChefAnimation(CHEF_STATE_IDLE);
+			m_vecCharacter[1]->SetChefAnimation(CHEF_STATE_IDLE);
 		else
-			m_vecCharacter[1]->GetRoot()->SetChefAnimation(CHEF_STATE_TRANCEPORT_IDLE);
+			m_vecCharacter[1]->SetChefAnimation(CHEF_STATE_TRANCEPORT_IDLE);
 
 		m_StPlayerAtrribute[1].st_vDirectionZ = D3DXVECTOR3(0, 0, 0);
 	}
 	if (KEYMANAGER->isOnceKeyUp(VK_NUMPAD5))
 	{
 		if (!m_vecCharacter[1]->GetInven())
-			m_vecCharacter[1]->GetRoot()->SetChefAnimation(CHEF_STATE_IDLE);
+			m_vecCharacter[1]->SetChefAnimation(CHEF_STATE_IDLE);
 		else
-			m_vecCharacter[1]->GetRoot()->SetChefAnimation(CHEF_STATE_TRANCEPORT_IDLE);
+			m_vecCharacter[1]->SetChefAnimation(CHEF_STATE_TRANCEPORT_IDLE);
 
 		m_StPlayerAtrribute[1].st_vDirectionZ = D3DXVECTOR3(0, 0, 0);
 	}
@@ -480,14 +480,14 @@ void cCharacterControl::Move()
 					m_vecCharacter[i]->GetDir() = D3DXVECTOR3(-1, 0, 1);
 			}
 			
-			if (m_vecCharacter[i]->GetRoot()->GetCHEF_STATE() == CHEF_STATE_BOOSTER_MOVE)
+			if (m_vecCharacter[i]->GetCHEF_STATE() == CHEF_STATE_BOOSTER_MOVE)
 			{
 				m_vecCharacter[i]->GetPos() += m_vecCharacter[i]->GetDir() *  (CharacterSpeed + m_StPlayerAtrribute[i].st_fCharacterBOOSTERSpeed);
 				m_vecCharacter[i]->GetToGo() = m_vecCharacter[i]->GetDir() *  (CharacterSpeed + m_StPlayerAtrribute[i].st_fCharacterBOOSTERSpeed);
 			}
 			else
 			{
-				if (m_vecCharacter[i]->GetRoot()->GetCHEF_STATE() == CHEF_STATE_IDLE || m_vecCharacter[i]->GetRoot()->GetCHEF_STATE() == CHEF_STATE_TRANCEPORT_IDLE)
+				if (m_vecCharacter[i]->GetCHEF_STATE() == CHEF_STATE_IDLE || m_vecCharacter[i]->GetCHEF_STATE() == CHEF_STATE_TRANCEPORT_IDLE)
 				{
 					m_vecCharacter[i]->GetPos() += m_StPlayerAtrribute[i].st_vDirection *  (0.0f);
 				}
@@ -500,7 +500,7 @@ void cCharacterControl::Move()
 			
 			D3DXMATRIX matR, matT;
 
-			if (m_vecCharacter[i]->GetRoot()->GetCHEF_STATE() == CHEF_STATE_MOVE || m_vecCharacter[i]->GetRoot()->GetCHEF_STATE() == CHEF_STATE_TRANCEPORT_MOVE)
+			if (m_vecCharacter[i]->GetCHEF_STATE() == CHEF_STATE_MOVE || m_vecCharacter[i]->GetCHEF_STATE() == CHEF_STATE_TRANCEPORT_MOVE)
 			{
 				m_StPlayerAtrribute[i].st_fAngle = atan2f(-m_StPlayerAtrribute[i].st_vDirection.z, m_StPlayerAtrribute[i].st_vDirection.x) + D3DX_PI / 2.0f;
 			}
@@ -544,53 +544,12 @@ void cCharacterControl::Booster()
 		if (m_StPlayerAtrribute[i].st_fCharacterBOOSTERSpeed <= 0.0f)
 		{
 			if(m_StPlayerAtrribute[i].st_BisBooster)
-				m_vecCharacter[i]->GetRoot()->SetChefAnimation(CHEF_STATE_IDLE);
+				m_vecCharacter[i]->SetChefAnimation(CHEF_STATE_IDLE);
 			m_StPlayerAtrribute[i].st_BisBooster = false;
 			m_StPlayerAtrribute[i].st_fCharacterBOOSTERSpeed = 0.0f;
 		
 		}
 	}
-}
-
-BOOL cCharacterControl::CheckChefIntersect()
-{
-	float fDistance;
-	D3DXVECTOR3 vDiff;
-
-	vDiff = m_vecCharacter[0]->GetPos() - m_vecCharacter[1]->GetPos();
-	fDistance = D3DXVec3Length(&vDiff);
-
-	if (fDistance <= (m_vecCharacter[0]->Getradius() + m_vecCharacter[1]->Getradius()))
-		return true;
-	return false;
-}
-
-void cCharacterControl::ChefIntersectMove()
-{
-
-	D3DXVECTOR3 vChefIntersect1 = -(m_vecCharacter[0]->GetPos() - m_vecCharacter[1]->GetPos());
-	D3DXVec3Normalize(&vChefIntersect1, &vChefIntersect1);
-	m_vecCharacter[1]->GetPos() += vChefIntersect1 * (CharacterSpeed + m_StPlayerAtrribute[0].st_fCharacterBOOSTERSpeed);
-	D3DXMATRIX  matR1, matT1;
-	D3DXMatrixIdentity(&matT1);
-	D3DXMatrixRotationY(&matR1, m_StPlayerAtrribute[1].st_fAngle);
-	D3DXMatrixTranslation(&matT1, m_vecCharacter[1]->GetPos().x, m_vecCharacter[1]->GetPos().y, m_vecCharacter[1]->GetPos().z);
-	D3DXVec3TransformNormal(&m_StPlayerAtrribute[1].st_vDirection, &D3DXVECTOR3(0, 0, 1), &matT1);
-	m_StPlayerAtrribute[1].st_matPlayer = matR1 * matT1;
-	m_vecCharacter[1]->GetRoot()->SetParentWorldTM(&m_StPlayerAtrribute[1].st_matPlayer);
-
-
-	D3DXVECTOR3 vChefIntersect2 = -(m_vecCharacter[1]->GetPos() - m_vecCharacter[0]->GetPos());
-	D3DXVec3Normalize(&vChefIntersect2, &vChefIntersect2);
-	m_vecCharacter[0]->GetPos() += vChefIntersect2 * (CharacterSpeed + m_StPlayerAtrribute[1].st_fCharacterBOOSTERSpeed);
-	D3DXMATRIX matR2, matT2;
-	D3DXMatrixIdentity(&matT2);
-	D3DXMatrixTranslation(&matT2, m_vecCharacter[0]->GetPos().x, m_vecCharacter[0]->GetPos().y, m_vecCharacter[0]->GetPos().z);
-	D3DXMatrixRotationY(&matR2, m_StPlayerAtrribute[0].st_fAngle);
-	D3DXVec3TransformNormal(&m_StPlayerAtrribute[0].st_vDirection, &D3DXVECTOR3(0, 0, 1), &matT2);
-	m_StPlayerAtrribute[0].st_matPlayer = matR2 * matT2;
-	m_vecCharacter[0]->GetRoot()->SetParentWorldTM(&m_StPlayerAtrribute[0].st_matPlayer);
-
 }
 
 cChef * cCharacterControl::GetControlPlayer()

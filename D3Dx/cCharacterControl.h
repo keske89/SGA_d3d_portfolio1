@@ -62,8 +62,6 @@ public:
 	void Move();
 
 	void Booster();
-	BOOL CheckChefIntersect();
-	void ChefIntersectMove();
 	ST_PLAYER_ATTRIBUTE* GetAtribute(IN cChef * _Chef)
 	{
 		if (m_vecCharacter[0] == _Chef)

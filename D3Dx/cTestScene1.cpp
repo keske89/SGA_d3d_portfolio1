@@ -100,15 +100,6 @@ void cTestScene1::Update()
 		m_pCollision->Update();
 
 
-	if (m_pChef[0]->GetDetect())
-	{
-		if (m_pChef[0]->GetRoot()->GetCHEF_STATE() == CHEF_STATE::CHEF_STATE_ACTION)
-		{
-			m_pChef[0]->m_pStageOBJ->ObjAction(m_pChef[0]);
-		}
-
-	}
-
 }
 
 void cTestScene1::Render()

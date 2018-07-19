@@ -5,7 +5,6 @@
 cChefRoot::cChefRoot()
 	: m_pTexture(NULL)
 	, m_pMesh(NULL)
-	, m_eChefstate(CHEF_STATE_IDLE)
 	, m_vLocalPos(0, 0, 0)
 	, m_fRotX(0.0f)
 	, m_fRotY(0.0f)

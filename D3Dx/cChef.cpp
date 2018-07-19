@@ -20,6 +20,7 @@ cChef::cChef()
 	, m_pInven(NULL)
 	, m_pDetect(NULL)
 	, m_fRadius(0.5f)
+	, m_eChefstate(CHEF_STATE_IDLE)
 {
 }
 
@@ -71,13 +72,13 @@ void cChef::Update()
 		m_pInven->SetWorldMatrix(mat);
 	}
 
-	Animation(m_pRoot);
+	Animation(m_pRoot,m_eChefstate);
 
 	if (m_pRoot)
 		m_pRoot->Update();
 	if (m_pDetect)
 	{
-		if (m_pRoot->GetCHEF_STATE() == CHEF_STATE::CHEF_STATE_ACTION)
+		if (m_eChefstate == CHEF_STATE::CHEF_STATE_ACTION)
 		{
 			m_pStageOBJ->ObjAction(this);
 		}
@@ -85,7 +86,7 @@ void cChef::Update()
 	}
 	for (int i = 0; i < m_vecPuff.size();i++)
 	{
-		if (m_pRoot->GetCHEF_STATE() == CHEF_STATE_BOOSTER_MOVE)
+		if (m_eChefstate == CHEF_STATE_BOOSTER_MOVE)
 		{
 			if(i<20)
 				m_vecPuff[i]->BoomMod(m_vdir);
@@ -131,7 +132,7 @@ void cChef::SetMaterial()
 
 void cChef::runPuffCreate()
 {
-	if (m_pRoot->GetCHEF_STATE() == CHEF_STATE_MOVE || m_pRoot->GetCHEF_STATE() == CHEF_STATE_TRANCEPORT_MOVE)
+	if (m_eChefstate == CHEF_STATE_MOVE || m_eChefstate == CHEF_STATE_TRANCEPORT_MOVE)
 	{
 		cChefRunPuff * _runPuff = new cChefRunPuff;
 		D3DXVECTOR3 vP = m_vPosition - (m_vdir*0.5f);
@@ -149,7 +150,7 @@ void cChef::runPuffCreate()
 
 		}
 	}
-	else if (m_pRoot->GetCHEF_STATE() == CHEF_STATE_BOOSTER_MOVE)
+	else if (m_eChefstate == CHEF_STATE_BOOSTER_MOVE)
 	{
 		for (int i = 0; i < 20; i++)
 		{

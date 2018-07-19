@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "cChefAnimation.h"
 #include "cChefRoot.h"
-
+#include "cChef.h"
 cChefAnimation::cChefAnimation()
 	: m_fRotX(0.0f)
 	, m_fRotY(0.0f)
@@ -17,11 +17,11 @@ cChefAnimation::~cChefAnimation()
 {
 }
 
-void cChefAnimation::Animation(cChefRoot * _cChefRoot)
+void cChefAnimation::Animation(cChefRoot * _cChefRoot, int _CHEF_STATE)
 {
 	D3DXMATRIX matS, matT, matT2, matRX, matRY, matRZ, matR, matOld, matAni;
 
-	switch (_cChefRoot->GetCHEF_STATE())
+	switch (_CHEF_STATE)
 	{
 	case CHEF_STATE_IDLE:
 	{
@@ -31,8 +31,8 @@ void cChefAnimation::Animation(cChefRoot * _cChefRoot)
 		_cChefRoot->GetChild()[0]->SetmatLocal(matT2);
 		_cChefRoot->GetChild()[1]->SetmatLocal(matOld);
 		_cChefRoot->GetChild()[2]->SetmatLocal(matOld);
-		_cChefRoot->GetChild()[3]->SetmatLocal(matT);
 		_cChefRoot->GetChild()[2]->Setmesh(ObJMANAGER->GetMesh(L"Hand_Open_R #000539.obj"));
+		_cChefRoot->GetChild()[3]->SetmatLocal(matT);
 	}
 	break;
 	case CHEF_STATE_MOVE:
