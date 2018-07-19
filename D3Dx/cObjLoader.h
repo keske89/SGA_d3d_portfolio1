@@ -5,8 +5,6 @@
 class cObjLoader
 {
 private:
-	CString m_filePath;
-	//map<CString, MTLTEX*> m_mtltexList;
 
 public:
 	cObjLoader();

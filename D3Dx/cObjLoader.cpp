@@ -23,6 +23,7 @@ LPD3DXMESH cObjLoader::LoadMesh(LPCTSTR filepath, LPCTSTR filename, D3DXMATRIX *
 	CString mtlName;
 	char token[TOKEN_SIZE];
 
+	CString m_filePath;
 	m_filePath = filepath;
 
 	std::ifstream fin;
@@ -129,6 +130,7 @@ LPD3DXMESH cObjLoader::ObjectLoadMesh(LPCTSTR filepath, LPCTSTR filename, D3DXMA
 	int id = -2;
 	char token[TOKEN_SIZE];
 
+	CString m_filePath;
 	m_filePath = filepath;
 
 	std::ifstream fin;
