@@ -3,14 +3,16 @@
 
 
 cStage::cStage()
-	: m_pMesh(NULL)
 {
 }
 
 
 cStage::~cStage()
 {
-	SAFE_RELEASE(m_pMesh);
+	for (int i = 0; i < m_vecMesh.size(); ++i)
+	{
+		SAFE_RELEASE(m_vecMesh[i]);
+	}
 }
 
 void cStage::Setup(int stageNum, vector<pair<int, D3DXMATRIX>>& vecNewObj, vector<pair<int, D3DXMATRIX>>& vecSetObj, map<pair<int, int>, int>& mapBlock, D3DXVECTOR3& player1Location, D3DXVECTOR3& player2Location)
@@ -49,39 +51,55 @@ void cStage::Setup(int stageNum, vector<pair<int, D3DXMATRIX>>& vecNewObj, vecto
 	ReadFile(file, &vecVertex[0], sizeof(ST_PNT_VERTEX) * maxVectorSize, &read, NULL);
 	ReadFile(file, &vecIndex[0], sizeof(WORD) * maxVectorSize, &read, NULL);
 	ReadFile(file, &vecAttribute[0], sizeof(DWORD) * maxVectorSize / 3, &read, NULL);
-	int test = 0;
-	D3DXCreateMeshFVF(
-		maxVectorSize / 3,
-		maxVectorSize,
-		D3DXMESH_MANAGED,
-		ST_PNT_VERTEX::FVF,
-		g_pD3DDevice,
-		&m_pMesh);
 
-	ST_PNT_VERTEX* verticies = NULL;
-	WORD* index = NULL;
-	DWORD* attribute = NULL;
-	m_pMesh->LockVertexBuffer(0, (LPVOID*)&verticies);
-	memcpy(verticies, &vecVertex[0], vecVertex.size() * sizeof(ST_PNT_VERTEX));
-	m_pMesh->UnlockVertexBuffer();
-	m_pMesh->LockIndexBuffer(0, (LPVOID*)&index);
-	memcpy(index, &vecIndex[0], vecIndex.size() * sizeof(WORD));
-	m_pMesh->UnlockIndexBuffer();
-	m_pMesh->LockAttributeBuffer(0, &attribute);
-	memcpy(attribute, &vecAttribute[0], vecAttribute.size() * sizeof(DWORD));
-	m_pMesh->UnlockAttributeBuffer();
+	int forSize = maxVectorSize / MAX_VEC_SIZE;
+	int vecRest = maxVectorSize % MAX_VEC_SIZE;
+	for (int i = 0; i < forSize + 1; ++i)
+	{
+		int vecSize = 0;
+		if (i == forSize) vecSize = vecRest;
+		else vecSize = MAX_VEC_SIZE;
 
-	//vector<DWORD> adjacencyInfo(m_pMesh->GetNumFaces() * 3);
-	//vector<DWORD> optimizedAdjacencyInfo(m_pMesh->GetNumFaces() * 3);
-	//m_pMesh->GenerateAdjacency(0.0f, &adjacencyInfo[0]);
-	//m_pMesh->OptimizeInplace(
-	//	D3DXMESHOPT_ATTRSORT |
-	//	D3DXMESHOPT_COMPACT |
-	//	D3DXMESHOPT_VERTEXCACHE,
-	//	&adjacencyInfo[0],
-	//	&optimizedAdjacencyInfo[0],
-	//	0,
-	//	0);
+		LPD3DXMESH tempMesh;
+		D3DXCreateMeshFVF(
+			vecSize / 3,
+			vecSize,
+			D3DXMESH_MANAGED,
+			ST_PNT_VERTEX::FVF,
+			g_pD3DDevice,
+			&tempMesh);
+
+		ST_PNT_VERTEX* verticies = NULL;
+		WORD* index = NULL;
+		DWORD* attribute = NULL;
+		tempMesh->LockVertexBuffer(0, (LPVOID*)&verticies);
+		vector<ST_PNT_VERTEX> testVertex;
+		testVertex.resize(vecSize);
+		memcpy(&testVertex[0], &vecVertex[i * MAX_VEC_SIZE], vecSize * sizeof(ST_PNT_VERTEX));
+		memcpy(verticies, &vecVertex[i * MAX_VEC_SIZE], vecSize * sizeof(ST_PNT_VERTEX));
+		tempMesh->UnlockVertexBuffer();
+		tempMesh->LockIndexBuffer(0, (LPVOID*)&index);
+		memcpy(index, &vecIndex[i * MAX_VEC_SIZE], vecSize * sizeof(WORD));
+		tempMesh->UnlockIndexBuffer();
+		tempMesh->LockAttributeBuffer(0, &attribute);
+		memcpy(attribute, &vecAttribute[(i * MAX_VEC_SIZE) / 3], (vecSize / 3) * sizeof(DWORD));
+		tempMesh->UnlockAttributeBuffer();
+
+		//vector<DWORD> adjacencyInfo(tempMesh->GetNumFaces() * 3);
+		//vector<DWORD> optimizedAdjacencyInfo(tempMesh->GetNumFaces() * 3);
+		//tempMesh->GenerateAdjacency(0.0f, &adjacencyInfo[0]);
+		//tempMesh->OptimizeInplace(
+		//	D3DXMESHOPT_ATTRSORT |
+		//	D3DXMESHOPT_COMPACT |
+		//	D3DXMESHOPT_VERTEXCACHE,
+		//	&adjacencyInfo[0],
+		//	&optimizedAdjacencyInfo[0],
+		//	0,
+		//	0);
+
+		m_vecMesh.push_back(tempMesh);
+	}
+	
 
 	int maxObjSize = 0;
 	D3DXMATRIX matTemp;
@@ -132,7 +150,10 @@ void cStage::Render()
 	for (int i = 0; i < m_vecTex.size(); ++i)
 	{
 		g_pD3DDevice->SetTexture(0, g_pTextureManager->GetTexture(m_vecTex[i].c_str()));
-		m_pMesh->DrawSubset(i);
+		for (int j = 0; j < m_vecMesh.size(); ++j)
+		{
+			m_vecMesh[j]->DrawSubset(i);
+		}
 	}
 }
 

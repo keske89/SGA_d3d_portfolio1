@@ -1,9 +1,9 @@
 #pragma once
-
+#define MAX_VEC_SIZE 45000
 class cStage 
 {
 private:
-	LPD3DXMESH						m_pMesh;
+	vector<LPD3DXMESH>				m_vecMesh;
 	vector<wstring>					m_vecTex;
 public:
 	cStage();

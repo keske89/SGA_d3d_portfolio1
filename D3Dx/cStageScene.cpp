@@ -118,8 +118,8 @@ void cStageScene::Render()
 	if (m_pStage)
 		m_pStage->Render();
 
-	if (m_pGrid)
-		m_pGrid->Render();
+	//if (m_pGrid)
+	//	m_pGrid->Render();
 
 	if (m_pSOM)
 		m_pSOM->Render();
