@@ -254,8 +254,8 @@ void cStageMapTool::Render()
 	if (m_pUI)
 		m_pUI->Render();
 
-	if (m_pBG)
-		m_pBG->Render(1);
+	//if (m_pBG)
+	//	m_pBG->Render(1);
 
 
 	g_pD3DDevice->SetFVF(ST_PNT_VERTEX::FVF);
