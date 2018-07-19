@@ -32,9 +32,13 @@ void cPlate::Render()
 
 void cPlate::Setup(D3DXMATRIX matWorld, D3DXVECTOR3 pos, int lidtype)
 {
+	D3DXMATRIX matT;
+	D3DXMatrixIdentity(&matT);
+	D3DXMatrixTranslation(&matT, 0, 0.05f, 0);
 	m_vPos.x = matWorld._41;
 	m_vPos.y = matWorld._42;
 	m_vPos.z = matWorld._43;
+	m_matLocal = matT;
 	m_matWorld = matWorld;
 	m_eState = OBJ_STATIC;
 	m_nObjectType = lidtype;

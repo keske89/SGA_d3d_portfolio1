@@ -35,15 +35,24 @@ void cKnife::Render()
 
 void cKnife::Setup(D3DXMATRIX matWorld, D3DXVECTOR3 pos, int lidtype)
 {
-	D3DXMATRIX matS, matR, matT;
+	D3DXVECTOR3 vY(0.0f, 1.0f, 0.0f);
+	D3DXVECTOR3 vX(0.0f, 0.0f, 1.0f);
+	D3DXMATRIX matS, rotX, rotY, matT;
 	D3DXMatrixIdentity(&matS);
-	D3DXMatrixIdentity(&matR);
+	D3DXMatrixIdentity(&rotX);
+	D3DXMatrixIdentity(&rotY);
+
 	D3DXMatrixIdentity(&matT);
 
+	D3DXMatrixScaling(&matS, 0.7f, 0.7f, 0.7f);
+	D3DXMatrixTranslation(&matT, -0.3f, -0.28f, 0.3f);
+	D3DXMatrixRotationAxis(&rotX, &vX, -D3DX_PI / 2);
+	D3DXMatrixRotationAxis(&rotY, &vY, D3DX_PI / 2);
 
 	m_vPos.x = matWorld._41;
 	m_vPos.y = matWorld._42;
 	m_vPos.z = matWorld._43;
+	m_matLocal = matS * rotX * rotY * matT;
 	m_matWorld = matWorld;
 	m_eState = OBJ_STATIC;
 	m_nObjectType = lidtype;

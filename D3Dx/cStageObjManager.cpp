@@ -359,6 +359,7 @@ std::list<cIGObj*>::iterator cStageObjManager:: SetIngameObject(OBJECTTYPE objty
 		m_Plate = new cPlate;
 		m_Plate->Setup(matWorld, D3DXVECTOR3(matWorld._41, matWorld._42, matWorld._43), AOBJ_PLATE);
 		m_Counter->SetInven(m_Plate);
+		m_listFoodObj.push_back(m_Plate);
 		iter = m_listObj.insert(m_listObj.end(), m_Counter);
 		return iter;
 		break;
@@ -371,6 +372,7 @@ std::list<cIGObj*>::iterator cStageObjManager:: SetIngameObject(OBJECTTYPE objty
 		m_Knife->Setup(matWorld, D3DXVECTOR3(matWorld._41, matWorld._42, matWorld._43), 0);
 		m_ChoppingBoard->AddChild(m_Knife);
 		m_Counter->SetInven(m_ChoppingBoard);
+		m_listFoodObj.push_back(m_ChoppingBoard);
 		iter = m_listObj.insert(m_listObj.end(), m_Counter);
 		return iter;
 		break;
