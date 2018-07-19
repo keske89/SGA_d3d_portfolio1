@@ -60,6 +60,7 @@ void cCharacterControl::ControlAction()
 		{
 			if (m_vecCharacter[i]->GetDetect())
 			{
+				m_vecCharacter[i]->GetDetect()->Setplayer(m_vecCharacter[i]);
 				if (KEYMANAGER->isOnceKeyDown(VK_LCONTROL))
 				{
 					if (m_vecCharacter[i]->GetDetect()->GetObjectType() == 30)
