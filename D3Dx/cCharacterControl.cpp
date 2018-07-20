@@ -104,17 +104,28 @@ void cCharacterControl::ControlAction()
 		}
 		if (KEYMANAGER->isOnceKeyDown('C'))
 		{
-			//오브젝트
+			//오브젝트가 디텍트가 되면
 			if (m_vecCharacter[m_Bswitch]->GetDetect())
 			{
+				// 캐릭터의 인벤이 비워져 있으면
 				if (m_vecCharacter[m_Bswitch]->GetInven() == NULL)
 				{
+					//캐릭터의 인벤이 있으면
 					if (m_vecCharacter[m_Bswitch]->GetDetect()->GetInven())
 					{
+						//캐릭터와 캐릭터가 디텍트를 공유하고 있지않으면
 						if (m_vecCharacter[m_Bswitch]->GetDetect() != m_vecCharacter[!m_Bswitch]->GetDetect())
 						{
-							m_vecCharacter[m_Bswitch]->SetInven(m_vecCharacter[m_Bswitch]->GetDetect()->GetInven());
-							m_vecCharacter[m_Bswitch]->GetDetect()->SetInven(NULL);
+							if (m_vecCharacter[m_Bswitch]->GetDetect()->GetInven()->GetInven())
+							{
+								m_vecCharacter[m_Bswitch]->SetInven(m_vecCharacter[m_Bswitch]->GetDetect()->GetInven()->GetInven());
+								m_vecCharacter[m_Bswitch]->GetDetect()->GetInven()->SetInven(NULL);
+							}
+							else if (m_vecCharacter[m_Bswitch]->GetDetect()->GetInven())
+							{
+								m_vecCharacter[m_Bswitch]->SetInven(m_vecCharacter[m_Bswitch]->GetDetect()->GetInven());
+								m_vecCharacter[m_Bswitch]->GetDetect()->SetInven(NULL);
+							}
 						}
 					}
 					else
@@ -128,6 +139,12 @@ void cCharacterControl::ControlAction()
 					if (!m_vecCharacter[m_Bswitch]->GetDetect()->GetInven())
 					{
 						m_vecCharacter[m_Bswitch]->GetDetect()->SetInven(m_vecCharacter[m_Bswitch]->GetInven());
+						m_vecCharacter[m_Bswitch]->SetInven(NULL);
+						m_vecCharacter[m_Bswitch]->SetChefAnimation(CHEF_STATE_IDLE);
+					}
+					else if (!m_vecCharacter[m_Bswitch]->GetDetect()->GetInven()->GetInven())
+					{
+						m_vecCharacter[m_Bswitch]->GetDetect()->GetInven()->SetInven(m_vecCharacter[m_Bswitch]->GetInven());
 						m_vecCharacter[m_Bswitch]->SetInven(NULL);
 						m_vecCharacter[m_Bswitch]->SetChefAnimation(CHEF_STATE_IDLE);
 					}

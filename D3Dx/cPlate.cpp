@@ -43,7 +43,7 @@ void cPlate::Setup(D3DXMATRIX matWorld, D3DXVECTOR3 pos, int lidtype)
 	m_vPos.z = matWorld._43;
 	m_matLocal = matT;
 	m_matWorld = matWorld;
-	m_eState = OBJ_STATIC;
+	m_eState = OBJ_DYNAMIC;
 	m_nObjectType = lidtype;
 	m_bInteraction = false;
 	m_bIsUse = false;

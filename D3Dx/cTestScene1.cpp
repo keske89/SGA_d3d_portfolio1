@@ -111,31 +111,31 @@ void cTestScene1::Update()
 
 void cTestScene1::Render()
 {
-	//RECT rc;
-	//SetRect(&rc, 10, 100, 1000, 1000);
-	//bool chef =m_pChef[0]->GetDetect();
-	//if (chef)
-	//	chef = m_pChef[0]->GetDetect()->GetInven();
-	//char str[128];
-	//sprintf_s(str, "inven :: %d", chef);
-	//WCHAR strX[1024];
-	//MultiByteToWideChar(CP_ACP, 0, str, -1, strX, 1024);
+	RECT rc;
+	SetRect(&rc, 10, 100, 1000, 1000);
+	bool chef =m_pChef[0]->GetDetect();
+	if (chef)
+		chef = m_pChef[0]->GetDetect()->GetInven();
+	char str[128];
+	sprintf_s(str, "inven :: %d", chef);
+	WCHAR strX[1024];
+	MultiByteToWideChar(CP_ACP, 0, str, -1, strX, 1024);
 
-	//m_pFont->DrawText(NULL, strX, strlen(str), &rc,
-	//	DT_LEFT | DT_TOP | DT_NOCLIP, D3DCOLOR_XRGB(255, 0, 0));
+	m_pFont->DrawText(NULL, strX, strlen(str), &rc,
+		DT_LEFT | DT_TOP | DT_NOCLIP, D3DCOLOR_XRGB(255, 0, 0));
 
-	//RECT rcz;
-	//SetRect(&rcz, 10, 300, 1000, 1000);
-	//bool chefs = m_pChef[1]->GetDetect();
-	//if (chefs)
-	//	chefs = m_pChef[1]->GetDetect()->GetInven();
-	//char strs[128];
-	//sprintf_s(strs, " inven :: %d", chefs);
-	//WCHAR strXs[1024];
-	//MultiByteToWideChar(CP_ACP, 0, strs, -1, strXs, 1024);
+	RECT rcz;
+	SetRect(&rcz, 10, 300, 1000, 1000);
+	bool chefs = m_pChef[1]->GetDetect();
+	if (chefs)
+		chefs = m_pChef[1]->GetDetect()->GetInven();
+	char strs[128];
+	sprintf_s(strs, " inven :: %d", chefs);
+	WCHAR strXs[1024];
+	MultiByteToWideChar(CP_ACP, 0, strs, -1, strXs, 1024);
 
-	//m_pFont->DrawText(NULL, strXs, strlen(strs), &rcz,
-	//	DT_LEFT | DT_TOP | DT_NOCLIP, D3DCOLOR_XRGB(255, 0, 0));
+	m_pFont->DrawText(NULL, strXs, strlen(strs), &rcz,
+		DT_LEFT | DT_TOP | DT_NOCLIP, D3DCOLOR_XRGB(255, 0, 0));
 
 	if (m_pStage)
 		m_pStage->Render();
