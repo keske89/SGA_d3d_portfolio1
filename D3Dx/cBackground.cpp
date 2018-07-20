@@ -140,6 +140,7 @@ void cBackground::Setup(int num)
 
 void cBackground::Render(int num)
 {
+	SetupMaterials();
 	g_pD3DDevice->SetTransform(D3DTS_WORLD, &m_matWorld[num - 1]);
 	g_pD3DDevice->SetTexture(0, TEXTUREMANAGER->findTexture(m_strBackgroundName[num - 1]));
 	m_pMesh->DrawSubset(0);
@@ -166,4 +167,14 @@ void cBackground::AddVertex(vector<ST_PNT_VERTEX>& vector, D3DXVECTOR3 vp, D3DXV
 	stTemp.p = vp;
 	stTemp.t = vt;
 	vector.push_back(stTemp);
+}
+
+void cBackground::SetupMaterials()
+{
+	D3DMATERIAL9 mtrl;
+	ZeroMemory(&mtrl, sizeof(D3DMATERIAL9));
+	mtrl.Ambient = D3DXCOLOR(0.9f, 0.9f, 0.9f, 1.0f);
+	mtrl.Diffuse = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
+	mtrl.Specular = D3DXCOLOR(0.3f, 0.3f, 0.3f, 1.0f);
+	g_pD3DDevice->SetMaterial(&mtrl);
 }

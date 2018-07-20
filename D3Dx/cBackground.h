@@ -14,5 +14,6 @@ public:
 
 	void AddVertex(vector<ST_PNT_VERTEX>& vector, D3DXVECTOR3 vp, D3DXVECTOR2 vt);
 	void AddNormalVector(vector<ST_PNT_VERTEX>& vector, int reverse);
+	void SetupMaterials();
 };
 

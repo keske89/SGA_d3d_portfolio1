@@ -41,10 +41,10 @@ cStageScene::~cStageScene()
 void cStageScene::Setup()
 {
 	m_pStage = new cStage;
-	m_pStage->Setup(2, m_vNewObjData, m_vSetObjData, m_mapIsBlockedData, m_vecChefPos[0], m_vecChefPos[1]);
+	m_pStage->Setup(DATABASE->GetstageNum(), m_vNewObjData, m_vSetObjData, m_mapIsBlockedData, m_vecChefPos[0], m_vecChefPos[1]);
 
 	m_pBG = new cBackground;
-	m_pBG->Setup(2);
+	m_pBG->Setup(DATABASE->GetstageNum());
 
 	m_pCamera = new cCamera;
 	m_pCamera->Setup();
@@ -75,7 +75,8 @@ void cStageScene::Setup()
 	m_pSOM->Setplayer2(m_pChef[1]);
 
 	m_pCamera->setVLookAt(m_pControl->GetControlPlayer()->GetPos());
-	m_pCamera->setRotX(D3DX_PI / 3);
+	m_pCamera->setRotX(D3DX_PI / 4);
+	m_pCamera->setDistance(10.0f);
 
 	m_pCollision = new cCollision;
 	m_pCollision->setPlayerMemoryAddressLink(0, m_pChef[0]);
