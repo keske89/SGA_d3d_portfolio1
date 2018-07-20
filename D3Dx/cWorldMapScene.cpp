@@ -192,6 +192,11 @@ void cWorldMapScene::Update()
 			m_pStage[i]->setStar(m_nStar[i]);
 		}
 	}
+
+	if (KEYMANAGER->isOnceKeyDown('Q'))
+	{
+		m_bIsStageclear[5] = true;
+	}
 }
 
 DWORD FtoDw(float f) { return *((DWORD*)&f); }
