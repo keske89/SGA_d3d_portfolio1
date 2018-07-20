@@ -123,12 +123,13 @@ void cWorldMapScene::Update()
 	}
 	else if (_isChange)
 	{
-		_alpha1++;
+		_alpha1+=3;
 		if (_alpha1 >= 255)
 		{
-			if (_nextScene == "TestScene1")
+			if (_nextScene == "StageScene")
 			{
-				SCENEMANAGER->ChangeScene("TestScene1");
+				DATABASE->SetstageNum(2);
+				SCENEMANAGER->ChangeScene("StageScene");
 				SCENEMANAGER->Setup();
 			}
 		}
@@ -157,7 +158,7 @@ void cWorldMapScene::Update()
 			{
 				if (KEYMANAGER->isOnceKeyDown(VK_SPACE))
 				{
-					_nextScene = "TestScene1";
+					_nextScene = "StageScene";
 					_isChange = true;
 				}
 

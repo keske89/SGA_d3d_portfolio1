@@ -21,6 +21,7 @@ void database::Setup()
 	{
 		m_bIsStageclear[i] = true;
 		m_nStageStar[i] = 2;
+		m_nStageNum = 2;
 	}
 
 }
