@@ -21,6 +21,8 @@ void cPlate::Update()
 	m_vPos.x = m_matWorld._41;
 	m_vPos.y = m_matWorld._42;
 	m_vPos.z = m_matWorld._43;
+
+	Inventory();
 }
 
 void cPlate::Render()
@@ -74,5 +76,17 @@ void cPlate::SetLight()
 		m_stMtl.Ambient = D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.5f);
 		m_stMtl.Diffuse = D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.5f);
 		m_stMtl.Specular = D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.5f);
+	}
+}
+
+void cPlate::Inventory()
+{
+	if (m_Inven != NULL)
+	{
+		D3DXMATRIX matT;
+		D3DXMatrixIdentity(&matT);
+		D3DXMatrixTranslation(&matT, 0, 0, 0);
+
+		m_Inven->SetWorldMatrix(matT * m_matLocal * m_matWorld);
 	}
 }
