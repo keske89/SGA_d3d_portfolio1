@@ -118,12 +118,12 @@ void cChef::Render()
 
 	g_pD3DDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
 
+	if (m_pRoot)
+		m_pRoot->Render();
 	for (int i = 0; i < m_vecPuff.size(); i++)
 	{
 		m_vecPuff[i]->Render();
 	}
-	if (m_pRoot)
-		m_pRoot->Render();
 }
 
 void cChef::SetMaterial()
