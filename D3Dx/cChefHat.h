@@ -5,7 +5,7 @@ class cChefHat :
 {
 public:
 	cChefHat();
-	~cChefHat();
+	virtual~cChefHat();
 	virtual void SetUp();
 };
 
