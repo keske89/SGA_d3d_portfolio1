@@ -26,9 +26,8 @@ void cChefAnimation::Animation(cChefRoot * _cChefRoot, int _CHEF_STATE)
 		case CHEF_STATE_IDLE:
 		{
 			D3DXMatrixIdentity(&matOld);
-			D3DXMatrixTranslation(&matT2, 3.43f, 0, 0);
 			D3DXMatrixTranslation(&matT, 0, -100, 0);
-			_cChefRoot->GetChild()[0]->SetmatLocal(matT2);
+			_cChefRoot->GetChild()[0]->SetmatLocal(matOld);
 			_cChefRoot->GetChild()[2]->SetmatLocal(matOld);
 			_cChefRoot->GetChild()[3]->SetmatLocal(matOld);
 			_cChefRoot->GetChild()[3]->Setmesh(ObJMANAGER->GetMesh(L"Hand_Open_R #000539.obj"));
@@ -37,9 +36,7 @@ void cChefAnimation::Animation(cChefRoot * _cChefRoot, int _CHEF_STATE)
 		break;
 		case CHEF_STATE_MOVE:
 		{
-			D3DXMatrixTranslation(&matT2, 3.43f, 0, 0);
 			D3DXMatrixTranslation(&matT, 0, -100, 0);
-			_cChefRoot->GetChild()[0]->SetmatLocal(matT2);
 			_cChefRoot->GetChild()[3]->Setmesh(ObJMANAGER->GetMesh(L"Hand_Open_R #000539.obj"));
 			_cChefRoot->GetChild()[4]->SetmatLocal(matT);
 			for (int i = 0; i < _cChefRoot->GetChild().size() - 1; i++)
@@ -48,15 +45,15 @@ void cChefAnimation::Animation(cChefRoot * _cChefRoot, int _CHEF_STATE)
 				if (0 == i)
 				{
 					m_fRotY += m_fRotDeltaY;
-					if (m_fRotY > D3DX_PI / 8.0f)
+					if (m_fRotY > D3DX_PI / 15.0f)
 					{
-						m_fRotY = D3DX_PI / 8.0f;
+						m_fRotY = D3DX_PI / 15.0f;
 						m_fRotDeltaY *= -1.0;
 					}
 
-					if (m_fRotY < -D3DX_PI / 8.0f)
+					if (m_fRotY < -D3DX_PI / 15.0f)
 					{
-						m_fRotY = -D3DX_PI / 8.0f;
+						m_fRotY = -D3DX_PI / 15.0f;
 						m_fRotDeltaY *= -1.0;
 					}
 
@@ -98,7 +95,7 @@ void cChefAnimation::Animation(cChefRoot * _cChefRoot, int _CHEF_STATE)
 				D3DXMatrixRotationY(&matRY, m_fRotY);
 				D3DXMatrixTranslation(&matT, temp.x, temp.y, temp.z);
 				if(i == 0)
-					matAni = matT2  * matRY * matT;
+					matAni = _cChefRoot->GetChild()[i]->GetmatLocal()  *matRY * matT;
 				else
 					matAni = matRX * matRY * matT;
 				_cChefRoot->GetChild()[i]->SetmatLocal(matAni);
@@ -108,9 +105,7 @@ void cChefAnimation::Animation(cChefRoot * _cChefRoot, int _CHEF_STATE)
 		break;
 		case CHEF_STATE_TRANCEPORT_IDLE:
 		{
-			D3DXMatrixTranslation(&matT2, 3.43f, 0, 0);
 			D3DXMatrixTranslation(&matT, 0, -100, 0);
-			_cChefRoot->GetChild()[0]->SetmatLocal(matT2);
 			_cChefRoot->GetChild()[3]->Setmesh(ObJMANAGER->GetMesh(L"Hand_Open_R #000539.obj"));
 			_cChefRoot->GetChild()[4]->SetmatLocal(matT);
 			float f_tempAngle = 0;
@@ -148,9 +143,7 @@ void cChefAnimation::Animation(cChefRoot * _cChefRoot, int _CHEF_STATE)
 		break;
 		case CHEF_STATE_TRANCEPORT_MOVE:
 		{
-			D3DXMatrixTranslation(&matT2, 3.43f, 0, 0);
 			D3DXMatrixTranslation(&matT, 0, -100, 0);
-			_cChefRoot->GetChild()[0]->SetmatLocal(matT2);
 			_cChefRoot->GetChild()[3]->Setmesh(ObJMANAGER->GetMesh(L"Hand_Open_R #000539.obj"));
 			_cChefRoot->GetChild()[4]->SetmatLocal(matT);
 			float f_tempAngle = 0;
@@ -159,15 +152,15 @@ void cChefAnimation::Animation(cChefRoot * _cChefRoot, int _CHEF_STATE)
 				if (0 == i || 1 ==i)
 				{
 					m_fRotY += m_fRotDeltaY;
-					if (m_fRotY > D3DX_PI / 8.0f)
+					if (m_fRotY > D3DX_PI / 15.0f)
 					{
-						m_fRotY = D3DX_PI / 8.0f;
+						m_fRotY = D3DX_PI / 15.0f;
 						m_fRotDeltaY *= -1.0;
 					}
 
-					if (m_fRotY < -D3DX_PI / 8.0f)
+					if (m_fRotY < -D3DX_PI / 15.0f)
 					{
-						m_fRotY = -D3DX_PI / 8.0f;
+						m_fRotY = -D3DX_PI / 15.0f;
 						m_fRotDeltaY *= -1.0;
 					}
 
@@ -205,7 +198,7 @@ void cChefAnimation::Animation(cChefRoot * _cChefRoot, int _CHEF_STATE)
 				if (i == 0)
 				{
 					D3DXMatrixTranslation(&matT, temp.x, temp.y, temp.z);
-					matAni = matT2 * matRX * matRY * matT;
+					matAni = _cChefRoot->GetChild()[i]->GetmatLocal() * matRX * matRY * matT;
 				}
 				else if (i == 1)
 				{

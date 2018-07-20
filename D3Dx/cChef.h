@@ -44,7 +44,8 @@ private:
 public:
 	cChef();
 	~cChef();
-	void SetUp(IN D3DXVECTOR3 vPos, cCharacterControl * m_pControl = NULL);
+	void SetUp(IN D3DXVECTOR3 vPos,IN cCharacterControl * pControl = NULL);
+	//void SetUp(IN D3DXVECTOR3 vPos,IN int ChageImageNum,IN cCharacterControl * pControl = NULL);
 	void Relese();
 	void Update();
 	void Render();

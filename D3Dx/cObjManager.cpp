@@ -58,15 +58,25 @@ void cObjManager::Setup()
 
 	
 
-	//===============================================================PLAYER
+	//===============================================================PLAYER PARTS
 	SetMeshData(L"./Resources/Mesh/Player/", L"Body.obj", &matWorld);
-	SetMeshData(L"./Resources/Mesh/Player/", L"Chef_Bear.obj", &matWorld);
 	SetMeshData(L"./Resources/Mesh/Player/", L"Hand_Open_L1.obj", &matWorld);
 	SetMeshData(L"./Resources/Mesh/Player/", L"Hand_Grip_R #010449.obj", &matWorld);
 	SetMeshData(L"./Resources/Mesh/Player/", L"Hand_Open_R #000539.obj", &matWorld);
 	SetMeshData(L"./Resources/Mesh/Player/", L"Hat_Fancy #000039.obj", &matWorld);
 	SetMeshData(L"./Resources/Mesh/", L"RunPuff.obj", &matWorld);
-	//Hat_Fancy #000039
+	//===============================================================PLAYER HEAD
+	D3DXMATRIX matT;
+	D3DXMatrixTranslation(&matT, 3.43f, 0, 0);
+	SetMeshData(L"./Resources/Mesh/Player/", L"Chef_Bear.obj", &matT);
+	SetMeshData(L"./Resources/Mesh/Player/", L"Chef_Beard #010486.obj", &matWorld);
+	SetMeshData(L"./Resources/Mesh/Player/", L"Chef_BlackCat #010487.obj", &matWorld);
+	SetMeshData(L"./Resources/Mesh/Player/", L"Chef_Boof #010478.obj", &matWorld);
+	SetMeshData(L"./Resources/Mesh/Player/", L"Chef_Box #010481.obj", &matWorld);
+	SetMeshData(L"./Resources/Mesh/Player/", L"Chef_Buck_Head #010488.obj", &matWorld);
+	D3DXMatrixTranslation(&matT, 4.45f, 0, 0);
+	SetMeshData(L"./Resources/Mesh/Player/", L"Chef_Dino.obj", &matT);
+	//Chef_Dino
 }
 
 
