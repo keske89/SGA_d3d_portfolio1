@@ -28,6 +28,9 @@ private:
 	map<pair<int, int>, int>		m_mapIsBlockedData;
 	D3DXVECTOR3						m_vecChefPos[2];
 
+	bool							m_bCameraSetting;
+	float							m_fCameraAngle;
+
 public:
 	cStageScene();
 	~cStageScene();

@@ -84,6 +84,9 @@ void cStageScene::Setup()
 	m_pCollision->setStageObjManagerMemoryAddressLink(m_pSOM);
 	m_pCollision->setMapIsBlockedData(m_mapIsBlockedData);
 	m_pCollision->Setup();
+
+	m_bCameraSetting = false;
+	m_fCameraAngle = 240.0f;
 }
 
 void cStageScene::Update()
@@ -92,6 +95,20 @@ void cStageScene::Update()
 	{
 		m_pCamera->Update();
 		m_pCamera->setVLookAt(m_pControl->GetControlPlayer()->GetPos());
+		if (m_bCameraSetting == false)
+		{
+			m_pCamera->setRotY(m_fCameraAngle * 0.03f);
+			m_pCamera->setRotX(D3DX_PI / 4 - (m_fCameraAngle * D3DX_PI / 3 / 240.0f));
+			m_pCamera->setDistance(10.0f + m_fCameraAngle * 5.0f);
+			m_fCameraAngle--;
+			if (m_fCameraAngle < 1)
+			{
+				m_bCameraSetting = true;
+				m_pCamera->setRotY(0);
+				m_pCamera->setRotX(D3DX_PI / 4);
+				m_pCamera->setDistance(10.0f);
+			}
+		}
 		Control();
 	}
 
@@ -111,7 +128,6 @@ void cStageScene::Update()
 
 	if (m_pCollision)
 		m_pCollision->Update();
-
 }
 
 void cStageScene::Render()
@@ -131,7 +147,7 @@ void cStageScene::Render()
 	}
 
 	if (m_pBG)
-		m_pBG->Render(2);
+		m_pBG->Render(DATABASE->GetstageNum());
 }
 
 void cStageScene::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)

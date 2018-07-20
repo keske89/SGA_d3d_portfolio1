@@ -23,6 +23,7 @@ public:
 	inline void setVLookAt(D3DXVECTOR3 vector) { m_vLookAt = vector; }
 	inline void setVEye(D3DXVECTOR3 vector) { m_vEye = vector; }
 	inline void setRotX(float angle) { m_fRotX = angle; }
+	inline void setRotY(float angle) { m_fRotY = angle; }
 	inline void setDistance(float distance) { m_fDistance = distance; }
 };
 
