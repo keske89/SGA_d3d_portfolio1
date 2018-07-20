@@ -3,6 +3,7 @@
 
 
 database::database()
+	: m_nStageNum(2)
 {
 }
 
