@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "cChefRunPuff.h"
-
+#include "cWMDefinition.h"
 cChefRunPuff::cChefRunPuff()
 	: m_fangle(0)
 {
@@ -24,6 +24,7 @@ void cChefRunPuff::SetUp(D3DXVECTOR3 vPos)
 	D3DXMatrixIdentity(&matT);
 	D3DXMatrixTranslation(&matT, vPos.x, vPos.y, vPos.z);
 	m_matLocal = matT;
+	SetMaterial();
 }
 
 void cChefRunPuff::Update()
@@ -48,6 +49,7 @@ void cChefRunPuff::Update()
 void cChefRunPuff::Render()
 {
 	g_pD3DDevice->SetTransform(D3DTS_WORLD, &(m_matWorld));
+	g_pD3DDevice->SetMaterial(&DXUtil::WHITE_MTRL);
 	g_pD3DDevice->SetTexture(0, m_pTexture);
 	m_pMesh->DrawSubset(0);
 }
@@ -76,5 +78,13 @@ void cChefRunPuff::BoomMod(D3DXVECTOR3 dir)
 	else if (dir.x <= dir.z)
 		D3DXMatrixTranslation(&matT, -sinf(m_fangle), -cosf(m_fangle), sinf(m_fangle));
 	m_matWorld = matS * matT *m_matLocal;
+}
+
+void cChefRunPuff::SetMaterial()
+{
+	ZeroMemory(&m_stMtl, sizeof(D3DMATERIAL9));
+	m_stMtl.Ambient = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
+	m_stMtl.Diffuse = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
+	m_stMtl.Specular = D3DXCOLOR(0.3f, 0.3f, 0.3f, 1.0f);
 }
 
