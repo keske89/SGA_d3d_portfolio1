@@ -136,17 +136,34 @@ void cCharacterControl::ControlAction()
 				else
 				{
 					//오브젝트의 인벤이 비워져있으면!!!
-					if (!m_vecCharacter[m_Bswitch]->GetDetect()->GetInven())
+					if (m_vecCharacter[m_Bswitch]->GetDetect()->GetObjectType() != OBJECTTYPE::AOBJ_COOKER)
 					{
-						m_vecCharacter[m_Bswitch]->GetDetect()->SetInven(m_vecCharacter[m_Bswitch]->GetInven());
-						m_vecCharacter[m_Bswitch]->SetInven(NULL);
-						m_vecCharacter[m_Bswitch]->SetChefAnimation(CHEF_STATE_IDLE);
+						if (!m_vecCharacter[m_Bswitch]->GetDetect()->GetInven())
+						{
+							m_vecCharacter[m_Bswitch]->GetDetect()->SetInven(m_vecCharacter[m_Bswitch]->GetInven());
+							m_vecCharacter[m_Bswitch]->SetInven(NULL);
+							m_vecCharacter[m_Bswitch]->SetChefAnimation(CHEF_STATE_IDLE);
+						}
+						else if (!m_vecCharacter[m_Bswitch]->GetDetect()->GetInven()->GetInven())
+						{
+							m_vecCharacter[m_Bswitch]->GetDetect()->GetInven()->SetInven(m_vecCharacter[m_Bswitch]->GetInven());
+							m_vecCharacter[m_Bswitch]->SetInven(NULL);
+							m_vecCharacter[m_Bswitch]->SetChefAnimation(CHEF_STATE_IDLE);
+						}
 					}
-					else if (!m_vecCharacter[m_Bswitch]->GetDetect()->GetInven()->GetInven())
+					//가스레인지 일경우
+					else if (m_vecCharacter[m_Bswitch]->GetDetect()->GetObjectType() == OBJECTTYPE::AOBJ_COOKER)
 					{
-						m_vecCharacter[m_Bswitch]->GetDetect()->GetInven()->SetInven(m_vecCharacter[m_Bswitch]->GetInven());
-						m_vecCharacter[m_Bswitch]->SetInven(NULL);
-						m_vecCharacter[m_Bswitch]->SetChefAnimation(CHEF_STATE_IDLE);
+						//팟일 경우만 노아라
+						if (m_vecCharacter[m_Bswitch]->GetInven()->GetObjectType() == OBJECTTYPE::AOBJ_POT)
+						{
+							if (!m_vecCharacter[m_Bswitch]->GetDetect()->GetInven())
+							{
+								m_vecCharacter[m_Bswitch]->GetDetect()->SetInven(m_vecCharacter[m_Bswitch]->GetInven());
+								m_vecCharacter[m_Bswitch]->SetInven(NULL);
+								m_vecCharacter[m_Bswitch]->SetChefAnimation(CHEF_STATE_IDLE);
+							}
+						}
 					}
 				}
 			}
