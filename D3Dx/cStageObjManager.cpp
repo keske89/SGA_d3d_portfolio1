@@ -356,7 +356,7 @@ std::list<cIGObj*>::iterator cStageObjManager:: SetIngameObject(OBJECTTYPE objty
 		m_Pot = new cPot;
 		m_Pot->Setup(matWorld, D3DXVECTOR3(matWorld._41, matWorld._42, matWorld._43), AOBJ_POT);
 		m_Cooker->SetInven(m_Pot);
-		m_listObj.push_back(m_Pot);
+		m_listFoodObj.push_back(m_Pot);
 		iter = m_listObj.insert(m_listObj.end(), m_Cooker);
 		return iter;
 		break;
