@@ -2,7 +2,7 @@
 #include "cChefHead.h"
 
 cChefHead::cChefHead()
-	:chageNum(IMAGENUM_BRAR)
+	:chageNum(IMAGENUM_BUCK)
 {
 }
 

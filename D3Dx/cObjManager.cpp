@@ -73,7 +73,8 @@ void cObjManager::Setup()
 	SetMeshData(L"./Resources/Mesh/Player/", L"Chef_BlackCat #010487.obj", &matWorld);
 	SetMeshData(L"./Resources/Mesh/Player/", L"Chef_Boof #010478.obj", &matWorld);
 	SetMeshData(L"./Resources/Mesh/Player/", L"Chef_Box #010481.obj", &matWorld);
-	SetMeshData(L"./Resources/Mesh/Player/", L"Chef_Buck_Head #010488.obj", &matWorld);
+	D3DXMatrixTranslation(&matT, -12.33f, 0, -2.0f);
+	SetMeshData(L"./Resources/Mesh/Player/", L"Chef_Buck_Head #010488.obj", &matT);
 	D3DXMatrixTranslation(&matT, 4.45f, 0, 0);
 	SetMeshData(L"./Resources/Mesh/Player/", L"Chef_Dino.obj", &matT);
 	//Chef_Dino
