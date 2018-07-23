@@ -60,6 +60,7 @@ void cCounterTop::Setup(D3DXMATRIX matWorld, D3DXVECTOR3 pos, int objectType)
 	D3DXMATRIX matS;
 	D3DXMatrixIdentity(&matS);
 	D3DXMatrixScaling(&matS, 0.88f, 1.0f, 0.9f);
+	m_nObjectType = objectType;
 	m_matLocal = matS;
 	m_eState = OBJ_STATIC;
 	m_vPos.x = matWorld._41;

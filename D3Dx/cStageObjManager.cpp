@@ -56,15 +56,59 @@ void cStageObjManager::Setup()
 
 void cStageObjManager::Update()
 {
+	
 
 	for (auto p : m_listObj)
-	{		
+	{
 		p->Update();
+
+	
+		///////// 냄비 처리 ////////
+		if (p->GetObjectType() == AOBJ_POT)
+		{
+			p->SetIsAction(false);
+
+			if (p->GetInven())
+			{
+				if (p->GetInven()->GetObjectType() == (int)FOBJ_TOMATO ||
+					p->GetInven()->GetObjectType() == (int)FOBJ_ONION)
+				{
+					DeleteFood(p->GetInven());
+					p->SetInven(NULL);
+				}
+			}
+		}
+
+		///////// 가스렌지 ////////
+
+		if (p->GetObjectType() == AOBJ_COOKER)
+		{
+			if (p->GetInven())
+			{
+				if (p->GetInven()->GetObjectType() == AOBJ_POT)
+				{
+					p->GetInven()->SetIsAction(true);
+				}
+			}
+		}
+
+		//////// 쓰레기통 처리 ////////////
+		if (p->GetObjectType() == AOBJ_BIN)
+		{
+			if (p->GetInven())
+			{
+				DeleteFood(p->GetInven());
+				p->SetInven(NULL);
+			}
+		}
 	}
+	
 
 	for (auto p : m_listFoodObj)
 	{
+		
 		p->Update();
+
 	}
 }
 
@@ -215,12 +259,7 @@ void cStageObjManager::ObjAction(cChef * pSender)
 	case AOBJ_PLATERETURNBOX:
 		break;
 	case AOBJ_POT:
-		if (pSender->GetInven()->Getchopped())
-		{
 
-			pSender->GetDetect()->SetInven(pSender->GetInven());
-			pSender->SetInven(NULL);
-		}
 		break;
 	case AOBJ_SINK:
 		break;
@@ -317,7 +356,7 @@ std::list<cIGObj*>::iterator cStageObjManager:: SetIngameObject(OBJECTTYPE objty
 		m_Pot = new cPot;
 		m_Pot->Setup(matWorld, D3DXVECTOR3(matWorld._41, matWorld._42, matWorld._43), AOBJ_POT);
 		m_Cooker->SetInven(m_Pot);
-		m_listFoodObj.push_back(m_Pot);
+		m_listObj.push_back(m_Pot);
 		iter = m_listObj.insert(m_listObj.end(), m_Cooker);
 		return iter;
 		break;

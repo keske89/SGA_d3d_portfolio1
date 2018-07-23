@@ -30,6 +30,7 @@ public:
 	//cIGObj*				m_Inven;
 	cIGObj*				m_pChild;
 	int					m_nObjectType;
+	int					m_Cost;
 	COLLISONTYPE		m_eState;
 	
 	SYNTHESIZE(bool, m_bInteraction, Interaction);
@@ -41,6 +42,7 @@ public:
 	SYNTHESIZE(bool, m_bIsAction, IsAction);
 	SYNTHESIZE(bool, m_isChopped, chopped);
 	SYNTHESIZE(cIGObj*, m_Inven, Inven);
+	int GetCost() { return m_Cost; }
 public:
 	cIGObj();
 	virtual ~cIGObj();
@@ -53,6 +55,7 @@ public:
 	D3DXMATRIX GetWorldMat() {	return (m_matLocal * m_matWorld);}
 	inline int GetObjectType() { return m_nObjectType; }
 	inline int GetCollisonType() { return m_eState; }
+	
 };
 //
 //void cIGObj::SetMaterial()

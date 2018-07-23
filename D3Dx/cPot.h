@@ -4,14 +4,18 @@
 class cFoodObj;
 class cProgressbar;
 
+
+
 class cPot : public cActionObj
 {
 public:
 	
 	cProgressbar*			m_pPgbar;
-	std::vector<cFoodObj*>	m_vecFood;
+	int						m_RecipeCost;
 	int						m_size;
+	IDirect3DTexture9*		m_texture[3];
 	//bool					m_bIsAction;
+	std::vector<cIGObj*>	m_vec;
 
 public:
 	cPot();
@@ -20,7 +24,7 @@ public:
 	virtual void Setup();
 	virtual void Update();
 	virtual void Render();
-
+	void InvenToVector();
 	void SetFood(cFoodObj* foodobject);
 	SYNTHESIZE(bool, m_bIsAction, IsAction);
 

@@ -132,7 +132,7 @@ void cProgressbar::Update(D3DXVECTOR3 pos , int size)
 	}
 	else
 	{
-		m_fTopGauge += 0.01f;
+		m_fTopGauge += 0.05f;
 		///////////////////// bottom///////////////
 		ST_PT_VERTEX v[4];
 

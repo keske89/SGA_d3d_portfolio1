@@ -37,11 +37,12 @@ void cTomato::Render()
 
 void cTomato::Setup(D3DXMATRIX matWorld, D3DXVECTOR3 pos, int lidtype)
 {
-
+	m_Cost = 2;
 	m_vPos.x = matWorld._41;
 	m_vPos.y = matWorld._42;
 	m_vPos.z = matWorld._43;
 	m_matWorld = matWorld;
+	m_nObjectType = lidtype;
 	m_eState = OBJ_DYNAMIC;
 	m_pMesh = ObJMANAGER->GetMesh(L"Tomato_Whole.obj");
 	m_pTexture = g_pTextureManager->GetTexture(L"Resources/Texture2D/Tomato.png");

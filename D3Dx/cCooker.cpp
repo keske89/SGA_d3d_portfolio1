@@ -84,17 +84,17 @@ void cCooker::Inventory()
 {
 	if (m_Inven != NULL)
 	{
-		cPot* pot = (cPot*)m_Inven;
+		//cPot* pot = (cPot*)m_Inven;
 		D3DXMATRIX matT;
 		D3DXMatrixIdentity(&matT);
 		D3DXMatrixTranslation(&matT, 0, 0.6f, 0);
 
 		m_Inven->SetWorldMatrix(matT * m_matLocal * m_matWorld);
 
-		if (pot->GetIsAction() == false)
-		{
-			pot->SetIsAction(true);
-		}
+		//if (pot->GetIsAction() == false)
+		//{
+		//	pot->SetIsAction(true);
+		//}
 		
 		
 		

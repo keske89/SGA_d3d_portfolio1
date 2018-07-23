@@ -43,6 +43,7 @@ void cOnion::Setup(D3DXMATRIX matWorld, D3DXVECTOR3 pos, int lidtype)
 	m_nObjectType = lidtype;
 	m_pMesh = ObJMANAGER->GetMesh(L"Onion_Whole.obj");
 	m_pTexture = g_pTextureManager->GetTexture(L"Resources/Texture2D/Onion.png");
+	m_Cost = 1;
 }
 
 void cOnion::SetWorldMat(D3DXMATRIX matWorld)
