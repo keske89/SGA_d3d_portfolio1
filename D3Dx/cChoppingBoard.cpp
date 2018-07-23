@@ -25,21 +25,22 @@ void cChoppingBoard::Update()
 	temp.y = m_vPos.y - 0.05f;
 	temp.z = m_vPos.z - 0.05f;
 
-	if (!m_player)
+	if (m_player && m_Inven)
 	{
-		m_bIsAction = false;
+		m_bIsAction = true;
 	}
 
-	if (m_Inven != NULL)	// 냄비에 재료가 들어왔고
+
+	if (m_Inven != NULL)	// 재료가 들어왔고
 	{
-		if (!m_pPgbar)				// 프로그레스 바가 아직 없다면 만들고 
+		if (!m_pPgbar)		// 프로그레스 바가 아직 없다면 만들고 
 		{
 			m_pPgbar = new cProgressbar;
 			m_pPgbar->Setup(m_matWorld, m_vPos);
 		}
 		if (m_pPgbar)				// 프로그레스 바 있으면
 		{
-			if (m_bIsAction)			// Cooker에 올라가 있는 상태면
+			if (m_bIsAction)		// Cooker에 올라가 있는 상태면
 			{
 				m_pPgbar->Update(D3DXVECTOR3(m_matWorld._41, m_matWorld._42, m_matWorld._43), m_size);	// 프로그레스 바 업데이트를 돌린다.
 			}
@@ -141,6 +142,7 @@ void cChoppingBoard::Inventory()
 		{
 			cFoodObj* inven = (cFoodObj*)m_Inven;
 			inven->Setchopped(true);
+
 		}
 	}
 }

@@ -63,21 +63,7 @@ void cStageObjManager::Update()
 		p->Update();
 
 	
-		///////// ³¿ºñ Ã³¸® ////////
-		if (p->GetObjectType() == AOBJ_POT)
-		{
-			p->SetIsAction(false);
-
-			if (p->GetInven())
-			{
-				if (p->GetInven()->GetObjectType() == (int)FOBJ_TOMATO ||
-					p->GetInven()->GetObjectType() == (int)FOBJ_ONION)
-				{
-					DeleteFood(p->GetInven());
-					p->SetInven(NULL);
-				}
-			}
-		}
+		
 
 		///////// °¡½º·»Áö ////////
 
@@ -108,6 +94,22 @@ void cStageObjManager::Update()
 	{
 		
 		p->Update();
+
+		///////// ³¿ºñ Ã³¸® ////////
+		if (p->GetObjectType() == AOBJ_POT)
+		{
+			p->SetIsAction(false);
+
+			if (p->GetInven())
+			{
+				if (p->GetInven()->GetObjectType() == (int)FOBJ_TOMATO ||
+					p->GetInven()->GetObjectType() == (int)FOBJ_ONION)
+				{
+					DeleteFood(p->GetInven());
+					p->SetInven(NULL);
+				}
+			}
+		}
 
 	}
 }

@@ -236,7 +236,10 @@ bool cProgressbar::Complete()
 	if (m_fProgress >= 0.8f)
 	{
 		m_fProgress = 0.8f;
+
 		return true;
 	}
 	return false;
+
+
 }
