@@ -155,11 +155,19 @@ void cCharacterControl::ControlAction()
 					else if (m_vecCharacter[m_Bswitch]->GetDetect()->GetObjectType() == OBJECTTYPE::AOBJ_COOKER)
 					{
 						//팟일 경우만 노아라
-						if (m_vecCharacter[m_Bswitch]->GetInven()->GetObjectType() == OBJECTTYPE::AOBJ_POT)
+						if (m_vecCharacter[m_Bswitch]->GetInven()->GetObjectType() == OBJECTTYPE::AOBJ_POT ||
+							m_vecCharacter[m_Bswitch]->GetInven()->GetObjectType() == OBJECTTYPE::FOBJ_ONION ||
+							m_vecCharacter[m_Bswitch]->GetInven()->GetObjectType() == OBJECTTYPE::FOBJ_TOMATO)
 						{
 							if (!m_vecCharacter[m_Bswitch]->GetDetect()->GetInven())
 							{
 								m_vecCharacter[m_Bswitch]->GetDetect()->SetInven(m_vecCharacter[m_Bswitch]->GetInven());
+								m_vecCharacter[m_Bswitch]->SetInven(NULL);
+								m_vecCharacter[m_Bswitch]->SetChefAnimation(CHEF_STATE_IDLE);
+							}
+							else if (!m_vecCharacter[m_Bswitch]->GetDetect()->GetInven()->GetInven())
+							{
+								m_vecCharacter[m_Bswitch]->GetDetect()->GetInven()->SetInven(m_vecCharacter[m_Bswitch]->GetInven());
 								m_vecCharacter[m_Bswitch]->SetInven(NULL);
 								m_vecCharacter[m_Bswitch]->SetChefAnimation(CHEF_STATE_IDLE);
 							}
