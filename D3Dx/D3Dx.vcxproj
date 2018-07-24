@@ -186,6 +186,7 @@
     <ClInclude Include="cPot.h" />
     <ClInclude Include="cSelectUI.h" />
     <ClInclude Include="cSink.h" />
+    <ClInclude Include="cSoundManager.h" />
     <ClInclude Include="cSphere.h" />
     <ClInclude Include="cStageGrid.h" />
     <ClInclude Include="cChefBody.h" />
@@ -285,6 +286,7 @@
     <ClCompile Include="cPot.cpp" />
     <ClCompile Include="cSelectUI.cpp" />
     <ClCompile Include="cSink.cpp" />
+    <ClCompile Include="cSoundManager.cpp" />
     <ClCompile Include="cSphere.cpp" />
     <ClCompile Include="cStageGrid.cpp" />
     <ClCompile Include="cChefBody.cpp" />

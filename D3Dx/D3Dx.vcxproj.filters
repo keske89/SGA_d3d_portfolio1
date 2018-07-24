@@ -369,6 +369,9 @@
     <ClInclude Include="cChefHat.h">
       <Filter>소스 파일\Chef\ChefPatrs</Filter>
     </ClInclude>
+    <ClInclude Include="cSoundManager.h">
+      <Filter>소스 파일\Manager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="D3Dx.cpp">
@@ -652,6 +655,9 @@
     </ClCompile>
     <ClCompile Include="cChefHat.cpp">
       <Filter>소스 파일\Chef\ChefPatrs</Filter>
+    </ClCompile>
+    <ClCompile Include="cSoundManager.cpp">
+      <Filter>소스 파일\Manager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

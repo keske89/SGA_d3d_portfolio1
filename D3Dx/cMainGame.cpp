@@ -38,6 +38,7 @@ cMainGame::~cMainGame()
 	//
 
 	ObJMANAGER->Destroy();
+	SOUNDMANAGER->Destroy();
 	g_pTextureManager->Destroy();
 	g_pFontManager->Destroy();
 	g_pDeviceManager->Destroy();
@@ -65,7 +66,7 @@ void cMainGame::Setup()
 	SCENEMANAGER->AddScene("IntroScene", new cIntroScene);
 	SCENEMANAGER->AddScene("SelectScene", new cCharaterChangeScene);
 
-	SCENEMANAGER->ChangeScene("IntroScene");
+	SCENEMANAGER->ChangeScene("StageScene");
 
 
 	m_pWMScene->setCamera(m_pCamera);
@@ -77,6 +78,7 @@ void cMainGame::Update()
 {
 	m_pCamera->Update();
 	SCENEMANAGER->Update();
+	SOUNDMANAGER->Update();
 	DATABASE->Update();
 
 }

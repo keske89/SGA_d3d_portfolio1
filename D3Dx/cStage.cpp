@@ -85,17 +85,17 @@ void cStage::Setup(int stageNum, vector<pair<int, D3DXMATRIX>>& vecNewObj, vecto
 		memcpy(attribute, &vecAttribute[(i * MAX_VEC_SIZE) / 3], (vecSize / 3) * sizeof(DWORD));
 		tempMesh->UnlockAttributeBuffer();
 
-		//vector<DWORD> adjacencyInfo(tempMesh->GetNumFaces() * 3);
-		//vector<DWORD> optimizedAdjacencyInfo(tempMesh->GetNumFaces() * 3);
-		//tempMesh->GenerateAdjacency(0.0f, &adjacencyInfo[0]);
-		//tempMesh->OptimizeInplace(
-		//	D3DXMESHOPT_ATTRSORT |
-		//	D3DXMESHOPT_COMPACT |
-		//	D3DXMESHOPT_VERTEXCACHE,
-		//	&adjacencyInfo[0],
-		//	&optimizedAdjacencyInfo[0],
-		//	0,
-		//	0);
+		vector<DWORD> adjacencyInfo(tempMesh->GetNumFaces() * 3);
+		vector<DWORD> optimizedAdjacencyInfo(tempMesh->GetNumFaces() * 3);
+		tempMesh->GenerateAdjacency(0.0f, &adjacencyInfo[0]);
+		tempMesh->OptimizeInplace(
+			D3DXMESHOPT_ATTRSORT |
+			D3DXMESHOPT_COMPACT |
+			D3DXMESHOPT_VERTEXCACHE,
+			&adjacencyInfo[0],
+			&optimizedAdjacencyInfo[0],
+			0,
+			0);
 
 		m_vecMesh.push_back(tempMesh);
 	}
@@ -131,9 +131,10 @@ void cStage::Setup(int stageNum, vector<pair<int, D3DXMATRIX>>& vecNewObj, vecto
 	ReadFile(file, &player1Location, sizeof(D3DXVECTOR3), &read, NULL);
 	ReadFile(file, &player2Location, sizeof(D3DXVECTOR3), &read, NULL);
 
-
-
 	CloseHandle(file);
+
+	SOUNDMANAGER->addSound("testBGM", "./sound/testBGM.mp3", false, false);
+	SOUNDMANAGER->play("testBGM", CH_BGM, 1.0f);
 }
 
 void cStage::Update()
