@@ -14,7 +14,7 @@ private:
 	float					m_fBottomGauge;
 	float					m_fProgress;
 	float					m_fHeight;
-
+	int						m_type;
 	bool					m_isComplete;
 	bool					m_isStart;
 
@@ -31,7 +31,7 @@ public:
 	cProgressbar();
 	~cProgressbar();
 
-	void Setup(D3DXMATRIX matWorld, D3DXVECTOR3 pos);
+	void Setup(D3DXMATRIX matWorld, D3DXVECTOR3 pos, int Type);
 	void Update(D3DXVECTOR3 pos, int size);
 	void Render();
 

@@ -55,6 +55,7 @@ public:
 	D3DXMATRIX GetWorldMat() {	return (m_matLocal * m_matWorld);}
 	inline int GetObjectType() { return m_nObjectType; }
 	inline int GetCollisonType() { return m_eState; }
+	LPD3DXMESH GetMesh() { return m_pMesh; }
 	
 };
 //

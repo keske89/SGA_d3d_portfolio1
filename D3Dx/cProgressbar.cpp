@@ -11,6 +11,7 @@ cProgressbar::cProgressbar()
 	m_vecVertexBottom.clear();
 	m_vecVertexTop.clear();
 	m_vecComplete.clear();
+	m_type = NULL;
 }
 
 cProgressbar::~cProgressbar()
@@ -21,7 +22,7 @@ cProgressbar::~cProgressbar()
 	
 }
 
-void cProgressbar::Setup(D3DXMATRIX matWorld, D3DXVECTOR3 pos)
+void cProgressbar::Setup(D3DXMATRIX matWorld, D3DXVECTOR3 pos, int Type)
 {
 	
 	D3DXMATRIX matT;
@@ -32,7 +33,7 @@ void cProgressbar::Setup(D3DXMATRIX matWorld, D3DXVECTOR3 pos)
 	m_vPos.x = matWorld._41;
 	m_vPos.y = matWorld._42;
 	m_vPos.z = matWorld._43;
-
+	m_type = Type;
 	m_fBottomGauge = 1.0f;
 	m_fTopGauge = 0.0f;
 	m_fProgress = 0.0f;
@@ -98,106 +99,210 @@ void cProgressbar::Setup(D3DXMATRIX matWorld, D3DXVECTOR3 pos)
 
 void cProgressbar::Update(D3DXVECTOR3 pos , int size)
 {
-	if (!m_isStart) m_isStart = true;
+	switch (m_type)
+	{
+	case 1:
+		m_vecVertexBottom.clear();
+		m_vecVertexTop.clear();
+		m_vPos = pos;
 
-	m_vecVertexBottom.clear();
-	m_vecVertexTop.clear();
-	m_vPos = pos;
+		Complete();
+		SetGauge(size * 3);
+
+
+		if (Complete()) // 
+		{
+			ST_PT_VERTEX v2[4];
+
+			v2[0].p = D3DXVECTOR3(m_vPos.x - 1.0f / 2.0f, m_vPos.y - 1.0f / 2.0f, m_vPos.z);
+			v2[1].p = D3DXVECTOR3(m_vPos.x - 1.0f / 2.0f, m_vPos.y + 1.0f / 2.0f, m_vPos.z);
+			v2[2].p = D3DXVECTOR3(m_vPos.x + 1.0f / 2.0f, m_vPos.y + 1.0f / 2.0f, m_vPos.z);
+			v2[3].p = D3DXVECTOR3(m_vPos.x + 1.0f / 2.0f, m_vPos.y - 1.0f / 2.0f, m_vPos.z);
+
+			m_vecComplete.push_back(v2[0]);
+			m_vecComplete.push_back(v2[1]);
+			m_vecComplete.push_back(v2[2]);
+
+			m_vecComplete.push_back(v2[3]);
+			m_vecComplete.push_back(v2[0]);
+			m_vecComplete.push_back(v2[2]);
+
+			m_vecComplete[0].t.x = 0.0f; m_vecComplete[0].t.y = 1.0f - 0.0f;
+			m_vecComplete[1].t.x = 0.0f; m_vecComplete[1].t.y = 1.0f - 1.0f;
+			m_vecComplete[2].t.x = 1.0f; m_vecComplete[2].t.y = 1.0f - 1.0f;
+
+			m_vecComplete[3].t.x = 1.0f; m_vecComplete[3].t.y = 1.0f - 0.0f;
+			m_vecComplete[4].t.x = 0.0f; m_vecComplete[4].t.y = 1.0f - 0.0f;
+			m_vecComplete[5].t.x = 1.0f; m_vecComplete[5].t.y = 1.0f - 1.0f;
+
+
+		}
+		else
+		{
+			m_fTopGauge += 0.05f;
+			///////////////////// bottom///////////////
+			ST_PT_VERTEX v[4];
+
+			v[0].p = D3DXVECTOR3(m_vPos.x - m_fBottomGauge / 2.0f, m_vPos.y - m_fHeight / 2.0f, m_vPos.z);
+
+			v[1].p = D3DXVECTOR3(m_vPos.x - m_fBottomGauge / 2.0f, m_vPos.y + m_fHeight / 2.0f, m_vPos.z);
+
+			v[2].p = D3DXVECTOR3(m_vPos.x + m_fBottomGauge / 2.0f, m_vPos.y + m_fHeight / 2.0f, m_vPos.z);
+
+			v[3].p = D3DXVECTOR3(m_vPos.x + m_fBottomGauge / 2.0f, m_vPos.y - m_fHeight / 2.0f, m_vPos.z);
+
+			m_vecVertexBottom.push_back(v[0]);
+			m_vecVertexBottom.push_back(v[1]);
+			m_vecVertexBottom.push_back(v[2]);
+
+			m_vecVertexBottom.push_back(v[3]);
+			m_vecVertexBottom.push_back(v[0]);
+			m_vecVertexBottom.push_back(v[2]);
+
+			m_vecVertexBottom[0].t.x = 0.1f; m_vecVertexBottom[0].t.y = 0.4f;
+			m_vecVertexBottom[1].t.x = 0.1f; m_vecVertexBottom[1].t.y = 0.1f;
+			m_vecVertexBottom[2].t.x = 1.0f; m_vecVertexBottom[2].t.y = 0.1f;
+
+			m_vecVertexBottom[3].t.x = 1.0f; m_vecVertexBottom[3].t.y = 0.4f;
+			m_vecVertexBottom[4].t.x = 0.1f; m_vecVertexBottom[4].t.y = 0.4f;
+			m_vecVertexBottom[5].t.x = 1.0f; m_vecVertexBottom[5].t.y = 0.1f;
+
+			//////////////////////////// top ///////////////////////////
+			v[0].p = D3DXVECTOR3(m_vPos.x - m_fBottomGauge / 2.0f + 0.1f, m_vPos.y - m_fHeight / 2.0f + 0.05f, m_vPos.z);
+
+			v[1].p = D3DXVECTOR3(m_vPos.x - m_fBottomGauge / 2.0f + 0.1f, m_vPos.y + m_fHeight / 2.0f - 0.05f, m_vPos.z);
+
+			v[2].p = D3DXVECTOR3(m_vPos.x - m_fBottomGauge / 2.0f + 0.1f + m_fProgress, m_vPos.y + m_fHeight / 2.0f - 0.05f, m_vPos.z);
+
+			v[3].p = D3DXVECTOR3(m_vPos.x - m_fBottomGauge / 2.0f + 0.1f + m_fProgress, m_vPos.y - m_fHeight / 2.0f + 0.05f, m_vPos.z);
+
+			m_vecVertexTop.push_back(v[0]);
+			m_vecVertexTop.push_back(v[1]);
+			m_vecVertexTop.push_back(v[2]);
+
+			m_vecVertexTop.push_back(v[3]);
+			m_vecVertexTop.push_back(v[0]);
+			m_vecVertexTop.push_back(v[2]);
+
+			m_vecVertexTop[0].t.x = 0.0f; m_vecVertexTop[0].t.y = 1.0f;
+			m_vecVertexTop[1].t.x = 0.0f; m_vecVertexTop[1].t.y = 0.5f;
+			m_vecVertexTop[2].t.x = 1.0f; m_vecVertexTop[2].t.y = 0.5f;
+
+			m_vecVertexTop[3].t.x = 1.0f; m_vecVertexTop[3].t.y = 1.0f;
+			m_vecVertexTop[4].t.x = 0.0f; m_vecVertexTop[4].t.y = 1.0f;
+			m_vecVertexTop[5].t.x = 1.0f; m_vecVertexTop[5].t.y = 0.5f;
+
+		}
+		break;
+
+	case 2:
+		m_vecVertexBottom.clear();
+		m_vecVertexTop.clear();
+		m_vPos = pos;
+
+		Complete();
+		SetGauge(size * 3);
+
+
+		if (Complete()) // 
+		{
+			ST_PT_VERTEX v2[4];
+
+			v2[0].p = D3DXVECTOR3(m_vPos.x - 1.0f / 2.0f, m_vPos.y - 1.0f / 2.0f, m_vPos.z);
+			v2[1].p = D3DXVECTOR3(m_vPos.x - 1.0f / 2.0f, m_vPos.y + 1.0f / 2.0f, m_vPos.z);
+			v2[2].p = D3DXVECTOR3(m_vPos.x + 1.0f / 2.0f, m_vPos.y + 1.0f / 2.0f, m_vPos.z);
+			v2[3].p = D3DXVECTOR3(m_vPos.x + 1.0f / 2.0f, m_vPos.y - 1.0f / 2.0f, m_vPos.z);
+
+			m_vecComplete.push_back(v2[0]);
+			m_vecComplete.push_back(v2[1]);
+			m_vecComplete.push_back(v2[2]);
+
+			m_vecComplete.push_back(v2[3]);
+			m_vecComplete.push_back(v2[0]);
+			m_vecComplete.push_back(v2[2]);
+
+			m_vecComplete[0].t.x = 0.0f; m_vecComplete[0].t.y = 1.0f - 0.0f;
+			m_vecComplete[1].t.x = 0.0f; m_vecComplete[1].t.y = 1.0f - 1.0f;
+			m_vecComplete[2].t.x = 1.0f; m_vecComplete[2].t.y = 1.0f - 1.0f;
+
+			m_vecComplete[3].t.x = 1.0f; m_vecComplete[3].t.y = 1.0f - 0.0f;
+			m_vecComplete[4].t.x = 0.0f; m_vecComplete[4].t.y = 1.0f - 0.0f;
+			m_vecComplete[5].t.x = 1.0f; m_vecComplete[5].t.y = 1.0f - 1.0f;
+
+
+		}
+		else
+		{
+			m_fTopGauge += 0.03f;
+			///////////////////// bottom///////////////
+			ST_PT_VERTEX v[4];
+
+			v[0].p = D3DXVECTOR3(m_vPos.x - m_fBottomGauge / 2.0f, m_vPos.y - m_fHeight / 2.0f, m_vPos.z);
+
+			v[1].p = D3DXVECTOR3(m_vPos.x - m_fBottomGauge / 2.0f, m_vPos.y + m_fHeight / 2.0f, m_vPos.z);
+
+			v[2].p = D3DXVECTOR3(m_vPos.x + m_fBottomGauge / 2.0f, m_vPos.y + m_fHeight / 2.0f, m_vPos.z);
+
+			v[3].p = D3DXVECTOR3(m_vPos.x + m_fBottomGauge / 2.0f, m_vPos.y - m_fHeight / 2.0f, m_vPos.z);
+
+			m_vecVertexBottom.push_back(v[0]);
+			m_vecVertexBottom.push_back(v[1]);
+			m_vecVertexBottom.push_back(v[2]);
+
+			m_vecVertexBottom.push_back(v[3]);
+			m_vecVertexBottom.push_back(v[0]);
+			m_vecVertexBottom.push_back(v[2]);
+
+			m_vecVertexBottom[0].t.x = 0.1f; m_vecVertexBottom[0].t.y = 0.4f;
+			m_vecVertexBottom[1].t.x = 0.1f; m_vecVertexBottom[1].t.y = 0.1f;
+			m_vecVertexBottom[2].t.x = 1.0f; m_vecVertexBottom[2].t.y = 0.1f;
+
+			m_vecVertexBottom[3].t.x = 1.0f; m_vecVertexBottom[3].t.y = 0.4f;
+			m_vecVertexBottom[4].t.x = 0.1f; m_vecVertexBottom[4].t.y = 0.4f;
+			m_vecVertexBottom[5].t.x = 1.0f; m_vecVertexBottom[5].t.y = 0.1f;
+
+			//////////////////////////// top ///////////////////////////
+			v[0].p = D3DXVECTOR3(m_vPos.x - m_fBottomGauge / 2.0f + 0.1f, m_vPos.y - m_fHeight / 2.0f + 0.05f, m_vPos.z);
+
+			v[1].p = D3DXVECTOR3(m_vPos.x - m_fBottomGauge / 2.0f + 0.1f, m_vPos.y + m_fHeight / 2.0f - 0.05f, m_vPos.z);
+
+			v[2].p = D3DXVECTOR3(m_vPos.x - m_fBottomGauge / 2.0f + 0.1f + m_fProgress, m_vPos.y + m_fHeight / 2.0f - 0.05f, m_vPos.z);
+
+			v[3].p = D3DXVECTOR3(m_vPos.x - m_fBottomGauge / 2.0f + 0.1f + m_fProgress, m_vPos.y - m_fHeight / 2.0f + 0.05f, m_vPos.z);
+
+			m_vecVertexTop.push_back(v[0]);
+			m_vecVertexTop.push_back(v[1]);
+			m_vecVertexTop.push_back(v[2]);
+
+			m_vecVertexTop.push_back(v[3]);
+			m_vecVertexTop.push_back(v[0]);
+			m_vecVertexTop.push_back(v[2]);
+
+			m_vecVertexTop[0].t.x = 0.0f; m_vecVertexTop[0].t.y = 1.0f;
+			m_vecVertexTop[1].t.x = 0.0f; m_vecVertexTop[1].t.y = 0.5f;
+			m_vecVertexTop[2].t.x = 1.0f; m_vecVertexTop[2].t.y = 0.5f;
+
+			m_vecVertexTop[3].t.x = 1.0f; m_vecVertexTop[3].t.y = 1.0f;
+			m_vecVertexTop[4].t.x = 0.0f; m_vecVertexTop[4].t.y = 1.0f;
+			m_vecVertexTop[5].t.x = 1.0f; m_vecVertexTop[5].t.y = 0.5f;
+
+
+		}
+		break;
+
+	default:
+		break;
+	}
 	
-	Complete();
-	SetGauge(size * 3);
-
-
-	if (Complete()) // 
-	{
-		ST_PT_VERTEX v2[4];
-
-		v2[0].p = D3DXVECTOR3(m_vPos.x - 1.0f / 2.0f, m_vPos.y - 1.0f / 2.0f, m_vPos.z);
-		v2[1].p = D3DXVECTOR3(m_vPos.x - 1.0f / 2.0f, m_vPos.y + 1.0f / 2.0f, m_vPos.z);
-		v2[2].p = D3DXVECTOR3(m_vPos.x + 1.0f / 2.0f, m_vPos.y + 1.0f / 2.0f, m_vPos.z);
-		v2[3].p = D3DXVECTOR3(m_vPos.x + 1.0f / 2.0f, m_vPos.y - 1.0f / 2.0f, m_vPos.z);
-
-		m_vecComplete.push_back(v2[0]);
-		m_vecComplete.push_back(v2[1]);
-		m_vecComplete.push_back(v2[2]);
-
-		m_vecComplete.push_back(v2[3]);
-		m_vecComplete.push_back(v2[0]);
-		m_vecComplete.push_back(v2[2]);
-
-		m_vecComplete[0].t.x = 0.0f; m_vecComplete[0].t.y = 1.0f - 0.0f;
-		m_vecComplete[1].t.x = 0.0f; m_vecComplete[1].t.y = 1.0f - 1.0f;
-		m_vecComplete[2].t.x = 1.0f; m_vecComplete[2].t.y = 1.0f - 1.0f;
-
-		m_vecComplete[3].t.x = 1.0f; m_vecComplete[3].t.y = 1.0f- 0.0f;
-		m_vecComplete[4].t.x = 0.0f; m_vecComplete[4].t.y = 1.0f- 0.0f;
-		m_vecComplete[5].t.x = 1.0f; m_vecComplete[5].t.y = 1.0f- 1.0f;
-
-		
-	}
-	else
-	{
-		m_fTopGauge += 0.05f;
-		///////////////////// bottom///////////////
-		ST_PT_VERTEX v[4];
-
-		v[0].p = D3DXVECTOR3(m_vPos.x - m_fBottomGauge / 2.0f, m_vPos.y - m_fHeight / 2.0f, m_vPos.z);
-
-		v[1].p = D3DXVECTOR3(m_vPos.x - m_fBottomGauge / 2.0f, m_vPos.y + m_fHeight / 2.0f, m_vPos.z);
-
-		v[2].p = D3DXVECTOR3(m_vPos.x + m_fBottomGauge / 2.0f, m_vPos.y + m_fHeight / 2.0f, m_vPos.z);
-
-		v[3].p = D3DXVECTOR3(m_vPos.x + m_fBottomGauge / 2.0f, m_vPos.y - m_fHeight / 2.0f, m_vPos.z);
-
-		m_vecVertexBottom.push_back(v[0]);
-		m_vecVertexBottom.push_back(v[1]);
-		m_vecVertexBottom.push_back(v[2]);
-
-		m_vecVertexBottom.push_back(v[3]);
-		m_vecVertexBottom.push_back(v[0]);
-		m_vecVertexBottom.push_back(v[2]);
-
-		m_vecVertexBottom[0].t.x = 0.1f; m_vecVertexBottom[0].t.y = 0.4f;
-		m_vecVertexBottom[1].t.x = 0.1f; m_vecVertexBottom[1].t.y = 0.1f;
-		m_vecVertexBottom[2].t.x = 1.0f; m_vecVertexBottom[2].t.y = 0.1f;
-
-		m_vecVertexBottom[3].t.x = 1.0f; m_vecVertexBottom[3].t.y = 0.4f;
-		m_vecVertexBottom[4].t.x = 0.1f; m_vecVertexBottom[4].t.y = 0.4f;
-		m_vecVertexBottom[5].t.x = 1.0f; m_vecVertexBottom[5].t.y = 0.1f;
-
-		//////////////////////////// top ///////////////////////////
-		v[0].p = D3DXVECTOR3(m_vPos.x - m_fBottomGauge / 2.0f + 0.1f, m_vPos.y - m_fHeight / 2.0f + 0.05f, m_vPos.z);
-
-		v[1].p = D3DXVECTOR3(m_vPos.x - m_fBottomGauge / 2.0f + 0.1f, m_vPos.y + m_fHeight / 2.0f - 0.05f, m_vPos.z);
-
-		v[2].p = D3DXVECTOR3(m_vPos.x - m_fBottomGauge / 2.0f + 0.1f + m_fProgress, m_vPos.y + m_fHeight / 2.0f - 0.05f, m_vPos.z);
-
-		v[3].p = D3DXVECTOR3(m_vPos.x - m_fBottomGauge / 2.0f + 0.1f + m_fProgress, m_vPos.y - m_fHeight / 2.0f + 0.05f, m_vPos.z);
-
-		m_vecVertexTop.push_back(v[0]);
-		m_vecVertexTop.push_back(v[1]);
-		m_vecVertexTop.push_back(v[2]);
-
-		m_vecVertexTop.push_back(v[3]);
-		m_vecVertexTop.push_back(v[0]);
-		m_vecVertexTop.push_back(v[2]);
-
-		m_vecVertexTop[0].t.x = 0.0f; m_vecVertexTop[0].t.y = 1.0f;
-		m_vecVertexTop[1].t.x = 0.0f; m_vecVertexTop[1].t.y = 0.5f;
-		m_vecVertexTop[2].t.x = 1.0f; m_vecVertexTop[2].t.y = 0.5f;
-
-		m_vecVertexTop[3].t.x = 1.0f; m_vecVertexTop[3].t.y = 1.0f;
-		m_vecVertexTop[4].t.x = 0.0f; m_vecVertexTop[4].t.y = 1.0f;
-		m_vecVertexTop[5].t.x = 1.0f; m_vecVertexTop[5].t.y = 0.5f;
-
-		
-	}
 	
 }
 
 void cProgressbar::Render()
 {
-	if (m_isStart && !Complete())
+	switch (m_type)
+	{
+	case 1:
+		if (!Complete())
 		{
 			D3DXMATRIX mat;
 			D3DXMatrixIdentity(&mat);
@@ -215,6 +320,15 @@ void cProgressbar::Render()
 				&m_vecVertexTop[0],
 				sizeof(ST_PT_VERTEX));
 		}
+		break;
+
+	case 2:
+		break;
+
+	default:
+		break;
+	}
+	
 		/*else if (Complete())
 		{
 			g_pD3DDevice->SetTransform(D3DTS_WORLD, &(m_matWorld));
@@ -225,8 +339,8 @@ void cProgressbar::Render()
 			m_vecComplete.size() / 3,
 			&m_vecComplete[0],
 			sizeof(ST_PT_VERTEX));
-		}
-}*/
+		}*/
+}
 
 
 float cProgressbar::SetGauge(int size)

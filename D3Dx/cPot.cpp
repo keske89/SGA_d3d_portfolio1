@@ -39,7 +39,7 @@ void cPot::Update()
 		if (!m_pPgbar)				// 프로그레스 바가 아직 없다면 만들고 
 		{
 			m_pPgbar = new cProgressbar;
-			m_pPgbar->Setup(m_matWorld,m_vPos);
+			m_pPgbar->Setup(m_matWorld,m_vPos,2);
 		}
 
 		if (m_pPgbar)				// 프로그레스 바 있으면
@@ -57,7 +57,7 @@ void cPot::Update()
 					
 				}
 				m_pPgbar->SetIsStart(false);
-				m_pPgbar->Setup(m_matWorld, m_vPos);
+				m_pPgbar->Setup(m_matWorld, m_vPos,2);
 			}
 		}
 	}

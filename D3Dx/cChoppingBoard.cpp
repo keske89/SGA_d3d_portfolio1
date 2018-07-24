@@ -32,16 +32,9 @@ void cChoppingBoard::Update()
 	if (m_pPgbar->Complete() && m_Inven ==NULL)
 	{
 		m_isChopped = false;
-		m_pPgbar->Setup(m_matWorld, m_vPos);
+		m_pPgbar->Setup(m_matWorld, m_vPos, 1);
 	}
 
-	/*if (m_Inven == NULL)
-	{
-		if (m_pPgbar)
-		{
-			m_pPgbar->Setup(m_matWorld, m_vPos);
-		}
-	}*/
 
 	if (m_Inven != NULL)	// 재료가 들어왔고
 	{
@@ -109,7 +102,7 @@ void cChoppingBoard::Setup(D3DXMATRIX matWorld, D3DXVECTOR3 pos, int lidtype)
 	m_pTexture = g_pTextureManager->GetTexture(L"Resources/Texture2D/ChoppingBoard.png");
 
 	m_pPgbar = new cProgressbar;
-	m_pPgbar->Setup(m_matWorld, m_vPos);
+	m_pPgbar->Setup(m_matWorld, m_vPos, 2);
 }
 
 void cChoppingBoard::SetWorldMat(D3DXMATRIX matWorld)
