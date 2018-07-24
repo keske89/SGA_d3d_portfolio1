@@ -4,6 +4,7 @@
 
 database::database()
 	: m_nStageNum(2)
+	, m_nChageChefNum(0)
 {
 }
 

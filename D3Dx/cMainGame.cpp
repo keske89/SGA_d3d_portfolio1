@@ -9,6 +9,7 @@
 
 #include "cStageMapTool.h"
 #include "cStageScene.h"
+#include "cCharaterChangeScene.h"
 #include "cTestScene0.h"
 #include "cTestScene1.h"
 #include "cTestScene2.h"
@@ -62,9 +63,9 @@ void cMainGame::Setup()
 	SCENEMANAGER->AddScene("TestScene2", new cTestScene2);
 	SCENEMANAGER->AddScene("WMScene", m_pWMScene);
 	SCENEMANAGER->AddScene("IntroScene", new cIntroScene);
-	
-	SCENEMANAGER->ChangeScene("TestScene1");
+	SCENEMANAGER->AddScene("SelectScene", new cCharaterChangeScene);
 
+	SCENEMANAGER->ChangeScene("IntroScene");
 
 
 	m_pWMScene->setCamera(m_pCamera);

@@ -39,6 +39,7 @@ void cChef::SetUp(IN D3DXVECTOR3 vPos,IN cCharacterControl * _pControl)
 	pBody->SetUp();
 	m_pRoot = pBody;
 	cChefHead* pHead = new cChefHead;
+	pHead->SetChageNum(DATABASE->GetchageChefNum());
 	pHead->SetUp();
 	m_pRoot->AddChild(pHead);
 	cChefHat * pHat = new cChefHat;
