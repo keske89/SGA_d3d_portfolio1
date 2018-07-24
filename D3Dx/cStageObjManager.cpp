@@ -376,7 +376,7 @@ std::list<cIGObj*>::iterator cStageObjManager:: SetIngameObject(OBJECTTYPE objty
 	case AOBJ_PLATE:
 		m_Plate = new cPlate;
 		m_Plate->Setup(matWorld, D3DXVECTOR3(matWorld._41, matWorld._42, matWorld._43), AOBJ_PLATE);
-		iter = m_listObj.insert(m_listObj.end(), m_Plate);
+		iter = m_listFoodObj.insert(m_listFoodObj.end(), m_Plate);
 		return iter;
 		break;
 	case AOBJ_PLATERETURNBOX:

@@ -225,8 +225,8 @@ void cProgressbar::Render()
 			m_vecComplete.size() / 3,
 			&m_vecComplete[0],
 			sizeof(ST_PT_VERTEX));
-		}*/
-}
+		}
+}*/
 
 
 float cProgressbar::SetGauge(int size)
