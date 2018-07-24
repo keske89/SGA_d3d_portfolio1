@@ -62,8 +62,8 @@ void cTestScene1::Setup()
 	for (int i = 0; i < 2; i++)
 	{
 		m_pChef[i] = new cChef;
-		m_pChef[i]->SetUp(m_vecChefPos[i], m_pControl);
 		m_pControl->AddcCharacter(m_pChef[i]);
+		m_pChef[i]->SetUp(m_vecChefPos[i], m_pControl);
 		m_pChef[i]->setcStageObjManagerAdressLink(m_pSOM);
 		
 	}

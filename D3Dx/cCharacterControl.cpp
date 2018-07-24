@@ -4,9 +4,12 @@
 #include "cChefRoot.h"
 #include "cStageObjManager.h"
 cCharacterControl::cCharacterControl()
-	: m_enmPlayerMod(PLAYERMOD_PLAY1P)
-	, m_Bswitch(false)
+	: m_Bswitch(false)
 {
+	if (DATABASE->GetchageChefNum2P() != -1)
+		m_enmPlayerMod =PLAYERMOD_PLAY2P;
+	else
+		m_enmPlayerMod =PLAYERMOD_PLAY1P;
 }
 cCharacterControl::~cCharacterControl()
 {
@@ -18,10 +21,6 @@ cCharacterControl::~cCharacterControl()
 
 void cCharacterControl::SetUp()
 {
-}
-void cCharacterControl::SetUp(std::map<pair<int, int>, bool> StageIndex)
-{
-	m_mapSatgeIndex = StageIndex;
 }
 void cCharacterControl::Update()
 {
@@ -284,12 +283,29 @@ void cCharacterControl::Control1P()
 	}
 	if (m_vecCharacter[0]->GetDetect())
 	{
-		if (KEYMANAGER->isOnceKeyDown('E'))
+		m_vecCharacter[0]->GetDetect()->Setplayer(m_vecCharacter[0]);
+		if (m_vecCharacter[0]->GetDetect()->GetObjectType() != OBJECTTYPE::AOBJ_TABLE)
 		{
-			if (m_vecCharacter[0]->GetDetect()->GetObjectType() == 30)
-				m_vecCharacter[0]->SetChefAnimation(CHEF_STATE_CHOP);
-			else if (m_vecCharacter[0]->GetDetect()->GetObjectType() == 27)
-				m_vecCharacter[0]->SetChefAnimation(CHEF_STATE_DISHWASHING);
+			if (KEYMANAGER->isOnceKeyDown('E'))
+			{
+				if (m_vecCharacter[0]->GetDetect()->GetObjectType() == OBJECTTYPE::AOBJ_CHOPPIGNBOARD)
+				{
+					if (m_vecCharacter[0]->GetDetect()->GetInven())
+					{
+						m_vecCharacter[0]->SetChefAnimation(CHEF_STATE_CHOP);
+						m_vecCharacter[0]->GetDetect()->SetIsAction(true);
+					}
+
+				}
+				else if (m_vecCharacter[0]->GetDetect()->GetObjectType() == OBJECTTYPE::AOBJ_SINK)
+					m_vecCharacter[0]->SetChefAnimation(CHEF_STATE_DISHWASHING);
+			}
+		}
+		if (m_vecCharacter[0]->GetDetect()->GetObjectType() == OBJECTTYPE::AOBJ_CHOPPIGNBOARD &&
+			m_vecCharacter[0]->GetCHEF_STATE() == CHEF_STATE::CHEF_STATE_CHOP)
+		{
+			if (m_vecCharacter[0]->GetDetect()->GetInven()->Getchopped())
+				m_vecCharacter[0]->SetChefAnimation(CHEF_STATE_IDLE);
 		}
 	}
 	else
@@ -300,18 +316,78 @@ void cCharacterControl::Control1P()
 		m_vecCharacter[0]->SetChefAnimation(CHEF_STATE_TRANCEPORT_IDLE);
 	if (KEYMANAGER->isOnceKeyDown('W'))
 	{
+		//오브젝트가 디텍트가 되면
 		if (m_vecCharacter[0]->GetDetect())
 		{
+			// 캐릭터의 인벤이 비워져 있으면
 			if (m_vecCharacter[0]->GetInven() == NULL)
-				m_vecCharacter[0]->SetChefAnimation(CHEF_STATE_ACTION);
+			{
+				//캐릭터의 인벤이 있으면
+				if (m_vecCharacter[0]->GetDetect()->GetInven())
+				{
+					//캐릭터와 캐릭터가 디텍트를 공유하고 있지않으면
+					if (m_vecCharacter[0]->GetDetect() != m_vecCharacter[1]->GetDetect())
+					{
+						if (m_vecCharacter[0]->GetDetect()->GetInven()->GetInven())
+						{
+							m_vecCharacter[0]->SetInven(m_vecCharacter[0]->GetDetect()->GetInven()->GetInven());
+							m_vecCharacter[0]->GetDetect()->GetInven()->SetInven(NULL);
+						}
+						else if (m_vecCharacter[0]->GetDetect()->GetInven())
+						{
+							m_vecCharacter[0]->SetInven(m_vecCharacter[0]->GetDetect()->GetInven());
+							m_vecCharacter[0]->GetDetect()->SetInven(NULL);
+						}
+					}
+				}
+				else
+				{
+					m_vecCharacter[0]->SetChefAnimation(CHEF_STATE_ACTION);
+				}
+			}
 			else
 			{
 				//오브젝트의 인벤이 비워져있으면!!!
-				if (!m_vecCharacter[0]->GetDetect()->GetInven())
+				if (m_vecCharacter[0]->GetDetect()->GetObjectType() != OBJECTTYPE::AOBJ_COOKER)
 				{
-					m_vecCharacter[0]->GetDetect()->SetInven(m_vecCharacter[0]->GetInven());
-					m_vecCharacter[0]->SetInven(NULL);
-					m_vecCharacter[0]->SetChefAnimation(CHEF_STATE_IDLE);
+					if (!m_vecCharacter[0]->GetDetect()->GetInven())
+					{
+
+						m_vecCharacter[0]->GetDetect()->SetInven(m_vecCharacter[0]->GetInven());
+						//팟이면
+						if (m_vecCharacter[0]->GetInven()->GetObjectType() == OBJECTTYPE::AOBJ_POT)
+							m_vecCharacter[0]->GetInven()->SetIsAction(false);
+						m_vecCharacter[0]->SetInven(NULL);
+						m_vecCharacter[0]->SetChefAnimation(CHEF_STATE_IDLE);
+					}
+					else if (!m_vecCharacter[0]->GetDetect()->GetInven()->GetInven())
+					{
+						m_vecCharacter[0]->GetDetect()->GetInven()->SetInven(m_vecCharacter[0]->GetInven());
+						m_vecCharacter[0]->SetInven(NULL);
+						m_vecCharacter[0]->SetChefAnimation(CHEF_STATE_IDLE);
+					}
+				}
+				//가스레인지 일경우
+				else if (m_vecCharacter[0]->GetDetect()->GetObjectType() == OBJECTTYPE::AOBJ_COOKER)
+				{
+					//팟일 경우만 노아라
+					if (m_vecCharacter[0]->GetInven()->GetObjectType() == OBJECTTYPE::AOBJ_POT ||
+						m_vecCharacter[0]->GetInven()->GetObjectType() == OBJECTTYPE::FOBJ_ONION ||
+						m_vecCharacter[0]->GetInven()->GetObjectType() == OBJECTTYPE::FOBJ_TOMATO)
+					{
+						if (!m_vecCharacter[0]->GetDetect()->GetInven())
+						{
+							m_vecCharacter[0]->GetDetect()->SetInven(m_vecCharacter[0]->GetInven());
+							m_vecCharacter[0]->SetInven(NULL);
+							m_vecCharacter[0]->SetChefAnimation(CHEF_STATE_IDLE);
+						}
+						else if (!m_vecCharacter[0]->GetDetect()->GetInven()->GetInven())
+						{
+							m_vecCharacter[0]->GetDetect()->GetInven()->SetInven(m_vecCharacter[0]->GetInven());
+							m_vecCharacter[0]->SetInven(NULL);
+							m_vecCharacter[0]->SetChefAnimation(CHEF_STATE_IDLE);
+						}
+					}
 				}
 			}
 		}
@@ -404,35 +480,111 @@ void cCharacterControl::Control2P()
 	}
 	if (m_vecCharacter[1]->GetDetect())
 	{
-		if (KEYMANAGER->isOnceKeyDown('O'))
+		m_vecCharacter[1]->GetDetect()->Setplayer(m_vecCharacter[1]);
+		if (m_vecCharacter[1]->GetDetect()->GetObjectType() != OBJECTTYPE::AOBJ_TABLE)
 		{
-			if (m_vecCharacter[1]->GetDetect()->GetObjectType() == 30)
-				m_vecCharacter[1]->SetChefAnimation(CHEF_STATE_CHOP);
-			else if (m_vecCharacter[1]->GetDetect()->GetObjectType() == 27)
-				m_vecCharacter[1]->SetChefAnimation(CHEF_STATE_DISHWASHING);
+			if (KEYMANAGER->isOnceKeyDown('O'))
+			{
+				if (m_vecCharacter[1]->GetDetect()->GetObjectType() == OBJECTTYPE::AOBJ_CHOPPIGNBOARD)
+				{
+					if (m_vecCharacter[1]->GetDetect()->GetInven())
+					{
+						m_vecCharacter[1]->SetChefAnimation(CHEF_STATE_CHOP);
+						m_vecCharacter[1]->GetDetect()->SetIsAction(true);
+					}
 
+				}
+				else if (m_vecCharacter[1]->GetDetect()->GetObjectType() == OBJECTTYPE::AOBJ_SINK)
+					m_vecCharacter[1]->SetChefAnimation(CHEF_STATE_DISHWASHING);
+			}
+		}
+		if (m_vecCharacter[1]->GetDetect()->GetObjectType() == OBJECTTYPE::AOBJ_CHOPPIGNBOARD &&
+			m_vecCharacter[1]->GetCHEF_STATE() == CHEF_STATE::CHEF_STATE_CHOP)
+		{
+			if (m_vecCharacter[1]->GetDetect()->GetInven()->Getchopped())
+				m_vecCharacter[1]->SetChefAnimation(CHEF_STATE_IDLE);
 		}
 	}
 	else
 	{
 		m_vecCharacter[1]->SetChefAnimation(CHEF_STATE_IDLE);
-	}
+	}				   
 	if (m_vecCharacter[1]->GetInven())
 		m_vecCharacter[1]->SetChefAnimation(CHEF_STATE_TRANCEPORT_IDLE);
 	if (KEYMANAGER->isOnceKeyDown('P'))
 	{
+		//오브젝트가 디텍트가 되면
 		if (m_vecCharacter[1]->GetDetect())
 		{
+			// 캐릭터의 인벤이 비워져 있으면
 			if (m_vecCharacter[1]->GetInven() == NULL)
-				m_vecCharacter[1]->SetChefAnimation(CHEF_STATE_ACTION);
+			{
+				//캐릭터의 인벤이 있으면
+				if (m_vecCharacter[1]->GetDetect()->GetInven())
+				{
+					//캐릭터와 캐릭터가 디텍트를 공유하고 있지않으면
+					if (m_vecCharacter[1]->GetDetect() != m_vecCharacter[0]->GetDetect())
+					{
+						if (m_vecCharacter[1]->GetDetect()->GetInven()->GetInven())
+						{
+							m_vecCharacter[1]->SetInven(m_vecCharacter[1]->GetDetect()->GetInven()->GetInven());
+							m_vecCharacter[1]->GetDetect()->GetInven()->SetInven(NULL);
+						}
+						else if (m_vecCharacter[1]->GetDetect()->GetInven())
+						{
+							m_vecCharacter[1]->SetInven(m_vecCharacter[1]->GetDetect()->GetInven());
+							m_vecCharacter[1]->GetDetect()->SetInven(NULL);
+						}
+					}
+				}
+				else
+				{
+					m_vecCharacter[1]->SetChefAnimation(CHEF_STATE_ACTION);
+				}
+			}
 			else
 			{
 				//오브젝트의 인벤이 비워져있으면!!!
-				if (!m_vecCharacter[1]->GetDetect()->GetInven())
+				if (m_vecCharacter[1]->GetDetect()->GetObjectType() != OBJECTTYPE::AOBJ_COOKER)
 				{
-					m_vecCharacter[1]->GetDetect()->SetInven(m_vecCharacter[1]->GetInven());
-					m_vecCharacter[1]->SetInven(NULL);
-					m_vecCharacter[1]->SetChefAnimation(CHEF_STATE_IDLE);
+					if (!m_vecCharacter[1]->GetDetect()->GetInven())
+					{
+
+						m_vecCharacter[1]->GetDetect()->SetInven(m_vecCharacter[1]->GetInven());
+						//팟이면
+						if (m_vecCharacter[1]->GetInven()->GetObjectType() == OBJECTTYPE::AOBJ_POT)
+							m_vecCharacter[1]->GetInven()->SetIsAction(false);
+						m_vecCharacter[1]->SetInven(NULL);
+						m_vecCharacter[1]->SetChefAnimation(CHEF_STATE_IDLE);
+					}
+					else if (!m_vecCharacter[1]->GetDetect()->GetInven()->GetInven())
+					{
+						m_vecCharacter[1]->GetDetect()->GetInven()->SetInven(m_vecCharacter[1]->GetInven());
+						m_vecCharacter[1]->SetInven(NULL);
+						m_vecCharacter[1]->SetChefAnimation(CHEF_STATE_IDLE);
+					}
+				}
+				//가스레인지 일경우
+				else if (m_vecCharacter[1]->GetDetect()->GetObjectType() == OBJECTTYPE::AOBJ_COOKER)
+				{
+					//팟일 경우만 노아라
+					if (m_vecCharacter[1]->GetInven()->GetObjectType() == OBJECTTYPE::AOBJ_POT ||
+						m_vecCharacter[1]->GetInven()->GetObjectType() == OBJECTTYPE::FOBJ_ONION ||
+						m_vecCharacter[1]->GetInven()->GetObjectType() == OBJECTTYPE::FOBJ_TOMATO)
+					{
+						if (!m_vecCharacter[1]->GetDetect()->GetInven())
+						{
+							m_vecCharacter[1]->GetDetect()->SetInven(m_vecCharacter[1]->GetInven());
+							m_vecCharacter[1]->SetInven(NULL);
+							m_vecCharacter[1]->SetChefAnimation(CHEF_STATE_IDLE);
+						}
+						else if (!m_vecCharacter[1]->GetDetect()->GetInven()->GetInven())
+						{
+							m_vecCharacter[1]->GetDetect()->GetInven()->SetInven(m_vecCharacter[1]->GetInven());
+							m_vecCharacter[1]->SetInven(NULL);
+							m_vecCharacter[1]->SetChefAnimation(CHEF_STATE_IDLE);
+						}
+					}
 				}
 			}
 		}
@@ -597,16 +749,6 @@ void cCharacterControl::Move()
 
 }
 
-
-
-void cCharacterControl::SetPlaterMod(int num)
-{
-	if (num == 0 && num > 2) return;
-	else
-		m_enmPlayerMod = (PLAYERMOD)num;
-
-}
-
 void cCharacterControl::AddcCharacter(IN cChef * Chef)
 {
 	m_vecCharacter.push_back(Chef);
@@ -634,4 +776,17 @@ void cCharacterControl::Booster()
 cChef * cCharacterControl::GetControlPlayer()
 {
 	return m_vecCharacter[m_Bswitch];
+}
+
+int  cCharacterControl::GetVecterCharacter(cChef * _chef)
+{
+	int changenum = 0;
+	for (int i = 0; i < 2; i++)
+	{
+		if (_chef == m_vecCharacter[i])
+		{
+			changenum = i;
+			return changenum;
+		}
+	}
 }

@@ -39,7 +39,19 @@ void cChef::SetUp(IN D3DXVECTOR3 vPos,IN cCharacterControl * _pControl)
 	pBody->SetUp();
 	m_pRoot = pBody;
 	cChefHead* pHead = new cChefHead;
-	pHead->SetChageNum(DATABASE->GetchageChefNum());
+	if(m_pControl->GetPlayerMod() == PLAYERMOD::PLAYERMOD_PLAY1P)
+		pHead->SetChageNum(DATABASE->GetchageChefNum1P());
+	else
+	{
+		if (0 == (m_pControl->GetVecterCharacter(this)))
+		{
+			pHead->SetChageNum(DATABASE->GetchageChefNum1P());
+		}
+		else
+		{
+			pHead->SetChageNum(DATABASE->GetchageChefNum2P());
+		}
+	}
 	pHead->SetUp();
 	m_pRoot->AddChild(pHead);
 	cChefHat * pHat = new cChefHat;

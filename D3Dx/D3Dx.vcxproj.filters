@@ -357,9 +357,6 @@
     <ClInclude Include="cBackground.h">
       <Filter>소스 파일\Stage</Filter>
     </ClInclude>
-    <ClInclude Include="cChefHat.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="cStageUI.h">
       <Filter>소스 파일\Stage</Filter>
     </ClInclude>
@@ -368,6 +365,9 @@
     </ClInclude>
     <ClInclude Include="cSelectUI.h">
       <Filter>소스 파일\CharaterSelect</Filter>
+    </ClInclude>
+    <ClInclude Include="cChefHat.h">
+      <Filter>소스 파일\Chef\ChefPatrs</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -641,9 +641,6 @@
     <ClCompile Include="cBackground.cpp">
       <Filter>소스 파일\Stage</Filter>
     </ClCompile>
-    <ClCompile Include="cChefHat.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="cStageUI.cpp">
       <Filter>소스 파일\Stage</Filter>
     </ClCompile>
@@ -652,6 +649,9 @@
     </ClCompile>
     <ClCompile Include="cSelectUI.cpp">
       <Filter>소스 파일\CharaterSelect</Filter>
+    </ClCompile>
+    <ClCompile Include="cChefHat.cpp">
+      <Filter>소스 파일\Chef\ChefPatrs</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

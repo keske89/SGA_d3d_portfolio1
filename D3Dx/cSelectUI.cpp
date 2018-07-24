@@ -7,9 +7,12 @@
 cSelectUI::cSelectUI()
 	: m_pSprite(NULL)
 	, m_pRootUI(NULL)
-	, m_buttonSelect(0)
 	, _isMod(false)
 {
+	for (int i = 0; i < 2; i++)
+	{
+		m_buttonSelect[i] = 0;
+	}
 	D3DXMatrixIdentity(&m_matWorld);
 }
 
@@ -22,84 +25,110 @@ void cSelectUI::SelectControl()
 {
 	if (KEYMANAGER->isOnceKeyDown(VK_LEFT))
 	{
-		if (m_buttonSelect <= 0)
-			m_buttonSelect = 6;
+		if (!_isMod)
+		{
+			if (m_buttonSelect[0] <= 0)
+				m_buttonSelect[0] = 6;
+			else
+				m_buttonSelect[0]--;
+		}
 		else
-			m_buttonSelect--;
+		{
+			if (m_buttonSelect[_isMod] <= 0)
+				m_buttonSelect[_isMod] = 6;
+			else
+				m_buttonSelect[_isMod]--;
+		}
 	}
 	if (KEYMANAGER->isOnceKeyDown(VK_RIGHT))
 	{
-		if (m_buttonSelect >= 6)
-			m_buttonSelect = 0;
+		if (!_isMod)
+		{
+			if (m_buttonSelect[0] >= 6)
+				m_buttonSelect[0] = 0;
+			else
+				m_buttonSelect[0]++;
+		}
 		else
-			m_buttonSelect++;
+		{
+			if (m_buttonSelect[_isMod] >= 6)
+				m_buttonSelect[_isMod] = 0;
+			else
+				m_buttonSelect[_isMod]++;
+		}
 	}
 	if (KEYMANAGER->isOnceKeyDown(VK_SPACE))
 	{
-		_nextScene = "StageScene";
+		_nextScene = "TestScene1";
 		_isChange = true;
 	}
 
 	if (KEYMANAGER->isOnceKeyDown(VK_RETURN))
 	{
 		if (!_isMod)
+		{
 			_isMod = true;
+		}
 		else
+		{
 			_isMod = false;
+		}
 	}
 }
 
 void cSelectUI::ChangeCharater()
 {
-	switch (m_buttonSelect)
+	for (int i = 0; i < 2; i++)
 	{
+		switch (m_buttonSelect[i])
+		{
 		case 0:
 		{
-			m_pSelectCharater[_isMod]->SetTexture(g_pTextureManager->GetTexture(_T("./Resources/Texture2D/Level_Character_icon_Bear.png")));
-			m_pSelectCharater[_isMod]->SetName("Level_Character_icon_Bear");
-			
+			m_pSelectCharater[i]->SetTexture(g_pTextureManager->GetTexture(_T("./Resources/Texture2D/Level_Character_icon_Bear.png")));
+			m_pSelectCharater[i]->SetName("Level_Character_icon_Bear");
+
 		}
 		break;
 		case 1:
 		{
-			m_pSelectCharater[_isMod]->SetTexture(g_pTextureManager->GetTexture(_T("./Resources/Texture2D/Level_Character_Icon_Beard.png")));
-			m_pSelectCharater[_isMod]->SetName("Level_Character_Icon_Beard");
+			m_pSelectCharater[i]->SetTexture(g_pTextureManager->GetTexture(_T("./Resources/Texture2D/Level_Character_Icon_Beard.png")));
+			m_pSelectCharater[i]->SetName("Level_Character_Icon_Beard");
 		}
 		break;
 		case 2:
 		{
-			m_pSelectCharater[_isMod]->SetTexture(g_pTextureManager->GetTexture(_T("./Resources/Texture2D/Level_Character_Icon_BlackCat.png")));
-			m_pSelectCharater[_isMod]->SetName("Level_Character_Icon_BlackCat");
+			m_pSelectCharater[i]->SetTexture(g_pTextureManager->GetTexture(_T("./Resources/Texture2D/Level_Character_Icon_BlackCat.png")));
+			m_pSelectCharater[i]->SetName("Level_Character_Icon_BlackCat");
 		}
 		break;
 		case 3:
 		{
-			m_pSelectCharater[_isMod]->SetTexture(g_pTextureManager->GetTexture(_T("./Resources/Texture2D/Level_Character_Icon_Boof.png")));
-			m_pSelectCharater[_isMod]->SetName("Level_Character_Icon_Boof");
+			m_pSelectCharater[i]->SetTexture(g_pTextureManager->GetTexture(_T("./Resources/Texture2D/Level_Character_Icon_Boof.png")));
+			m_pSelectCharater[i]->SetName("Level_Character_Icon_Boof");
 		}
 		break;
 		case 4:
 		{
-			m_pSelectCharater[_isMod]->SetTexture(g_pTextureManager->GetTexture(_T("./Resources/Texture2D/Level_Character_Icon_Box.png")));
-			m_pSelectCharater[_isMod]->SetName("Level_Character_Icon_Box");
+			m_pSelectCharater[i]->SetTexture(g_pTextureManager->GetTexture(_T("./Resources/Texture2D/Level_Character_Icon_Box.png")));
+			m_pSelectCharater[i]->SetName("Level_Character_Icon_Box");
 		}
 		break;
 		case 5:
 		{
-			m_pSelectCharater[_isMod]->SetTexture(g_pTextureManager->GetTexture(_T("./Resources/Texture2D/Level_Character_Icon_Buck.png")));
-			m_pSelectCharater[_isMod]->SetName("Level_Character_Icon_Box");
+			m_pSelectCharater[i]->SetTexture(g_pTextureManager->GetTexture(_T("./Resources/Texture2D/Level_Character_Icon_Buck.png")));
+			m_pSelectCharater[i]->SetName("Level_Character_Icon_Box");
 		}
 		break;
 		case 6:
 		{
-			m_pSelectCharater[_isMod]->SetTexture(g_pTextureManager->GetTexture(_T("./Resources/Texture2D/Level_Character_Icon_Dino.png")));
-			m_pSelectCharater[_isMod]->SetName("Level_Character_Icon_Box");
+			m_pSelectCharater[i]->SetTexture(g_pTextureManager->GetTexture(_T("./Resources/Texture2D/Level_Character_Icon_Dino.png")));
+			m_pSelectCharater[i]->SetName("Level_Character_Icon_Box");
 		}
 		break;
 		default:
-		break;
+			break;
+		}
 	}
-	
 }
 
 void cSelectUI::Setup()
@@ -233,9 +262,9 @@ void cSelectUI::Update()
 		_alpha++;
 		if (_alpha >= 255)
 		{
-			if (_nextScene == "StageScene")
+			if (_nextScene == "TestScene1")
 			{
-				SCENEMANAGER->ChangeScene("StageScene");
+				SCENEMANAGER->ChangeScene("TestScene1");
 			}
 		}
 	}
@@ -243,15 +272,20 @@ void cSelectUI::Update()
 	{
 		m_pRootUI->Update();
 		if (!_isMod)
+		{
 			m_pSelectCharater[0]->Update();
+			DATABASE->SetchageChefNum1P(m_buttonSelect[0]);
+		}
 		else
 		{
 			m_pSelectCharater[0]->Update();
+			DATABASE->SetchageChefNum1P(m_buttonSelect[0]);
 			m_pSelectCharater[1]->Update();
+			DATABASE->SetchageChefNum2P(m_buttonSelect[1]);
 		}
 		SelectControl();
 		ChangeCharater();
-		DATABASE->SetchageChefNum(m_buttonSelect);
+		
 	}
 }
 
@@ -263,13 +297,9 @@ void cSelectUI::Render()
 	m_pRootUI->Render();
 	m_pSprite->End();
 	
-	if(!_isMod)
-		m_pSelectCharater[0]->Render();
-	else
-	{
-		m_pSelectCharater[0]->Render();
-		m_pSelectCharater[1]->Render();
-	}
+	
+	m_pSelectCharater[0]->Render();
+	m_pSelectCharater[1]->Render();
 
 	if (_isChange)
 		IMAGEMANAGER->alphaRender(_T("blackMask"), _alpha);

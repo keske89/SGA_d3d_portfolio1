@@ -5,7 +5,6 @@ class cChefAnimation;
 #define CharacterSpeed 0.1f
 enum PLAYERMOD
 {
-	PLAYERMOD_DEFLAT,
 	PLAYERMOD_PLAY1P,
 	PLAYERMOD_PLAY2P
 };
@@ -48,8 +47,7 @@ public:
 	cCharacterControl();
 	~cCharacterControl();
 	void AddcCharacter(IN cChef * _Chef);
-	void SetPlaterMod(int num);
-	void SetUp(IN std::map<pair<int, int>, bool> StageIndex);
+	int GetPlayerMod() { return (int)m_enmPlayerMod; };
 	void SetUp();
 	void Update();
 	void Render();
@@ -75,5 +73,7 @@ public:
 	}
 
 	cChef * GetControlPlayer();
+
+	int  GetVecterCharacter(cChef * _chef);
 };
 

@@ -13,8 +13,8 @@ private:
 	bool m_bIsStageclear[10];
 	int m_nStageStar[10];
 	SYNTHESIZE(int, m_nStageNum, stageNum);
-	SYNTHESIZE(int, m_nChageChefNum, chageChefNum);
-
+	SYNTHESIZE(int, m_nChageChefNum1P, chageChefNum1P);
+	SYNTHESIZE(int, m_nChageChefNum2P, chageChefNum2P);
 public:
 
 	void Setup();

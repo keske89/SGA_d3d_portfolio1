@@ -23,8 +23,7 @@ private:
 
 	iUIObject*		m_pRootUI;
 	UIObject *		m_pSelectCharater[2];
-	int				m_buttonSelect;
-
+	int				m_buttonSelect[2];
 	BYTE			_alpha;
 	bool			_isChange;
 	bool			_isMod;
