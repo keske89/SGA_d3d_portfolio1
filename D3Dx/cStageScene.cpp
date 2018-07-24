@@ -8,6 +8,7 @@
 #include "cCharacterControl.h"
 #include "cCollision.h"
 #include "cBackground.h"
+#include "cStageUI.h"
 
 
 cStageScene::cStageScene()
@@ -19,6 +20,7 @@ cStageScene::cStageScene()
 	, m_pControl(NULL)
 	, m_pCollision(NULL)
 	, m_pBG(NULL)
+	, m_pStageUI(NULL)
 {
 	m_pChef[0] = NULL;
 	m_pChef[1] = NULL;
@@ -36,12 +38,16 @@ cStageScene::~cStageScene()
 	SAFE_DELETE(m_pChef[1]);
 	SAFE_DELETE(m_pCollision);
 	SAFE_DELETE(m_pBG);
+	SAFE_DELETE(m_pStageUI);
 }
 
 void cStageScene::Setup()
 {
 	m_pStage = new cStage;
 	m_pStage->Setup(DATABASE->GetstageNum(), m_vNewObjData, m_vSetObjData, m_mapIsBlockedData, m_vecChefPos[0], m_vecChefPos[1]);
+
+	m_pStageUI = new cStageUI;
+	m_pStageUI->Setup();
 
 	m_pBG = new cBackground;
 	m_pBG->Setup(DATABASE->GetstageNum());
@@ -128,12 +134,18 @@ void cStageScene::Update()
 
 	if (m_pCollision)
 		m_pCollision->Update();
+
+	if (m_pStageUI)
+		m_pStageUI->Update();
 }
 
 void cStageScene::Render()
 {
 	if (m_pStage)
 		m_pStage->Render();
+
+	if (m_pStageUI)
+		m_pStageUI->Render();
 
 	//if (m_pGrid)
 	//	m_pGrid->Render();

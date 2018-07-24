@@ -9,7 +9,7 @@ private:
 	D3DXIMAGE_INFO		m_STTimerImageInfo;
 	D3DXIMAGE_INFO		m_STNumberImageInfo;
 	D3DXMATRIX			m_matTimer;
-	D3DXMATRIX			m_matNumberMinute;
+	D3DXMATRIX			m_matNumberSecond0;
 	D3DXMATRIX			m_matNumberSecond1;
 	D3DXMATRIX			m_matNumberSecond2;
 public:
@@ -19,6 +19,8 @@ public:
 	void Setup();
 	void Update();
 	void Render();
+
+	RECT getRect(LONG left, LONG top, LONG right, LONG bottom);
 
 	inline bool getTimer() { 
 		if (m_nTimer <= 0) return false; 
