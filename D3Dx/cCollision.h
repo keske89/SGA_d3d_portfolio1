@@ -13,6 +13,7 @@ private:
 	int												m_nNewObjSize;
 
 	list<cIGObj*>									m_objList;
+	list<cIGObj*>									m_foodList;
 	list<cIGObj*>::iterator							m_iterList;
 	list<cIGObj*>::reverse_iterator					m_riterList;
 
@@ -37,6 +38,7 @@ public:
 	bool PlayerWallCollisionZ(int moveZ, D3DXVECTOR3& pos, D3DXVECTOR3& dir);
 	bool PlayerWallVertexCollision(int moveX, int moveZ, D3DXVECTOR3& pos, D3DXVECTOR3& dir);
 	cIGObj* PlayerDetectObject(int playerNum);
+	cIGObj* DetectObject(int playerNum);
 	void StaticLineXCollision(int playerNum, int keyFirst, int keySecond, int moveX, D3DXVECTOR3& pos);
 	void StaticLineZCollision(int playerNum, int keyFirst, int keySecond, int moveZ, D3DXVECTOR3& pos);
 	void StaticVertexCollision(int playerNum, int keyFirst, int keySecond);

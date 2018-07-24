@@ -21,7 +21,8 @@ cCollision::~cCollision()
 
 void cCollision::Setup()
 {
-	m_nListSize = m_pSOM->GetListObj().size();
+	m_nListSize = m_pSOM->GetListFoodObj().size();
+	m_foodList = m_pSOM->GetListFoodObj();
 	m_objList = m_pSOM->GetListObj();
 	for (m_iterList = m_objList.begin(); m_iterList != m_objList.end(); ++m_iterList)
 	{
@@ -71,26 +72,17 @@ void cCollision::Update()
 			CDZ = PlayerWallCollisionZ(moveZ[i], pos[i], dir[i]);
 			if (CDX == false && CDZ == false) PlayerWallVertexCollision(moveX[i], moveZ[i], pos[i], dir[i]);
 			m_pPlayer[i]->SetPos(pos[i]);
-			m_pPlayer[i]->SetDetect(PlayerDetectObject(i));
+			m_pPlayer[i]->SetDetect(DetectObject(i));
 		}
 	}
 }
 
 void cCollision::ListUpdate()
 {
-	if ((m_nListSize + m_nNewObjSize) != m_pSOM->GetListObj().size())
+	if (m_nListSize != m_pSOM->GetListFoodObj().size())
 	{
-		m_objList = m_pSOM->GetListObj();
-		m_nNewObjSize = m_pSOM->GetListObj().size() - m_nListSize;
-		m_riterList = m_objList.rbegin();
-		for (int i = 0; i < m_nNewObjSize - 1; ++i)
-		{
-			if (m_mapDynamicObject.find((*m_riterList)) == m_mapDynamicObject.end())
-			{
-
-			}
-			++m_riterList;
-		}
+		m_foodList = m_pSOM->GetListFoodObj();
+		m_nNewObjSize = m_pSOM->GetListFoodObj().size();
 	}
 }
 
@@ -260,6 +252,52 @@ cIGObj* cCollision::PlayerDetectObject(int playerNum)
 			tempAddress = m_iterDynamicObject->first;
 		}
 	}
+	return tempAddress;
+}
+
+cIGObj * cCollision::DetectObject(int playerNum)
+{
+	D3DXVECTOR3 pos = m_pPlayer[playerNum]->GetPos();
+	D3DXVECTOR3 dir = m_pPlayer[playerNum]->GetDir();
+	D3DXVec3Normalize(&dir, &dir);
+	dir.y += 0.5f;
+	float distance = 10000000.0f;
+	BOOL isPicked = FALSE;
+	cIGObj* tempAddress = NULL;
+	D3DXMATRIX invMat;
+	D3DXMATRIX invTransMat;
+	D3DXMATRIX invRotMat;
+
+	for (m_iterList = m_objList.begin(); m_iterList != m_objList.end(); ++m_iterList)
+	{
+		float tempDist = 0.0f;
+		D3DXVECTOR3 tempPos;
+		D3DXVECTOR3 tempDir;
+		D3DXMatrixTranspose(&invRotMat, &(*m_iterList)->GetWorldMat());
+		D3DXMatrixInverse(&invTransMat, NULL, &(*m_iterList)->GetWorldMat());
+		D3DXVec3TransformCoord(&tempPos, &pos, &invTransMat);
+		D3DXVec3TransformNormal(&tempDir, &dir, &invRotMat);
+		D3DXIntersect((*m_iterList)->GetMesh(), &tempPos, &tempDir, &isPicked, NULL, NULL, NULL, &tempDist, NULL, NULL);
+		if (isPicked == TRUE && tempDist < distance)
+		{
+			distance = tempDist;
+			tempAddress = (*m_iterList);
+		}
+	}
+	for (m_iterList = m_foodList.begin(); m_iterList != m_foodList.end(); ++m_iterList)
+	{
+		float tempDist = 0.0f;
+		D3DXVECTOR3 tempPos;
+		D3DXMatrixInverse(&invTransMat, NULL, &(*m_iterList)->GetWorldMat());
+		D3DXVec3TransformCoord(&tempPos, &pos, &invTransMat);
+		D3DXIntersect((*m_iterList)->GetMesh(), &tempPos, &dir, &isPicked, NULL, NULL, NULL, &tempDist, NULL, NULL);
+		if (isPicked == TRUE && tempDist < distance)
+		{
+			distance = tempDist;
+			tempAddress = (*m_iterList);
+		}
+	}
+
 	return tempAddress;
 }
 
