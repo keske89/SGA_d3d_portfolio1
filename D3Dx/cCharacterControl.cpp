@@ -222,11 +222,11 @@ void cCharacterControl::ControlAction()
 				}
 			}
 			// 鸥老
-		/*	else
+			else
 			{
 				m_vecCharacter[m_Bswitch]->SetInven(NULL);
 				m_vecCharacter[m_Bswitch]->SetChefAnimation(CHEF_STATE_IDLE);
-			}*/
+			}
 		}
 
 
@@ -465,11 +465,11 @@ void cCharacterControl::Control1P()
 			}
 		}
 		// 鸥老
-	/*	else
+		else
 		{
 			m_vecCharacter[0]->SetInven(NULL);
 			m_vecCharacter[0]->SetChefAnimation(CHEF_STATE_IDLE);
-		}*/
+		}
 	}
 	if (KEYMANAGER->isStayKeyDown('F'))
 	{
@@ -697,12 +697,12 @@ void cCharacterControl::Control2P()
 				}
 			}
 		}
-		//// 鸥老
-		//else
-		//{
-		//	m_vecCharacter[1]->SetInven(NULL);
-		//	m_vecCharacter[1]->SetChefAnimation(CHEF_STATE_IDLE);
-		//}
+		// 鸥老
+		else
+		{
+			m_vecCharacter[1]->SetInven(NULL);
+			m_vecCharacter[1]->SetChefAnimation(CHEF_STATE_IDLE);
+		}
 	}
 	if (KEYMANAGER->isStayKeyDown(VK_NUMPAD6))
 	{

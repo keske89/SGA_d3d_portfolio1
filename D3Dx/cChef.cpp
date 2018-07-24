@@ -73,36 +73,6 @@ void cChef::SetUp(IN D3DXVECTOR3 vPos,IN cCharacterControl * _pControl)
 
 }
 
-//void cChef::SetUp(IN D3DXVECTOR3 vPos,IN int ChageImageNum,IN cCharacterControl * _pControl = NULL)
-//{
-//	m_pControl = _pControl;
-//	m_vPosition = vPos;
-//	SetMaterial();
-//	cChefBody* pBody = new cChefBody;
-//	pBody->SetUp();
-//	m_pRoot = pBody;
-//	cChefHead* pHead = new cChefHead;
-//	pHead->SetChageNum(ChageImageNum);
-//	pHead->SetUp();
-//	m_pRoot->AddChild(pHead);
-//	cChefHat * pHat = new cChefHat;
-//	pHat->SetUp();
-//	m_pRoot->AddChild(pHat);
-//	cChefLeftHand * pLHand = new cChefLeftHand;
-//	pLHand->SetUp();
-//	m_pRoot->AddChild(pLHand);
-//	cChefRightHand* pRHand = new cChefRightHand;
-//	pRHand->SetUp();
-//	m_pRoot->AddChild(pRHand);
-//	cChefKnife * pKnife = new cChefKnife;
-//	pKnife->SetUp();
-//	m_pRoot->AddChild(pKnife);
-//
-//	D3DXMATRIX matT;
-//	D3DXMatrixTranslation(&matT, vPos.x, vPos.y, vPos.z);
-//	m_pRoot->SetParentWorldTM(&matT);
-//}
-
 void cChef::Relese()
 {
 }
