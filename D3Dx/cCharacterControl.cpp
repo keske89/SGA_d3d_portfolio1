@@ -122,15 +122,13 @@ void cCharacterControl::ControlAction()
 						//캐릭터와 캐릭터가 디텍트를 공유하고 있지않으면
 						if (m_vecCharacter[m_Bswitch]->GetDetect() != m_vecCharacter[!m_Bswitch]->GetDetect())
 						{
-							if (m_vecCharacter[m_Bswitch]->GetDetect()->GetInven()->GetInven())
+							if (m_vecCharacter[m_Bswitch]->GetDetect()->GetInven())
 							{
-								m_vecCharacter[m_Bswitch]->SetInven(m_vecCharacter[m_Bswitch]->GetDetect()->GetInven()->GetInven());
-								m_vecCharacter[m_Bswitch]->GetDetect()->GetInven()->SetInven(NULL);
-							}
-							else if (m_vecCharacter[m_Bswitch]->GetDetect()->GetInven())
-							{
-								m_vecCharacter[m_Bswitch]->SetInven(m_vecCharacter[m_Bswitch]->GetDetect()->GetInven());
-								m_vecCharacter[m_Bswitch]->GetDetect()->SetInven(NULL);
+								if (m_vecCharacter[m_Bswitch]->GetCHEF_STATE() != CHEF_STATE::CHEF_STATE_CHOP)
+								{
+									m_vecCharacter[m_Bswitch]->SetInven(m_vecCharacter[m_Bswitch]->GetDetect()->GetInven());
+									m_vecCharacter[m_Bswitch]->GetDetect()->SetInven(NULL);
+								}
 							}
 						}
 					}
@@ -144,25 +142,63 @@ void cCharacterControl::ControlAction()
 					//오브젝트의 인벤이 비워져있으면!!!
 					if (m_vecCharacter[m_Bswitch]->GetDetect()->GetObjectType() != OBJECTTYPE::AOBJ_COOKER)
 					{
-						if (!m_vecCharacter[m_Bswitch]->GetDetect()->GetInven())
+						//쓰레기통일 경우
+						if (m_vecCharacter[m_Bswitch]->GetDetect()->GetObjectType() == OBJECTTYPE::AOBJ_BIN)
 						{
-							
-							m_vecCharacter[m_Bswitch]->GetDetect()->SetInven(m_vecCharacter[m_Bswitch]->GetInven());
-							//팟이면
-							if (m_vecCharacter[m_Bswitch]->GetInven()->GetObjectType() == OBJECTTYPE::AOBJ_POT)
-								m_vecCharacter[m_Bswitch]->GetInven()->SetIsAction(false);
-							m_vecCharacter[m_Bswitch]->SetInven(NULL);
-							m_vecCharacter[m_Bswitch]->SetChefAnimation(CHEF_STATE_IDLE);
+							if (!m_vecCharacter[m_Bswitch]->GetDetect()->GetInven())
+							{
+								//내가 들고 있는게 접시이면
+								if (m_vecCharacter[m_Bswitch]->GetInven()->GetObjectType() == OBJECTTYPE::AOBJ_PLATE)
+								{
+									//접시 안에 뭔가 있으면
+									if (m_vecCharacter[m_Bswitch]->GetInven()->GetInven())
+									{
+										m_vecCharacter[m_Bswitch]->GetDetect()->SetInven(m_vecCharacter[m_Bswitch]->GetInven()->GetInven());
+										m_vecCharacter[m_Bswitch]->GetInven()->SetInven(NULL);
+										m_vecCharacter[m_Bswitch]->SetChefAnimation(CHEF_STATE_IDLE);
+									}
+								}
+								else if (m_vecCharacter[m_Bswitch]->GetInven()->GetObjectType() == OBJECTTYPE::AOBJ_POT)
+								{
+									//냄비 안에 뭔가 있으면
+									if (m_vecCharacter[m_Bswitch]->GetInven()->GetInven())
+									{
+										m_vecCharacter[m_Bswitch]->GetDetect()->SetInven(m_vecCharacter[m_Bswitch]->GetInven()->GetInven());
+										m_vecCharacter[m_Bswitch]->GetInven()->SetInven(NULL);
+										m_vecCharacter[m_Bswitch]->SetChefAnimation(CHEF_STATE_IDLE);
+									}
+								}
+								//접시 혹은 냄비가 아니면
+								else
+								{
+									m_vecCharacter[m_Bswitch]->GetDetect()->SetInven(m_vecCharacter[m_Bswitch]->GetInven());
+									m_vecCharacter[m_Bswitch]->SetInven(NULL);
+									m_vecCharacter[m_Bswitch]->SetChefAnimation(CHEF_STATE_IDLE);
+								}
+							}
 						}
-						else if (!m_vecCharacter[m_Bswitch]->GetDetect()->GetInven()->GetInven())
+						//쓰레기 통이 아니면
+						else
 						{
-							m_vecCharacter[m_Bswitch]->GetDetect()->GetInven()->SetInven(m_vecCharacter[m_Bswitch]->GetInven());
-							m_vecCharacter[m_Bswitch]->SetInven(NULL);
-							m_vecCharacter[m_Bswitch]->SetChefAnimation(CHEF_STATE_IDLE);
+							if (!m_vecCharacter[m_Bswitch]->GetDetect()->GetInven())
+							{
+								m_vecCharacter[m_Bswitch]->GetDetect()->SetInven(m_vecCharacter[m_Bswitch]->GetInven());
+								//팟이면
+								if (m_vecCharacter[m_Bswitch]->GetInven()->GetObjectType() == OBJECTTYPE::AOBJ_POT)
+									m_vecCharacter[m_Bswitch]->GetInven()->SetIsAction(false);
+								m_vecCharacter[m_Bswitch]->SetInven(NULL);
+								m_vecCharacter[m_Bswitch]->SetChefAnimation(CHEF_STATE_IDLE);
+							}
+							else if (!m_vecCharacter[m_Bswitch]->GetDetect()->GetInven()->GetInven())
+							{
+								m_vecCharacter[m_Bswitch]->GetDetect()->GetInven()->SetInven(m_vecCharacter[m_Bswitch]->GetInven());
+								m_vecCharacter[m_Bswitch]->SetInven(NULL);
+								m_vecCharacter[m_Bswitch]->SetChefAnimation(CHEF_STATE_IDLE);
+							}
 						}
 					}
 					//가스레인지 일경우
-					else if (m_vecCharacter[m_Bswitch]->GetDetect()->GetObjectType() == OBJECTTYPE::AOBJ_COOKER)
+					else 
 					{
 						//팟일 경우만 노아라
 						if (m_vecCharacter[m_Bswitch]->GetInven()->GetObjectType() == OBJECTTYPE::AOBJ_POT ||
@@ -186,11 +222,11 @@ void cCharacterControl::ControlAction()
 				}
 			}
 			// 타일
-			else
+		/*	else
 			{
 				m_vecCharacter[m_Bswitch]->SetInven(NULL);
 				m_vecCharacter[m_Bswitch]->SetChefAnimation(CHEF_STATE_IDLE);
-			}
+			}*/
 		}
 
 
@@ -328,15 +364,13 @@ void cCharacterControl::Control1P()
 					//캐릭터와 캐릭터가 디텍트를 공유하고 있지않으면
 					if (m_vecCharacter[0]->GetDetect() != m_vecCharacter[1]->GetDetect())
 					{
-						if (m_vecCharacter[0]->GetDetect()->GetInven()->GetInven())
+						if (m_vecCharacter[0]->GetDetect()->GetInven())
 						{
-							m_vecCharacter[0]->SetInven(m_vecCharacter[0]->GetDetect()->GetInven()->GetInven());
-							m_vecCharacter[0]->GetDetect()->GetInven()->SetInven(NULL);
-						}
-						else if (m_vecCharacter[0]->GetDetect()->GetInven())
-						{
-							m_vecCharacter[0]->SetInven(m_vecCharacter[0]->GetDetect()->GetInven());
-							m_vecCharacter[0]->GetDetect()->SetInven(NULL);
+							if (m_vecCharacter[0]->GetCHEF_STATE() != CHEF_STATE::CHEF_STATE_CHOP)
+							{
+								m_vecCharacter[0]->SetInven(m_vecCharacter[0]->GetDetect()->GetInven());
+								m_vecCharacter[0]->GetDetect()->SetInven(NULL);
+							}
 						}
 					}
 				}
@@ -350,25 +384,63 @@ void cCharacterControl::Control1P()
 				//오브젝트의 인벤이 비워져있으면!!!
 				if (m_vecCharacter[0]->GetDetect()->GetObjectType() != OBJECTTYPE::AOBJ_COOKER)
 				{
-					if (!m_vecCharacter[0]->GetDetect()->GetInven())
+					//쓰레기통일 경우
+					if (m_vecCharacter[0]->GetDetect()->GetObjectType() == OBJECTTYPE::AOBJ_BIN)
 					{
-
-						m_vecCharacter[0]->GetDetect()->SetInven(m_vecCharacter[0]->GetInven());
-						//팟이면
-						if (m_vecCharacter[0]->GetInven()->GetObjectType() == OBJECTTYPE::AOBJ_POT)
-							m_vecCharacter[0]->GetInven()->SetIsAction(false);
-						m_vecCharacter[0]->SetInven(NULL);
-						m_vecCharacter[0]->SetChefAnimation(CHEF_STATE_IDLE);
+						if (!m_vecCharacter[0]->GetDetect()->GetInven())
+						{
+							//내가 들고 있는게 접시이면
+							if (m_vecCharacter[0]->GetInven()->GetObjectType() == OBJECTTYPE::AOBJ_PLATE)
+							{
+								//접시 안에 뭔가 있으면
+								if (m_vecCharacter[0]->GetInven()->GetInven())
+								{
+									m_vecCharacter[0]->GetDetect()->SetInven(m_vecCharacter[0]->GetInven()->GetInven());
+									m_vecCharacter[0]->GetInven()->SetInven(NULL);
+									m_vecCharacter[0]->SetChefAnimation(CHEF_STATE_IDLE);
+								}
+							}
+							else if (m_vecCharacter[0]->GetInven()->GetObjectType() == OBJECTTYPE::AOBJ_POT)
+							{
+								//냄비 안에 뭔가 있으면
+								if (m_vecCharacter[0]->GetInven()->GetInven())
+								{
+									m_vecCharacter[0]->GetDetect()->SetInven(m_vecCharacter[0]->GetInven()->GetInven());
+									m_vecCharacter[0]->GetInven()->SetInven(NULL);
+									m_vecCharacter[0]->SetChefAnimation(CHEF_STATE_IDLE);
+								}
+							}
+							//접시 혹은 냄비가 아니면
+							else
+							{
+								m_vecCharacter[0]->GetDetect()->SetInven(m_vecCharacter[0]->GetInven());
+								m_vecCharacter[0]->SetInven(NULL);
+								m_vecCharacter[0]->SetChefAnimation(CHEF_STATE_IDLE);
+							}
+						}
 					}
-					else if (!m_vecCharacter[0]->GetDetect()->GetInven()->GetInven())
+					//쓰레기 통이 아니면
+					else
 					{
-						m_vecCharacter[0]->GetDetect()->GetInven()->SetInven(m_vecCharacter[0]->GetInven());
-						m_vecCharacter[0]->SetInven(NULL);
-						m_vecCharacter[0]->SetChefAnimation(CHEF_STATE_IDLE);
+						if (!m_vecCharacter[0]->GetDetect()->GetInven())
+						{
+							m_vecCharacter[0]->GetDetect()->SetInven(m_vecCharacter[0]->GetInven());
+							//팟이면
+							if (m_vecCharacter[0]->GetInven()->GetObjectType() == OBJECTTYPE::AOBJ_POT)
+								m_vecCharacter[0]->GetInven()->SetIsAction(false);
+							m_vecCharacter[0]->SetInven(NULL);
+							m_vecCharacter[0]->SetChefAnimation(CHEF_STATE_IDLE);
+						}
+						else if (!m_vecCharacter[0]->GetDetect()->GetInven()->GetInven())
+						{
+							m_vecCharacter[0]->GetDetect()->GetInven()->SetInven(m_vecCharacter[0]->GetInven());
+							m_vecCharacter[0]->SetInven(NULL);
+							m_vecCharacter[0]->SetChefAnimation(CHEF_STATE_IDLE);
+						}
 					}
 				}
 				//가스레인지 일경우
-				else if (m_vecCharacter[0]->GetDetect()->GetObjectType() == OBJECTTYPE::AOBJ_COOKER)
+				else
 				{
 					//팟일 경우만 노아라
 					if (m_vecCharacter[0]->GetInven()->GetObjectType() == OBJECTTYPE::AOBJ_POT ||
@@ -389,14 +461,15 @@ void cCharacterControl::Control1P()
 						}
 					}
 				}
+				
 			}
 		}
 		// 타일
-		else
+	/*	else
 		{
 			m_vecCharacter[0]->SetInven(NULL);
 			m_vecCharacter[0]->SetChefAnimation(CHEF_STATE_IDLE);
-		}
+		}*/
 	}
 	if (KEYMANAGER->isStayKeyDown('F'))
 	{
@@ -525,15 +598,13 @@ void cCharacterControl::Control2P()
 					//캐릭터와 캐릭터가 디텍트를 공유하고 있지않으면
 					if (m_vecCharacter[1]->GetDetect() != m_vecCharacter[0]->GetDetect())
 					{
-						if (m_vecCharacter[1]->GetDetect()->GetInven()->GetInven())
+						if (m_vecCharacter[1]->GetDetect()->GetInven())
 						{
-							m_vecCharacter[1]->SetInven(m_vecCharacter[1]->GetDetect()->GetInven()->GetInven());
-							m_vecCharacter[1]->GetDetect()->GetInven()->SetInven(NULL);
-						}
-						else if (m_vecCharacter[1]->GetDetect()->GetInven())
-						{
-							m_vecCharacter[1]->SetInven(m_vecCharacter[1]->GetDetect()->GetInven());
-							m_vecCharacter[1]->GetDetect()->SetInven(NULL);
+							if (m_vecCharacter[1]->GetCHEF_STATE() != CHEF_STATE::CHEF_STATE_CHOP)
+							{
+								m_vecCharacter[1]->SetInven(m_vecCharacter[1]->GetDetect()->GetInven());
+								m_vecCharacter[1]->GetDetect()->SetInven(NULL);
+							}
 						}
 					}
 				}
@@ -547,25 +618,63 @@ void cCharacterControl::Control2P()
 				//오브젝트의 인벤이 비워져있으면!!!
 				if (m_vecCharacter[1]->GetDetect()->GetObjectType() != OBJECTTYPE::AOBJ_COOKER)
 				{
-					if (!m_vecCharacter[1]->GetDetect()->GetInven())
+					//쓰레기통일 경우
+					if (m_vecCharacter[1]->GetDetect()->GetObjectType() == OBJECTTYPE::AOBJ_BIN)
 					{
-
-						m_vecCharacter[1]->GetDetect()->SetInven(m_vecCharacter[1]->GetInven());
-						//팟이면
-						if (m_vecCharacter[1]->GetInven()->GetObjectType() == OBJECTTYPE::AOBJ_POT)
-							m_vecCharacter[1]->GetInven()->SetIsAction(false);
-						m_vecCharacter[1]->SetInven(NULL);
-						m_vecCharacter[1]->SetChefAnimation(CHEF_STATE_IDLE);
+						if (!m_vecCharacter[1]->GetDetect()->GetInven())
+						{
+							//내가 들고 있는게 접시이면
+							if (m_vecCharacter[1]->GetInven()->GetObjectType() == OBJECTTYPE::AOBJ_PLATE)
+							{
+								//접시 안에 뭔가 있으면
+								if (m_vecCharacter[1]->GetInven()->GetInven())
+								{
+									m_vecCharacter[1]->GetDetect()->SetInven(m_vecCharacter[1]->GetInven()->GetInven());
+									m_vecCharacter[1]->GetInven()->SetInven(NULL);
+									m_vecCharacter[1]->SetChefAnimation(CHEF_STATE_IDLE);
+								}
+							}
+							else if (m_vecCharacter[1]->GetInven()->GetObjectType() == OBJECTTYPE::AOBJ_POT)
+							{
+								//냄비 안에 뭔가 있으면
+								if (m_vecCharacter[1]->GetInven()->GetInven())
+								{				   
+									m_vecCharacter[1]->GetDetect()->SetInven(m_vecCharacter[1]->GetInven()->GetInven());
+									m_vecCharacter[1]->GetInven()->SetInven(NULL);
+									m_vecCharacter[1]->SetChefAnimation(CHEF_STATE_IDLE);
+								}
+							}
+							//접시 혹은 냄비가 아니면
+							else
+							{
+								m_vecCharacter[1]->GetDetect()->SetInven(m_vecCharacter[1]->GetInven());
+								m_vecCharacter[1]->SetInven(NULL);
+								m_vecCharacter[1]->SetChefAnimation(CHEF_STATE_IDLE);
+							}
+						}
 					}
-					else if (!m_vecCharacter[1]->GetDetect()->GetInven()->GetInven())
+					//쓰레기 통이 아니면
+					else
 					{
-						m_vecCharacter[1]->GetDetect()->GetInven()->SetInven(m_vecCharacter[1]->GetInven());
-						m_vecCharacter[1]->SetInven(NULL);
-						m_vecCharacter[1]->SetChefAnimation(CHEF_STATE_IDLE);
+						if (!m_vecCharacter[1]->GetDetect()->GetInven())
+						{
+							m_vecCharacter[1]->GetDetect()->SetInven(m_vecCharacter[1]->GetInven());
+							//팟이면
+							if (m_vecCharacter[1]->GetInven()->GetObjectType() == OBJECTTYPE::AOBJ_POT)
+								m_vecCharacter[1]->GetInven()->SetIsAction(false);
+							m_vecCharacter[1]->SetInven(NULL);
+							m_vecCharacter[1]->SetChefAnimation(CHEF_STATE_IDLE);
+						}
+						else if (!m_vecCharacter[1]->GetDetect()->GetInven()->GetInven())
+						{
+							m_vecCharacter[1]->GetDetect()->GetInven()->SetInven(m_vecCharacter[1]->GetInven());
+							m_vecCharacter[1]->SetInven(NULL);
+							m_vecCharacter[1]->SetChefAnimation(CHEF_STATE_IDLE);
+						}
 					}
 				}
 				//가스레인지 일경우
-				else if (m_vecCharacter[1]->GetDetect()->GetObjectType() == OBJECTTYPE::AOBJ_COOKER)
+				else
 				{
 					//팟일 경우만 노아라
 					if (m_vecCharacter[1]->GetInven()->GetObjectType() == OBJECTTYPE::AOBJ_POT ||
@@ -588,12 +697,12 @@ void cCharacterControl::Control2P()
 				}
 			}
 		}
-		// 타일
-		else
-		{
-			m_vecCharacter[1]->SetInven(NULL);
-			m_vecCharacter[1]->SetChefAnimation(CHEF_STATE_IDLE);
-		}
+		//// 타일
+		//else
+		//{
+		//	m_vecCharacter[1]->SetInven(NULL);
+		//	m_vecCharacter[1]->SetChefAnimation(CHEF_STATE_IDLE);
+		//}
 	}
 	if (KEYMANAGER->isStayKeyDown(VK_NUMPAD6))
 	{
