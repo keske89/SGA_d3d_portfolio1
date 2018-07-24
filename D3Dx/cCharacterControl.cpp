@@ -78,9 +78,10 @@ void cCharacterControl::ControlAction()
 						else if (m_vecCharacter[m_Bswitch]->GetDetect()->GetObjectType() == OBJECTTYPE::AOBJ_SINK)
 							m_vecCharacter[m_Bswitch]->SetChefAnimation(CHEF_STATE_DISHWASHING);
 					}
-					if (m_vecCharacter[m_Bswitch]->GetDetect()->GetObjectType() == OBJECTTYPE::AOBJ_CHOPPIGNBOARD && m_vecCharacter[m_Bswitch]->GetCHEF_STATE() == CHEF_STATE::CHEF_STATE_CHOP)
+					if (m_vecCharacter[i]->GetDetect()->GetObjectType() == OBJECTTYPE::AOBJ_CHOPPIGNBOARD && 
+						m_vecCharacter[i]->GetCHEF_STATE() == CHEF_STATE::CHEF_STATE_CHOP)
 					{
-						if(m_vecCharacter[m_Bswitch]->GetDetect()->GetInven()->Getchopped())
+						if(m_vecCharacter[i]->GetDetect()->GetInven()->Getchopped())
 							m_vecCharacter[i]->SetChefAnimation(CHEF_STATE_IDLE);
 					}
 				}
