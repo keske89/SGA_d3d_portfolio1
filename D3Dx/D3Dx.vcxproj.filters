@@ -357,6 +357,9 @@
     <ClInclude Include="cChefHat.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="cStageUI.h">
+      <Filter>소스 파일\Stage</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="D3Dx.cpp">
@@ -631,6 +634,9 @@
     </ClCompile>
     <ClCompile Include="cChefHat.cpp">
       <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="cStageUI.cpp">
+      <Filter>소스 파일\Stage</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
