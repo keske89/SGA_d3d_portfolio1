@@ -62,9 +62,6 @@ void cStageObjManager::Update()
 	{
 		p->Update();
 
-	
-		
-
 		///////// 가스렌지 ////////
 
 		if (p->GetObjectType() == AOBJ_COOKER)
@@ -74,8 +71,14 @@ void cStageObjManager::Update()
 				if (p->GetInven()->GetObjectType() == AOBJ_POT)
 				{
 					p->GetInven()->SetIsAction(true);
+					//p->GetInven()->SetIsEquipped(true);
 				}
 			}
+		}
+
+		if ((p->GetObjectType() == AOBJ_CHOPPIGNBOARD))
+		{
+
 		}
 
 		//////// 쓰레기통 처리 ////////////
@@ -95,11 +98,11 @@ void cStageObjManager::Update()
 		
 		p->Update();
 
+
+		
 		///////// 냄비 처리 ////////
 		if (p->GetObjectType() == AOBJ_POT)
 		{
-			p->SetIsAction(false);
-
 			if (p->GetInven())
 			{
 				if (p->GetInven()->GetObjectType() == (int)FOBJ_TOMATO ||
@@ -110,6 +113,8 @@ void cStageObjManager::Update()
 				}
 			}
 		}
+
+		
 
 	}
 }

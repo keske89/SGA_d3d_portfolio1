@@ -9,7 +9,6 @@
 cPot::cPot()
 	: m_pPgbar(NULL)
 	, m_size(1)
-	, m_bIsAction(false)
 	, m_RecipeCost(0)
 {
 	m_vec.clear();
@@ -29,40 +28,47 @@ void cPot::Setup()
 void cPot::Update()
 {
 	
-	m_player = NULL;
+
 	D3DXVECTOR3 temp = m_vPos;
 	temp.y = m_vPos.y - 0.05f;
 	temp.z = m_vPos.z - 0.05f;
 
 
-	if (m_Inven != NULL && m_bIsAction)	// 냄비에 재료가 들어왔고 가스렌지에 올라갔고 
+	if (m_vec.size() != 0 && m_bIsAction)	// 냄비에 재료가 들어왔고 가스렌지에 올라갔고 
 	{
 		if (!m_pPgbar)				// 프로그레스 바가 아직 없다면 만들고 
 		{
 			m_pPgbar = new cProgressbar;
 			m_pPgbar->Setup(m_matWorld,m_vPos);
 		}
+
+		if (m_pPgbar)				// 프로그레스 바 있으면
+		{
+			if (m_bIsAction)			// Cooker에 올라가 있는 상태면
+			{
+				m_pPgbar->Update(temp, m_vec.size());	// 프로그레스 바 업데이트를 돌린다.
+			}
+
+			if (m_pPgbar->Complete() && m_vec.size() == 3)
+			{
+				//TODO : Create Food  //   food class 생성해서 이곳에서 new 를 해준다.
+				for (auto p : m_vec)
+				{
+					m_pPgbar->SetIsStart(false);
+					m_pPgbar->Setup(m_matWorld, m_vPos);
+				}
+			}
+		}
 	}
 
-	if (m_pPgbar)				// 프로그레스 바 있으면
-	{
-		if (m_bIsAction)			// Cooker에 올라가 있는 상태면
-		{
-			m_pPgbar->Update(temp, m_vec.size());	// 프로그레스 바 업데이트를 돌린다.
-		}
-
-		if (m_pPgbar->Complete() && m_vec.size() == 3)
-		{
-			int a = 0;
-			//TODO : Create Food  //   food class 생성해서 이곳에서 new 를 해준다.
-		}
-	}
+	
 	
 	InvenToVector();
 
 	m_vPos.x = m_matWorld._41;
 	m_vPos.y = m_matWorld._42;
 	m_vPos.z = m_matWorld._43;
+	m_player = NULL;
 	
 }
 
@@ -86,18 +92,11 @@ void cPot::InvenToVector()
 {
 	if (m_Inven)
 	{
-		m_RecipeCost += m_Inven->GetCost();
 		m_vec.push_back(m_Inven);
 	}
 
-	
-	
 }
 
-void cPot::SetFood(cFoodObj* foodobject)
-{
-
-}
 
 void cPot::Setup(D3DXMATRIX matWorld, D3DXVECTOR3 pos, int lidtype)
 {
@@ -113,10 +112,6 @@ void cPot::Setup(D3DXMATRIX matWorld, D3DXVECTOR3 pos, int lidtype)
 	m_nObjectType = lidtype;
 	m_pMesh = ObJMANAGER->GetMesh(L"Pot_Mesh.obj");
 	m_pTexture = g_pTextureManager->GetTexture(L"Resources/Texture2D/Pot_Texture.png");
-
-	
-	
-
 }
 
 void cPot::SetLight()

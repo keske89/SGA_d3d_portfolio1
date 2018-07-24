@@ -4,6 +4,7 @@
 
 cProgressbar::cProgressbar()
 	: m_isComplete(false)
+	, m_isStart(false)
 {
 	D3DXMatrixIdentity(&m_matLocal);
 	D3DXMatrixIdentity(&m_matWorld);
@@ -17,10 +18,12 @@ cProgressbar::~cProgressbar()
 	SAFE_RELEASE(m_pTexture);
 	SAFE_RELEASE(m_pSprite);
 	SAFE_RELEASE(m_pUITexture);
+	
 }
 
 void cProgressbar::Setup(D3DXMATRIX matWorld, D3DXVECTOR3 pos)
 {
+	
 	D3DXMATRIX matT;
 	D3DXMatrixIdentity(&matT);
 	D3DXMatrixTranslation(&matT, 0, 1.5f, 0);
@@ -95,12 +98,14 @@ void cProgressbar::Setup(D3DXMATRIX matWorld, D3DXVECTOR3 pos)
 
 void cProgressbar::Update(D3DXVECTOR3 pos , int size)
 {
+	if (!m_isStart) m_isStart = true;
+
 	m_vecVertexBottom.clear();
 	m_vecVertexTop.clear();
 	m_vPos = pos;
 	
 	Complete();
-	SetGauge(size);
+	SetGauge(size * 3);
 
 
 	if (Complete()) // 
@@ -192,7 +197,7 @@ void cProgressbar::Update(D3DXVECTOR3 pos , int size)
 
 void cProgressbar::Render()
 {
-	if (!Complete())
+	if (m_isStart && !Complete())
 		{
 			D3DXMATRIX mat;
 			D3DXMatrixIdentity(&mat);
@@ -212,7 +217,7 @@ void cProgressbar::Render()
 		}
 		else if (Complete())
 		{
-			g_pD3DDevice->SetTransform(D3DTS_WORLD, &(m_matLocal * m_matWorld));
+			g_pD3DDevice->SetTransform(D3DTS_WORLD, &(m_matWorld));
 			m_pTexture = g_pTextureManager->GetTexture(L"Resources/Texture2D/CookingTick.png");
 			g_pD3DDevice->SetTexture(0, m_pTexture);
 			g_pD3DDevice->SetFVF(ST_PT_VERTEX::FVF);
@@ -236,7 +241,6 @@ bool cProgressbar::Complete()
 	if (m_fProgress >= 0.8f)
 	{
 		m_fProgress = 0.8f;
-
 		return true;
 	}
 	return false;

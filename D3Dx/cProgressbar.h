@@ -16,7 +16,7 @@ private:
 	float					m_fHeight;
 
 	bool					m_isComplete;
-	bool					m_isAction;
+	bool					m_isStart;
 
 	LPDIRECT3DTEXTURE9		m_pUITexture;
 	D3DXIMAGE_INFO			m_stImageInfo;
@@ -37,8 +37,9 @@ public:
 
 	float SetGauge(int size);
 	bool Complete();
-	void SetIsAction(bool action) { m_isAction = action; }
+	//void SetIsAction(bool action) { m_isAction = action; }
 	void SetPos(D3DXVECTOR3 pos) { m_vPos = pos; }
+	void SetIsStart(bool start) { m_isStart = start; }
 	
 
 };

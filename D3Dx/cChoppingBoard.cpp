@@ -21,15 +21,25 @@ void cChoppingBoard::Setup()
 void cChoppingBoard::Update()
 {
 	
+	//m_bIsAction = false;
+	
 	D3DXVECTOR3 temp = m_vPos;
 	temp.y = m_vPos.y - 0.05f;
 	temp.z = m_vPos.z - 0.05f;
 
-	if (m_player && m_Inven)
+	if (m_player == NULL || m_Inven == NULL) // 플레이어 연결이 없거나 인벤이 비어있으면
 	{
-		m_bIsAction = true;
+		m_bIsAction = false; // 동작상태를 꺼라
 	}
 
+	if (m_Inven == NULL)
+	{
+		if (m_pPgbar)
+		{
+			m_pPgbar->Setup(m_matWorld, m_vPos);
+			m_pPgbar->SetIsStart(false);
+		}
+	}
 
 	if (m_Inven != NULL)	// 재료가 들어왔고
 	{
@@ -37,24 +47,24 @@ void cChoppingBoard::Update()
 		{
 			m_pPgbar = new cProgressbar;
 			m_pPgbar->Setup(m_matWorld, m_vPos);
+			
 		}
 		if (m_pPgbar)				// 프로그레스 바 있으면
 		{
-			if (m_bIsAction)		// Cooker에 올라가 있는 상태면
+			if (m_bIsAction && m_Inven->Getchopped() == false)		// 동작상태가 on 이고 썰리지 않은상태면 
 			{
 				m_pPgbar->Update(D3DXVECTOR3(m_matWorld._41, m_matWorld._42, m_matWorld._43), m_size);	// 프로그레스 바 업데이트를 돌린다.
 			}
 		}
 
 	}
-	
-	m_player = NULL;
-	
+		
 	m_vPos.x = m_matWorld._41;
 	m_vPos.y = m_matWorld._42;
 	m_vPos.z = m_matWorld._43;
 
 	Inventory();
+
 }
 
 void cChoppingBoard::Render()
@@ -87,7 +97,7 @@ void cChoppingBoard::Setup(D3DXMATRIX matWorld, D3DXVECTOR3 pos, int lidtype)
 	D3DXMatrixIdentity(&matT);
 	D3DXMatrixTranslation(&matT, 0, 0.1f, 0);
 	D3DXMatrixRotationAxis(&matR, &v, (float)3.14 * 0.5f);
-	m_size = 10;
+	m_size = 4;
 	m_eState = OBJ_STATIC;
 	m_nObjectType = lidtype;
 	m_vPos.x = matWorld._41;
@@ -140,9 +150,12 @@ void cChoppingBoard::Inventory()
 		
 		if (m_pPgbar->Complete())
 		{
-			cFoodObj* inven = (cFoodObj*)m_Inven;
-			inven->Setchopped(true);
-
+			//cFoodObj* inven = (cFoodObj*)m_Inven;
+			//inven->Setchopped(true);
+			m_Inven->Setchopped(true);
+			
+			// m_pPgbar->~cProgressbar();
+			//m_pPgbar->Setup(m_matWorld, m_vPos);
 		}
 	}
 }
