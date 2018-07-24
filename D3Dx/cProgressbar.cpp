@@ -215,7 +215,7 @@ void cProgressbar::Render()
 				&m_vecVertexTop[0],
 				sizeof(ST_PT_VERTEX));
 		}
-		else if (Complete())
+		/*else if (Complete())
 		{
 			g_pD3DDevice->SetTransform(D3DTS_WORLD, &(m_matWorld));
 			m_pTexture = g_pTextureManager->GetTexture(L"Resources/Texture2D/CookingTick.png");
@@ -225,7 +225,7 @@ void cProgressbar::Render()
 			m_vecComplete.size() / 3,
 			&m_vecComplete[0],
 			sizeof(ST_PT_VERTEX));
-		}
+		}*/
 }
 
 

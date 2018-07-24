@@ -230,7 +230,7 @@ void cStageObjManager::ObjAction(cChef * pSender)
 		//CRATE_LID = 10,
 	case CRATE_TOMATO:
 		m_Tomato = new cTomato;
-		m_Tomato->Setup(mat, pos, CRATE_TOMATO);
+		m_Tomato->Setup(mat, pos, FOBJ_TOMATO);
 		pSender->SetInven(m_Tomato);
 		m_listFoodObj.push_back(m_Tomato);
 		break;

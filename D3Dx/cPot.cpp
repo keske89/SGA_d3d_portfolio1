@@ -54,9 +54,10 @@ void cPot::Update()
 				//TODO : Create Food  //   food class 생성해서 이곳에서 new 를 해준다.
 				for (auto p : m_vec)
 				{
-					m_pPgbar->SetIsStart(false);
-					m_pPgbar->Setup(m_matWorld, m_vPos);
+					
 				}
+				m_pPgbar->SetIsStart(false);
+				m_pPgbar->Setup(m_matWorld, m_vPos);
 			}
 		}
 	}
