@@ -59,7 +59,7 @@ void cSelectUI::SelectControl()
 	}
 	if (KEYMANAGER->isOnceKeyDown(VK_SPACE))
 	{
-		_nextScene = "TestScene1";
+		_nextScene = "StageScene";
 		_isChange = true;
 	}
 
@@ -262,9 +262,9 @@ void cSelectUI::Update()
 		_alpha++;
 		if (_alpha >= 255)
 		{
-			if (_nextScene == "TestScene1")
+			if (_nextScene == "StageScene")
 			{
-				SCENEMANAGER->ChangeScene("TestScene1");
+				SCENEMANAGER->ChangeScene("StageScene");
 			}
 		}
 	}
