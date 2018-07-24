@@ -26,7 +26,13 @@ void cChoppingBoard::Update()
 
 	if (m_player == NULL || m_Inven == NULL) // 플레이어 연결이 없거나 인벤이 비어있으면
 	{
-		m_bIsAction = false;				// 동작상태를 꺼라
+		m_bIsAction = false; // 동작상태를 꺼라
+	}
+
+	if (m_pPgbar->Complete() && m_Inven ==NULL)
+	{
+		m_isChopped = false;
+		m_pPgbar->Setup(m_matWorld, m_vPos);
 	}
 
 	/*if (m_Inven == NULL)
@@ -53,6 +59,8 @@ void cChoppingBoard::Update()
 	m_vPos.y = m_matWorld._42;
 	m_vPos.z = m_matWorld._43;
 
+
+	m_player = NULL;
 	Inventory();
 
 }
