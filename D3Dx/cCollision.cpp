@@ -68,9 +68,9 @@ void cCollision::Update()
 	{
 		if (DetectMovement(moveX[i], moveZ[i], dir[i]))
 		{
-			CDX = PlayerWallCollisionX(moveX[i], pos[i], dir[i]);
-			CDZ = PlayerWallCollisionZ(moveZ[i], pos[i], dir[i]);
-			if (CDX == false && CDZ == false) PlayerWallVertexCollision(moveX[i], moveZ[i], pos[i], dir[i]);
+			CDX = WallCollisionX(moveX[i], pos[i], dir[i]);
+			CDZ = WallCollisionZ(moveZ[i], pos[i], dir[i]);
+			if (CDX == false && CDZ == false) WallVertexCollision(moveX[i], moveZ[i], pos[i], dir[i]);
 			m_pPlayer[i]->SetPos(pos[i]);
 			m_pPlayer[i]->SetDetect(DetectObject(i));
 		}
@@ -108,7 +108,7 @@ bool cCollision::PlayerPlayerCollision(D3DXVECTOR3& pos1, D3DXVECTOR3& pos2, D3D
 	return false;
 }
 
-bool cCollision::PlayerWallCollisionX(int moveX, D3DXVECTOR3& pos, D3DXVECTOR3& dir)
+bool cCollision::WallCollisionX(int moveX, D3DXVECTOR3& pos, D3DXVECTOR3& dir)
 {
 	int keyFirst = (pos.x + (moveX / 2.0f));
 	int keySecond = pos.z;
@@ -120,7 +120,7 @@ bool cCollision::PlayerWallCollisionX(int moveX, D3DXVECTOR3& pos, D3DXVECTOR3& 
 	return false;
 }
 
-bool cCollision::PlayerWallCollisionZ(int moveZ, D3DXVECTOR3& pos, D3DXVECTOR3& dir)
+bool cCollision::WallCollisionZ(int moveZ, D3DXVECTOR3& pos, D3DXVECTOR3& dir)
 {
 	int keyFirst = pos.x;
 	int keySecond = (pos.z + (moveZ / 2.0f));
@@ -132,7 +132,7 @@ bool cCollision::PlayerWallCollisionZ(int moveZ, D3DXVECTOR3& pos, D3DXVECTOR3& 
 	return false;
 }
 
-bool cCollision::PlayerWallVertexCollision(int moveX, int moveZ, D3DXVECTOR3& pos, D3DXVECTOR3& dir)
+bool cCollision::WallVertexCollision(int moveX, int moveZ, D3DXVECTOR3& pos, D3DXVECTOR3& dir)
 {
 	int keyFirst = pos.x;
 	int keySecond = pos.z;
@@ -260,7 +260,8 @@ cIGObj * cCollision::DetectObject(int playerNum)
 	D3DXVECTOR3 pos = m_pPlayer[playerNum]->GetPos();
 	D3DXVECTOR3 dir = m_pPlayer[playerNum]->GetDir();
 	D3DXVec3Normalize(&dir, &dir);
-	dir.y += 0.5f;
+	pos = pos + dir * 0.8;
+
 	float distance = 10000000.0f;
 	BOOL isPicked = FALSE;
 	cIGObj* tempAddress = NULL;
@@ -276,7 +277,7 @@ cIGObj * cCollision::DetectObject(int playerNum)
 		D3DXMatrixTranspose(&invRotMat, &(*m_iterList)->GetWorldMat());
 		D3DXMatrixInverse(&invTransMat, NULL, &(*m_iterList)->GetWorldMat());
 		D3DXVec3TransformCoord(&tempPos, &pos, &invTransMat);
-		D3DXVec3TransformNormal(&tempDir, &dir, &invRotMat);
+		D3DXVec3TransformNormal(&tempDir, &D3DXVECTOR3(0, 1, 0), &invRotMat);
 		D3DXIntersect((*m_iterList)->GetMesh(), &tempPos, &tempDir, &isPicked, NULL, NULL, NULL, &tempDist, NULL, NULL);
 		if (isPicked == TRUE && tempDist < distance)
 		{
@@ -290,7 +291,7 @@ cIGObj * cCollision::DetectObject(int playerNum)
 		D3DXVECTOR3 tempPos;
 		D3DXMatrixInverse(&invTransMat, NULL, &(*m_iterList)->GetWorldMat());
 		D3DXVec3TransformCoord(&tempPos, &pos, &invTransMat);
-		D3DXIntersect((*m_iterList)->GetMesh(), &tempPos, &dir, &isPicked, NULL, NULL, NULL, &tempDist, NULL, NULL);
+		D3DXIntersect((*m_iterList)->GetMesh(), &tempPos, &D3DXVECTOR3(0, 1, 0), &isPicked, NULL, NULL, NULL, &tempDist, NULL, NULL);
 		if (isPicked == TRUE && tempDist < distance)
 		{
 			distance = tempDist;
