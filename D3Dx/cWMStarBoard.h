@@ -9,7 +9,7 @@ class cWMStarBoard : public IDisplayObject
 {
 private:
 
-	UIObject * m_pStarBoard;
+	UIObject* m_pStarBoard;
 	cSphere* m_pSphere;
 	int m_nScore;	//score
 

@@ -22,6 +22,11 @@ void cOnion::Update()
 	m_vPos.x = m_matWorld._41;
 	m_vPos.y = m_matWorld._42;
 	m_vPos.z = m_matWorld._43;
+
+	if (!m_IsSet)
+	{
+		m_matWorld._42 -= 0.02f;
+	}
 }
 
 void cOnion::Render()
@@ -49,6 +54,10 @@ void cOnion::Setup(D3DXMATRIX matWorld, D3DXVECTOR3 pos, int lidtype)
 	m_pTexture = g_pTextureManager->GetTexture(L"Resources/Texture2D/Onion.png");
 	//m_pSprite = g_pTextureManager->GetTexture(L"Resources/Texture2D/Onion_Icon");
 	m_Cost = 1;
+	m_Icon = new UIObject;
+	m_Icon->SetPosition(m_vPos);
+	//m_Icon->SetTexture()
+
 }
 
 void cOnion::SetWorldMat(D3DXMATRIX matWorld)
@@ -77,5 +86,21 @@ void cOnion::SetLight()
 	}
 
 	
+
+}
+
+D3DXVECTOR2 cOnion::Convert3DTo2D()
+{
+	
+	D3DXMATRIX Own, proj, view, world;
+	D3DVIEWPORT9 vp;
+	Own = m_matLocal * m_matWorld;
+	D3DXVECTOR3 v = D3DXVECTOR3(Own._41, Own._42, Own._43);
+	g_pD3DDevice->GetTransform(D3DTS_PROJECTION, &proj);
+	g_pD3DDevice->GetTransform(D3DTS_VIEW, &view);
+	g_pD3DDevice->GetViewport(&vp);
+	D3DXMatrixIdentity(&world);
+	D3DXVec3Project(&v, &v, &vp, &proj, &view, &world);
+	return D3DXVECTOR2(v.x, v.y);
 
 }

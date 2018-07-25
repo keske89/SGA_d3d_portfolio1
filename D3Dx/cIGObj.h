@@ -44,6 +44,7 @@ public:
 	SYNTHESIZE(bool, m_bIsAction, IsAction);
 	SYNTHESIZE(bool, m_isChopped, chopped);
 	SYNTHESIZE(cIGObj*, m_Inven, Inven);
+	SYNTHESIZE(bool, m_IsSet, IsSet);
 	int GetCost() { return m_Cost; }
 public:
 	cIGObj();

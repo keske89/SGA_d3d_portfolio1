@@ -1,9 +1,13 @@
 #pragma once
 #include "cFoodObj.h"
+
+class UIObject;
+
 class cOnion : public cFoodObj
 {
 public:
-	
+	UIObject* m_Icon;
+
 public:
 	cOnion();
 	~cOnion();
@@ -15,5 +19,6 @@ public:
 	virtual void Setup(D3DXMATRIX matWorld, D3DXVECTOR3 pos, int lidtype) override;
 	virtual void SetWorldMat(D3DXMATRIX matWorld) override;
 	virtual void SetLight() override;
+	D3DXVECTOR2 Convert3DTo2D();
 };
 
