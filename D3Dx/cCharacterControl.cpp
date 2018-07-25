@@ -60,6 +60,7 @@ void cCharacterControl::ControlAction()
 		{
 			if (m_vecCharacter[i]->GetDetect())
 			{
+				m_vecCharacter[i]->GetDetect()->Setplayer(m_vecCharacter[i]);
 				if (m_vecCharacter[i]->GetDetect()->GetInven())
 				{
 					if (m_vecCharacter[i]->GetDetect()->GetInven()->GetObjectType() == OBJECTTYPE::AOBJ_CHOPPIGNBOARD)
