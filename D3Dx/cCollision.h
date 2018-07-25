@@ -9,6 +9,7 @@ private:
 	cChef*											m_pPlayer[2];
 	cStageObjManager*								m_pSOM;
 
+	int												m_nListSize;
 	int												m_nNewObjSize;
 
 	list<cIGObj*>									m_objList;
@@ -33,15 +34,12 @@ public:
 
 	void ListUpdate();
 	bool PlayerPlayerCollision(D3DXVECTOR3& pos1, D3DXVECTOR3& pos2, D3DXVECTOR3& dir1, D3DXVECTOR3& dir2);
+	bool PlayerObjectCollision(list<cIGObj*>::iterator iter, D3DXVECTOR3& pos1, D3DXVECTOR3& pos2, D3DXVECTOR3& dir1, D3DXVECTOR3& dir2);
+	bool ObjectObjectCollision(list<cIGObj*>::iterator iter1, list<cIGObj*>::iterator iter2);
 	bool WallCollisionX(int moveX, D3DXVECTOR3& pos, D3DXVECTOR3& dir);
 	bool WallCollisionZ(int moveZ, D3DXVECTOR3& pos, D3DXVECTOR3& dir);
 	bool WallVertexCollision(int moveX, int moveZ, D3DXVECTOR3& pos, D3DXVECTOR3& dir);
-	cIGObj* PlayerDetectObject(int playerNum);
 	cIGObj* DetectObject(int playerNum);
-	void StaticLineXCollision(int playerNum, int keyFirst, int keySecond, int moveX, D3DXVECTOR3& pos);
-	void StaticLineZCollision(int playerNum, int keyFirst, int keySecond, int moveZ, D3DXVECTOR3& pos);
-	void StaticVertexCollision(int playerNum, int keyFirst, int keySecond);
-	void DinamicCollision(int playerNum, int keyFirst, int keySecond);
 	bool DetectMovement(int& moveX, int& moveZ, D3DXVECTOR3 dir);
 	float GetDistance(D3DXVECTOR3 vec1, D3DXVECTOR3 vec2);
 

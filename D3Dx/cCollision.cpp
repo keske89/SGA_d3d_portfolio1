@@ -7,6 +7,7 @@
 
 cCollision::cCollision()
 	: m_pSOM(NULL)
+	, m_nListSize(0)
 	, m_nNewObjSize(0)
 {
 	m_pPlayer[0] = NULL;
@@ -63,6 +64,7 @@ void cCollision::Update()
 		dir[i] = m_pPlayer[i]->GetToGo();
 	}
 	PlayerPlayerCollision(pos[0], pos[1], dir[0], dir[1]);
+	PlayerObjectCollision(m_foodList.begin(), pos[0], pos[1], dir[0], dir[1]);
 	for (int i = 0; i < 2; ++i)
 	{
 		if (DetectMovement(moveX[i], moveZ[i], dir[i]))
@@ -104,6 +106,81 @@ bool cCollision::PlayerPlayerCollision(D3DXVECTOR3& pos1, D3DXVECTOR3& pos2, D3D
 		pos2 += dir2;
 		return true;
 	}
+	return false;
+}
+
+bool cCollision::PlayerObjectCollision(list<cIGObj*>::iterator iter, D3DXVECTOR3& pos1, D3DXVECTOR3& pos2, D3DXVECTOR3& dir1, D3DXVECTOR3& dir2)
+{
+	if (m_pPlayer[0]->GetInven() != (*iter) &&
+		m_pPlayer[1]->GetInven() != (*iter) &&
+		(*iter)->GetIsSet() == false)
+	{
+		float distance1 = GetDistance(pos1, (*iter)->GetPos());
+		float distance2 = GetDistance(pos2, (*iter)->GetPos());
+		D3DXVECTOR3 objPos = (*iter)->GetPos();
+		D3DXVECTOR3 objDir = (*iter)->GetDir();
+		float height = objPos.y;
+		objPos.y = 0;
+
+		D3DXMATRIX invMat;
+		D3DXMATRIX invTransMat;
+		float tempDist = 0.0f;
+		D3DXVECTOR3 tempPos;
+		BOOL isPicked;
+		D3DXMatrixInverse(&invTransMat, NULL, &(*iter)->GetWorldMat());
+		D3DXVec3TransformCoord(&tempPos, &objPos, &invTransMat);
+		D3DXIntersect((*iter)->GetMesh(), &tempPos, &D3DXVECTOR3(0, 1, 0), &isPicked, NULL, NULL, NULL, &tempDist, NULL, NULL);
+		if (isPicked == TRUE && tempDist > 0.01f)
+		{
+			height -= 0.01f;
+		}
+
+		pos1 -= dir1;
+		pos2 -= dir2;
+		objPos -= objDir;
+		if (distance1 < 0.7f)
+		{
+			D3DXVECTOR3 push1;
+			D3DXVec3Normalize(&push1, &(pos1 - objPos));
+			push1 = push1 * ((0.7f - distance1) / 2.0f);
+			D3DXVECTOR3 push2;
+			D3DXVec3Normalize(&push2, &(objPos - pos1));
+			push2 = push2 * ((0.7f - distance1) / 2.0f);
+			dir1 += push1;
+			objDir += push2;
+		}
+		if (distance2 < 0.7f)
+		{
+			D3DXVECTOR3 push1;
+			D3DXVec3Normalize(&push1, &(pos2 - objPos));
+			push1 = push1 * ((0.7f - distance2) / 2.0f);
+			D3DXVECTOR3 push2;
+			D3DXVec3Normalize(&push2, &(objPos - pos2));
+			push2 = push2 * ((0.7f - distance2) / 2.0f);
+			dir2 += push1;
+			objDir += push2;
+		}
+		pos2 += dir2;
+		pos1 += dir1;
+		objPos += objDir;
+
+		D3DXMATRIX matWorld;
+		D3DXMatrixTranslation(&matWorld, objPos.x, height, objPos.z);
+		(*iter)->SetWorldMatrix(matWorld);
+		(*iter)->SetDir(D3DXVECTOR3(0, 0, 0));
+	}
+	list<cIGObj*>::iterator nextIter = iter;
+	nextIter++;
+	if (nextIter != m_foodList.end())
+	{
+		PlayerObjectCollision(nextIter, pos1, pos2, dir1, dir2);
+	}
+
+	return false;
+}
+
+bool cCollision::ObjectObjectCollision(list<cIGObj*>::iterator iter1, list<cIGObj*>::iterator iter2)
+{
 	return false;
 }
 
@@ -210,50 +287,6 @@ bool cCollision::WallVertexCollision(int moveX, int moveZ, D3DXVECTOR3& pos, D3D
 	return false;
 }
 
-cIGObj* cCollision::PlayerDetectObject(int playerNum)
-{
-	D3DXVECTOR3 pos = m_pPlayer[playerNum]->GetPos(); 
-	D3DXVECTOR3 dir = m_pPlayer[playerNum]->GetDir();
-	D3DXVec3Normalize(&dir, &dir);
-	pos = pos + dir * 0.8;
-	int keyFirst = pos.x;
-	int keySecond = pos.z;
-	float distance = 10000000.0f;
-	cIGObj* tempAddress = NULL;
-	m_iterStaticObject = m_mapStaticObject.find(make_pair(keyFirst, keySecond));
-	if (m_iterStaticObject != m_mapStaticObject.end())
-	{
-		for (int j = 0; j < m_iterStaticObject->second.size(); ++j)
-		{
-			float tempDist = GetDistance(m_pPlayer[playerNum]->GetPos(), m_iterStaticObject->second[j]->GetPos());
-			if (tempDist > distance) continue;
-			else if (tempDist < distance)
-			{
-				distance = tempDist;
-				if (m_iterStaticObject->second[j]->GetInven() && m_iterStaticObject->second[j]->GetInven()->GetCollisonType() == OBJ_STATIC)
-				{
-					tempAddress = m_iterStaticObject->second[j]->GetInven();
-				}
-				else
-				{
-					tempAddress = m_iterStaticObject->second[j];
-				}
-			}
-		}
-	}
-	for (m_iterDynamicObject = m_mapDynamicObject.begin(); m_iterDynamicObject != m_mapDynamicObject.end(); ++m_iterDynamicObject)
-	{
-		float tempDist = GetDistance(m_pPlayer[playerNum]->GetPos(), m_iterDynamicObject->first->GetPos());
-		if (tempDist > distance) continue;
-		else if (tempDist < distance)
-		{
-			distance = tempDist;
-			tempAddress = m_iterDynamicObject->first;
-		}
-	}
-	return tempAddress;
-}
-
 cIGObj * cCollision::DetectObject(int playerNum)
 {
 	D3DXVECTOR3 pos = m_pPlayer[playerNum]->GetPos();
@@ -299,60 +332,6 @@ cIGObj * cCollision::DetectObject(int playerNum)
 	}
 
 	return tempAddress;
-}
-
-void cCollision::StaticLineXCollision(int playerNum, int keyFirst, int keySecond, int moveX, D3DXVECTOR3& pos)
-{
-	/*
-	float distance = 0.0f;
-	m_iterObject = m_mapObject.find(make_pair(keyFirst + moveX, keySecond));
-	if (m_iterObject != m_mapObject.end())
-	{
-		for (int j = 0; j < m_iterObject->second.size(); ++j)
-		{
-			if (m_iterObject->second[j]->GetCollisionType() == OBJ_STATIC)
-			{
-				distance = abs(m_pPlayer[0]->GetPos().x - m_iterObject->second[j]->GetPos().x);
-				if (distance < 1)
-				{
-					pos.x -= moveX * (1 - distance);
-					m_pPlayer[0]->SetPos(pos);
-				}
-			}
-		}
-	}
-	*/
-}
-
-void cCollision::StaticLineZCollision(int playerNum, int keyFirst, int keySecond, int moveZ, D3DXVECTOR3& pos)
-{
-	/*
-	float distance = 0.0f;
-	m_iterObject = m_mapObject.find(make_pair(keyFirst, keySecond + moveZ));
-	if (m_iterObject != m_mapObject.end())
-	{
-		for (int j = 0; j < m_iterObject->second.size(); ++j)
-		{
-			if (m_iterObject->second[j]->GetCollisionType() == OBJ_STATIC)
-			{
-				distance = abs(m_pPlayer[0]->GetPos().z - m_iterObject->second[j]->GetPos().z);
-				if (distance < 1)
-				{
-					pos.z -= moveZ * (1 - distance);
-					m_pPlayer[0]->SetPos(pos);
-				}
-			}
-		}
-	}
-	*/
-}
-
-void cCollision::StaticVertexCollision(int playerNum, int keyFirst, int keySecond)
-{
-}
-
-void cCollision::DinamicCollision(int playerNum, int keyFirst, int keySecond)
-{
 }
 
 bool cCollision::DetectMovement(int& moveX, int& moveZ, D3DXVECTOR3 dir)
