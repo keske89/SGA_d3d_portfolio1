@@ -70,38 +70,37 @@ void cCharacterControl::ControlAction()
 						}
 					}
 				}
-					
-
-				if (m_vecCharacter[i]->GetDetect()->GetObjectType() == OBJECTTYPE::AOBJ_TABLE)
+				if (KEYMANAGER->isOnceKeyDown(VK_LCONTROL))
 				{
-					if (KEYMANAGER->isOnceKeyDown(VK_LCONTROL))
+					if (m_vecCharacter[m_Bswitch]->GetDetect()->GetObjectType() == OBJECTTYPE::AOBJ_SINK)
 					{
-						if (m_vecCharacter[m_Bswitch]->GetDetect()->GetInven()->GetObjectType() == OBJECTTYPE::AOBJ_CHOPPIGNBOARD)
-						{
-							if (m_vecCharacter[m_Bswitch]->GetDetect()->GetInven()->GetInven())
-							{
-								m_vecCharacter[m_Bswitch]->SetChefAnimation(CHEF_STATE_CHOP);
-								m_vecCharacter[m_Bswitch]->GetDetect()->GetInven()->SetIsAction(true);
-							}
-
-						}
-						else if (m_vecCharacter[m_Bswitch]->GetDetect()->GetObjectType() == OBJECTTYPE::AOBJ_SINK)
-							m_vecCharacter[m_Bswitch]->SetChefAnimation(CHEF_STATE_DISHWASHING);
+						m_vecCharacter[m_Bswitch]->SetChefAnimation(CHEF_STATE::CHEF_STATE_DISHWASHING);
 					}
-					if (m_vecCharacter[i]->GetDetect()->GetInven())
+					else if (m_vecCharacter[m_Bswitch]->GetDetect()->GetObjectType() == OBJECTTYPE::AOBJ_TABLE)
 					{
-						if (m_vecCharacter[i]->GetDetect()->GetInven()->GetObjectType() == OBJECTTYPE::AOBJ_CHOPPIGNBOARD &&
-							m_vecCharacter[i]->GetCHEF_STATE() == CHEF_STATE::CHEF_STATE_CHOP)
+						if (m_vecCharacter[m_Bswitch]->GetDetect()->GetInven())
 						{
-							if (m_vecCharacter[i]->GetDetect()->GetInven()->GetInven()->Getchopped())
-								m_vecCharacter[i]->SetChefAnimation(CHEF_STATE_IDLE);
+							if (m_vecCharacter[m_Bswitch]->GetDetect()->GetInven()->GetObjectType() == OBJECTTYPE::AOBJ_CHOPPIGNBOARD)
+							{
+								if (m_vecCharacter[m_Bswitch]->GetDetect()->GetInven()->GetInven())
+								{
+									m_vecCharacter[m_Bswitch]->SetChefAnimation(CHEF_STATE_CHOP);
+									m_vecCharacter[m_Bswitch]->GetDetect()->GetInven()->SetIsAction(true);
+								}
+
+							}
 						}
 					}
 				}
-			}
-			else
-			{
-				m_vecCharacter[i]->SetChefAnimation(CHEF_STATE_IDLE);
+				if (m_vecCharacter[i]->GetDetect()->GetInven())
+				{
+					if (m_vecCharacter[i]->GetDetect()->GetInven()->GetObjectType() == OBJECTTYPE::AOBJ_CHOPPIGNBOARD &&
+						m_vecCharacter[i]->GetCHEF_STATE() == CHEF_STATE::CHEF_STATE_CHOP)
+					{
+						if (m_vecCharacter[i]->GetDetect()->GetInven()->GetInven()->Getchopped())
+							m_vecCharacter[i]->SetChefAnimation(CHEF_STATE_IDLE);
+					}
+				}
 			}
 		}
 		if (m_vecCharacter[m_Bswitch]->GetInven())
@@ -248,10 +247,12 @@ void cCharacterControl::ControlAction()
 							//										³kÄ¿		ÆÌ			Àç·áÀÇ ÀÎº¥
 							else if (!m_vecCharacter[m_Bswitch]->GetDetect()->GetInven()->GetInven())
 							{
-															
-								m_vecCharacter[m_Bswitch]->GetDetect()->GetInven()->SetInven(m_vecCharacter[m_Bswitch]->GetInven());
-								m_vecCharacter[m_Bswitch]->SetInven(NULL);
-								m_vecCharacter[m_Bswitch]->SetChefAnimation(CHEF_STATE_IDLE);
+								if (m_vecCharacter[m_Bswitch]->GetInven()->Getchopped())
+								{
+									m_vecCharacter[m_Bswitch]->GetDetect()->GetInven()->SetInven(m_vecCharacter[m_Bswitch]->GetInven());
+									m_vecCharacter[m_Bswitch]->SetInven(NULL);
+									m_vecCharacter[m_Bswitch]->SetChefAnimation(CHEF_STATE_IDLE);
+								}
 							}
 						}
 					}
