@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "cPlateReturnBox.h"
+#include "cPlate.h"
 
 
 cPlateReturnBox::cPlateReturnBox()
@@ -17,11 +18,13 @@ void cPlateReturnBox::Setup()
 
 void cPlateReturnBox::Update()
 {
-	m_player = NULL;
+	
 	m_vPos.x = m_matWorld._41;
 	m_vPos.y = m_matWorld._42;
 	m_vPos.z = m_matWorld._43;
 
+
+	m_player = NULL;
 	Inventory();
 }
 
@@ -81,13 +84,23 @@ void cPlateReturnBox::SetLight()
 	}
 }
 
+void cPlateReturnBox::PlateReturn()
+{
+	
+	cPlate* m_plate = new cPlate;
+	m_plate->Setup(m_matLocal * m_matWorld, m_vPos, 24);
+	m_plate->SetIsUse(false);
+	m_Inven = m_plate;
+	
+}
+
 void cPlateReturnBox::Inventory()
 {
 	if (m_Inven != NULL)
 	{
 		D3DXMATRIX matT;
 		D3DXMatrixIdentity(&matT);
-		D3DXMatrixTranslation(&matT, 0, 1.0f, 0);
+		D3DXMatrixTranslation(&matT, 0, 0.45f, 0);
 
 		m_Inven->SetWorldMatrix(matT * m_matLocal * m_matWorld);
 	}

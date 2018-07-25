@@ -4,9 +4,7 @@
 class cActionObj : public cIGObj
 {
 public:
-	bool			m_bIsUse;
-
-public:
+	SYNTHESIZE(bool, m_bIsUse, IsUse);
 	cActionObj();
 	virtual ~cActionObj();
 
@@ -17,6 +15,7 @@ public:
 
 	virtual void Setup(D3DXMATRIX matWorld, D3DXVECTOR3 pos, int objectType) = 0;
 	virtual void SetWorldMat(D3DXMATRIX matWorld)= 0;
+	
 
 	// cIGObj을(를) 통해 상속됨
 	

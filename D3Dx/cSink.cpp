@@ -89,10 +89,12 @@ void cSink::Inventory()
 {
 	if (m_Inven != NULL)
 	{
-		D3DXMATRIX matT;
+		D3DXMATRIX matT, RotX;
+		D3DXVECTOR3 v(1, 0, 0);
 		D3DXMatrixIdentity(&matT);
-		D3DXMatrixTranslation(&matT, 0, 1.0f, 0);
+		D3DXMatrixRotationAxis(&RotX,&v, D3DX_PI / 2);
+		D3DXMatrixTranslation(&matT, 0, 0, 0);
 
-		m_Inven->SetWorldMatrix(matT * m_matLocal * m_matWorld);
+		m_Inven->SetWorldMatrix(RotX * matT * m_matLocal * m_matWorld);
 	}
 }

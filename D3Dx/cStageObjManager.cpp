@@ -117,6 +117,16 @@ void cStageObjManager::Update()
 				p->SetInven(NULL);
 			}
 		}
+
+		if (p->GetObjectType() == AOBJ_PASS)
+		{
+			if (p->GetInven())
+			{
+				DeleteFood(p->GetInven());
+				p->SetInven(NULL);
+			}
+		}
+
 	}
 	
 

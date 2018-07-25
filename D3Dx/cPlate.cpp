@@ -27,6 +27,8 @@ void cPlate::Update()
 
 void cPlate::Render()
 {
+	if(m_bIsUse) m_pTexture = g_pTextureManager->GetTexture(L"Resources/Texture2D/DirtyPlate.png");
+	if (!m_bIsUse) m_pTexture = g_pTextureManager->GetTexture(L"Resources/Texture2D/Plate_Texture.png");
 	SetLight();
 	g_pD3DDevice->SetMaterial(&m_stMtl);
 	g_pD3DDevice->SetTransform(D3DTS_WORLD, &(m_matLocal * m_matWorld));
@@ -48,9 +50,10 @@ void cPlate::Setup(D3DXMATRIX matWorld, D3DXVECTOR3 pos, int lidtype)
 	m_eState = OBJ_DYNAMIC;
 	m_nObjectType = lidtype;
 	m_bInteraction = false;
-	m_bIsUse = false;
+	m_bIsUse = true;
 	m_pMesh = ObJMANAGER->GetMesh(L"Plate.obj");
 	m_pTexture = g_pTextureManager->GetTexture(L"Resources/Texture2D/Plate_Texture.png");
+	
 }
 
 void cPlate::SetWorldMat(D3DXMATRIX matWorld)
