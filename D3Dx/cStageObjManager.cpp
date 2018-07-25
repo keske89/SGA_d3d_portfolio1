@@ -60,7 +60,7 @@ void cStageObjManager::Update()
 
 	for (auto p : m_listObj)
 	{
-		p->SetIsSet(false);
+		p->GetInven()->SetIsSet(false);
 
 		if (p->GetInven())
 		{
