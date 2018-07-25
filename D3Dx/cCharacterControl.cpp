@@ -60,6 +60,8 @@ void cCharacterControl::ControlAction()
 		{
 			if (m_vecCharacter[i]->GetDetect())
 			{
+				m_vecCharacter[i]->GetDetect()->Setplayer(m_vecCharacter[i]);
+
 				if (m_vecCharacter[i]->GetDetect()->GetObjectType() == OBJECTTYPE::AOBJ_TABLE)
 				{
 					if (KEYMANAGER->isOnceKeyDown(VK_LCONTROL))
@@ -230,8 +232,10 @@ void cCharacterControl::ControlAction()
 								m_vecCharacter[m_Bswitch]->SetInven(NULL);
 								m_vecCharacter[m_Bswitch]->SetChefAnimation(CHEF_STATE_IDLE);
 							}
+							//										³kÄ¿		ÆÌ			Àç·áÀÇ ÀÎº¥
 							else if (!m_vecCharacter[m_Bswitch]->GetDetect()->GetInven()->GetInven())
 							{
+															
 								m_vecCharacter[m_Bswitch]->GetDetect()->GetInven()->SetInven(m_vecCharacter[m_Bswitch]->GetInven());
 								m_vecCharacter[m_Bswitch]->SetInven(NULL);
 								m_vecCharacter[m_Bswitch]->SetChefAnimation(CHEF_STATE_IDLE);
