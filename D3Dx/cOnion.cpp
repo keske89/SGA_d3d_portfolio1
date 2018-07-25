@@ -9,6 +9,7 @@ cOnion::cOnion()
 
 cOnion::~cOnion()
 {
+	SAFE_RELEASE(m_pSprite);
 }
 
 void cOnion::Setup()
@@ -31,6 +32,9 @@ void cOnion::Render()
 	g_pD3DDevice->SetFVF(ST_PNT_VERTEX::FVF);
 	g_pD3DDevice->SetTexture(0, m_pTexture);
 	m_pMesh->DrawSubset(0);
+
+
+	
 }
 
 void cOnion::Setup(D3DXMATRIX matWorld, D3DXVECTOR3 pos, int lidtype)
@@ -43,6 +47,7 @@ void cOnion::Setup(D3DXMATRIX matWorld, D3DXVECTOR3 pos, int lidtype)
 	m_nObjectType = lidtype;
 	m_pMesh = ObJMANAGER->GetMesh(L"Onion_Whole.obj");
 	m_pTexture = g_pTextureManager->GetTexture(L"Resources/Texture2D/Onion.png");
+	//m_pSprite = g_pTextureManager->GetTexture(L"Resources/Texture2D/Onion_Icon");
 	m_Cost = 1;
 }
 
@@ -70,4 +75,7 @@ void cOnion::SetLight()
 		m_stMtl.Diffuse = D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.5f);
 		m_stMtl.Specular = D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.5f);
 	}
+
+	
+
 }

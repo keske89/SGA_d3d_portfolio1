@@ -71,7 +71,6 @@ void cStageObjManager::Update()
 				if (p->GetInven()->GetObjectType() == AOBJ_POT)
 				{
 					p->GetInven()->SetIsAction(true);
-					//p->GetInven()->SetIsEquipped(true);
 				}
 			}
 		}
@@ -98,8 +97,7 @@ void cStageObjManager::Update()
 		
 		p->Update();
 
-
-		
+				
 		///////// ³¿ºñ Ã³¸® ////////
 		if (p->GetObjectType() == AOBJ_POT)
 		{
@@ -113,9 +111,6 @@ void cStageObjManager::Update()
 				}
 			}
 		}
-
-		
-
 	}
 }
 
@@ -388,7 +383,7 @@ std::list<cIGObj*>::iterator cStageObjManager:: SetIngameObject(OBJECTTYPE objty
 	case AOBJ_POT:
 		m_Pot = new cPot;
 		m_Pot->Setup(matWorld, D3DXVECTOR3(matWorld._41, matWorld._42, matWorld._43), AOBJ_POT);
-		iter = m_listObj.insert(m_listObj.end(), m_Pot);
+		iter = m_listFoodObj.insert(m_listFoodObj.end(), m_Pot);
 		return iter;
 		break;
 	case AOBJ_SINK:

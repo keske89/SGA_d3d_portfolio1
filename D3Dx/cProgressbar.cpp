@@ -233,7 +233,7 @@ void cProgressbar::Update(D3DXVECTOR3 pos , int size)
 		}
 		else
 		{
-			m_fTopGauge += 0.03f;
+			m_fTopGauge += 0.01f;
 			///////////////////// bottom///////////////
 			ST_PT_VERTEX v[4];
 
@@ -323,7 +323,26 @@ void cProgressbar::Render()
 		break;
 
 	case 2:
-		break;
+		if (!Complete())
+		{
+			D3DXMATRIX mat;
+			D3DXMatrixIdentity(&mat);
+			g_pD3DDevice->SetTransform(D3DTS_WORLD, &(m_matLocal * mat));
+			g_pD3DDevice->SetTexture(0, m_pTexture);
+			g_pD3DDevice->SetFVF(ST_PT_VERTEX::FVF);
+			g_pD3DDevice->DrawPrimitiveUP(D3DPT_TRIANGLELIST,
+				m_vecVertexBottom.size() / 3,
+				&m_vecVertexBottom[0],
+				sizeof(ST_PT_VERTEX));
+
+			g_pD3DDevice->SetTransform(D3DTS_WORLD, &(m_matLocal* mat));
+			g_pD3DDevice->DrawPrimitiveUP(D3DPT_TRIANGLELIST,
+				m_vecVertexTop.size() / 3,
+				&m_vecVertexTop[0],
+				sizeof(ST_PT_VERTEX));
+			break;
+		}
+			
 
 	default:
 		break;

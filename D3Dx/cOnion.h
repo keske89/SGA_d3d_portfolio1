@@ -1,8 +1,9 @@
 #pragma once
 #include "cFoodObj.h"
 class cOnion : public cFoodObj
-
 {
+public:
+	
 public:
 	cOnion();
 	~cOnion();

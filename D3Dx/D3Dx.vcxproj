@@ -188,6 +188,7 @@
     <ClInclude Include="cPlate.h" />
     <ClInclude Include="cPlateReturnBox.h" />
     <ClInclude Include="cPot.h" />
+    <ClInclude Include="cRecipe.h" />
     <ClInclude Include="cSelectUI.h" />
     <ClInclude Include="cSink.h" />
     <ClInclude Include="cSoundManager.h" />
@@ -291,6 +292,7 @@
     <ClCompile Include="cPlate.cpp" />
     <ClCompile Include="cPlateReturnBox.cpp" />
     <ClCompile Include="cPot.cpp" />
+    <ClCompile Include="cRecipe.cpp" />
     <ClCompile Include="cSelectUI.cpp" />
     <ClCompile Include="cSink.cpp" />
     <ClCompile Include="cSoundManager.cpp" />

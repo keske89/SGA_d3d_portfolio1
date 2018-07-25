@@ -390,6 +390,9 @@
     <ClInclude Include="cEffectObject.h">
       <Filter>Manager</Filter>
     </ClInclude>
+    <ClInclude Include="cRecipe.h">
+      <Filter>소스 파일\IngameObj\FoodObj</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="D3Dx.cpp">
@@ -685,6 +688,9 @@
     </ClCompile>
     <ClCompile Include="cEffectObject.cpp">
       <Filter>Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="cRecipe.cpp">
+      <Filter>소스 파일\IngameObj\FoodObj</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

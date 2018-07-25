@@ -4,6 +4,8 @@
 
 cIGObj::cIGObj()
 	: m_bInteraction(false)
+	, m_pSprite(NULL)
+	, m_pIcon(NULL)
 	, m_pTexture(NULL)
 	, m_pMesh(NULL)
 	, m_vPos(0.0f, 0.0f, 0.0f)

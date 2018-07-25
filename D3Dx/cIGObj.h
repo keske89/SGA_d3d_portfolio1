@@ -22,6 +22,8 @@ class cIGObj
 public:
 
 	//bool				m_bInteraction;
+	LPD3DXSPRITE		m_pSprite;
+	LPDIRECT3DTEXTURE9	m_pIcon;
 	LPDIRECT3DTEXTURE9	m_pTexture;
 	LPD3DXMESH			m_pMesh;
 	D3DMATERIAL9		m_stMtl;
@@ -58,11 +60,3 @@ public:
 	LPD3DXMESH GetMesh() { return m_pMesh; }
 	
 };
-//
-//void cIGObj::SetMaterial()
-//{
-//	ZeroMemory(&m_stMtl, sizeof(D3DMATERIAL9));
-//	m_stMtl.Ambient = D3DXCOLOR(0.0f, 0.0f, 0.0f, 1.0f);
-//	m_stMtl.Diffuse = D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f);
-//	m_stMtl.Specular = D3DXCOLOR(0.3f, 0.3f, 0.3f, 1.0f);
-//}

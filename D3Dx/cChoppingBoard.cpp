@@ -47,7 +47,11 @@ void cChoppingBoard::Update()
 		}
 
 	}
-		
+	if (m_bIsAction)
+	{
+		int a = 0;
+	}
+	
 	m_vPos.x = m_matWorld._41;
 	m_vPos.y = m_matWorld._42;
 	m_vPos.z = m_matWorld._43;
@@ -102,7 +106,7 @@ void cChoppingBoard::Setup(D3DXMATRIX matWorld, D3DXVECTOR3 pos, int lidtype)
 	m_pTexture = g_pTextureManager->GetTexture(L"Resources/Texture2D/ChoppingBoard.png");
 
 	m_pPgbar = new cProgressbar;
-	m_pPgbar->Setup(m_matWorld, m_vPos, 2);
+	m_pPgbar->Setup(m_matWorld, m_vPos, 1);
 }
 
 void cChoppingBoard::SetWorldMat(D3DXMATRIX matWorld)

@@ -13,6 +13,7 @@ public:
 	int						m_size;
 	IDirect3DTexture9*		m_texture[3];
 	std::vector<cIGObj*>	m_vec;
+	bool					m_IsFull;
 
 public:
 	cPot();
