@@ -176,7 +176,9 @@
     <ClInclude Include="cIntroLogo.h" />
     <ClInclude Include="cIntroScene.h" />
     <ClInclude Include="cIntroUI.h" />
+    <ClInclude Include="CommonMacroFunction.h" />
     <ClInclude Include="cOnion.h" />
+    <ClInclude Include="cParticle.h" />
     <ClInclude Include="cPass.h" />
     <ClInclude Include="cPassScroll.h" />
     <ClInclude Include="cPath.h" />
@@ -277,6 +279,7 @@
     <ClCompile Include="cIntroScene.cpp" />
     <ClCompile Include="cIntroUI.cpp" />
     <ClCompile Include="cOnion.cpp" />
+    <ClCompile Include="cParticle.cpp" />
     <ClCompile Include="cPass.cpp" />
     <ClCompile Include="cPassScroll.cpp" />
     <ClCompile Include="cPath.cpp" />

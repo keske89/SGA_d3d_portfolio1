@@ -13,12 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="소스 파일\Manager">
-      <UniqueIdentifier>{800f371d-22c9-46cd-8f96-c0d4f1c4e075}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\ObjLoader">
-      <UniqueIdentifier>{16bad9ea-5eb5-4bb3-bab8-a5bf4e8bb108}</UniqueIdentifier>
-    </Filter>
     <Filter Include="소스 파일\IngameObj">
       <UniqueIdentifier>{ba060946-8079-4f5d-9cb8-94486437b1a1}</UniqueIdentifier>
     </Filter>
@@ -34,47 +28,59 @@
     <Filter Include="소스 파일\Chef\ChefPatrs">
       <UniqueIdentifier>{195eec45-ac32-4d59-9ef1-fdf443dea7e8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\Stage">
-      <UniqueIdentifier>{9eaa807a-dea1-4f1b-89ca-85148dde2fc0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\WORLDMAP">
-      <UniqueIdentifier>{d86f7ebe-2e9d-4282-99af-94e8b18d4ef7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\INTRO">
-      <UniqueIdentifier>{c224b5cd-4d22-4d0a-a418-bc5427dffa9f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\WORLDMAP\UI">
-      <UniqueIdentifier>{dfd73933-df75-4c87-bb69-6ea15a4486cd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\WORLDMAP\INTERFACE">
-      <UniqueIdentifier>{6b13d45a-13f6-43dc-abe5-06c5aa630aa4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\WORLDMAP\WMManager">
-      <UniqueIdentifier>{38a28251-75ea-41b6-993b-332cb03bc4b6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\DB">
-      <UniqueIdentifier>{c3cef63f-2004-4e53-9334-474bff2240bf}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\WORLDMAP\WMSTAGE">
-      <UniqueIdentifier>{26afa8c6-89d4-4ad4-9dae-eb4bc0250579}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\WORLDMAP\WMSTAGE\WMGRID">
-      <UniqueIdentifier>{3f8da2ed-b75e-4049-b0f9-a1d5cfc64951}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\WORLDMAP\WMSTAGE\WMObject">
-      <UniqueIdentifier>{f3b24a08-1336-4033-9dcb-b40f2b332ef0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\WORLDMAP\WMCAR">
-      <UniqueIdentifier>{54641a62-34e3-4961-8a91-b4a1cdadeca5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\WORLDMAP\WMSTAGE\WMObject\WMPath">
-      <UniqueIdentifier>{cf32839a-ab68-46f1-9311-d4adc3a926af}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\WORLDMAP\UI\WMUI">
-      <UniqueIdentifier>{f46f0e43-6156-4959-a117-ef46242411fd}</UniqueIdentifier>
-    </Filter>
     <Filter Include="소스 파일\CharaterSelect">
       <UniqueIdentifier>{2aa5ee99-190a-4065-86ed-8906e6a55224}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Util">
+      <UniqueIdentifier>{ecb5fcc0-9925-44ab-a9f4-044a6f8309fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager">
+      <UniqueIdentifier>{800f371d-22c9-46cd-8f96-c0d4f1c4e075}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DB">
+      <UniqueIdentifier>{c3cef63f-2004-4e53-9334-474bff2240bf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene">
+      <UniqueIdentifier>{0c7cb955-096b-426f-a2d6-f3ae5b80c5a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\WORLDMAP">
+      <UniqueIdentifier>{d86f7ebe-2e9d-4282-99af-94e8b18d4ef7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\WORLDMAP\UI">
+      <UniqueIdentifier>{dfd73933-df75-4c87-bb69-6ea15a4486cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\WORLDMAP\UI\WMUI">
+      <UniqueIdentifier>{f46f0e43-6156-4959-a117-ef46242411fd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\WORLDMAP\INTERFACE">
+      <UniqueIdentifier>{6b13d45a-13f6-43dc-abe5-06c5aa630aa4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\WORLDMAP\WMManager">
+      <UniqueIdentifier>{38a28251-75ea-41b6-993b-332cb03bc4b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\WORLDMAP\WMSTAGE">
+      <UniqueIdentifier>{26afa8c6-89d4-4ad4-9dae-eb4bc0250579}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\WORLDMAP\WMSTAGE\WMGRID">
+      <UniqueIdentifier>{3f8da2ed-b75e-4049-b0f9-a1d5cfc64951}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\WORLDMAP\WMSTAGE\WMObject">
+      <UniqueIdentifier>{f3b24a08-1336-4033-9dcb-b40f2b332ef0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\WORLDMAP\WMSTAGE\WMObject\WMPath">
+      <UniqueIdentifier>{cf32839a-ab68-46f1-9311-d4adc3a926af}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\WORLDMAP\WMCAR">
+      <UniqueIdentifier>{54641a62-34e3-4961-8a91-b4a1cdadeca5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\Stage">
+      <UniqueIdentifier>{9eaa807a-dea1-4f1b-89ca-85148dde2fc0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\INTRO">
+      <UniqueIdentifier>{c224b5cd-4d22-4d0a-a418-bc5427dffa9f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainGame">
+      <UniqueIdentifier>{e660021d-9914-4938-8751-e1bf92aa513d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -88,43 +94,34 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="cFontManager.h">
-      <Filter>소스 파일\Manager</Filter>
+      <Filter>Manager</Filter>
     </ClInclude>
     <ClInclude Include="cDeviceManager.h">
-      <Filter>소스 파일\Manager</Filter>
+      <Filter>Manager</Filter>
     </ClInclude>
     <ClInclude Include="cKeyManager.h">
-      <Filter>소스 파일\Manager</Filter>
+      <Filter>Manager</Filter>
     </ClInclude>
     <ClInclude Include="cTextureManager.h">
-      <Filter>소스 파일\Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="singletonBase.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="cCamera.h">
-      <Filter>소스 파일</Filter>
+      <Filter>Manager</Filter>
     </ClInclude>
     <ClInclude Include="cGameNode.h">
       <Filter>소스 파일</Filter>
     </ClInclude>
     <ClInclude Include="cSceneManager.h">
-      <Filter>소스 파일\Manager</Filter>
+      <Filter>Manager</Filter>
     </ClInclude>
     <ClInclude Include="cTimeManager.h">
-      <Filter>소스 파일\Manager</Filter>
+      <Filter>Manager</Filter>
     </ClInclude>
     <ClInclude Include="cTimer.h">
-      <Filter>소스 파일\Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="cMainGame.h">
-      <Filter>소스 파일</Filter>
+      <Filter>Manager</Filter>
     </ClInclude>
     <ClInclude Include="D3Dx.h">
       <Filter>소스 파일</Filter>
     </ClInclude>
     <ClInclude Include="cTextManager.h">
-      <Filter>소스 파일\Manager</Filter>
+      <Filter>Manager</Filter>
     </ClInclude>
     <ClInclude Include="cIGObj.h">
       <Filter>소스 파일\IngameObj</Filter>
@@ -141,29 +138,8 @@
     <ClInclude Include="cTomato.h">
       <Filter>소스 파일\IngameObj\FoodObj</Filter>
     </ClInclude>
-    <ClInclude Include="cObjLoader.h">
-      <Filter>소스 파일\ObjLoader</Filter>
-    </ClInclude>
-    <ClInclude Include="cTestScene0.h">
-      <Filter>소스 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="cTestScene1.h">
-      <Filter>소스 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="cTestScene2.h">
-      <Filter>소스 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="cTestScene3.h">
-      <Filter>소스 파일</Filter>
-    </ClInclude>
     <ClInclude Include="cStage.h">
-      <Filter>소스 파일\Stage</Filter>
-    </ClInclude>
-    <ClInclude Include="cRay.h">
-      <Filter>소스 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="cProgressbar.h">
-      <Filter>소스 파일</Filter>
+      <Filter>Scene\Stage</Filter>
     </ClInclude>
     <ClInclude Include="cCharacterControl.h">
       <Filter>소스 파일\Chef</Filter>
@@ -184,13 +160,13 @@
       <Filter>소스 파일\Chef</Filter>
     </ClInclude>
     <ClInclude Include="cStageGrid.h">
-      <Filter>소스 파일\Stage</Filter>
+      <Filter>Scene\Stage</Filter>
     </ClInclude>
     <ClInclude Include="cStageMapTool.h">
-      <Filter>소스 파일\Stage</Filter>
+      <Filter>Scene\Stage</Filter>
     </ClInclude>
     <ClInclude Include="cStageMapToolUI.h">
-      <Filter>소스 파일\Stage</Filter>
+      <Filter>Scene\Stage</Filter>
     </ClInclude>
     <ClInclude Include="cPot.h">
       <Filter>소스 파일\IngameObj\ActionObj</Filter>
@@ -199,7 +175,7 @@
       <Filter>소스 파일\IngameObj\ActionObj</Filter>
     </ClInclude>
     <ClInclude Include="cObjManager.h">
-      <Filter>소스 파일\Manager</Filter>
+      <Filter>Manager</Filter>
     </ClInclude>
     <ClInclude Include="cCrate.h">
       <Filter>소스 파일\IngameObj\ActionObj</Filter>
@@ -211,7 +187,7 @@
       <Filter>소스 파일\IngameObj</Filter>
     </ClInclude>
     <ClInclude Include="cStageScene.h">
-      <Filter>소스 파일\Stage</Filter>
+      <Filter>Scene\Stage</Filter>
     </ClInclude>
     <ClInclude Include="cChef.h">
       <Filter>소스 파일\Chef</Filter>
@@ -253,112 +229,112 @@
       <Filter>소스 파일\Chef</Filter>
     </ClInclude>
     <ClInclude Include="cWorldMapScene.h">
-      <Filter>소스 파일\WORLDMAP</Filter>
+      <Filter>Scene\WORLDMAP</Filter>
     </ClInclude>
     <ClInclude Include="cIntroScene.h">
-      <Filter>소스 파일\INTRO</Filter>
+      <Filter>Scene\INTRO</Filter>
     </ClInclude>
     <ClInclude Include="cIntroLogo.h">
-      <Filter>소스 파일\INTRO</Filter>
+      <Filter>Scene\INTRO</Filter>
     </ClInclude>
     <ClInclude Include="cIntroUI.h">
-      <Filter>소스 파일\INTRO</Filter>
+      <Filter>Scene\INTRO</Filter>
     </ClInclude>
     <ClInclude Include="Assets.h">
-      <Filter>소스 파일\WORLDMAP\WMManager</Filter>
+      <Filter>Scene\WORLDMAP\WMManager</Filter>
     </ClInclude>
     <ClInclude Include="image.h">
-      <Filter>소스 파일\WORLDMAP\WMManager</Filter>
+      <Filter>Scene\WORLDMAP\WMManager</Filter>
     </ClInclude>
     <ClInclude Include="imageManager.h">
-      <Filter>소스 파일\WORLDMAP\WMManager</Filter>
+      <Filter>Scene\WORLDMAP\WMManager</Filter>
     </ClInclude>
     <ClInclude Include="textureManager.h">
-      <Filter>소스 파일\WORLDMAP\WMManager</Filter>
+      <Filter>Scene\WORLDMAP\WMManager</Filter>
     </ClInclude>
     <ClInclude Include="UIButton.h">
-      <Filter>소스 파일\WORLDMAP\UI</Filter>
+      <Filter>Scene\WORLDMAP\UI</Filter>
     </ClInclude>
     <ClInclude Include="UIImage.h">
-      <Filter>소스 파일\WORLDMAP\UI</Filter>
+      <Filter>Scene\WORLDMAP\UI</Filter>
     </ClInclude>
     <ClInclude Include="UIText.h">
-      <Filter>소스 파일\WORLDMAP\UI</Filter>
+      <Filter>Scene\WORLDMAP\UI</Filter>
     </ClInclude>
     <ClInclude Include="iUIObject.h">
-      <Filter>소스 파일\WORLDMAP\UI</Filter>
+      <Filter>Scene\WORLDMAP\UI</Filter>
     </ClInclude>
     <ClInclude Include="IMoveObject.h">
-      <Filter>소스 파일\WORLDMAP\INTERFACE</Filter>
+      <Filter>Scene\WORLDMAP\INTERFACE</Filter>
     </ClInclude>
     <ClInclude Include="IDisplayObject.h">
-      <Filter>소스 파일\WORLDMAP\INTERFACE</Filter>
+      <Filter>Scene\WORLDMAP\INTERFACE</Filter>
     </ClInclude>
     <ClInclude Include="cWorldMapObj.h">
-      <Filter>소스 파일\WORLDMAP\INTERFACE</Filter>
+      <Filter>Scene\WORLDMAP\INTERFACE</Filter>
     </ClInclude>
     <ClInclude Include="cWMDefinition.h">
-      <Filter>소스 파일\WORLDMAP\WMManager</Filter>
+      <Filter>Scene\WORLDMAP\WMManager</Filter>
     </ClInclude>
     <ClInclude Include="cCollision.h">
-      <Filter>소스 파일\Stage</Filter>
+      <Filter>Scene\Stage</Filter>
     </ClInclude>
     <ClInclude Include="database.h">
-      <Filter>소스 파일\DB</Filter>
+      <Filter>DB</Filter>
     </ClInclude>
     <ClInclude Include="cWMCarBody.h">
-      <Filter>소스 파일\WORLDMAP\WMCAR</Filter>
+      <Filter>Scene\WORLDMAP\WMCAR</Filter>
     </ClInclude>
     <ClInclude Include="cWMCarPuff.h">
-      <Filter>소스 파일\WORLDMAP\WMCAR</Filter>
+      <Filter>Scene\WORLDMAP\WMCAR</Filter>
     </ClInclude>
     <ClInclude Include="cWorldMapCar.h">
-      <Filter>소스 파일\WORLDMAP\WMCAR</Filter>
+      <Filter>Scene\WORLDMAP\WMCAR</Filter>
     </ClInclude>
     <ClInclude Include="cWorldGrid.h">
-      <Filter>소스 파일\WORLDMAP\WMSTAGE\WMGRID</Filter>
+      <Filter>Scene\WORLDMAP\WMSTAGE\WMGRID</Filter>
     </ClInclude>
     <ClInclude Include="cWMObbBox.h">
-      <Filter>소스 파일\WORLDMAP\WMSTAGE\WMGRID</Filter>
+      <Filter>Scene\WORLDMAP\WMSTAGE\WMGRID</Filter>
     </ClInclude>
     <ClInclude Include="cWMBorder.h">
-      <Filter>소스 파일\WORLDMAP\WMSTAGE\WMGRID</Filter>
+      <Filter>Scene\WORLDMAP\WMSTAGE\WMGRID</Filter>
     </ClInclude>
     <ClInclude Include="cPath.h">
-      <Filter>소스 파일\WORLDMAP\WMSTAGE\WMObject\WMPath</Filter>
+      <Filter>Scene\WORLDMAP\WMSTAGE\WMObject\WMPath</Filter>
     </ClInclude>
     <ClInclude Include="cPathMaker.h">
-      <Filter>소스 파일\WORLDMAP\WMSTAGE\WMObject\WMPath</Filter>
+      <Filter>Scene\WORLDMAP\WMSTAGE\WMObject\WMPath</Filter>
     </ClInclude>
     <ClInclude Include="cSphere.h">
-      <Filter>소스 파일\WORLDMAP\WMSTAGE\WMObject</Filter>
+      <Filter>Scene\WORLDMAP\WMSTAGE\WMObject</Filter>
     </ClInclude>
     <ClInclude Include="cWMCloud.h">
-      <Filter>소스 파일\WORLDMAP\WMSTAGE\WMObject</Filter>
+      <Filter>Scene\WORLDMAP\WMSTAGE\WMObject</Filter>
     </ClInclude>
     <ClInclude Include="cWMStageNum.h">
-      <Filter>소스 파일\WORLDMAP\WMSTAGE\WMObject</Filter>
+      <Filter>Scene\WORLDMAP\WMSTAGE\WMObject</Filter>
     </ClInclude>
     <ClInclude Include="cWMStarBoard.h">
-      <Filter>소스 파일\WORLDMAP\WMSTAGE\WMObject</Filter>
+      <Filter>Scene\WORLDMAP\WMSTAGE\WMObject</Filter>
     </ClInclude>
     <ClInclude Include="cWorldTile.h">
-      <Filter>소스 파일\WORLDMAP\WMSTAGE\WMObject</Filter>
+      <Filter>Scene\WORLDMAP\WMSTAGE\WMObject</Filter>
     </ClInclude>
     <ClInclude Include="cWMapMenu.h">
-      <Filter>소스 파일\WORLDMAP\UI\WMUI</Filter>
+      <Filter>Scene\WORLDMAP\UI\WMUI</Filter>
     </ClInclude>
     <ClInclude Include="UIController.h">
-      <Filter>소스 파일\WORLDMAP\UI</Filter>
+      <Filter>Scene\WORLDMAP\UI</Filter>
     </ClInclude>
     <ClInclude Include="cWorldStage.h">
-      <Filter>소스 파일\WORLDMAP\WMSTAGE</Filter>
+      <Filter>Scene\WORLDMAP\WMSTAGE</Filter>
     </ClInclude>
     <ClInclude Include="cBackground.h">
-      <Filter>소스 파일\Stage</Filter>
+      <Filter>Scene\Stage</Filter>
     </ClInclude>
     <ClInclude Include="cStageUI.h">
-      <Filter>소스 파일\Stage</Filter>
+      <Filter>Scene\Stage</Filter>
     </ClInclude>
     <ClInclude Include="cCharaterChangeScene.h">
       <Filter>소스 파일\CharaterSelect</Filter>
@@ -370,45 +346,75 @@
       <Filter>소스 파일\Chef\ChefPatrs</Filter>
     </ClInclude>
     <ClInclude Include="cSoundManager.h">
-      <Filter>소스 파일\Manager</Filter>
+      <Filter>Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="cCamera.h">
+      <Filter>Util</Filter>
+    </ClInclude>
+    <ClInclude Include="cProgressbar.h">
+      <Filter>Util</Filter>
+    </ClInclude>
+    <ClInclude Include="cRay.h">
+      <Filter>Util</Filter>
+    </ClInclude>
+    <ClInclude Include="cTestScene0.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="cTestScene1.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="cTestScene2.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="cTestScene3.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="cObjLoader.h">
+      <Filter>Util</Filter>
+    </ClInclude>
+    <ClInclude Include="cMainGame.h">
+      <Filter>MainGame</Filter>
+    </ClInclude>
+    <ClInclude Include="singletonBase.h">
+      <Filter>Util</Filter>
+    </ClInclude>
+    <ClInclude Include="cParticle.h">
+      <Filter>Util</Filter>
+    </ClInclude>
+    <ClInclude Include="CommonMacroFunction.h">
+      <Filter>Util</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="D3Dx.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="cMainGame.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="cCamera.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="cDeviceManager.cpp">
-      <Filter>소스 파일\Manager</Filter>
+      <Filter>Manager</Filter>
     </ClCompile>
     <ClCompile Include="cFontManager.cpp">
-      <Filter>소스 파일\Manager</Filter>
+      <Filter>Manager</Filter>
     </ClCompile>
     <ClCompile Include="cKeyManager.cpp">
-      <Filter>소스 파일\Manager</Filter>
+      <Filter>Manager</Filter>
     </ClCompile>
     <ClCompile Include="cTextureManager.cpp">
-      <Filter>소스 파일\Manager</Filter>
+      <Filter>Manager</Filter>
     </ClCompile>
     <ClCompile Include="cGameNode.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="cSceneManager.cpp">
-      <Filter>소스 파일\Manager</Filter>
+      <Filter>Manager</Filter>
     </ClCompile>
     <ClCompile Include="cTimeManager.cpp">
-      <Filter>소스 파일\Manager</Filter>
+      <Filter>Manager</Filter>
     </ClCompile>
     <ClCompile Include="cTimer.cpp">
-      <Filter>소스 파일\Manager</Filter>
+      <Filter>Manager</Filter>
     </ClCompile>
     <ClCompile Include="cTextManager.cpp">
-      <Filter>소스 파일\Manager</Filter>
+      <Filter>Manager</Filter>
     </ClCompile>
     <ClCompile Include="cIGObj.cpp">
       <Filter>소스 파일\IngameObj</Filter>
@@ -425,29 +431,8 @@
     <ClCompile Include="cTomato.cpp">
       <Filter>소스 파일\IngameObj\FoodObj</Filter>
     </ClCompile>
-    <ClCompile Include="cObjLoader.cpp">
-      <Filter>소스 파일\ObjLoader</Filter>
-    </ClCompile>
-    <ClCompile Include="cTestScene1.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="cTestScene2.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="cTestScene3.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="cTestScene0.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="cProgressbar.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="cStage.cpp">
-      <Filter>소스 파일\Stage</Filter>
-    </ClCompile>
-    <ClCompile Include="cRay.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>Scene\Stage</Filter>
     </ClCompile>
     <ClCompile Include="cCharacterControl.cpp">
       <Filter>소스 파일\Chef</Filter>
@@ -468,13 +453,13 @@
       <Filter>소스 파일\Chef</Filter>
     </ClCompile>
     <ClCompile Include="cStageGrid.cpp">
-      <Filter>소스 파일\Stage</Filter>
+      <Filter>Scene\Stage</Filter>
     </ClCompile>
     <ClCompile Include="cStageMapTool.cpp">
-      <Filter>소스 파일\Stage</Filter>
+      <Filter>Scene\Stage</Filter>
     </ClCompile>
     <ClCompile Include="cStageMapToolUI.cpp">
-      <Filter>소스 파일\Stage</Filter>
+      <Filter>Scene\Stage</Filter>
     </ClCompile>
     <ClCompile Include="cPot.cpp">
       <Filter>소스 파일\IngameObj\ActionObj</Filter>
@@ -483,7 +468,7 @@
       <Filter>소스 파일\IngameObj\ActionObj</Filter>
     </ClCompile>
     <ClCompile Include="cObjManager.cpp">
-      <Filter>소스 파일\Manager</Filter>
+      <Filter>Manager</Filter>
     </ClCompile>
     <ClCompile Include="cCrate.cpp">
       <Filter>소스 파일\IngameObj\ActionObj</Filter>
@@ -495,7 +480,7 @@
       <Filter>소스 파일\IngameObj</Filter>
     </ClCompile>
     <ClCompile Include="cStageScene.cpp">
-      <Filter>소스 파일\Stage</Filter>
+      <Filter>Scene\Stage</Filter>
     </ClCompile>
     <ClCompile Include="cChef.cpp">
       <Filter>소스 파일\Chef</Filter>
@@ -537,115 +522,115 @@
       <Filter>소스 파일\Chef</Filter>
     </ClCompile>
     <ClCompile Include="cWorldMapScene.cpp">
-      <Filter>소스 파일\WORLDMAP</Filter>
+      <Filter>Scene\WORLDMAP</Filter>
     </ClCompile>
     <ClCompile Include="cIntroScene.cpp">
-      <Filter>소스 파일\INTRO</Filter>
+      <Filter>Scene\INTRO</Filter>
     </ClCompile>
     <ClCompile Include="cIntroLogo.cpp">
-      <Filter>소스 파일\INTRO</Filter>
+      <Filter>Scene\INTRO</Filter>
     </ClCompile>
     <ClCompile Include="cIntroUI.cpp">
-      <Filter>소스 파일\INTRO</Filter>
+      <Filter>Scene\INTRO</Filter>
     </ClCompile>
     <ClCompile Include="Assets.cpp">
-      <Filter>소스 파일\WORLDMAP\WMManager</Filter>
+      <Filter>Scene\WORLDMAP\WMManager</Filter>
     </ClCompile>
     <ClCompile Include="image.cpp">
-      <Filter>소스 파일\WORLDMAP\WMManager</Filter>
+      <Filter>Scene\WORLDMAP\WMManager</Filter>
     </ClCompile>
     <ClCompile Include="imageManager.cpp">
-      <Filter>소스 파일\WORLDMAP\WMManager</Filter>
+      <Filter>Scene\WORLDMAP\WMManager</Filter>
     </ClCompile>
     <ClCompile Include="textureManager.cpp">
-      <Filter>소스 파일\WORLDMAP\WMManager</Filter>
+      <Filter>Scene\WORLDMAP\WMManager</Filter>
     </ClCompile>
     <ClCompile Include="iUIObject.cpp">
-      <Filter>소스 파일\WORLDMAP\UI</Filter>
+      <Filter>Scene\WORLDMAP\UI</Filter>
     </ClCompile>
     <ClCompile Include="UIButton.cpp">
-      <Filter>소스 파일\WORLDMAP\UI</Filter>
+      <Filter>Scene\WORLDMAP\UI</Filter>
     </ClCompile>
     <ClCompile Include="UIImage.cpp">
-      <Filter>소스 파일\WORLDMAP\UI</Filter>
+      <Filter>Scene\WORLDMAP\UI</Filter>
     </ClCompile>
     <ClCompile Include="UIText.cpp">
-      <Filter>소스 파일\WORLDMAP\UI</Filter>
+      <Filter>Scene\WORLDMAP\UI</Filter>
     </ClCompile>
     <ClCompile Include="cWorldMapObj.cpp">
-      <Filter>소스 파일\WORLDMAP\INTERFACE</Filter>
+      <Filter>Scene\WORLDMAP\INTERFACE</Filter>
     </ClCompile>
     <ClCompile Include="IDisplayObject.cpp">
-      <Filter>소스 파일\WORLDMAP\INTERFACE</Filter>
+      <Filter>Scene\WORLDMAP\INTERFACE</Filter>
     </ClCompile>
     <ClCompile Include="IMoveObject.cpp">
-      <Filter>소스 파일\WORLDMAP\INTERFACE</Filter>
+      <Filter>Scene\WORLDMAP\INTERFACE</Filter>
     </ClCompile>
     <ClCompile Include="cWMDefinition.cpp">
-      <Filter>소스 파일\WORLDMAP\WMManager</Filter>
+      <Filter>Scene\WORLDMAP\WMManager</Filter>
     </ClCompile>
     <ClCompile Include="stdafx.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="cCollision.cpp">
-      <Filter>소스 파일\Stage</Filter>
+      <Filter>Scene\Stage</Filter>
     </ClCompile>
     <ClCompile Include="database.cpp">
-      <Filter>소스 파일\DB</Filter>
+      <Filter>DB</Filter>
     </ClCompile>
     <ClCompile Include="cWMCarBody.cpp">
-      <Filter>소스 파일\WORLDMAP\WMCAR</Filter>
+      <Filter>Scene\WORLDMAP\WMCAR</Filter>
     </ClCompile>
     <ClCompile Include="cWMCarPuff.cpp">
-      <Filter>소스 파일\WORLDMAP\WMCAR</Filter>
+      <Filter>Scene\WORLDMAP\WMCAR</Filter>
     </ClCompile>
     <ClCompile Include="cWorldMapCar.cpp">
-      <Filter>소스 파일\WORLDMAP\WMCAR</Filter>
+      <Filter>Scene\WORLDMAP\WMCAR</Filter>
     </ClCompile>
     <ClCompile Include="cWorldStage.cpp">
-      <Filter>소스 파일\WORLDMAP\WMSTAGE</Filter>
+      <Filter>Scene\WORLDMAP\WMSTAGE</Filter>
     </ClCompile>
     <ClCompile Include="cWorldGrid.cpp">
-      <Filter>소스 파일\WORLDMAP\WMSTAGE\WMGRID</Filter>
+      <Filter>Scene\WORLDMAP\WMSTAGE\WMGRID</Filter>
     </ClCompile>
     <ClCompile Include="cWMObbBox.cpp">
-      <Filter>소스 파일\WORLDMAP\WMSTAGE\WMGRID</Filter>
+      <Filter>Scene\WORLDMAP\WMSTAGE\WMGRID</Filter>
     </ClCompile>
     <ClCompile Include="cWMBorder.cpp">
-      <Filter>소스 파일\WORLDMAP\WMSTAGE\WMGRID</Filter>
+      <Filter>Scene\WORLDMAP\WMSTAGE\WMGRID</Filter>
     </ClCompile>
     <ClCompile Include="cPath.cpp">
-      <Filter>소스 파일\WORLDMAP\WMSTAGE\WMObject\WMPath</Filter>
+      <Filter>Scene\WORLDMAP\WMSTAGE\WMObject\WMPath</Filter>
     </ClCompile>
     <ClCompile Include="cPathMaker.cpp">
-      <Filter>소스 파일\WORLDMAP\WMSTAGE\WMObject\WMPath</Filter>
+      <Filter>Scene\WORLDMAP\WMSTAGE\WMObject\WMPath</Filter>
     </ClCompile>
     <ClCompile Include="cSphere.cpp">
-      <Filter>소스 파일\WORLDMAP\WMSTAGE\WMObject</Filter>
+      <Filter>Scene\WORLDMAP\WMSTAGE\WMObject</Filter>
     </ClCompile>
     <ClCompile Include="cWMStageNum.cpp">
-      <Filter>소스 파일\WORLDMAP\WMSTAGE\WMObject</Filter>
+      <Filter>Scene\WORLDMAP\WMSTAGE\WMObject</Filter>
     </ClCompile>
     <ClCompile Include="cWMCloud.cpp">
-      <Filter>소스 파일\WORLDMAP\WMSTAGE\WMObject</Filter>
+      <Filter>Scene\WORLDMAP\WMSTAGE\WMObject</Filter>
     </ClCompile>
     <ClCompile Include="cWMStarBoard.cpp">
-      <Filter>소스 파일\WORLDMAP\WMSTAGE\WMObject</Filter>
+      <Filter>Scene\WORLDMAP\WMSTAGE\WMObject</Filter>
     </ClCompile>
     <ClCompile Include="cWorldTile.cpp">
-      <Filter>소스 파일\WORLDMAP\WMSTAGE\WMObject</Filter>
+      <Filter>Scene\WORLDMAP\WMSTAGE\WMObject</Filter>
     </ClCompile>
     <ClCompile Include="cWMapMenu.cpp">
-      <Filter>소스 파일\WORLDMAP\UI\WMUI</Filter>
+      <Filter>Scene\WORLDMAP\UI\WMUI</Filter>
     </ClCompile>
     <ClCompile Include="UIController.cpp">
-      <Filter>소스 파일\WORLDMAP\UI</Filter>
+      <Filter>Scene\WORLDMAP\UI</Filter>
     </ClCompile>
     <ClCompile Include="cBackground.cpp">
-      <Filter>소스 파일\Stage</Filter>
+      <Filter>Scene\Stage</Filter>
     </ClCompile>
     <ClCompile Include="cStageUI.cpp">
-      <Filter>소스 파일\Stage</Filter>
+      <Filter>Scene\Stage</Filter>
     </ClCompile>
     <ClCompile Include="cCharaterChangeScene.cpp">
       <Filter>소스 파일\CharaterSelect</Filter>
@@ -657,7 +642,37 @@
       <Filter>소스 파일\Chef\ChefPatrs</Filter>
     </ClCompile>
     <ClCompile Include="cSoundManager.cpp">
-      <Filter>소스 파일\Manager</Filter>
+      <Filter>Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="cCamera.cpp">
+      <Filter>Util</Filter>
+    </ClCompile>
+    <ClCompile Include="cProgressbar.cpp">
+      <Filter>Util</Filter>
+    </ClCompile>
+    <ClCompile Include="cRay.cpp">
+      <Filter>Util</Filter>
+    </ClCompile>
+    <ClCompile Include="cTestScene0.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="cTestScene1.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="cTestScene2.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="cTestScene3.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="cObjLoader.cpp">
+      <Filter>Util</Filter>
+    </ClCompile>
+    <ClCompile Include="cMainGame.cpp">
+      <Filter>MainGame</Filter>
+    </ClCompile>
+    <ClCompile Include="cParticle.cpp">
+      <Filter>Util</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
