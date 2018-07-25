@@ -23,10 +23,6 @@ void cOnion::Update()
 	m_vPos.y = m_matWorld._42;
 	m_vPos.z = m_matWorld._43;
 
-	if (!m_IsSet)
-	{
-		m_matWorld._42 -= 0.02f;
-	}
 }
 
 void cOnion::Render()
