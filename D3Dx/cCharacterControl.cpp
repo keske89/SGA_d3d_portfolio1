@@ -218,7 +218,6 @@ void cCharacterControl::ControlAction()
 								if (m_vecCharacter[m_Bswitch]->GetInven()->GetObjectType() == OBJECTTYPE::AOBJ_POT)
 									m_vecCharacter[m_Bswitch]->GetInven()->SetIsAction(false);
 								//놓았을때
-								m_vecCharacter[m_Bswitch]->GetInven()->SetIsSet(false);
 								m_vecCharacter[m_Bswitch]->SetInven(NULL);
 								m_vecCharacter[m_Bswitch]->SetChefAnimation(CHEF_STATE_IDLE);
 							}
@@ -227,7 +226,6 @@ void cCharacterControl::ControlAction()
 								if (m_vecCharacter[m_Bswitch]->GetInven()->GetObjectType() != OBJECTTYPE::AOBJ_PLATE)
 								{
 									m_vecCharacter[m_Bswitch]->GetDetect()->GetInven()->SetInven(m_vecCharacter[m_Bswitch]->GetInven());
-									m_vecCharacter[m_Bswitch]->GetInven()->SetIsSet(false);
 									m_vecCharacter[m_Bswitch]->SetInven(NULL);
 									m_vecCharacter[m_Bswitch]->SetChefAnimation(CHEF_STATE_IDLE);
 								}
@@ -262,8 +260,6 @@ void cCharacterControl::ControlAction()
 					}
 				}
 			}
-			if(m_vecCharacter[m_Bswitch]->GetInven())
-				m_vecCharacter[m_Bswitch]->GetInven()->SetIsSet(true);
 		}
 
 		if (KEYMANAGER->isStayKeyDown(VK_LEFT))

@@ -88,6 +88,7 @@ void cChef::Update()
 		D3DXMatrixTranslation(&matT, vtemp.x, vtemp.y+0.5f, vtemp.z);
 		mat *= matT;
 		m_pInven->SetWorldMatrix(mat);
+		m_pInven->SetIsSet(true);
 	}
 
 	Animation(m_pRoot,m_eChefstate);
