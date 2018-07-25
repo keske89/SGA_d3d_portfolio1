@@ -130,11 +130,29 @@ void cCharacterControl::ControlAction()
 									m_vecCharacter[m_Bswitch]->GetDetect()->SetInven(NULL);
 								}
 							}
+							else
+							{
+								if (m_vecCharacter[m_Bswitch]->GetCHEF_STATE() != CHEF_STATE::CHEF_STATE_CHOP)
+								{
+									m_vecCharacter[m_Bswitch]->SetInven(m_vecCharacter[m_Bswitch]->GetDetect()->GetInven());
+									m_vecCharacter[m_Bswitch]->GetDetect()->SetInven(NULL);
+								}
+							}
 						}
 					}
 					else
 					{
-						m_vecCharacter[m_Bswitch]->SetChefAnimation(CHEF_STATE_ACTION);
+						if (m_vecCharacter[m_Bswitch]->GetDetect()->GetObjectType() == OBJECTTYPE::CRATE_ONION ||
+							m_vecCharacter[m_Bswitch]->GetDetect()->GetObjectType() == OBJECTTYPE::CRATE_TOMATO)
+						{
+							m_vecCharacter[m_Bswitch]->SetChefAnimation(CHEF_STATE_ACTION);
+						}
+						else if(m_vecCharacter[m_Bswitch]->GetCHEF_STATE() != CHEF_STATE::CHEF_STATE_CHOP &&
+								m_vecCharacter[m_Bswitch]->GetDetect()->GetObjectType() == OBJECTTYPE::AOBJ_PLATE)
+						{
+							m_vecCharacter[m_Bswitch]->SetInven(m_vecCharacter[m_Bswitch]->GetDetect());
+							m_vecCharacter[m_Bswitch]->GetDetect()->SetInven(NULL);
+						}
 					}
 				}
 				else
@@ -182,7 +200,8 @@ void cCharacterControl::ControlAction()
 						{
 							if (!m_vecCharacter[m_Bswitch]->GetDetect()->GetInven())
 							{
-								m_vecCharacter[m_Bswitch]->GetDetect()->SetInven(m_vecCharacter[m_Bswitch]->GetInven());
+								if (m_vecCharacter[m_Bswitch]->GetDetect()->GetObjectType() != OBJECTTYPE::AOBJ_PLATE)
+									m_vecCharacter[m_Bswitch]->GetDetect()->SetInven(m_vecCharacter[m_Bswitch]->GetInven());
 								//팟이면
 								if (m_vecCharacter[m_Bswitch]->GetInven()->GetObjectType() == OBJECTTYPE::AOBJ_POT)
 									m_vecCharacter[m_Bswitch]->GetInven()->SetIsAction(false);
@@ -198,7 +217,7 @@ void cCharacterControl::ControlAction()
 						}
 					}
 					//가스레인지 일경우
-					else 
+					else
 					{
 						//팟일 경우만 노아라
 						if (m_vecCharacter[m_Bswitch]->GetInven()->GetObjectType() == OBJECTTYPE::AOBJ_POT ||
@@ -228,7 +247,6 @@ void cCharacterControl::ControlAction()
 				m_vecCharacter[m_Bswitch]->SetChefAnimation(CHEF_STATE_IDLE);
 			}
 		}
-
 
 		if (KEYMANAGER->isStayKeyDown(VK_LEFT))
 		{
@@ -376,7 +394,17 @@ void cCharacterControl::Control1P()
 				}
 				else
 				{
-					m_vecCharacter[0]->SetChefAnimation(CHEF_STATE_ACTION);
+					if (m_vecCharacter[0]->GetDetect()->GetObjectType() == OBJECTTYPE::CRATE_ONION ||
+						m_vecCharacter[0]->GetDetect()->GetObjectType() == OBJECTTYPE::CRATE_TOMATO)
+					{
+						m_vecCharacter[0]->SetChefAnimation(CHEF_STATE_ACTION);
+					}
+					else if (m_vecCharacter[0]->GetCHEF_STATE() != CHEF_STATE::CHEF_STATE_CHOP &&
+						m_vecCharacter[0]->GetDetect()->GetObjectType() == OBJECTTYPE::AOBJ_PLATE)
+					{
+						m_vecCharacter[0]->SetInven(m_vecCharacter[0]->GetDetect());
+						m_vecCharacter[0]->GetDetect()->SetInven(NULL);
+					}
 				}
 			}
 			else
@@ -424,7 +452,8 @@ void cCharacterControl::Control1P()
 					{
 						if (!m_vecCharacter[0]->GetDetect()->GetInven())
 						{
-							m_vecCharacter[0]->GetDetect()->SetInven(m_vecCharacter[0]->GetInven());
+							if (m_vecCharacter[0]->GetDetect()->GetObjectType() != OBJECTTYPE::AOBJ_PLATE)
+								m_vecCharacter[0]->GetDetect()->SetInven(m_vecCharacter[0]->GetInven());
 							//팟이면
 							if (m_vecCharacter[0]->GetInven()->GetObjectType() == OBJECTTYPE::AOBJ_POT)
 								m_vecCharacter[0]->GetInven()->SetIsAction(false);
@@ -610,7 +639,17 @@ void cCharacterControl::Control2P()
 				}
 				else
 				{
-					m_vecCharacter[1]->SetChefAnimation(CHEF_STATE_ACTION);
+					if (m_vecCharacter[1]->GetDetect()->GetObjectType() == OBJECTTYPE::CRATE_ONION ||
+						m_vecCharacter[1]->GetDetect()->GetObjectType() == OBJECTTYPE::CRATE_TOMATO)
+					{
+						m_vecCharacter[1]->SetChefAnimation(CHEF_STATE_ACTION);
+					}
+					else if (m_vecCharacter[1]->GetCHEF_STATE() != CHEF_STATE::CHEF_STATE_CHOP &&
+						m_vecCharacter[1]->GetDetect()->GetObjectType() == OBJECTTYPE::AOBJ_PLATE)
+					{
+						m_vecCharacter[1]->SetInven(m_vecCharacter[1]->GetDetect());
+						m_vecCharacter[1]->GetDetect()->SetInven(NULL);
+					}
 				}
 			}
 			else
@@ -658,7 +697,8 @@ void cCharacterControl::Control2P()
 					{
 						if (!m_vecCharacter[1]->GetDetect()->GetInven())
 						{
-							m_vecCharacter[1]->GetDetect()->SetInven(m_vecCharacter[1]->GetInven());
+							if (m_vecCharacter[1]->GetDetect()->GetObjectType() != OBJECTTYPE::AOBJ_PLATE)
+								m_vecCharacter[1]->GetDetect()->SetInven(m_vecCharacter[1]->GetInven());
 							//팟이면
 							if (m_vecCharacter[1]->GetInven()->GetObjectType() == OBJECTTYPE::AOBJ_POT)
 								m_vecCharacter[1]->GetInven()->SetIsAction(false);
