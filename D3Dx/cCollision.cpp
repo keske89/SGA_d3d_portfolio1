@@ -7,7 +7,6 @@
 
 cCollision::cCollision()
 	: m_pSOM(NULL)
-	, m_nListSize(0)
 	, m_nNewObjSize(0)
 {
 	m_pPlayer[0] = NULL;
@@ -21,7 +20,7 @@ cCollision::~cCollision()
 
 void cCollision::Setup()
 {
-	m_nListSize = m_pSOM->GetListFoodObj().size();
+	m_nNewObjSize = m_pSOM->GetListFoodObj().size();
 	m_foodList = m_pSOM->GetListFoodObj();
 	m_objList = m_pSOM->GetListObj();
 	for (m_iterList = m_objList.begin(); m_iterList != m_objList.end(); ++m_iterList)
@@ -79,7 +78,7 @@ void cCollision::Update()
 
 void cCollision::ListUpdate()
 {
-	if (m_nListSize != m_pSOM->GetListFoodObj().size())
+	if (m_nNewObjSize != m_pSOM->GetListFoodObj().size())
 	{
 		m_foodList = m_pSOM->GetListFoodObj();
 		m_nNewObjSize = m_pSOM->GetListFoodObj().size();

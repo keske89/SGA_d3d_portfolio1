@@ -9,7 +9,6 @@ private:
 	cChef*											m_pPlayer[2];
 	cStageObjManager*								m_pSOM;
 
-	int												m_nListSize;
 	int												m_nNewObjSize;
 
 	list<cIGObj*>									m_objList;
