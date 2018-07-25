@@ -52,7 +52,7 @@ void cOnion::Setup(D3DXMATRIX matWorld, D3DXVECTOR3 pos, int lidtype)
 	m_Cost = 1;
 	m_Icon = new UIObject;
 	m_Icon->SetPosition(m_vPos);
-	//m_Icon->SetTexture()
+	m_Icon->SetTexture(g_pTextureManager->GetTexture(_T("./Resources/ui/Map_Level_OnionHouse_Background_Small.png")));
 
 }
 
@@ -87,7 +87,6 @@ void cOnion::SetLight()
 
 D3DXVECTOR2 cOnion::Convert3DTo2D()
 {
-	
 	D3DXMATRIX Own, proj, view, world;
 	D3DVIEWPORT9 vp;
 	Own = m_matLocal * m_matWorld;
