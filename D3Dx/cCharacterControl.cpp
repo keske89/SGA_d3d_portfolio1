@@ -138,6 +138,8 @@ void cCharacterControl::ControlAction()
 									&& m_vecCharacter[m_Bswitch]->GetDetect()->GetInven()->GetObjectType()!=OBJECTTYPE::AOBJ_CHOPPIGNBOARD)
 								{
 									m_vecCharacter[m_Bswitch]->SetInven(m_vecCharacter[m_Bswitch]->GetDetect()->GetInven());
+									//집었을떄
+									m_vecCharacter[m_Bswitch]->GetInven()->SetIsSet(true);
 									m_vecCharacter[m_Bswitch]->GetDetect()->SetInven(NULL);
 								}
 							}
@@ -216,7 +218,8 @@ void cCharacterControl::ControlAction()
 								//팟이면
 								if (m_vecCharacter[m_Bswitch]->GetInven()->GetObjectType() == OBJECTTYPE::AOBJ_POT)
 									m_vecCharacter[m_Bswitch]->GetInven()->SetIsAction(false);
-
+								//놓았을때
+								m_vecCharacter[m_Bswitch]->GetInven()->SetIsSet(false);
 								m_vecCharacter[m_Bswitch]->SetInven(NULL);
 								m_vecCharacter[m_Bswitch]->SetChefAnimation(CHEF_STATE_IDLE);
 							}
@@ -258,12 +261,6 @@ void cCharacterControl::ControlAction()
 						}
 					}
 				}
-			}
-			// 타일
-			else
-			{
-				m_vecCharacter[m_Bswitch]->SetInven(NULL);
-				m_vecCharacter[m_Bswitch]->SetChefAnimation(CHEF_STATE_IDLE);
 			}
 		}
 
@@ -547,12 +544,6 @@ void cCharacterControl::Control1P()
 				}
 			}
 		}
-		// 타일
-		else
-		{
-			m_vecCharacter[0]->SetInven(NULL);
-			m_vecCharacter[0]->SetChefAnimation(CHEF_STATE_IDLE);
-		}
 	}
 	if (KEYMANAGER->isStayKeyDown('F'))
 	{
@@ -825,12 +816,6 @@ void cCharacterControl::Control2P()
 					}
 				}
 			}
-		}
-		// 타일
-		else
-		{
-			m_vecCharacter[1]->SetInven(NULL);
-			m_vecCharacter[1]->SetChefAnimation(CHEF_STATE_IDLE);
 		}
 	}
 	if (KEYMANAGER->isStayKeyDown(VK_NUMPAD6))
