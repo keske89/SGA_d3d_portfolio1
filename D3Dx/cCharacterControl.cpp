@@ -139,7 +139,6 @@ void cCharacterControl::ControlAction()
 								{
 									m_vecCharacter[m_Bswitch]->SetInven(m_vecCharacter[m_Bswitch]->GetDetect()->GetInven());
 									//Áý¾úÀ»‹š
-									m_vecCharacter[m_Bswitch]->GetInven()->SetIsSet(true);
 									m_vecCharacter[m_Bswitch]->GetDetect()->SetInven(NULL);
 								}
 							}
@@ -228,6 +227,7 @@ void cCharacterControl::ControlAction()
 								if (m_vecCharacter[m_Bswitch]->GetInven()->GetObjectType() != OBJECTTYPE::AOBJ_PLATE)
 								{
 									m_vecCharacter[m_Bswitch]->GetDetect()->GetInven()->SetInven(m_vecCharacter[m_Bswitch]->GetInven());
+									m_vecCharacter[m_Bswitch]->GetInven()->SetIsSet(false);
 									m_vecCharacter[m_Bswitch]->SetInven(NULL);
 									m_vecCharacter[m_Bswitch]->SetChefAnimation(CHEF_STATE_IDLE);
 								}
@@ -262,6 +262,8 @@ void cCharacterControl::ControlAction()
 					}
 				}
 			}
+			if(m_vecCharacter[m_Bswitch]->GetInven())
+				m_vecCharacter[m_Bswitch]->GetInven()->SetIsSet(true);
 		}
 
 		if (KEYMANAGER->isStayKeyDown(VK_LEFT))
