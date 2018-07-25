@@ -170,6 +170,7 @@
     <ClInclude Include="cCrate.h" />
     <ClInclude Include="cCrateLid.h" />
     <ClInclude Include="cDeviceManager.h" />
+    <ClInclude Include="cEffectObject.h" />
     <ClInclude Include="cFontManager.h" />
     <ClInclude Include="cFoodObj.h" />
     <ClInclude Include="cGameNode.h" />
@@ -179,6 +180,7 @@
     <ClInclude Include="CommonMacroFunction.h" />
     <ClInclude Include="cOnion.h" />
     <ClInclude Include="cParticle.h" />
+    <ClInclude Include="cParticleManager.h" />
     <ClInclude Include="cPass.h" />
     <ClInclude Include="cPassScroll.h" />
     <ClInclude Include="cPath.h" />
@@ -272,6 +274,7 @@
     <ClCompile Include="cCrate.cpp" />
     <ClCompile Include="cCrateLid.cpp" />
     <ClCompile Include="cDeviceManager.cpp" />
+    <ClCompile Include="cEffectObject.cpp" />
     <ClCompile Include="cFontManager.cpp" />
     <ClCompile Include="cFoodObj.cpp" />
     <ClCompile Include="cGameNode.cpp" />
@@ -280,6 +283,7 @@
     <ClCompile Include="cIntroUI.cpp" />
     <ClCompile Include="cOnion.cpp" />
     <ClCompile Include="cParticle.cpp" />
+    <ClCompile Include="cParticleManager.cpp" />
     <ClCompile Include="cPass.cpp" />
     <ClCompile Include="cPassScroll.cpp" />
     <ClCompile Include="cPath.cpp" />

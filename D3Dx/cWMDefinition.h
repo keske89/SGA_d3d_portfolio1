@@ -37,5 +37,6 @@ namespace DXUtil
 	void InitIndexBuffer(LPDIRECT3DINDEXBUFFER9& pIB, LPVOID indices, UINT idxCnt, UINT stride);
 	D3DXVECTOR2 Convert3DTo2D(D3DXVECTOR3 v);
 	POINT MakePoint(float x, float y);
+	float FRand(float low, float high);
+	float GetAngle(float x1, float z1, float x2, float z2);
 }
-

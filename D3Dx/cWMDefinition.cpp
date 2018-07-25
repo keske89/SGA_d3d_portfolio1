@@ -124,4 +124,27 @@ namespace DXUtil
 		pt.x = x; pt.y = y;
 		return pt;
 	}
+
+	float FRand(float low, float high)
+	{
+		return low + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (high - low)));
+	}
+
+	float GetAngle(float x1, float z1, float x2, float z2)
+	{
+		float x = x2 - x1;
+		float y = z2 - z1;
+
+		float distance = sqrtf(x * x + y * y);
+
+		float angle = acosf(x / distance);
+
+		if (z2 > z1)
+		{
+			angle = D3DX_PI * 2 - angle;
+			if (angle >= D3DX_PI * 2) angle -= D3DX_PI * 2;
+		}
+
+		return angle;
+	}
 }

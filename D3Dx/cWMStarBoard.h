@@ -13,6 +13,9 @@ private:
 	cSphere* m_pSphere;
 	int m_nScore;	//score
 
+	cParticles*		m_pParticle;
+	vector<cEffectObject*> m_vecEffect;
+
 public:
 	cWMStarBoard();
 	virtual ~cWMStarBoard();
@@ -23,6 +26,10 @@ public:
 	virtual void Render() override;
 	virtual void Release() override;
 
+	//Effect
+	void EffectSetup();
+	void Effect();
+
 	void Animation(int score = 0);
 
 	D3DXVECTOR2 Convert3DTo2D(D3DXVECTOR3 v);
@@ -31,4 +38,6 @@ public:
 	void setScore(int score) { m_nScore = score; }
 	int getScore() { return m_nScore; }
 };
+
+
 
