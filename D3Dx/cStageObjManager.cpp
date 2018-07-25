@@ -57,11 +57,32 @@ void cStageObjManager::Setup()
 void cStageObjManager::Update()
 {
 	
+	for (auto p : m_listFoodObj)
+	{
+		p->SetIsSet(false);
+
+		p->Update();
+
+
+		///////// 晨厚 贸府 ////////
+		if (p->GetObjectType() == AOBJ_POT)
+		{
+			if (p->GetInven())
+			{
+				if (p->GetInven()->GetObjectType() == (int)FOBJ_TOMATO ||
+					p->GetInven()->GetObjectType() == (int)FOBJ_ONION)
+				{
+					DeleteFood(p->GetInven());
+					p->SetInven(NULL);
+				}
+			}
+		}
+	}
+
 
 	for (auto p : m_listObj)
 	{
-		p->GetInven()->SetIsSet(false);
-
+		
 		if (p->GetInven())
 		{
 			p->GetInven()->SetIsSet(true);
@@ -99,26 +120,7 @@ void cStageObjManager::Update()
 	}
 	
 
-	for (auto p : m_listFoodObj)
-	{
-		
-		p->Update();
-
-				
-		///////// 晨厚 贸府 ////////
-		if (p->GetObjectType() == AOBJ_POT)
-		{
-			if (p->GetInven())
-			{
-				if (p->GetInven()->GetObjectType() == (int)FOBJ_TOMATO ||
-					p->GetInven()->GetObjectType() == (int)FOBJ_ONION)
-				{
-					DeleteFood(p->GetInven());
-					p->SetInven(NULL);
-				}
-			}
-		}
-	}
+	
 }
 
 void cStageObjManager::Render()
