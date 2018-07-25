@@ -10,7 +10,7 @@ public:
 
 public:
 	cOnion();
-	~cOnion();
+	virtual ~cOnion();
 
 	// cFoodObj을(를) 통해 상속됨
 	virtual void Setup() override;

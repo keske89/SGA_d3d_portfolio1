@@ -340,9 +340,8 @@ void cProgressbar::Render()
 				m_vecVertexTop.size() / 3,
 				&m_vecVertexTop[0],
 				sizeof(ST_PT_VERTEX));
-			break;
 		}
-			
+		break;
 
 	default:
 		break;

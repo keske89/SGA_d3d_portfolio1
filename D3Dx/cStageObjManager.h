@@ -64,6 +64,11 @@ enum OBJECTTYPE
 	FOBJ_MUSHROOM = 32,
 	FOBJ_ONION = 33,
 
+
+	// food 
+	ONION_SOUP = 300,
+	TOMATO_SOUP = 3000,
+
 };
 
 enum BUTTONSELECT

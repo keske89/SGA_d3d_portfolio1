@@ -1,13 +1,24 @@
 #pragma once
+#include "cIGObj.h"
 
-enum RECIPETYPE
-{
-	
-};
-class cRecipe
+class cRecipe : public cIGObj
 {
 public:
+	int	m_Type;
+
+public:
+
+	void Setup(int type);
+	void Update();
+	void Render();
+	void Destroy();
+	void OrderSystem();
+
+
 	cRecipe();
-	~cRecipe();
+	virtual ~cRecipe();
+
+	// cIGObj을(를) 통해 상속됨
+	virtual void Setup() override;
 };
 

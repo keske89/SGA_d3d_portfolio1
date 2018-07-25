@@ -3,7 +3,7 @@
 #include "cFoodObj.h"
 #include "cProgressbar.h"
 #include "cStageObjManager.h"
-
+#include "cRecipe.h"
 
 
 cPot::cPot()
@@ -12,6 +12,7 @@ cPot::cPot()
 	, m_RecipeCost(0)
 {
 	m_vec.clear();
+	
 }
 
 
@@ -33,23 +34,34 @@ void cPot::Update()
 	temp.y = m_vPos.y - 0.05f;
 	temp.z = m_vPos.z - 0.05f;
 
-
-	if (m_vec.size() != 0 && m_bIsAction)	// 냄비에 재료가 들어왔고 가스렌지에 올라갔고 
-	{
-		m_pPgbar->Update(temp, m_vec.size());	// 프로그레스 바 업데이트를 돌린다.
-		
-
-		if (m_pPgbar->Complete() && m_vec.size() == 3)
-		{
-			// Todo
-		}
-		
-	}
-	if (m_vec.size() == 0)
+	if (m_InvenCount == 0)
 	{
 		m_pPgbar->Setup(m_matWorld, m_vPos, 2);
 	}
 
+	if (m_InvenCount != 0 && m_bIsAction)	// 냄비에 재료가 들어왔고 가스렌지에 올라갔고 
+	{
+		m_pPgbar->Update(temp, m_InvenCount);	// 프로그레스 바 업데이트를 돌린다.
+		
+
+		if (m_pPgbar->Complete() && m_InvenCount == 3)
+		{
+			m_recipe = new cRecipe;
+			m_recipe->Setup(m_RecipeCost);
+			m_InvenCount = 0;
+			m_RecipeCost = 0;
+		}
+		
+	}
+	
+	if (m_RecipeCost !=0 && m_InvenCount == 3)
+	{
+		m_isFull = true;
+	}
+	else
+	{
+		m_isFull = false;
+	}
 	
 	
 	InvenToVector();
@@ -70,7 +82,7 @@ void cPot::Render()
 	g_pD3DDevice->SetFVF(ST_PNT_VERTEX::FVF);
 	m_pMesh->DrawSubset(0);
 
-	if (m_pPgbar && m_vec.size() != 0 )
+	if (m_pPgbar&& m_bIsAction && m_InvenCount != 0 )
 	{
 		m_pPgbar->Render();
 	}
@@ -81,7 +93,13 @@ void cPot::InvenToVector()
 {
 	if (m_Inven)
 	{
-		m_vec.push_back(m_Inven);
+		if (m_Inven->GetObjectType() == OBJECTTYPE::FOBJ_ONION ||
+			m_Inven->GetObjectType() == OBJECTTYPE::FOBJ_TOMATO)
+		{
+			m_RecipeCost += m_Inven->GetCost();
+			m_InvenCount += 1;
+		}
+		
 	}
 
 }
@@ -101,7 +119,8 @@ void cPot::Setup(D3DXMATRIX matWorld, D3DXVECTOR3 pos, int lidtype)
 	m_nObjectType = lidtype;
 	m_pMesh = ObJMANAGER->GetMesh(L"Pot_Mesh.obj");
 	m_pTexture = g_pTextureManager->GetTexture(L"Resources/Texture2D/Pot_Texture.png");
-	
+	m_InvenCount = 0;
+
 	m_pPgbar = new cProgressbar;
 	m_pPgbar->Setup(m_matWorld, m_vPos, 2);
 }

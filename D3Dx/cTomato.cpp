@@ -37,7 +37,7 @@ void cTomato::Render()
 
 void cTomato::Setup(D3DXMATRIX matWorld, D3DXVECTOR3 pos, int lidtype)
 {
-	m_Cost = 2;
+	m_Cost = 1000;
 	m_vPos.x = matWorld._41;
 	m_vPos.y = matWorld._42;
 	m_vPos.z = matWorld._43;
