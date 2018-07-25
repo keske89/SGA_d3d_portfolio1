@@ -97,6 +97,9 @@ void cStageScene::Setup()
 
 void cStageScene::Update()
 {
+	if (m_pSOM)
+		m_pSOM->Update();
+
 	if (m_pCamera)
 	{
 		m_pCamera->Update();
@@ -117,9 +120,6 @@ void cStageScene::Update()
 		}
 		Control();
 	}
-
-	if (m_pSOM)
-		m_pSOM->Update();
 
 	if (m_pControl)
 	{

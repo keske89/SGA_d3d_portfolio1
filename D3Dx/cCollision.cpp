@@ -64,7 +64,14 @@ void cCollision::Update()
 		dir[i] = m_pPlayer[i]->GetToGo();
 	}
 	PlayerPlayerCollision(pos[0], pos[1], dir[0], dir[1]);
-	PlayerObjectCollision(m_foodList.begin(), pos[0], pos[1], dir[0], dir[1]);
+	for (m_iterList = m_foodList.begin(); m_iterList != m_foodList.end(); ++m_iterList)
+	{
+		(*m_iterList)->SetDir(D3DXVECTOR3(0, 0, 0));
+	}
+	m_iterList = m_foodList.begin();
+	PlayerObjectCollision(m_iterList, pos[0], pos[1], dir[0], dir[1]);
+	m_iterList++;
+	ObjectObjectCollision(m_foodList.begin(), m_iterList);
 	for (int i = 0; i < 2; ++i)
 	{
 		if (DetectMovement(moveX[i], moveZ[i], dir[i]))
@@ -167,7 +174,7 @@ bool cCollision::PlayerObjectCollision(list<cIGObj*>::iterator iter, D3DXVECTOR3
 		D3DXMATRIX matWorld;
 		D3DXMatrixTranslation(&matWorld, objPos.x, height, objPos.z);
 		(*iter)->SetWorldMatrix(matWorld);
-		(*iter)->SetDir(D3DXVECTOR3(0, 0, 0));
+		(*iter)->SetDir(objDir);
 	}
 	list<cIGObj*>::iterator nextIter = iter;
 	nextIter++;
@@ -181,10 +188,76 @@ bool cCollision::PlayerObjectCollision(list<cIGObj*>::iterator iter, D3DXVECTOR3
 
 bool cCollision::ObjectObjectCollision(list<cIGObj*>::iterator iter1, list<cIGObj*>::iterator iter2)
 {
+	if ((*iter1)->GetIsSet() == false)
+	{
+		D3DXVECTOR3 obj1Dir = (*iter1)->GetDir();
+		D3DXVECTOR3 obj1Pos = (*iter1)->GetPos();
+		D3DXMATRIX matWorld;
+		for (; iter2 != m_foodList.end(); ++iter2)
+		{
+			if ((*iter2)->GetIsSet() == true) continue;
+			D3DXVECTOR3 obj2Dir = (*iter2)->GetDir();
+			D3DXVECTOR3 obj2Pos = (*iter2)->GetPos();
+			float height1 = obj1Pos.y;
+			float height2 = obj2Pos.y;
+			float distance = GetDistance(obj1Pos, obj2Pos);
+			if (distance < 0.8f)
+			{
+				D3DXVECTOR3 push1;
+				D3DXVec3Normalize(&push1, &(obj1Pos - obj2Pos));
+				push1 = push1 * ((0.8f - distance) / 2.0f);
+				D3DXVECTOR3 push2;
+				D3DXVec3Normalize(&push2, &(obj2Pos - obj1Pos));
+				push2 = push2 * ((0.8f - distance) / 2.0f);
+				//obj1Pos -= obj1Dir;
+				//obj2Pos -= obj2Dir;
+				obj1Dir += push1;
+				obj2Dir += push2;
+				obj1Pos += obj1Dir;
+				obj2Pos += obj2Dir;
+				obj1Pos.y = height1;
+				obj2Pos.y = height2;
+
+				bool CDX = false;
+				bool CDZ = false;
+				float moveX = 0.0f;
+				float moveZ = 0.0f;
+				if (obj1Dir.x > 0) moveX = 0.8f;
+				if (obj1Dir.x < 0) moveX = -0.8f;
+				if (obj1Dir.z > 0) moveZ = 0.8f;
+				if (obj1Dir.z < 0) moveZ = -0.8f;
+				CDX = WallCollisionX(moveX, obj1Pos, obj1Dir);
+				CDZ = WallCollisionZ(moveZ, obj1Pos, obj1Dir);
+				if (CDX == false && CDZ == false) WallVertexCollision(moveX, moveZ, obj1Pos, obj1Dir);
+				if (obj2Dir.x > 0) moveX = 0.8f;
+				if (obj2Dir.x < 0) moveX = -0.8f;
+				if (obj2Dir.z > 0) moveZ = 0.8f;
+				if (obj2Dir.z < 0) moveZ = -0.8f;
+				CDX = WallCollisionX(moveX, obj2Pos, obj2Dir);
+				CDZ = WallCollisionZ(moveZ, obj2Pos, obj2Dir);
+				if (CDX == false && CDZ == false) WallVertexCollision(moveX, moveZ, obj2Pos, obj2Dir);
+
+				D3DXMatrixTranslation(&matWorld, obj1Pos.x, obj1Pos.y, obj1Pos.z);
+				(*iter1)->SetWorldMatrix(matWorld);
+				D3DXMatrixTranslation(&matWorld, obj2Pos.x, obj2Pos.y, obj2Pos.z);
+				(*iter2)->SetWorldMatrix(matWorld);
+
+				(*iter1)->SetDir(obj1Dir);
+				(*iter2)->SetDir(obj2Dir);
+				//(*iter1)->SetPos(obj1Pos);
+				//(*iter2)->SetPos(obj2Pos);
+			}
+		}
+	}
+	iter1++;
+	if (iter1 == m_foodList.end()) return false;
+	list<cIGObj*>::iterator nextIter = iter1;
+	nextIter++;
+	ObjectObjectCollision(iter1, nextIter);
 	return false;
 }
 
-bool cCollision::WallCollisionX(int moveX, D3DXVECTOR3& pos, D3DXVECTOR3& dir)
+bool cCollision::WallCollisionX(float moveX, D3DXVECTOR3& pos, D3DXVECTOR3& dir)
 {
 	int keyFirst = (pos.x + (moveX / 2.0f));
 	int keySecond = pos.z;
@@ -196,7 +269,7 @@ bool cCollision::WallCollisionX(int moveX, D3DXVECTOR3& pos, D3DXVECTOR3& dir)
 	return false;
 }
 
-bool cCollision::WallCollisionZ(int moveZ, D3DXVECTOR3& pos, D3DXVECTOR3& dir)
+bool cCollision::WallCollisionZ(float moveZ, D3DXVECTOR3& pos, D3DXVECTOR3& dir)
 {
 	int keyFirst = pos.x;
 	int keySecond = (pos.z + (moveZ / 2.0f));
@@ -208,7 +281,7 @@ bool cCollision::WallCollisionZ(int moveZ, D3DXVECTOR3& pos, D3DXVECTOR3& dir)
 	return false;
 }
 
-bool cCollision::WallVertexCollision(int moveX, int moveZ, D3DXVECTOR3& pos, D3DXVECTOR3& dir)
+bool cCollision::WallVertexCollision(float moveX, float moveZ, D3DXVECTOR3& pos, D3DXVECTOR3& dir)
 {
 	int keyFirst = pos.x;
 	int keySecond = pos.z;
