@@ -275,6 +275,8 @@ void cSelectUI::Update()
 		{
 			m_pSelectCharater[0]->Update();
 			DATABASE->SetchageChefNum1P(m_buttonSelect[0]);
+			m_pRootUI->GetVecChild()[m_pRootUI->GetVecChild().size() - 2]->setPosition(&D3DXVECTOR3(12, 265, 0));
+			m_pRootUI->GetVecChild()[m_pRootUI->GetVecChild().size() - 1]->setPosition(&D3DXVECTOR3(336, 265, 0));
 		}
 		else
 		{
@@ -282,6 +284,8 @@ void cSelectUI::Update()
 			DATABASE->SetchageChefNum1P(m_buttonSelect[0]);
 			m_pSelectCharater[1]->Update();
 			DATABASE->SetchageChefNum2P(m_buttonSelect[1]);
+			m_pRootUI->GetVecChild()[m_pRootUI->GetVecChild().size() - 2]->setPosition(&D3DXVECTOR3(860, 265, 0));
+			m_pRootUI->GetVecChild()[m_pRootUI->GetVecChild().size() - 1]->setPosition(&D3DXVECTOR3(1184, 265, 0));
 		}
 		SelectControl();
 		ChangeCharater();

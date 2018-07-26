@@ -28,9 +28,6 @@
     <Filter Include="소스 파일\Chef\ChefPatrs">
       <UniqueIdentifier>{195eec45-ac32-4d59-9ef1-fdf443dea7e8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\CharaterSelect">
-      <UniqueIdentifier>{2aa5ee99-190a-4065-86ed-8906e6a55224}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Util">
       <UniqueIdentifier>{ecb5fcc0-9925-44ab-a9f4-044a6f8309fe}</UniqueIdentifier>
     </Filter>
@@ -81,6 +78,9 @@
     </Filter>
     <Filter Include="MainGame">
       <UniqueIdentifier>{e660021d-9914-4938-8751-e1bf92aa513d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\CharaterSelect">
+      <UniqueIdentifier>{2aa5ee99-190a-4065-86ed-8906e6a55224}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -337,10 +337,10 @@
       <Filter>Scene\Stage</Filter>
     </ClInclude>
     <ClInclude Include="cCharaterChangeScene.h">
-      <Filter>소스 파일\CharaterSelect</Filter>
+      <Filter>Scene\CharaterSelect</Filter>
     </ClInclude>
     <ClInclude Include="cSelectUI.h">
-      <Filter>소스 파일\CharaterSelect</Filter>
+      <Filter>Scene\CharaterSelect</Filter>
     </ClInclude>
     <ClInclude Include="cChefHat.h">
       <Filter>소스 파일\Chef\ChefPatrs</Filter>
@@ -648,10 +648,10 @@
       <Filter>Scene\Stage</Filter>
     </ClCompile>
     <ClCompile Include="cCharaterChangeScene.cpp">
-      <Filter>소스 파일\CharaterSelect</Filter>
+      <Filter>Scene\CharaterSelect</Filter>
     </ClCompile>
     <ClCompile Include="cSelectUI.cpp">
-      <Filter>소스 파일\CharaterSelect</Filter>
+      <Filter>Scene\CharaterSelect</Filter>
     </ClCompile>
     <ClCompile Include="cChefHat.cpp">
       <Filter>소스 파일\Chef\ChefPatrs</Filter>
