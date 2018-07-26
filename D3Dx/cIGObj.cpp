@@ -13,6 +13,7 @@ cIGObj::cIGObj()
 	, m_pChild(NULL)
 	, m_bIsEquipped(false)
 	, m_IsSet(false)
+	, m_vecRoll(0, 0, 0)
 {	
 	D3DXMatrixIdentity(&m_matLocal);
 	D3DXMatrixIdentity(&m_matWorld);

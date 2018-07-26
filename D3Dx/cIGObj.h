@@ -48,6 +48,9 @@ public:
 	SYNTHESIZE(bool, m_IsSet, IsSet);
 	SYNTHESIZE(bool, m_isFull, IsFull);
 	SYNTHESIZE(D3DXMATRIX, m_matRoll, matRoll);
+	SYNTHESIZE(D3DXVECTOR3, m_vecRoll, vecRoll);
+
+
 	int GetCost() { return m_Cost; }
 public:
 	cIGObj();
