@@ -135,8 +135,8 @@ void cCharacterControl::ControlAction()
 							if (m_vecCharacter[m_Bswitch]->GetCHEF_STATE() != CHEF_STATE::CHEF_STATE_CHOP)
 							{
 								if (m_vecCharacter[m_Bswitch]->GetDetect()->GetInven()->GetObjectType() != OBJECTTYPE::AOBJ_CHOPPIGNBOARD &&
-									m_vecCharacter[m_Bswitch]->GetDetect()->GetObjectType() != OBJECTTYPE::AOBJ_TABLE &&
-									m_vecCharacter[m_Bswitch]->GetDetect()->GetObjectType() != OBJECTTYPE::AOBJ_COOKER)
+									m_vecCharacter[m_Bswitch]->GetDetect()->GetObjectType() == OBJECTTYPE::FOBJ_ONION &&
+									m_vecCharacter[m_Bswitch]->GetDetect()->GetObjectType() == OBJECTTYPE::FOBJ_TOMATO)
 								{
 									m_vecCharacter[m_Bswitch]->SetInven(m_vecCharacter[m_Bswitch]->GetDetect());
 									m_vecCharacter[m_Bswitch]->GetDetect()->GetInven()->SetInven(NULL);
