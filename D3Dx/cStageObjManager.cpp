@@ -209,6 +209,11 @@ void cStageObjManager::DeleteFood(cIGObj * foodPointer)
 	}
 }
 
+void cStageObjManager::EraseOrder(int index)
+{
+	m_vecOrder.erase(m_vecOrder.begin() + index);
+}
+
 void cStageObjManager::OrderSystem()
 {
 	if (count % 300 == 0 && m_vecOrder.size() < 5)
@@ -321,6 +326,7 @@ void cStageObjManager::ObjAction(cChef* pSender)
 			if (pSender->GetInven()->GetInven() == NULL)
 			{
 				pSender->GetInven()->SetInven(pSender->GetDetect()->GetInven()->GetInven());
+				pSender->GetDetect()->GetInven()->SetInven(NULL);
 			}
 			
 		}
@@ -382,7 +388,6 @@ void cStageObjManager::ObjAction(cChef* pSender)
 
 std::list<cIGObj*>::iterator cStageObjManager:: SetIngameObject(OBJECTTYPE objtype, D3DXMATRIX matWorld)
 {
-
 	//	CRATE_TOMATO = 11,
 	//	CRATE_POTATO = 12,
 	//	CRATE_MUSHROOM = 13,

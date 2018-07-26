@@ -10,6 +10,7 @@ protected :
 
 	SYNTHESIZE(D3DXVECTOR3, m_vPosition, Position);
 	SYNTHESIZE(cOrder*, m_pParent, Parent);
+	
 
 
 public:
@@ -20,5 +21,6 @@ public:
 	virtual void Destroy();
 	virtual void Update();
 	virtual void Render(LPD3DXSPRITE pSprite);
+	virtual int GetCost() { return m_cost; }
 };
 

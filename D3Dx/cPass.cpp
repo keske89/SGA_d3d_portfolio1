@@ -27,7 +27,8 @@ void cPass::Update()
 	m_vPos.y = m_matWorld._42;
 	m_vPos.z = m_matWorld._43;
 
-	m_vec = m_SOM->GetOrderVec();
+	m_vec = m_SOM->GetvecOrder();
+	Inventory();
 }
 
 void cPass::Render()
@@ -97,14 +98,19 @@ void cPass::Inventory()
 	{
 		Present();
 	}
+
 }
 
 void cPass::Present()
 {
 	for (int i = 0; i<m_vec.size(); i++)
 	{
+		if (m_Inven->GetCost() == m_vec[i]->GetCost())
+		{
+			m_SOM->EraseOrder(i);
+			break;
+		}
 		
-		//m_vec[i]
 	}
 	
 }

@@ -93,7 +93,7 @@ private:
 
 	cOrder*					m_OrderRoot;
 
-	std::vector<cOrder*>	m_vecOrder;
+	//std::vector<cOrder*>	m_vecOrder;
 
 	int						count; 
 
@@ -103,7 +103,7 @@ private:
 	SYNTHESIZE(cActionDelegate*, m_pDelegate, Delegate);
 	SYNTHESIZE(cChef*, m_player1, player1);
 	SYNTHESIZE(cChef*, m_player2, player2);
-
+	SYNTHESIZE(std::vector<cOrder*>, m_vecOrder, vecOrder);
 
 public:
 	cStageObjManager();
@@ -114,7 +114,7 @@ public:
 	void Render();
 	void DeleteObject(std::list<cIGObj*>::iterator objectIter);
 	void DeleteFood(cIGObj * foodPointer);
-	std::vector<cOrder*> GetOrderVec() { return m_vecOrder; }
+	void EraseOrder(int index);
 
 	// cActionDelegate을(를) 통해 상속됨
 

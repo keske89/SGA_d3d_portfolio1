@@ -13,5 +13,6 @@ public:
 
 	virtual void SetTexture(const WCHAR* szFullPath);
 	virtual void Render(LPD3DXSPRITE pSprite);
+	virtual int GetCost() { return m_cost; }
 };
 

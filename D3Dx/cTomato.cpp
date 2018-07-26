@@ -29,7 +29,7 @@ void cTomato::Render()
 	m_player = NULL;
 	SetLight();
 	g_pD3DDevice->SetMaterial(&m_stMtl);
-	g_pD3DDevice->SetTransform(D3DTS_WORLD, &(m_matRoll *m_matLocal * m_matWorld));
+	g_pD3DDevice->SetTransform(D3DTS_WORLD, &(m_matRoll * m_matLocal * m_matWorld));
 	g_pD3DDevice->SetFVF(ST_PNT_VERTEX::FVF);
 	g_pD3DDevice->SetTexture(0, m_pTexture);
 	m_pMesh->DrawSubset(0);

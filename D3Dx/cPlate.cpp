@@ -50,7 +50,7 @@ void cPlate::Setup(D3DXMATRIX matWorld, D3DXVECTOR3 pos, int lidtype)
 	m_eState = OBJ_DYNAMIC;
 	m_nObjectType = lidtype;
 	m_bInteraction = false;
-	m_bIsUse = true;
+	m_bIsUse = false;
 	m_pMesh = ObJMANAGER->GetMesh(L"Plate.obj");
 	m_pTexture = g_pTextureManager->GetTexture(L"Resources/Texture2D/Plate_Texture.png");
 	
