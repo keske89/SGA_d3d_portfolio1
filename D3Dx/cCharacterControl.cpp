@@ -156,8 +156,16 @@ void cCharacterControl::ControlAction()
 									break;
 									default:
 									{
-										m_vecCharacter[m_Bswitch]->SetInven(m_vecCharacter[m_Bswitch]->GetDetect()->GetInven());
-										m_vecCharacter[m_Bswitch]->GetDetect()->SetInven(NULL);
+										if (m_vecCharacter[m_Bswitch]->GetDetect()->GetObjectType() == OBJECTTYPE::AOBJ_POT)
+										{
+											m_vecCharacter[m_Bswitch]->SetInven(m_vecCharacter[m_Bswitch]->GetDetect());
+											m_vecCharacter[m_Bswitch]->GetInven()->SetIsAction(false);
+										}
+										else
+										{
+											m_vecCharacter[m_Bswitch]->SetInven(m_vecCharacter[m_Bswitch]->GetDetect()->GetInven());
+											m_vecCharacter[m_Bswitch]->GetDetect()->SetInven(NULL);
+										}
 									}
 									break;
 								}
@@ -206,7 +214,7 @@ void cCharacterControl::ControlAction()
 								{
 									if (m_vecCharacter[m_Bswitch]->GetInven()->GetInven())
 									{
-										m_vecCharacter[m_Bswitch]->GetDetect()->SetInven(m_vecCharacter[m_Bswitch]->GetInven()->GetInven());
+										m_vecCharacter[m_Bswitch]->GetDetect()->SetInven(m_vecCharacter[m_Bswitch]->GetInven());
 										m_vecCharacter[m_Bswitch]->GetInven()->SetInven(NULL);
 										m_vecCharacter[m_Bswitch]->SetChefAnimation(CHEF_STATE_IDLE);
 									}
@@ -230,14 +238,14 @@ void cCharacterControl::ControlAction()
 							m_vecCharacter[m_Bswitch]->GetInven()->GetObjectType() == OBJECTTYPE::FOBJ_ONION ||
 							m_vecCharacter[m_Bswitch]->GetInven()->GetObjectType() == OBJECTTYPE::FOBJ_TOMATO)
 						{
-							if (!m_vecCharacter[m_Bswitch]->GetDetect()->GetInven())
+							if (m_vecCharacter[m_Bswitch]->GetDetect()->GetInven() == NULL)
 							{
 								m_vecCharacter[m_Bswitch]->GetDetect()->SetInven(m_vecCharacter[m_Bswitch]->GetInven());
 								m_vecCharacter[m_Bswitch]->SetInven(NULL);
 								m_vecCharacter[m_Bswitch]->SetChefAnimation(CHEF_STATE_IDLE);
 							}
 							//										³kÄ¿		ÆÌ			Àç·áÀÇ ÀÎº¥
-							else if (!m_vecCharacter[m_Bswitch]->GetDetect()->GetInven()->GetInven())
+							else if (m_vecCharacter[m_Bswitch]->GetDetect()->GetInven()->GetInven() == NULL)
 							{
 								if (m_vecCharacter[m_Bswitch]->GetInven()->Getchopped())
 								{
@@ -255,6 +263,8 @@ void cCharacterControl::ControlAction()
 						{
 							if (m_vecCharacter[m_Bswitch]->GetDetect()->GetObjectType() != OBJECTTYPE::AOBJ_PLATE)
 								m_vecCharacter[m_Bswitch]->GetDetect()->SetInven(m_vecCharacter[m_Bswitch]->GetInven());
+							else if(m_vecCharacter[m_Bswitch]->GetInven()->GetObjectType() != OBJECTTYPE::AOBJ_POT)
+								m_vecCharacter[m_Bswitch]->GetDetect()->SetInven(m_vecCharacter[m_Bswitch]->GetInven());
 							//ÆÌÀÌ¸é
 							if (m_vecCharacter[m_Bswitch]->GetInven()->GetObjectType() == OBJECTTYPE::AOBJ_POT)
 								m_vecCharacter[m_Bswitch]->GetInven()->SetIsAction(false);
@@ -271,12 +281,23 @@ void cCharacterControl::ControlAction()
 								m_vecCharacter[m_Bswitch]->SetChefAnimation(CHEF_STATE_IDLE);
 							}
 						}
+						else
+						{
+							if (m_vecCharacter[m_Bswitch]->GetInven()->GetObjectType() == OBJECTTYPE::AOBJ_POT)
+							{
+								m_vecCharacter[m_Bswitch]->GetInven()->SetIsAction(false);
+								m_vecCharacter[m_Bswitch]->GetDetect()->SetInven(m_vecCharacter[m_Bswitch]->GetInven());
+								m_vecCharacter[m_Bswitch]->SetInven(NULL);
+								m_vecCharacter[m_Bswitch]->SetChefAnimation(CHEF_STATE_IDLE);
+							}
+						}
 					}
 					break;
 				}
 			}
 			
 		}
+
 
 		if (KEYMANAGER->isStayKeyDown(VK_LEFT))
 		{
