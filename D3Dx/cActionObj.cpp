@@ -3,7 +3,6 @@
 
 
 cActionObj::cActionObj()
-	:m_bIsUse(false)
 {
 }
 

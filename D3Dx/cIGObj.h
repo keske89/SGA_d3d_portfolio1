@@ -49,6 +49,7 @@ public:
 	SYNTHESIZE(bool, m_isFull, IsFull);
 	SYNTHESIZE(D3DXMATRIX, m_matRoll, matRoll);
 	SYNTHESIZE(D3DXVECTOR3, m_vecRoll, vecRoll);
+	SYNTHESIZE(bool, m_bIsUse, IsUse);
 
 
 	int GetCost() { return m_Cost; }

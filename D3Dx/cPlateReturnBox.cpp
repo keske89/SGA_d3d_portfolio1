@@ -103,5 +103,6 @@ void cPlateReturnBox::Inventory()
 		D3DXMatrixTranslation(&matT, 0, 0.45f, 0);
 
 		m_Inven->SetWorldMatrix(matT * m_matLocal * m_matWorld);
+		m_Inven->SetIsUse(true);
 	}
 }

@@ -145,7 +145,7 @@ void cStageObjManager::Update()
 		{
 			if (p->GetInven())
 			{
-				DeleteFood(p->GetInven());
+				OnAction(p);
 				p->SetInven(NULL);
 			}
 		}
@@ -212,17 +212,33 @@ void cStageObjManager::DeleteFood(cIGObj * foodPointer)
 void cStageObjManager::EraseOrder(int index)
 {
 	m_vecOrder.erase(m_vecOrder.begin() + index);
+
 }
 
 void cStageObjManager::OrderSystem()
 {
-	if (count % 300 == 0 && m_vecOrder.size() < 5)
+	if (count % 500 == 0 && m_vecOrder.size() < 5)
 	{
 		cOrderImage* pOrderImage = new cOrderImage;
 		pOrderImage->SetPosition(D3DXVECTOR3(10 + (250 * m_vecOrder.size()), 10, 0));
 		
-		pOrderImage->SetTexture(L"Resources/Texture2D/Order_Onion.png");
-		m_vecOrder.push_back(pOrderImage);
+		int temp = TIMEMANAGER->getWorldTime();
+		if (temp % 2 == 0)
+		{
+			pOrderImage->SetTexture(L"Resources/Texture2D/Order_Onion.png");
+			m_vecOrder.push_back(pOrderImage);
+		}
+		else if (temp % 2 == 1)
+		{
+			pOrderImage->SetTexture(L"Resources/Texture2D/Order_Tomato.png");
+			m_vecOrder.push_back(pOrderImage);
+		}
+		
+	}
+
+	for (int i = 0; i <m_vecOrder.size(); i++)
+	{
+		m_vecOrder[i]->SetPosition(D3DXVECTOR3(10 + (250 * i), 10, 0));
 	}
 
 }
@@ -262,6 +278,7 @@ void cStageObjManager::OnAction(cIGObj* pSender) //신호를 주는 객체에서 신호가 �
 		pSender->SetInven(m_Pot);
 		break;
 	case AOBJ_PASS:
+		m_PlateReturnBox->SetInven(pSender->GetInven());
 		break;
 	case AOBJ_PLATE:
 		break;
@@ -353,6 +370,8 @@ void cStageObjManager::ObjAction(cChef* pSender)
 				if (pSender->GetInven()->GetInven() == NULL)
 				{
 					pSender->GetInven()->SetInven(pSender->GetDetect()->GetInven()->GetInven());
+					pSender->GetDetect()->GetInven()->SetInven(NULL);
+
 				}
 
 			}
@@ -366,6 +385,7 @@ void cStageObjManager::ObjAction(cChef* pSender)
 				if (pSender->GetInven()->GetInven() != NULL)
 				{
 					pSender->GetDetect()->GetInven()->SetInven(pSender->GetInven()->GetInven());
+					pSender->GetInven()->SetInven(NULL);
 				}
 
 			}

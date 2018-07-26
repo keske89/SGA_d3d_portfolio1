@@ -41,10 +41,7 @@ void cRecipe::Setup(D3DXMATRIX matWorld, int type)
 
 void cRecipe::Update()
 {
-	if (!m_Inven)
-	{
-		m_Cost = 0;
-	}
+	
 }
 
 void cRecipe::Render()

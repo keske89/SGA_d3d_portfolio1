@@ -4,7 +4,6 @@
 class cActionObj : public cIGObj
 {
 public:
-	SYNTHESIZE(bool, m_bIsUse, IsUse);
 	cActionObj();
 	virtual ~cActionObj();
 
