@@ -376,17 +376,20 @@ cIGObj* cCollision::DetectObject(int playerNum)
 			tempAddress = (*m_iterList);
 		}
 	}
-	for (m_iterList = m_foodList.begin(); m_iterList != m_foodList.end(); ++m_iterList)
+	if (tempAddress == NULL)
 	{
-		float tempDist = 0.0f;
-		D3DXVECTOR3 tempPos;
-		D3DXMatrixInverse(&invTransMat, NULL, &(*m_iterList)->GetWorldMat());
-		D3DXVec3TransformCoord(&tempPos, &pos, &invTransMat);
-		D3DXIntersect((*m_iterList)->GetMesh(), &tempPos, &D3DXVECTOR3(0, 1, 0), &isPicked, NULL, NULL, NULL, &tempDist, NULL, NULL);
-		if (isPicked == TRUE && tempDist < distance)
+		for (m_iterList = m_foodList.begin(); m_iterList != m_foodList.end(); ++m_iterList)
 		{
-			distance = tempDist;
-			tempAddress = (*m_iterList);
+			float tempDist = 0.0f;
+			D3DXVECTOR3 tempPos;
+			D3DXMatrixInverse(&invTransMat, NULL, &(*m_iterList)->GetWorldMat());
+			D3DXVec3TransformCoord(&tempPos, &pos, &invTransMat);
+			D3DXIntersect((*m_iterList)->GetMesh(), &tempPos, &D3DXVECTOR3(0, 1, 0), &isPicked, NULL, NULL, NULL, &tempDist, NULL, NULL);
+			if (isPicked == TRUE && tempDist < distance)
+			{
+				distance = tempDist;
+				tempAddress = (*m_iterList);
+			}
 		}
 	}
 
