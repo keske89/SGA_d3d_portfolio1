@@ -135,7 +135,8 @@ void cCharacterControl::ControlAction()
 							if (m_vecCharacter[m_Bswitch]->GetCHEF_STATE() != CHEF_STATE::CHEF_STATE_CHOP)
 							{
 								if (m_vecCharacter[m_Bswitch]->GetDetect()->GetInven()->GetObjectType() != OBJECTTYPE::AOBJ_CHOPPIGNBOARD &&
-									m_vecCharacter[m_Bswitch]->GetDetect()->GetObjectType() != OBJECTTYPE::AOBJ_TABLE)
+									m_vecCharacter[m_Bswitch]->GetDetect()->GetObjectType() != OBJECTTYPE::AOBJ_TABLE && 
+									m_vecCharacter[m_Bswitch]->GetDetect()->GetObjectType() != OBJECTTYPE::AOBJ_COOKER)
 								{
 									m_vecCharacter[m_Bswitch]->SetInven(m_vecCharacter[m_Bswitch]->GetDetect());
 									m_vecCharacter[m_Bswitch]->GetDetect()->GetInven()->SetInven(NULL);
@@ -335,6 +336,14 @@ void cCharacterControl::ControlAction()
 										case OBJECTTYPE::FOBJ_ONION :case OBJECTTYPE::FOBJ_TOMATO:
 										{
 											m_vecCharacter[m_Bswitch]->SetChefAnimation(CHEF_STATE_TRANCEPORT_IDLE);
+										}
+										break;
+										case OBJECTTYPE::AOBJ_PLATE:
+										{
+											if (m_vecCharacter[m_Bswitch]->GetDetect()->GetInven()->GetInven() == NULL)
+											{
+												m_vecCharacter[m_Bswitch]->m_pStageOBJ->ObjAction(m_vecCharacter[m_Bswitch]);
+											}
 										}
 										break;
 										default:
