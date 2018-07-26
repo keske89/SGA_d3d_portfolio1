@@ -279,7 +279,7 @@ void cStageObjManager::OnAction(cIGObj* pSender) //신호를 주는 객체에서 신호가 �
 	}
 }
 
-void cStageObjManager::ObjAction(cChef * pSender)
+void cStageObjManager::ObjAction(cChef* pSender)
 {
 	D3DXMATRIX mat;
 	D3DXMatrixIdentity(&mat);
@@ -315,10 +315,16 @@ void cStageObjManager::ObjAction(cChef * pSender)
 		//pSender->GetInven() 
 		break;
 	case AOBJ_COOKER:
-		/*m_Pot = new cPot;
-		m_Pot->Setup(pSender->GetWorldMat(), pSender->Getplayer()->GetPos(), AOBJ_COOKER);
-		m_listObj.push_back(m_Pot);
-		pSender->SetInven(m_Pot);*/
+		///// 접시를 들고왔을때
+		if (pSender->GetInven()->GetObjectType() == AOBJ_PLATE)
+		{
+			if (pSender->GetInven()->GetInven() == NULL)
+			{
+				pSender->GetInven()->SetInven(pSender->GetDetect()->GetInven()->GetInven());
+			}
+			
+		}
+		
 		break;
 	case AOBJ_PASS:
 		break;
@@ -332,6 +338,34 @@ void cStageObjManager::ObjAction(cChef * pSender)
 	case AOBJ_SINK:
 		break;
 	case AOBJ_TABLE:
+		///// 접시를 들고왔을때
+
+		if (pSender->GetDetect()->GetInven()->GetObjectType() == AOBJ_POT)
+		{
+			if (pSender->GetInven()->GetObjectType() == AOBJ_PLATE)
+			{
+				if (pSender->GetInven()->GetInven() == NULL)
+				{
+					pSender->GetInven()->SetInven(pSender->GetDetect()->GetInven()->GetInven());
+				}
+
+			}
+		}
+
+		// 냄비를 들고 왔을때
+		else if (pSender->GetDetect()->GetInven()->GetObjectType() == AOBJ_PLATE)
+		{
+			if (pSender->GetInven()->GetObjectType() == AOBJ_POT)
+			{
+				if (pSender->GetInven()->GetInven() != NULL)
+				{
+					pSender->GetDetect()->GetInven()->SetInven(pSender->GetInven()->GetInven());
+				}
+
+			}
+		}
+		
+
 		break;
 	case FOBJ_POTATO:
 		break;

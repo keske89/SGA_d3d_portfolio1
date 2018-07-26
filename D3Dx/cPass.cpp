@@ -104,7 +104,7 @@ void cPass::Present()
 	for (int i = 0; i<m_vec.size(); i++)
 	{
 		
-		m_vec[i].
+		//m_vec[i]
 	}
 	
 }
