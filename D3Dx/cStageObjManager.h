@@ -93,6 +93,10 @@ private:
 
 	cOrder*					m_OrderRoot;
 
+	std::vector<cOrder*>	m_vecOrder;
+
+	int						count; 
+
 	int						m_buttonSelect;
 	SYNTHESIZE(std::list<cIGObj*>, m_listObj, ListObj);
 	SYNTHESIZE(std::list<cIGObj*>, m_listFoodObj, ListFoodObj);
@@ -109,6 +113,7 @@ public:
 	void Render();
 	void DeleteObject(std::list<cIGObj*>::iterator objectIter);
 	void DeleteFood(cIGObj * foodPointer);
+	void OrderSystem();
 
 	// cActionDelegate을(를) 통해 상속됨
 

@@ -31,6 +31,7 @@ cStageObjManager::cStageObjManager()
 	, m_player1(NULL)
 	, m_player2(NULL)
 {
+	m_vecOrder.clear();
 }
 
 
@@ -46,6 +47,7 @@ cStageObjManager::~cStageObjManager()
 		SAFE_DELETE(*iter);
 	}
 	
+	SAFE_RELEASE(m_pSprite);
 }
 
 void cStageObjManager::Setup()
@@ -56,24 +58,27 @@ void cStageObjManager::Setup()
 
 	ZeroMemory(&m_stImageInfo, sizeof(D3DXIMAGE_INFO));
 	D3DXCreateSprite(g_pD3DDevice, &m_pSprite);
+	count = 0;
 	//m_pUITexture = g_pTextureManager->GetTexture(L"Resources/Texture2D/Order_Onion.png", &m_stImageInfo);
-
-	{
-		cOrderImage* pOrderImage = new cOrderImage;
-		pOrderImage->SetPosition(D3DXVECTOR3(50, 50, 0));
-		pOrderImage->SetTexture(L"Resources/Texture2D/Order_Onion.png");
-		m_OrderRoot = pOrderImage;
-
-	}
-
 
 }
 
 void cStageObjManager::Update()
 {
-	if (m_OrderRoot)
-		m_OrderRoot->Update();
+	count++;
 
+	//if (m_OrderRoot)
+	//	m_OrderRoot->Update();
+
+	OrderSystem();
+
+	if (m_vecOrder.size() != NULL)
+	{
+		for (auto p : m_vecOrder)
+		{
+			p->Update();
+		}
+	}
 
 	for (auto p : m_listFoodObj)
 	{
@@ -154,8 +159,14 @@ void cStageObjManager::Update()
 void cStageObjManager::Render()
 {
 
-	if (m_OrderRoot)
-		m_OrderRoot->Render(m_pSprite);
+	if (m_vecOrder.size() != NULL)
+	{
+		for (auto p : m_vecOrder)
+		{
+			p->Render(m_pSprite);
+		}
+	}
+		//m_OrderRoot->Render(m_pSprite);
 
 
 	D3DXVECTOR3 dir(-1, -1, -1);
@@ -196,6 +207,20 @@ void cStageObjManager::DeleteFood(cIGObj * foodPointer)
 			break;
 		}
 	}
+}
+
+void cStageObjManager::OrderSystem()
+{
+	if (count % 100 == 0 && m_vecOrder.size() < 5)
+	{
+		cOrderImage* pOrderImage = new cOrderImage;
+		pOrderImage->SetPosition(D3DXVECTOR3(10 + (250 * m_vecOrder.size()), 10, 0));
+		
+		pOrderImage->SetTexture(L"Resources/Texture2D/Order_Onion.png");
+		m_vecOrder.push_back(pOrderImage);
+	}
+	
+	
 }
 
 
