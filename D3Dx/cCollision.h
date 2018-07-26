@@ -17,12 +17,6 @@ private:
 	list<cIGObj*>::iterator							m_iterList;
 	list<cIGObj*>::reverse_iterator					m_riterList;
 
-	map<pair<int, int>, vector<cIGObj*>>			m_mapStaticObject;
-	map<pair<int, int>, vector<cIGObj*>>::iterator	m_iterStaticObject;
-
-	map<cIGObj*, bool>								m_mapDynamicObject;
-	map<cIGObj*, bool>::iterator					m_iterDynamicObject;
-
 	map<pair<int, int>, int>						m_mapIsBlockedData;
 	map<pair<int, int>, int>::iterator				m_IterBlockedData;
 public:

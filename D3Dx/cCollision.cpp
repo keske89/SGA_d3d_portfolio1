@@ -24,29 +24,6 @@ void cCollision::Setup()
 	m_nNewObjSize = m_pSOM->GetListFoodObj().size();
 	m_foodList = m_pSOM->GetListFoodObj();
 	m_objList = m_pSOM->GetListObj();
-	for (m_iterList = m_objList.begin(); m_iterList != m_objList.end(); ++m_iterList)
-	{
-		vector<cIGObj*> tempVec;
-		pair<int, int> tempPair;
-		if ((*m_iterList)->GetCollisonType() == OBJ_DYNAMIC)
-		{
-			m_mapDynamicObject.insert(make_pair((*m_iterList), false));
-		}
-		else if ((*m_iterList)->GetCollisonType() == OBJ_STATIC)
-		{
-			tempPair.first = (*m_iterList)->GetPos().x;
-			tempPair.second = (*m_iterList)->GetPos().z;
-			if (m_mapStaticObject.find(tempPair) == m_mapStaticObject.end())
-			{
-				tempVec.push_back((*m_iterList));
-				m_mapStaticObject.insert(make_pair(tempPair, tempVec));
-			}
-			else
-			{
-				m_mapStaticObject.find(tempPair)->second.push_back((*m_iterList));
-			}
-		}
-	}
 }
 
 void cCollision::Update()
@@ -240,6 +217,20 @@ bool cCollision::ObjectObjectCollision(list<cIGObj*>::iterator iter1, list<cIGOb
 		CDX = WallCollisionX(moveX, obj1Pos, obj1Dir);
 		CDZ = WallCollisionZ(moveZ, obj1Pos, obj1Dir);
 		if (CDX == false && CDZ == false) WallVertexCollision(moveX, moveZ, obj1Pos, obj1Dir);
+
+		D3DXMATRIX transBefore;
+		D3DXMATRIX matRoll;
+		D3DXMATRIX transAfter;
+		D3DXVECTOR3 vecRoll = (*iter1)->GetvecRoll();
+		D3DXMatrixTranslation(&transBefore, 0, -0.4f, 0);
+		D3DXMatrixTranslation(&transAfter, 0, 0.4f, 0);
+		if (obj1Dir.x > 0.01) vecRoll.z -= 0.05f;
+		else if (obj1Dir.x < -0.01) vecRoll.z += 0.05f;
+		if (obj1Dir.z > 0.01) vecRoll.x -= 0.05f;
+		else if (obj1Dir.z < -0.01) vecRoll.x += 0.05f;
+		D3DXMatrixRotationYawPitchRoll(&matRoll, 0, vecRoll.x, vecRoll.z);
+		(*iter1)->SetvecRoll(vecRoll);
+		(*iter1)->SetmatRoll(transBefore * matRoll * transAfter);
 
 		D3DXMatrixTranslation(&matWorld, obj1Pos.x, obj1Pos.y, obj1Pos.z);
 		(*iter1)->SetWorldMatrix(matWorld);
