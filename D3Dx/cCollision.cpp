@@ -170,10 +170,12 @@ bool cCollision::PlayerObjectCollision(list<cIGObj*>::iterator iter, D3DXVECTOR3
 		pos2 += dir2;
 		pos1 += dir1;
 		objPos += objDir;
+		objPos.y = height;
 
 		D3DXMATRIX matWorld;
-		D3DXMatrixTranslation(&matWorld, objPos.x, height, objPos.z);
+		D3DXMatrixTranslation(&matWorld, objPos.x, objPos.y, objPos.z);
 		(*iter)->SetWorldMatrix(matWorld);
+		(*iter)->SetPos(objPos);
 		(*iter)->SetDir(objDir);
 	}
 	list<cIGObj*>::iterator nextIter = iter;
@@ -192,14 +194,16 @@ bool cCollision::ObjectObjectCollision(list<cIGObj*>::iterator iter1, list<cIGOb
 	{
 		D3DXVECTOR3 obj1Dir = (*iter1)->GetDir();
 		D3DXVECTOR3 obj1Pos = (*iter1)->GetPos();
+		float height1 = (*iter1)->GetPos().y;
 		D3DXMATRIX matWorld;
 		for (; iter2 != m_foodList.end(); ++iter2)
 		{
 			if ((*iter2)->GetIsSet() == true) continue;
 			D3DXVECTOR3 obj2Dir = (*iter2)->GetDir();
 			D3DXVECTOR3 obj2Pos = (*iter2)->GetPos();
-			float height1 = obj1Pos.y;
+			obj1Pos.y = 0;
 			float height2 = obj2Pos.y;
+			obj2Pos.y = 0;
 			float distance = GetDistance(obj1Pos, obj2Pos);
 			if (distance < 0.8f)
 			{
@@ -209,8 +213,8 @@ bool cCollision::ObjectObjectCollision(list<cIGObj*>::iterator iter1, list<cIGOb
 				D3DXVECTOR3 push2;
 				D3DXVec3Normalize(&push2, &(obj2Pos - obj1Pos));
 				push2 = push2 * ((0.8f - distance) / 2.0f);
-				//obj1Pos -= obj1Dir;
-				//obj2Pos -= obj2Dir;
+				obj1Pos -= obj1Dir;//
+				obj2Pos -= obj2Dir;//
 				obj1Dir += push1;
 				obj2Dir += push2;
 				obj1Pos += obj1Dir;
@@ -218,36 +222,27 @@ bool cCollision::ObjectObjectCollision(list<cIGObj*>::iterator iter1, list<cIGOb
 				obj1Pos.y = height1;
 				obj2Pos.y = height2;
 
-				bool CDX = false;
-				bool CDZ = false;
-				float moveX = 0.0f;
-				float moveZ = 0.0f;
-				if (obj1Dir.x > 0) moveX = 0.8f;
-				if (obj1Dir.x < 0) moveX = -0.8f;
-				if (obj1Dir.z > 0) moveZ = 0.8f;
-				if (obj1Dir.z < 0) moveZ = -0.8f;
-				CDX = WallCollisionX(moveX, obj1Pos, obj1Dir);
-				CDZ = WallCollisionZ(moveZ, obj1Pos, obj1Dir);
-				if (CDX == false && CDZ == false) WallVertexCollision(moveX, moveZ, obj1Pos, obj1Dir);
-				if (obj2Dir.x > 0) moveX = 0.8f;
-				if (obj2Dir.x < 0) moveX = -0.8f;
-				if (obj2Dir.z > 0) moveZ = 0.8f;
-				if (obj2Dir.z < 0) moveZ = -0.8f;
-				CDX = WallCollisionX(moveX, obj2Pos, obj2Dir);
-				CDZ = WallCollisionZ(moveZ, obj2Pos, obj2Dir);
-				if (CDX == false && CDZ == false) WallVertexCollision(moveX, moveZ, obj2Pos, obj2Dir);
-
-				D3DXMatrixTranslation(&matWorld, obj1Pos.x, obj1Pos.y, obj1Pos.z);
-				(*iter1)->SetWorldMatrix(matWorld);
-				D3DXMatrixTranslation(&matWorld, obj2Pos.x, obj2Pos.y, obj2Pos.z);
-				(*iter2)->SetWorldMatrix(matWorld);
-
 				(*iter1)->SetDir(obj1Dir);
 				(*iter2)->SetDir(obj2Dir);
-				//(*iter1)->SetPos(obj1Pos);
-				//(*iter2)->SetPos(obj2Pos);
+				(*iter1)->SetPos(obj1Pos);
+				(*iter2)->SetPos(obj2Pos);
 			}
 		}
+		obj1Pos.y = height1;
+		bool CDX = false;
+		bool CDZ = false;
+		float moveX = 0.0f;
+		float moveZ = 0.0f;
+		if (obj1Dir.x > 0) moveX = 0.8f;
+		if (obj1Dir.x < 0) moveX = -0.8f;
+		if (obj1Dir.z > 0) moveZ = 0.8f;
+		if (obj1Dir.z < 0) moveZ = -0.8f;
+		CDX = WallCollisionX(moveX, obj1Pos, obj1Dir);
+		CDZ = WallCollisionZ(moveZ, obj1Pos, obj1Dir);
+		if (CDX == false && CDZ == false) WallVertexCollision(moveX, moveZ, obj1Pos, obj1Dir);
+
+		D3DXMatrixTranslation(&matWorld, obj1Pos.x, obj1Pos.y, obj1Pos.z);
+		(*iter1)->SetWorldMatrix(matWorld);
 	}
 	iter1++;
 	if (iter1 == m_foodList.end()) return false;
@@ -360,7 +355,7 @@ bool cCollision::WallVertexCollision(float moveX, float moveZ, D3DXVECTOR3& pos,
 	return false;
 }
 
-cIGObj * cCollision::DetectObject(int playerNum)
+cIGObj* cCollision::DetectObject(int playerNum)
 {
 	D3DXVECTOR3 pos = m_pPlayer[playerNum]->GetPos();
 	D3DXVECTOR3 dir = m_pPlayer[playerNum]->GetDir();
