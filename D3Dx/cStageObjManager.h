@@ -104,6 +104,7 @@ private:
 	SYNTHESIZE(cChef*, m_player1, player1);
 	SYNTHESIZE(cChef*, m_player2, player2);
 
+
 public:
 	cStageObjManager();
 	~cStageObjManager();
@@ -113,12 +114,13 @@ public:
 	void Render();
 	void DeleteObject(std::list<cIGObj*>::iterator objectIter);
 	void DeleteFood(cIGObj * foodPointer);
-	void OrderSystem();
+	std::vector<cOrder*> GetOrderVec() { return m_vecOrder; }
 
 	// cActionDelegate을(를) 통해 상속됨
 
 	virtual void OnAction(cIGObj* pSender) override;
 	void ObjAction(cChef* pSender);
+	void OrderSystem();
 	
 	std::list<cIGObj*>::iterator SetIngameObject(OBJECTTYPE objtype, D3DXMATRIX matWorld);
 };

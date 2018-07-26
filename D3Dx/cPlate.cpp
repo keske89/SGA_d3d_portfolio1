@@ -89,7 +89,7 @@ void cPlate::Inventory()
 		D3DXMATRIX matT;
 		D3DXMatrixIdentity(&matT);
 		D3DXMatrixTranslation(&matT, 0, 0, 0);
-
+		m_Cost = m_Inven->GetCost();
 		m_Inven->SetWorldMatrix(matT * m_matLocal * m_matWorld);
 	}
 }

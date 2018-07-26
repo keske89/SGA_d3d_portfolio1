@@ -211,7 +211,7 @@ void cStageObjManager::DeleteFood(cIGObj * foodPointer)
 
 void cStageObjManager::OrderSystem()
 {
-	if (count % 100 == 0 && m_vecOrder.size() < 5)
+	if (count % 300 == 0 && m_vecOrder.size() < 5)
 	{
 		cOrderImage* pOrderImage = new cOrderImage;
 		pOrderImage->SetPosition(D3DXVECTOR3(10 + (250 * m_vecOrder.size()), 10, 0));
@@ -219,8 +219,7 @@ void cStageObjManager::OrderSystem()
 		pOrderImage->SetTexture(L"Resources/Texture2D/Order_Onion.png");
 		m_vecOrder.push_back(pOrderImage);
 	}
-	
-	
+
 }
 
 
@@ -432,6 +431,7 @@ std::list<cIGObj*>::iterator cStageObjManager:: SetIngameObject(OBJECTTYPE objty
 	case AOBJ_PASS:
 		m_Pass = new cPass;
 		m_Pass->Setup(matWorld, D3DXVECTOR3(matWorld._41, matWorld._42, matWorld._43), AOBJ_PASS);
+		m_Pass->SetSOM(this);
 		iter = m_listObj.insert(m_listObj.end(), m_Pass);
 		return iter;
 		break;

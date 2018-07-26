@@ -19,10 +19,12 @@ void cOrderImage::SetTexture(const WCHAR* szFullPath)
 
 	m_stSize.nHeight = stImageInfo.Height;
 	m_stSize.nWidth = stImageInfo.Width;
+	count = m_stSize.nWidth;
 }
 
 void cOrderImage::Render(LPD3DXSPRITE pSprite)
 {
+	count--;
 	pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
 
 	pSprite->SetTransform(&m_matWorld);
@@ -33,6 +35,9 @@ void cOrderImage::Render(LPD3DXSPRITE pSprite)
 		&D3DXVECTOR3(0, 0, 0),
 		&D3DXVECTOR3(0, 0, 0),
 		D3DCOLOR_ARGB(255, 255, 255, 255));
+	RECT pgBar;
+	SetRect(&pgBar, 0, 0, count, 50);
+	
 
 	pSprite->End();
 

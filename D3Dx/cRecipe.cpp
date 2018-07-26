@@ -20,6 +20,7 @@ void cRecipe::Setup()
 void cRecipe::Setup(D3DXMATRIX matWorld, int type)
 {
 	m_Type = type;
+	m_Cost = type;
 	m_matWorld = matWorld;
 
 	m_pMesh = ObJMANAGER->GetMesh(L"Recipe.obj");
@@ -40,7 +41,10 @@ void cRecipe::Setup(D3DXMATRIX matWorld, int type)
 
 void cRecipe::Update()
 {
-
+	if (!m_Inven)
+	{
+		m_Cost = 0;
+	}
 }
 
 void cRecipe::Render()

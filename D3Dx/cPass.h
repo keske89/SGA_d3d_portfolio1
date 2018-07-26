@@ -1,10 +1,18 @@
 #pragma once
 #include "cActionObj.h"
 class cPassScroll;
+class cStageObjManager;
+class cOrder;
 
 class cPass : public cActionObj
 {
+public:
+
 	cPassScroll*		m_PassScroll;
+	cStageObjManager*	m_SOM;
+
+	std::vector<cOrder*> m_vec;
+
 public:
 	cPass();
 	~cPass();
@@ -16,5 +24,9 @@ public:
 	virtual void Setup(D3DXMATRIX matWorld, D3DXVECTOR3 pos, int lidtype) override;
 	virtual void SetWorldMat(D3DXMATRIX matWorld) override;
 	virtual void SetLight() override;
+
+	void SetSOM(cStageObjManager* som) { m_SOM = som; }
+	void Inventory();
+	void Present();
 };
 

@@ -16,6 +16,8 @@ cIGObj::cIGObj()
 {	
 	D3DXMatrixIdentity(&m_matLocal);
 	D3DXMatrixIdentity(&m_matWorld);
+	D3DXMatrixIdentity(&m_matRoll);
+	
 }
 
 

@@ -29,6 +29,7 @@ public:
 	D3DMATERIAL9		m_stMtl;
 	D3DXMATRIX			m_matWorld;
 	D3DXMATRIX			m_matLocal;
+	
 	//cIGObj*				m_Inven;
 	cIGObj*				m_pChild;
 	int					m_nObjectType;
@@ -46,6 +47,7 @@ public:
 	SYNTHESIZE(cIGObj*, m_Inven, Inven);
 	SYNTHESIZE(bool, m_IsSet, IsSet);
 	SYNTHESIZE(bool, m_isFull, IsFull);
+	SYNTHESIZE(D3DXMATRIX, m_matRoll, matRoll);
 	int GetCost() { return m_Cost; }
 public:
 	cIGObj();

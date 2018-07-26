@@ -6,6 +6,7 @@ protected :
 	D3DXMATRIX					m_matWorld;
 	std::vector<cOrder*>		m_vecChild;
 	ST_UI_SIZE					m_stSize;
+	int							m_cost;
 
 	SYNTHESIZE(D3DXVECTOR3, m_vPosition, Position);
 	SYNTHESIZE(cOrder*, m_pParent, Parent);
