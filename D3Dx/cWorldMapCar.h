@@ -20,6 +20,7 @@ private:
 
 	cWMBorder* m_Border;
 
+	int m_nEngineSound;
 public:
 	cWorldMapCar();
 	virtual ~cWorldMapCar();

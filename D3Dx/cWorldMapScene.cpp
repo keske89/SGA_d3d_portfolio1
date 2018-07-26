@@ -108,10 +108,17 @@ void cWorldMapScene::Setup()
 		//m_pStage[i]->setStar(DATABASE->getStageStar(i));
 	}
 
+	SOUNDMANAGER->addSound("WMBGM", "./sound/OnionHouseMusic.mp3", true, true);
+	SOUNDMANAGER->play("WMBGM", CH_BGM, 1.0f);
 }
 
 void cWorldMapScene::Update()
 {
+	/*if (!SOUNDMANAGER->isPlaySound("WMBGM"))
+	{
+		SOUNDMANAGER->play("WMBGM", CH_BGM, 1.0f);
+	}*/
+	
 	if (!_isChangeDone)
 	{
 		_alpha--;

@@ -22,7 +22,11 @@ cPot::~cPot()
 {
 	SAFE_DELETE(m_pPgbar);
 
-	SAFE_DELETE(m_pEffect);
+	for (auto p : m_pIcon)
+	{
+		SAFE_DELETE(p);
+	}
+
 
 	for (auto e : m_vecEffect)
 	{
@@ -61,6 +65,11 @@ void cPot::Update()
 			m_Inven = m_recipe;
 			m_InvenCount = 0;
 			m_RecipeCost = 0;
+			m_nPotStatus = 2;
+		}
+		else
+		{	
+			m_nPotStatus = 0;
 		}
 		
 	}
@@ -68,10 +77,12 @@ void cPot::Update()
 	if (m_RecipeCost !=0 && m_InvenCount == 3)
 	{
 		m_isFull = true;
+		
 	}
 	else
 	{
 		m_isFull = false;
+	
 	}
 	
 	
@@ -101,21 +112,9 @@ void cPot::Update()
 	}
 
 	this->Effect();
+	this->setIconTexture();
+	this->setIconPosition();
 
-	//====================================================UIObject용 
-	m_pEffect->Update();
-
-	D3DXVECTOR3 UIPos(m_vPos.x, m_vPos.y, m_vPos.z);
-
-	UIPos.y += 2.0f;
-	UIPos.x -= 1.5f;
-
-	auto temp1 = Convert3DTo2D(UIPos);
-	UIPos.x = temp1.x;
-	UIPos.y = temp1.y;
-	UIPos.z = 0.0f;
-	m_pEffect->SetPosition(UIPos);
-	//====================================================UIObject용 
 }
 
 void cPot::Render()
@@ -138,7 +137,11 @@ void cPot::Render()
 	g_pD3DDevice->SetRenderState(D3DRS_LIGHTING, false);
 	g_pD3DDevice->SetRenderState(D3DRS_FILLMODE, prevRS);
 	////====================================================UIObject용
-	m_pEffect->Render();
+	for (auto p : m_pIcon)
+	{
+		p->Render();
+	}
+
 	//====================================================Effect용 
 	SetLight();
 	g_pD3DDevice->SetMaterial(&m_stMtl);
@@ -195,14 +198,33 @@ void cPot::Setup(D3DXMATRIX matWorld, D3DXVECTOR3 pos, int lidtype)
 
 	////===========================================================UIobject
 	D3DXVECTOR3 UIPos(m_vPos.x, m_vPos.y, m_vPos.z);
+	D3DXVECTOR3 UIPos1(m_vPos.x, m_vPos.y, m_vPos.z);
+	D3DXVECTOR3 UIPos2(m_vPos.x, m_vPos.y, m_vPos.z);
 
 	auto temp = Convert3DTo2D(UIPos);
 	UIPos.x = temp.x;
 	UIPos.y = temp.y;
 	UIPos.z = 0;
+	m_pIcon[0] = new UIObject;
+	m_pIcon[0]->SetPosition(UIPos);
+	m_pIcon[0]->SetScale(D3DXVECTOR3(0.3, 0.3, 0.3));
 
-	m_pEffect = new UIObject; m_pEffect->SetPosition(UIPos);
-	m_pEffect->SetTexture(g_pTextureManager->GetTexture(_T("./Resources/ui/Map_Level_OnionHouse_Background_Small.png")));
+	auto temp1 = Convert3DTo2D(UIPos1);
+	UIPos1.x = temp1.x;
+	UIPos1.y = temp1.y;
+	UIPos1.z = 0;
+	m_pIcon[1] = new UIObject;
+	m_pIcon[1]->SetPosition(UIPos1);
+	m_pIcon[1]->SetScale(D3DXVECTOR3(0.3, 0.3, 0.3));
+
+
+	auto temp2 = Convert3DTo2D(UIPos2);
+	UIPos2.x = temp2.x;
+	UIPos2.y = temp2.y;
+	UIPos2.z = 0;
+	m_pIcon[2] = new UIObject;
+	m_pIcon[2]->SetPosition(UIPos2);
+	m_pIcon[2]->SetScale(D3DXVECTOR3(0.3, 0.3, 0.3));
 	////===========================================================UIobject
 }
 
@@ -242,14 +264,14 @@ void cPot::EffectSetup()
 		D3DXVec3TransformNormal(&front, &D3DXVECTOR3(0, 0, -1), &matY);
 
 		D3DXVECTOR3 pos = m_vPos;
-		D3DXVECTOR3 Dest = m_vPos + front * 5.0f;
+		D3DXVECTOR3 Dest = m_vPos + front * 4.0f;
 		ST_EFFECT tempEffect;
 		ZeroMemory(&tempEffect, sizeof(tempEffect));
 
 		tempEffect.time = DXUtil::FRand(0.1, 0.4) + 1.0f;
 		//tempEffect.isRY = true;
 		//tempEffect.isRX = true;
-		tempEffect.height = 3.0f;
+		tempEffect.height = 2.0f;
 
 		//TODO : 알파값도 랜덤으로, 스케일도 랜덤으로 RND써서 수정
 
@@ -296,6 +318,73 @@ void cPot::Effect()
 			m_vecEffect.erase(m_vecEffect.begin() + i);
 		}
 	}
+}
+
+void cPot::setIconPosition() //Icon Texture 위치 변경하는 함수
+{
+	//====================================================UIObject용 
+	for (auto p : m_pIcon)
+	{
+		p->Update();
+	}
+	
+	D3DXVECTOR3 UIPos(m_vPos.x, m_vPos.y, m_vPos.z);
+	D3DXVECTOR3 UIPos1(m_vPos.x, m_vPos.y, m_vPos.z);
+	D3DXVECTOR3 UIPos2(m_vPos.x, m_vPos.y, m_vPos.z);
+
+
+	UIPos.y += 0.0f;
+	UIPos.x -= 0.5f;
+	auto temp = Convert3DTo2D(UIPos);
+	UIPos.x = temp.x;
+	UIPos.y = temp.y;
+	UIPos.z = 0;
+
+	m_pIcon[0]->SetPosition(UIPos);
+
+
+	UIPos1.y += 0.0f;
+	UIPos1.x += 0.0f;
+	auto temp1 = Convert3DTo2D(UIPos1);
+	UIPos1.x = temp1.x;
+	UIPos1.y = temp1.y;
+	UIPos1.z = 0;
+
+	m_pIcon[1]->SetPosition(UIPos1);
+
+
+
+	UIPos2.y += 0.5f;
+	UIPos2.x -= 0.5f;
+	auto temp2 = Convert3DTo2D(UIPos2);
+	UIPos2.x = temp2.x;
+	UIPos2.y = temp2.y;
+	UIPos2.z = 0;
+
+	m_pIcon[2]->SetPosition(UIPos2);
+
+
+	//====================================================UIObject용 
+}
+
+void cPot::setIconTexture() //Icon Texture 변경하는 함수
+{
+	for (auto p : m_pIcon)
+	{
+		if (m_nPotStatus == 0)
+		{
+			p->SetTexture(g_pTextureManager->GetTexture(_T("./Resources/ui/MissingIngredient_Icon.png")));
+		}
+		else if (m_nPotStatus == 2)
+		{
+			p->SetTexture(g_pTextureManager->GetTexture(_T("./Resources/ui/Tomato_Icon.png")));
+		}
+		else if (m_nPotStatus ==1)
+		{
+			p->SetTexture(g_pTextureManager->GetTexture(_T("./Resources/ui/Onion_Icon.png")));
+		}
+	}
+	
 }
 
 D3DXVECTOR2 cPot::Convert3DTo2D(D3DXVECTOR3 v)

@@ -29,7 +29,7 @@ public:
 	int		m_nPotStatus;
 	int		m_nEffectCount;
 	vector<cEffectObject*> m_vecEffect;
-	UIObject * m_pEffect;
+	UIObject * m_pIcon[3];
 
 public:
 	cPot();
@@ -54,6 +54,8 @@ public:
 	//Effect
 	void EffectSetup();
 	void Effect();
+	void setIconPosition();
+	void setIconTexture();
 
 	D3DXVECTOR2 Convert3DTo2D(D3DXVECTOR3 v);
 

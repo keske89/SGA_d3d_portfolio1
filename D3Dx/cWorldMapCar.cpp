@@ -9,6 +9,7 @@
 cWorldMapCar::cWorldMapCar()
 	: m_Carbody(NULL)
 	, m_fCarRot(0.0f)
+	, m_nEngineSound(0)
 {
 	m_Bs.isPicked = false;
 	m_Bs.center = m_vPosition;
@@ -42,6 +43,9 @@ void cWorldMapCar::Setup()
 	m_Puff[7] = new cWMCarPuff; m_Puff[7]->Setup();
 	m_Puff[8] = new cWMCarPuff; m_Puff[8]->Setup();
 	m_Puff[9] = new cWMCarPuff; m_Puff[9]->Setup();
+
+	SOUNDMANAGER->addSound("VanEngine", "./sound/VanEngine.mp3", false, true);
+	//SOUNDMANAGER->play("VanEngine", CH_EFFECT01, 0.2f);
 }
 
 void cWorldMapCar::Update()
@@ -56,9 +60,17 @@ void cWorldMapCar::Update()
 	D3DXMATRIX matLocal = m_Carbody->GetWorldMatrix()* m_matWorld;
 	m_Carbody->setWorldMatrix(&(matLocal));
 
+	if (m_nEngineSound < 1)
+	{
+		//SOUNDMANAGER->play("VanEngine", CH_EFFECT01, 0.2f);
+		m_nEngineSound++;
+	}
+
 	if (this->m_isMoving)
 	{
-
+		SOUNDMANAGER->resume("VanEngine");
+	
+		
 		//car puff
 		for (auto p : m_Puff)
 		{
@@ -67,6 +79,10 @@ void cWorldMapCar::Update()
 			p->setWorldMatrix(&mat);
 
 		}
+	}
+	else
+	{
+		SOUNDMANAGER->pause("VanEngine");
 	}
 }
 
