@@ -5,6 +5,13 @@ class cFoodObj;
 class cProgressbar;
 class cRecipe;
 
+enum POT_STATUS
+{
+	STAT_START,
+	STAT_BOILING,
+	STAT_FINISHED,
+	STAT_END,
+};
 
 class cPot : public cActionObj
 {
@@ -17,6 +24,13 @@ public:
 	IDirect3DTexture9*		m_texture[3];
 	std::vector<cIGObj*>	m_vec;
 	cRecipe*				m_recipe;
+
+	//Effect
+	int		m_nPotStatus;
+	int		m_nEffectCount;
+	vector<cEffectObject*> m_vecEffect;
+	UIObject * m_pEffect;
+
 public:
 	cPot();
 	~cPot();
@@ -33,6 +47,15 @@ public:
 	virtual void SetLight() override;
 	virtual void SetWorldMat(D3DXMATRIX matWorld) override;
 	
+	//Status
+	int	 getPotStat() { return m_nPotStatus; }
+	void setPotStat(int stat) { m_nPotStatus = stat; }
+
+	//Effect
+	void EffectSetup();
+	void Effect();
+
+	D3DXVECTOR2 Convert3DTo2D(D3DXVECTOR3 v);
 
 };
 

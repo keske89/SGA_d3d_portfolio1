@@ -29,6 +29,7 @@ public:
 	bool IsFinish();
 
 	BoundingSphere GetBoundSphere();
+	D3DXMATRIX GetWorld() { return m_matWorld; }
 };
 
 

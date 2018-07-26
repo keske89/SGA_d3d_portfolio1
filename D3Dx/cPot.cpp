@@ -10,6 +10,8 @@ cPot::cPot()
 	: m_pPgbar(NULL)
 	, m_size(1)
 	, m_RecipeCost(0)
+	, m_nPotStatus(0)
+	, m_nEffectCount(0)
 {
 	m_vec.clear();
 	
@@ -19,6 +21,13 @@ cPot::cPot()
 cPot::~cPot()
 {
 	SAFE_DELETE(m_pPgbar);
+
+	SAFE_DELETE(m_pEffect);
+
+	for (auto e : m_vecEffect)
+	{
+		SAFE_DELETE(e);
+	}
 }
 
 void cPot::Setup()
@@ -73,10 +82,64 @@ void cPot::Update()
 	m_vPos.z = m_matWorld._43;
 	m_player = NULL;
 	m_bIsAction = false;
+
+	//====================================================Effect용 
+
+	if (KEYMANAGER->isOnceKeyDown('T'))
+	{
+		m_nPotStatus = 2;
+	}
+	if (KEYMANAGER->isOnceKeyDown('Y'))
+	{
+		m_nPotStatus = 0;
+		m_nEffectCount = 0;
+	}
+
+	if (m_nPotStatus == 2)
+	{
+		EffectSetup();
+	}
+
+	this->Effect();
+
+	//====================================================UIObject용 
+	m_pEffect->Update();
+
+	D3DXVECTOR3 UIPos(m_vPos.x, m_vPos.y, m_vPos.z);
+
+	UIPos.y += 2.0f;
+	UIPos.x -= 1.5f;
+
+	auto temp1 = Convert3DTo2D(UIPos);
+	UIPos.x = temp1.x;
+	UIPos.y = temp1.y;
+	UIPos.z = 0.0f;
+	m_pEffect->SetPosition(UIPos);
+	//====================================================UIObject용 
 }
 
 void cPot::Render()
 {
+	//====================================================Effect용 
+	DWORD prevRS;
+	g_pD3DDevice->GetRenderState(D3DRS_FILLMODE, &prevRS);
+	g_pD3DDevice->SetRenderState(D3DRS_LIGHTING, true);
+	D3DXVECTOR3 dir(-1, -1, -1);
+	D3DXVec3Normalize(&dir, &dir);
+	D3DLIGHT9 light = DXUtil::InitDirectional(&dir, &WHITE);
+	g_pD3DDevice->SetLight(0, &light);
+	g_pD3DDevice->LightEnable(0, true);
+
+	for (int i = 0; i < m_vecEffect.size(); i++)
+	{
+		g_pD3DDevice->SetTransform(D3DTS_WORLD, &m_vecEffect[i]->GetWorld());
+		m_vecEffect[i]->Render();
+	}
+	g_pD3DDevice->SetRenderState(D3DRS_LIGHTING, false);
+	g_pD3DDevice->SetRenderState(D3DRS_FILLMODE, prevRS);
+	////====================================================UIObject용
+	m_pEffect->Render();
+	//====================================================Effect용 
 	SetLight();
 	g_pD3DDevice->SetMaterial(&m_stMtl);
 	g_pD3DDevice->SetTransform(D3DTS_WORLD, &(m_matLocal * m_matWorld));
@@ -129,6 +192,18 @@ void cPot::Setup(D3DXMATRIX matWorld, D3DXVECTOR3 pos, int lidtype)
 
 	m_pPgbar = new cProgressbar;
 	m_pPgbar->Setup(m_matWorld, m_vPos, 2);
+
+	////===========================================================UIobject
+	D3DXVECTOR3 UIPos(m_vPos.x, m_vPos.y, m_vPos.z);
+
+	auto temp = Convert3DTo2D(UIPos);
+	UIPos.x = temp.x;
+	UIPos.y = temp.y;
+	UIPos.z = 0;
+
+	m_pEffect = new UIObject; m_pEffect->SetPosition(UIPos);
+	m_pEffect->SetTexture(g_pTextureManager->GetTexture(_T("./Resources/ui/Map_Level_OnionHouse_Background_Small.png")));
+	////===========================================================UIobject
 }
 
 void cPot::SetLight()
@@ -155,4 +230,82 @@ void cPot::SetWorldMat(D3DXMATRIX matWorld)
 	m_vPos.x = matWorld._41;
 	m_vPos.y = matWorld._42;
 	m_vPos.z = matWorld._43;
+}
+
+void cPot::EffectSetup()
+{
+	if (m_nEffectCount < 1)
+	{
+		D3DXVECTOR3 front;
+		D3DXMATRIX matY;
+		D3DXMatrixRotationY(&matY, m_vDir.y);
+		D3DXVec3TransformNormal(&front, &D3DXVECTOR3(0, 0, -1), &matY);
+
+		D3DXVECTOR3 pos = m_vPos;
+		D3DXVECTOR3 Dest = m_vPos + front * 5.0f;
+		ST_EFFECT tempEffect;
+		ZeroMemory(&tempEffect, sizeof(tempEffect));
+
+		tempEffect.time = DXUtil::FRand(0.1, 0.4) + 1.0f;
+		//tempEffect.isRY = true;
+		//tempEffect.isRX = true;
+		tempEffect.height = 3.0f;
+
+		//TODO : 알파값도 랜덤으로, 스케일도 랜덤으로 RND써서 수정
+
+		tempEffect.SetAlpha(DXUtil::FRand(255, 255), 0, DXUtil::FRand(255, 255));
+		tempEffect.SetScale(DXUtil::FRand(0.5, 0.5), DXUtil::FRand(0.0, 0.0), DXUtil::FRand(0.5, 0.5));
+		//tempEffect.SetMotorSpeed(DXUtil::FRand(1.4, 3.0), DXUtil::FRand(1.4, 3.0), DXUtil::FRand(1.4, 3.0));
+		TEXTUREMANAGER->addTexture(_T("test"), _T("./Resources/ui/CookingTick.png"));
+		tempEffect.tex = TEXTUREMANAGER->findTexture(_T("test"));
+		cEffectObject* tempEFOBJ;
+		tempEFOBJ = new cEffectObject;
+
+		D3DXVECTOR3 TempDir;
+		TempDir = pos - Dest;
+		D3DXVec3Normalize(&TempDir, &TempDir);
+
+		float Length = D3DXVec3Length(&(Dest - pos));
+
+		D3DXVECTOR3 Destpos = Dest;
+		Destpos.y += 0.0f;
+		Destpos.x += DXUtil::FRand(0.5, 0.5);
+		Destpos.z += DXUtil::FRand(0.3, 0.3);
+		Destpos += TempDir * (Length * 0.3f);
+		tempEFOBJ->Setup(tempEffect, Destpos);
+
+		m_vecEffect.push_back(tempEFOBJ);
+	}
+	m_nEffectCount++;
+}
+
+void cPot::Effect()
+{
+	if (m_vecEffect.size() <= 0) return;
+
+	for (int i = 0; i < m_vecEffect.size();)
+	{
+		if (!m_vecEffect[i]->IsFinish())
+		{
+			m_vecEffect[i]->Update();
+			i++;
+		}
+		else
+		{
+			SAFE_DELETE(m_vecEffect[i]);
+			m_vecEffect.erase(m_vecEffect.begin() + i);
+		}
+	}
+}
+
+D3DXVECTOR2 cPot::Convert3DTo2D(D3DXVECTOR3 v)
+{
+	D3DXMATRIX proj, view, world;
+	D3DVIEWPORT9 vp;
+	g_pD3DDevice->GetTransform(D3DTS_PROJECTION, &proj);
+	g_pD3DDevice->GetTransform(D3DTS_VIEW, &view);
+	g_pD3DDevice->GetViewport(&vp);
+	D3DXMatrixIdentity(&world);
+	D3DXVec3Project(&v, &v, &vp, &proj, &view, &world);
+	return D3DXVECTOR2(v.x, v.y);
 }
