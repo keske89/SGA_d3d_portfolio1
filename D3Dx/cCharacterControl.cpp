@@ -135,7 +135,7 @@ void cCharacterControl::ControlAction()
 							if (m_vecCharacter[m_Bswitch]->GetCHEF_STATE() != CHEF_STATE::CHEF_STATE_CHOP)
 							{
 								if (m_vecCharacter[m_Bswitch]->GetDetect()->GetInven()->GetObjectType() != OBJECTTYPE::AOBJ_CHOPPIGNBOARD &&
-									m_vecCharacter[m_Bswitch]->GetDetect()->GetObjectType() != OBJECTTYPE::AOBJ_TABLE && 
+									m_vecCharacter[m_Bswitch]->GetDetect()->GetObjectType() != OBJECTTYPE::AOBJ_TABLE &&
 									m_vecCharacter[m_Bswitch]->GetDetect()->GetObjectType() != OBJECTTYPE::AOBJ_COOKER)
 								{
 									m_vecCharacter[m_Bswitch]->SetInven(m_vecCharacter[m_Bswitch]->GetDetect());
@@ -206,12 +206,17 @@ void cCharacterControl::ControlAction()
 					{
 						switch (m_vecCharacter[m_Bswitch]->GetDetect()->GetObjectType())
 						{
-							case OBJECTTYPE::AOBJ_CHOPPIGNBOARD: case OBJECTTYPE::AOBJ_PLATE:
+							case OBJECTTYPE::AOBJ_CHOPPIGNBOARD: case OBJECTTYPE::AOBJ_PLATE:case OBJECTTYPE::AOBJ_POT:
 							{
 						  		m_vecCharacter[m_Bswitch]->SetInven(m_vecCharacter[m_Bswitch]->GetDetect());
 								m_vecCharacter[m_Bswitch]->GetDetect()->SetInven(NULL);
 							}
 							break;
+							case OBJECTTYPE::FOBJ_ONION: case OBJECTTYPE::FOBJ_TOMATO:
+							{
+								m_vecCharacter[m_Bswitch]->SetInven(m_vecCharacter[m_Bswitch]->GetDetect());
+
+							}
 							case OBJECTTYPE::CRATE_ONION: case OBJECTTYPE::CRATE_TOMATO:
 							{
 								m_vecCharacter[m_Bswitch]->SetChefAnimation(CHEF_STATE_ACTION);
@@ -340,10 +345,7 @@ void cCharacterControl::ControlAction()
 										break;
 										case OBJECTTYPE::AOBJ_PLATE:
 										{
-											if (m_vecCharacter[m_Bswitch]->GetDetect()->GetInven()->GetInven() == NULL)
-											{
-												m_vecCharacter[m_Bswitch]->m_pStageOBJ->ObjAction(m_vecCharacter[m_Bswitch]);
-											}
+											m_vecCharacter[m_Bswitch]->m_pStageOBJ->ObjAction(m_vecCharacter[m_Bswitch]);
 										}
 										break;
 										default:
@@ -355,6 +357,11 @@ void cCharacterControl::ControlAction()
 										break;
 									}
 								}
+							}
+							else
+							{
+								m_vecCharacter[m_Bswitch]->SetInven(NULL);
+								m_vecCharacter[m_Bswitch]->SetChefAnimation(CHEF_STATE_IDLE);
 							}
 						}
 						else
