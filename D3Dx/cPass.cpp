@@ -50,12 +50,12 @@ void cPass::Setup(D3DXMATRIX matWorld, D3DXVECTOR3 pos, int lidtype)
 	m_matWorld = matWorld;
 	m_bInteraction = false;
 	m_bIsUse = false;
-	m_pMesh = ObJMANAGER->GetMesh(L"ThePass.obj");
-	m_pTexture = g_pTextureManager->GetTexture(L"Resources/Texture2D/ThePass.png");
+	m_pMesh = ObJMANAGER->GetMesh(L"ThePass_FatScrolling.obj");
+	m_pTexture = g_pTextureManager->GetTexture(L"Resources/Texture2D/ThePass_Scrolling.png");
 
-
+	
 	m_PassScroll = new cPassScroll;
-	m_PassScroll->Setup(matWorld, pos, lidtype);
+	m_PassScroll->Setup(matWorld, D3DXVECTOR3(matWorld._41, matWorld._42, matWorld._43), 0);
 }
 
 void cPass::SetWorldMat(D3DXMATRIX matWorld)

@@ -5,33 +5,23 @@
 
 class cIGObj;
 class cChef;
-
-
-
-
 // action obj
 class cCrateLid;
-
 class cChoppingBoard;
-
 class cPot;
 class cCooker;
-
 class cSink;
 class cBin;
-
 class cPass;
 class cPassScroll;
-
 class cPlate;
 class cPlateReturnBox;
-
 class cTomato;
 class cCounterTop;
-
-
 class cOnion;
 class cKnife;
+// ui
+class cOrder;
 
 enum OBJECTTYPE
 {
@@ -89,12 +79,19 @@ private:
 	cPot*					m_Pot;
 	cBin*					m_Bin;
 	cPass*					m_Pass;
+	cPassScroll*			m_PassScroll;
 	cPlate*					m_Plate;
 	cPlateReturnBox*		m_PlateReturnBox;
 	cTomato*				m_Tomato;
 	cCounterTop*			m_Counter;
 	cOnion*					m_Onion;
 	cKnife*					m_Knife;
+
+	LPD3DXSPRITE			m_pSprite;
+	LPDIRECT3DTEXTURE9		m_pUITexture;
+	D3DXIMAGE_INFO			m_stImageInfo;
+
+	cOrder*					m_OrderRoot;
 
 	int						m_buttonSelect;
 	SYNTHESIZE(std::list<cIGObj*>, m_listObj, ListObj);

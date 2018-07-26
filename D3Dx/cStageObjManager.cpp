@@ -18,7 +18,9 @@
 #include "cOnion.h"
 #include "cChefRoot.h"
 #include "cWMDefinition.h"
-
+#include "cPassScroll.h"
+#include "cOrder.h"
+#include "cOrderImage.h"
 
 
 //delegate
@@ -52,11 +54,27 @@ void cStageObjManager::Setup()
 	D3DXMatrixIdentity(&matWorld);
 	D3DXVECTOR3 mPos(0, 0, 0);
 
+	ZeroMemory(&m_stImageInfo, sizeof(D3DXIMAGE_INFO));
+	D3DXCreateSprite(g_pD3DDevice, &m_pSprite);
+	//m_pUITexture = g_pTextureManager->GetTexture(L"Resources/Texture2D/Order_Onion.png", &m_stImageInfo);
+
+	{
+		cOrderImage* pOrderImage = new cOrderImage;
+		pOrderImage->SetPosition(D3DXVECTOR3(50, 50, 0));
+		pOrderImage->SetTexture(L"Resources/Texture2D/Order_Onion.png");
+		m_OrderRoot = pOrderImage;
+
+	}
+
+
 }
 
 void cStageObjManager::Update()
 {
-	
+	if (m_OrderRoot)
+		m_OrderRoot->Update();
+
+
 	for (auto p : m_listFoodObj)
 	{
 		p->SetIsSet(false);
@@ -135,6 +153,11 @@ void cStageObjManager::Update()
 
 void cStageObjManager::Render()
 {
+
+	if (m_OrderRoot)
+		m_OrderRoot->Render(m_pSprite);
+
+
 	D3DXVECTOR3 dir(-1, -1, -1);
 	D3DXVec3Normalize(&dir, &dir);
 	D3DLIGHT9 light = DXUtil::InitDirectional(&dir, &D3DXCOLOR(2.0f, 2.0f, 2.0f, 2.0f));

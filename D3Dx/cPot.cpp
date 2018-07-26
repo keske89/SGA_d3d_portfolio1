@@ -28,7 +28,8 @@ void cPot::Setup()
 
 void cPot::Update()
 {
-	
+	if (m_recipe)
+		m_recipe->Update();
 
 	D3DXVECTOR3 temp = m_vPos;
 	temp.y = m_vPos.y - 0.05f;
@@ -47,7 +48,8 @@ void cPot::Update()
 		if (m_pPgbar->Complete() && m_InvenCount == 3)
 		{
 			m_recipe = new cRecipe;
-			m_recipe->Setup(m_RecipeCost);
+			m_recipe->Setup(m_matWorld, m_RecipeCost);
+			m_Inven = m_recipe;
 			m_InvenCount = 0;
 			m_RecipeCost = 0;
 		}
@@ -87,6 +89,8 @@ void cPot::Render()
 		m_pPgbar->Render();
 	}
 	
+	if (m_recipe)
+		m_recipe->Render();
 }
 
 void cPot::InvenToVector()
@@ -99,8 +103,10 @@ void cPot::InvenToVector()
 			m_RecipeCost += m_Inven->GetCost();
 			m_InvenCount += 1;
 		}
-		
+	
+		m_Inven->SetWorldMatrix(m_matLocal * m_matWorld);
 	}
+
 
 }
 

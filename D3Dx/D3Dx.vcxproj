@@ -179,6 +179,8 @@
     <ClInclude Include="cIntroUI.h" />
     <ClInclude Include="CommonMacroFunction.h" />
     <ClInclude Include="cOnion.h" />
+    <ClInclude Include="cOrder.h" />
+    <ClInclude Include="cOrderImage.h" />
     <ClInclude Include="cParticle.h" />
     <ClInclude Include="cParticleManager.h" />
     <ClInclude Include="cPass.h" />
@@ -283,6 +285,8 @@
     <ClCompile Include="cIntroScene.cpp" />
     <ClCompile Include="cIntroUI.cpp" />
     <ClCompile Include="cOnion.cpp" />
+    <ClCompile Include="cOrder.cpp" />
+    <ClCompile Include="cOrderImage.cpp" />
     <ClCompile Include="cParticle.cpp" />
     <ClCompile Include="cParticleManager.cpp" />
     <ClCompile Include="cPass.cpp" />

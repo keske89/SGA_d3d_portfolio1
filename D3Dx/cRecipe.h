@@ -8,12 +8,10 @@ public:
 
 public:
 
-	void Setup(int type);
+	void Setup(D3DXMATRIX matWorld, int type);
 	void Update();
 	void Render();
 	void Destroy();
-	void OrderSystem();
-
 
 	cRecipe();
 	virtual ~cRecipe();

@@ -393,6 +393,12 @@
     <ClInclude Include="cRecipe.h">
       <Filter>소스 파일\IngameObj\FoodObj</Filter>
     </ClInclude>
+    <ClInclude Include="cOrder.h">
+      <Filter>소스 파일\IngameObj</Filter>
+    </ClInclude>
+    <ClInclude Include="cOrderImage.h">
+      <Filter>소스 파일\IngameObj</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="D3Dx.cpp">
@@ -691,6 +697,12 @@
     </ClCompile>
     <ClCompile Include="cRecipe.cpp">
       <Filter>소스 파일\IngameObj\FoodObj</Filter>
+    </ClCompile>
+    <ClCompile Include="cOrderImage.cpp">
+      <Filter>소스 파일\IngameObj</Filter>
+    </ClCompile>
+    <ClCompile Include="cOrder.cpp">
+      <Filter>소스 파일\IngameObj</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

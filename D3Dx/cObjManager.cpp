@@ -55,6 +55,8 @@ void cObjManager::Setup()
 	SetMeshData(L"./Resources/Mesh/IngameObj/", L"ThePass.obj", &matWorld);
 	SetMeshData(L"./Resources/Mesh/IngameObj/", L"ThePass_FatScrolling.obj", &matWorld);
 
+	SetMeshData(L"./Resources/Mesh/IngameObj/", L"Recipe.obj", &matWorld);
+
 
 	
 
