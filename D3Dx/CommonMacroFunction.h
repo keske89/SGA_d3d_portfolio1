@@ -12,3 +12,13 @@ inline float GetDistance(D3DXVECTOR3 vec1, D3DXVECTOR3 vec2)
 	float result = sqrtf(x + z);
 	return result;
 }
+
+inline RECT getRect(LONG left, LONG top, LONG right, LONG bottom)
+{
+	RECT result;
+	result.left = left;
+	result.top = top;
+	result.right = right;
+	result.bottom = bottom;
+	return result;
+}

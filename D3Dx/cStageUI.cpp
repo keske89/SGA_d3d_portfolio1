@@ -139,13 +139,3 @@ void cStageUI::Render()
 		m_pSprite->End();
 	}
 }
-
-RECT cStageUI::getRect(LONG left, LONG top, LONG right, LONG bottom)
-{
-	RECT result;
-	result.left = left;
-	result.top = top;
-	result.right = right;
-	result.bottom = bottom;
-	return result;
-}

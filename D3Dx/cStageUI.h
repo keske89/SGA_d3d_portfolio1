@@ -26,8 +26,6 @@ public:
 	void Update();
 	void Render();
 
-	RECT getRect(LONG left, LONG top, LONG right, LONG bottom);
-
 	inline bool getTimer() { 
 		if (m_nTimer <= 0) return false; 
 		else return true;

@@ -104,7 +104,8 @@ bool cCollision::PlayerObjectCollision(list<cIGObj*>::iterator iter, D3DXVECTOR3
 		D3DXVECTOR3 objPos = (*iter)->GetPos();
 		D3DXVECTOR3 objDir = (*iter)->GetDir();
 		float height = objPos.y;
-		objPos.y = 0;
+		objPos.y = -1;
+		objDir.y = 0;
 
 		D3DXMATRIX invMat;
 		D3DXMATRIX invTransMat;
@@ -114,10 +115,15 @@ bool cCollision::PlayerObjectCollision(list<cIGObj*>::iterator iter, D3DXVECTOR3
 		D3DXMatrixInverse(&invTransMat, NULL, &(*iter)->GetWorldMat());
 		D3DXVec3TransformCoord(&tempPos, &objPos, &invTransMat);
 		D3DXIntersect((*iter)->GetMesh(), &tempPos, &D3DXVECTOR3(0, 1, 0), &isPicked, NULL, NULL, NULL, &tempDist, NULL, NULL);
-		if (isPicked == TRUE && tempDist > 0.01f)
+		if (isPicked == TRUE && tempDist > 1.0f)
 		{
 			height -= 0.01f;
 		}
+		else if (isPicked == TRUE && tempDist < 1.0f)
+		{
+			height = 0.0f;
+		}
+		objPos.y = 0;
 
 		pos1 -= dir1;
 		pos2 -= dir2;
@@ -224,10 +230,10 @@ bool cCollision::ObjectObjectCollision(list<cIGObj*>::iterator iter1, list<cIGOb
 		D3DXVECTOR3 vecRoll = (*iter1)->GetvecRoll();
 		D3DXMatrixTranslation(&transBefore, 0, -0.4f, 0);
 		D3DXMatrixTranslation(&transAfter, 0, 0.4f, 0);
-		if (obj1Dir.x > 0.01) vecRoll.z -= 0.05f;
-		else if (obj1Dir.x < -0.01) vecRoll.z += 0.05f;
-		if (obj1Dir.z > 0.01) vecRoll.x -= 0.05f;
-		else if (obj1Dir.z < -0.01) vecRoll.x += 0.05f;
+		if (obj1Dir.x > 0.01) vecRoll.z += 0.05f;
+		else if (obj1Dir.x < -0.01) vecRoll.z -= 0.05f;
+		if (obj1Dir.z > 0.01) vecRoll.x += 0.05f;
+		else if (obj1Dir.z < -0.01) vecRoll.x -= 0.05f;
 		D3DXMatrixRotationYawPitchRoll(&matRoll, 0, vecRoll.x, vecRoll.z);
 		(*iter1)->SetvecRoll(vecRoll);
 		(*iter1)->SetmatRoll(transBefore * matRoll * transAfter);
