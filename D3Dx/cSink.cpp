@@ -33,7 +33,7 @@ void cSink::Update()
 		//m_isChopped = false;
 		m_pPgbar->Setup(m_matWorld, m_vPos, 1);
 	}
-
+	
 	if (m_Inven != NULL)	// 재료가 들어왔고
 	{
 		if (m_pPgbar)				// 프로그레스 바 있으면
@@ -126,13 +126,11 @@ void cSink::Inventory()
 	{
 		if (m_Inven->GetIsUse() == true)
 		{
-			D3DXMATRIX matT, RotX;
-			D3DXVECTOR3 v(1, 0, 0);
+			D3DXMATRIX matT;
 			D3DXMatrixIdentity(&matT);
-			D3DXMatrixRotationAxis(&RotX, &v, D3DX_PI / 2);
-			D3DXMatrixTranslation(&matT, 0.3f, 0.2f, -0.3f);
+			D3DXMatrixTranslation(&matT, 0.8f, 0.45f, 0);
 
-			m_Inven->SetWorldMatrix(RotX * matT * m_matLocal * m_matWorld);
+			m_Inven->SetWorldMatrix(matT * m_matLocal * m_matWorld);
 
 
 			if (m_pPgbar->Complete())
