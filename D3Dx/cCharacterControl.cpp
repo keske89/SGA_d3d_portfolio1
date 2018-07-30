@@ -79,7 +79,7 @@ void cCharacterControl::ControlAction()
 					if (m_vecCharacter[i]->GetDetect()->GetObjectType() == OBJECTTYPE::AOBJ_SINK &&
 						m_vecCharacter[i]->GetCHEF_STATE() == CHEF_STATE::CHEF_STATE_DISHWASHING)
 					{
-						if (m_vecCharacter[i]->GetDetect()->GetInven()->GetIsAction())
+						if (m_vecCharacter[i]->GetDetect()->GetInven()->GetIsUse() == false)
 							m_vecCharacter[i]->SetChefAnimation(CHEF_STATE_IDLE);
 					}
 				}
@@ -148,6 +148,14 @@ void cCharacterControl::ControlAction()
 									}
 									break;
 									case OBJECTTYPE::AOBJ_SINK:
+									{
+										if (m_vecCharacter[m_Bswitch]->GetDetect()->GetInven()->GetIsUse() == false)
+										{
+											m_vecCharacter[m_Bswitch]->SetInven(m_vecCharacter[m_Bswitch]->GetDetect()->GetInven());
+											m_vecCharacter[m_Bswitch]->GetDetect()->SetInven(NULL);
+										}
+									}
+									break;
 									case OBJECTTYPE::CRATE_ONION: case OBJECTTYPE::CRATE_TOMATO:
 									{
 										m_vecCharacter[m_Bswitch]->SetInven(m_vecCharacter[m_Bswitch]->GetDetect()->GetInven());
@@ -342,6 +350,16 @@ void cCharacterControl::ControlAction()
 								m_vecCharacter[m_Bswitch]->SetInven(NULL);
 								m_vecCharacter[m_Bswitch]->SetChefAnimation(CHEF_STATE_IDLE);
 							}
+						}
+					}
+					break;
+					case OBJECTTYPE::AOBJ_PASS:
+					{
+						if (m_vecCharacter[m_Bswitch]->GetInven()->GetObjectType() == OBJECTTYPE::AOBJ_PLATE)
+						{
+							m_vecCharacter[m_Bswitch]->GetDetect()->SetInven(m_vecCharacter[m_Bswitch]->GetInven());
+							m_vecCharacter[m_Bswitch]->SetInven(NULL);
+							m_vecCharacter[m_Bswitch]->SetChefAnimation(CHEF_STATE_IDLE);
 						}
 					}
 					break;
