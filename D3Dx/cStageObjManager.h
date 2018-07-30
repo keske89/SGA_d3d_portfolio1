@@ -117,6 +117,7 @@ public:
 	void DeleteObject(std::list<cIGObj*>::iterator objectIter);
 	void DeleteFood(cIGObj * foodPointer);
 	void EraseOrder(int index);
+	void TimeUpOrder();
 
 	// cActionDelegate을(를) 통해 상속됨
 

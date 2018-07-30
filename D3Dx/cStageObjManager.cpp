@@ -72,6 +72,9 @@ void cStageObjManager::Update()
 	//	m_OrderRoot->Update();
 
 	OrderSystem();
+	TimeUpOrder();
+
+
 
 	if (m_vecOrder.size() != NULL)
 	{
@@ -212,8 +215,38 @@ void cStageObjManager::DeleteFood(cIGObj * foodPointer)
 
 void cStageObjManager::EraseOrder(int index)
 {
+	int Temp;
+	Temp = m_vecOrder[index]->GetCount() / 200.0f * 100;
+
+	if (Temp >= 60)
+	{
+		DATABASE->ChangeTip(40);
+	}
+	else if (Temp >= 40)
+	{
+		DATABASE->ChangeTip(20);
+	}
+	else if (Temp >= 20)
+	{
+		DATABASE->ChangeTip(10);
+	}
+	
 	m_vecOrder.erase(m_vecOrder.begin() + index);
 
+}
+
+void cStageObjManager::TimeUpOrder()
+{
+	for (int i = 0; i < m_vecOrder.size(); i++)
+	{
+		if(m_vecOrder[i]->GetCount() <=0)
+		{
+			m_vecOrder.erase(m_vecOrder.begin() + i);
+			DATABASE->ChangeTip(-30);
+		}
+	}
+
+	
 }
 
 void cStageObjManager::OrderSystem()
