@@ -70,13 +70,16 @@ void cCharacterControl::ControlAction()
 							m_vecCharacter[i]->GetDetect()->GetInven()->Setplayer(m_vecCharacter[i]);
 						}
 					}
-				}
-				if (m_vecCharacter[i]->GetDetect()->GetInven())
-				{
 					if (m_vecCharacter[i]->GetDetect()->GetInven()->GetObjectType() == OBJECTTYPE::AOBJ_CHOPPIGNBOARD &&
-						m_vecCharacter[i]->GetCHEF_STATE() == CHEF_STATE::CHEF_STATE_CHOP)
+							m_vecCharacter[i]->GetCHEF_STATE() == CHEF_STATE::CHEF_STATE_CHOP)
 					{
 						if (m_vecCharacter[i]->GetDetect()->GetInven()->GetInven()->Getchopped())
+							m_vecCharacter[i]->SetChefAnimation(CHEF_STATE_IDLE);
+					}
+					if (m_vecCharacter[i]->GetDetect()->GetObjectType() == OBJECTTYPE::AOBJ_SINK &&
+						m_vecCharacter[i]->GetCHEF_STATE() == CHEF_STATE::CHEF_STATE_DISHWASHING)
+					{
+						if (m_vecCharacter[i]->GetDetect()->GetInven()->GetIsAction())
 							m_vecCharacter[i]->SetChefAnimation(CHEF_STATE_IDLE);
 					}
 				}
@@ -89,9 +92,11 @@ void cCharacterControl::ControlAction()
 
 		if (KEYMANAGER->isOnceKeyDown(VK_LCONTROL) && m_vecCharacter[m_Bswitch]->GetDetect())
 		{
-			if (m_vecCharacter[m_Bswitch]->GetDetect()->GetObjectType() == OBJECTTYPE::AOBJ_SINK)
+			if (m_vecCharacter[m_Bswitch]->GetDetect()->GetObjectType() == OBJECTTYPE::AOBJ_SINK &&
+				m_vecCharacter[m_Bswitch]->GetDetect()->GetInven())
 			{
 				m_vecCharacter[m_Bswitch]->SetChefAnimation(CHEF_STATE::CHEF_STATE_DISHWASHING);
+				m_vecCharacter[m_Bswitch]->GetDetect()->GetInven()->SetIsAction(true);
 			}
 			else if (m_vecCharacter[m_Bswitch]->GetDetect()->GetObjectType() == OBJECTTYPE::AOBJ_TABLE &&
 					 m_vecCharacter[m_Bswitch]->GetDetect()->GetInven())
@@ -134,20 +139,46 @@ void cCharacterControl::ControlAction()
 						{
 							if (m_vecCharacter[m_Bswitch]->GetCHEF_STATE() != CHEF_STATE::CHEF_STATE_CHOP)
 							{
-								if (m_vecCharacter[m_Bswitch]->GetDetect()->GetInven()->GetObjectType() != OBJECTTYPE::AOBJ_CHOPPIGNBOARD &&
-									m_vecCharacter[m_Bswitch]->GetDetect()->GetObjectType() == OBJECTTYPE::FOBJ_ONION &&
-									m_vecCharacter[m_Bswitch]->GetDetect()->GetObjectType() == OBJECTTYPE::FOBJ_TOMATO)
+								switch (m_vecCharacter[m_Bswitch]->GetDetect()->GetObjectType())
 								{
-									m_vecCharacter[m_Bswitch]->SetInven(m_vecCharacter[m_Bswitch]->GetDetect());
-									m_vecCharacter[m_Bswitch]->GetDetect()->GetInven()->SetInven(NULL);
-								}
-								else
-								{
-									if (m_vecCharacter[m_Bswitch]->GetDetect()->GetInven()->GetObjectType() != OBJECTTYPE::AOBJ_CHOPPIGNBOARD &&
-										m_vecCharacter[m_Bswitch]->GetDetect()->GetInven()->GetObjectType() != OBJECTTYPE::AOBJ_COOKER)
+									case OBJECTTYPE::AOBJ_POT: case OBJECTTYPE::AOBJ_PLATE:
+									case OBJECTTYPE::FOBJ_TOMATO: case OBJECTTYPE::FOBJ_ONION:
+									{
+										m_vecCharacter[m_Bswitch]->SetInven(m_vecCharacter[m_Bswitch]->GetDetect());
+									}
+									break;
+									case OBJECTTYPE::AOBJ_SINK:
+									case OBJECTTYPE::CRATE_ONION: case OBJECTTYPE::CRATE_TOMATO:
 									{
 										m_vecCharacter[m_Bswitch]->SetInven(m_vecCharacter[m_Bswitch]->GetDetect()->GetInven());
 										m_vecCharacter[m_Bswitch]->GetDetect()->SetInven(NULL);
+									}
+									break;
+									case OBJECTTYPE::AOBJ_TABLE:
+									{
+										if(m_vecCharacter[m_Bswitch]->GetDetect()->GetInven()->GetObjectType() != OBJECTTYPE::AOBJ_CHOPPIGNBOARD)
+										{
+											m_vecCharacter[m_Bswitch]->SetInven(m_vecCharacter[m_Bswitch]->GetDetect()->GetInven());
+											m_vecCharacter[m_Bswitch]->GetDetect()->SetInven(NULL);
+										}
+									}
+									break;
+									case OBJECTTYPE::AOBJ_COOKER:
+									{
+										if (m_vecCharacter[m_Bswitch]->GetDetect()->GetInven()->GetObjectType() == OBJECTTYPE::AOBJ_POT)
+										{
+											m_vecCharacter[m_Bswitch]->SetInven(m_vecCharacter[m_Bswitch]->GetDetect()->GetInven());
+											m_vecCharacter[m_Bswitch]->GetDetect()->SetInven(NULL);
+										}
+									}
+									break;
+									case OBJECTTYPE::AOBJ_PLATERETURNBOX:
+									{
+										if (m_vecCharacter[m_Bswitch]->GetDetect()->GetInven()->GetObjectType() == OBJECTTYPE::AOBJ_PLATE)
+										{
+											m_vecCharacter[m_Bswitch]->SetInven(m_vecCharacter[m_Bswitch]->GetDetect()->GetInven());
+											m_vecCharacter[m_Bswitch]->GetDetect()->SetInven(NULL);
+										}
 									}
 								}
 							}
@@ -263,7 +294,7 @@ void cCharacterControl::ControlAction()
 									}
 								}
 								break;
-								default:
+								case OBJECTTYPE::FOBJ_ONION:case OBJECTTYPE::FOBJ_TOMATO:
 								{
 									m_vecCharacter[m_Bswitch]->GetDetect()->SetInven(m_vecCharacter[m_Bswitch]->GetInven());
 									m_vecCharacter[m_Bswitch]->SetInven(NULL);
@@ -298,12 +329,18 @@ void cCharacterControl::ControlAction()
 								}
 							}
 						}
-						if (m_vecCharacter[m_Bswitch]->GetInven())
+			
+					}
+					break;
+					case OBJECTTYPE::AOBJ_PLATERETURNBOX:
+					{
+						if (m_vecCharacter[m_Bswitch]->GetInven()->GetObjectType() == OBJECTTYPE::AOBJ_PLATE)
 						{
-							if (m_vecCharacter[m_Bswitch]->GetInven()->GetObjectType() == OBJECTTYPE::AOBJ_PLATE)
+							if (m_vecCharacter[m_Bswitch]->GetDetect()->GetInven() == NULL)
 							{
-								if (m_vecCharacter[m_Bswitch]->GetInven()->GetInven() == NULL)
-									m_vecCharacter[m_Bswitch]->m_pStageOBJ->ObjAction(m_vecCharacter[m_Bswitch]);
+								m_vecCharacter[m_Bswitch]->GetDetect()->SetInven(m_vecCharacter[m_Bswitch]->GetInven());
+								m_vecCharacter[m_Bswitch]->SetInven(NULL);
+								m_vecCharacter[m_Bswitch]->SetChefAnimation(CHEF_STATE_IDLE);
 							}
 						}
 					}
@@ -314,18 +351,44 @@ void cCharacterControl::ControlAction()
 						{
 							if (m_vecCharacter[m_Bswitch]->GetDetect()->GetObjectType() == m_vecCharacter[m_Bswitch]->GetInven()->GetObjectType())
 							{
-
 								m_vecCharacter[m_Bswitch]->GetInven()->SetIsAction(false);
 								m_vecCharacter[m_Bswitch]->GetDetect()->SetInven(NULL);
-
 							}
-							else if (m_vecCharacter[m_Bswitch]->GetDetect()->GetObjectType() != OBJECTTYPE::AOBJ_PLATE)
-								m_vecCharacter[m_Bswitch]->GetDetect()->SetInven(m_vecCharacter[m_Bswitch]->GetInven());
-							else if(m_vecCharacter[m_Bswitch]->GetInven()->GetObjectType() != OBJECTTYPE::AOBJ_POT)
-								m_vecCharacter[m_Bswitch]->GetDetect()->SetInven(m_vecCharacter[m_Bswitch]->GetInven());
-							//팟이면
-							if (m_vecCharacter[m_Bswitch]->GetInven()->GetObjectType() == OBJECTTYPE::AOBJ_POT)
-								m_vecCharacter[m_Bswitch]->GetInven()->SetIsAction(false);
+							switch (m_vecCharacter[m_Bswitch]->GetDetect()->GetObjectType())
+							{
+								case  OBJECTTYPE::AOBJ_POT:
+								{
+									m_vecCharacter[m_Bswitch]->GetInven()->SetIsAction(false);
+								}
+								break;
+								case OBJECTTYPE::AOBJ_TABLE:
+								{
+									if (m_vecCharacter[m_Bswitch]->GetDetect()->GetInven())
+									{
+										if (m_vecCharacter[m_Bswitch]->GetDetect()->GetInven()->GetObjectType() == OBJECTTYPE::AOBJ_CHOPPIGNBOARD)
+										{
+											switch (m_vecCharacter[m_Bswitch]->GetInven()->GetObjectType())
+											{
+											case OBJECTTYPE::FOBJ_ONION: case OBJECTTYPE::FOBJ_TOMATO:
+											{
+												m_vecCharacter[m_Bswitch]->GetDetect()->SetInven(m_vecCharacter[m_Bswitch]->GetInven());
+											}
+											break;
+											}
+										}
+										else
+										{
+											m_vecCharacter[m_Bswitch]->GetDetect()->SetInven(m_vecCharacter[m_Bswitch]->GetInven());
+										}
+									}
+								}
+								default:
+								{
+									m_vecCharacter[m_Bswitch]->GetDetect()->SetInven(m_vecCharacter[m_Bswitch]->GetInven());
+								}
+								break;
+							}
+								
 							//놓았을때
 							m_vecCharacter[m_Bswitch]->SetInven(NULL);
 							m_vecCharacter[m_Bswitch]->SetChefAnimation(CHEF_STATE_IDLE);
@@ -489,13 +552,16 @@ void cCharacterControl::Control1P()
 					m_vecCharacter[0]->GetDetect()->GetInven()->Setplayer(m_vecCharacter[0]);
 				}
 			}
-		}
-		if (m_vecCharacter[0]->GetDetect()->GetInven())
-		{
 			if (m_vecCharacter[0]->GetDetect()->GetInven()->GetObjectType() == OBJECTTYPE::AOBJ_CHOPPIGNBOARD &&
 				m_vecCharacter[0]->GetCHEF_STATE() == CHEF_STATE::CHEF_STATE_CHOP)
 			{
 				if (m_vecCharacter[0]->GetDetect()->GetInven()->GetInven()->Getchopped())
+					m_vecCharacter[0]->SetChefAnimation(CHEF_STATE_IDLE);
+			}
+			if (m_vecCharacter[0]->GetDetect()->GetObjectType() == OBJECTTYPE::AOBJ_SINK &&
+				m_vecCharacter[0]->GetCHEF_STATE() == CHEF_STATE::CHEF_STATE_DISHWASHING)
+			{
+				if (m_vecCharacter[0]->GetDetect()->GetInven()->GetIsAction())
 					m_vecCharacter[0]->SetChefAnimation(CHEF_STATE_IDLE);
 			}
 		}
@@ -504,14 +570,18 @@ void cCharacterControl::Control1P()
 	{
 		m_vecCharacter[0]->SetChefAnimation(CHEF_STATE_IDLE);
 	}
+	if (m_vecCharacter[0]->GetInven())
+		m_vecCharacter[0]->SetChefAnimation(CHEF_STATE_TRANCEPORT_IDLE);
 	if (KEYMANAGER->isOnceKeyDown('W') && m_vecCharacter[0]->GetDetect())
 	{
-		if (m_vecCharacter[0]->GetDetect()->GetObjectType() == OBJECTTYPE::AOBJ_SINK)
+		if (m_vecCharacter[0]->GetDetect()->GetObjectType() == OBJECTTYPE::AOBJ_SINK &&
+			m_vecCharacter[0]->GetDetect()->GetInven())
 		{
 			m_vecCharacter[0]->SetChefAnimation(CHEF_STATE::CHEF_STATE_DISHWASHING);
+			m_vecCharacter[0]->GetDetect()->GetInven()->SetIsAction(true);
 		}
 		else if (m_vecCharacter[0]->GetDetect()->GetObjectType() == OBJECTTYPE::AOBJ_TABLE &&
-				 m_vecCharacter[0]->GetDetect()->GetInven())
+			m_vecCharacter[0]->GetDetect()->GetInven())
 		{
 			if (m_vecCharacter[0]->GetDetect()->GetInven()->GetObjectType() == OBJECTTYPE::AOBJ_CHOPPIGNBOARD &&
 				m_vecCharacter[0]->GetDetect()->GetInven()->GetInven())
@@ -521,10 +591,6 @@ void cCharacterControl::Control1P()
 			}
 		}
 	}
-	
-	if (m_vecCharacter[0]->GetInven())
-		m_vecCharacter[0]->SetChefAnimation(CHEF_STATE_TRANCEPORT_IDLE);
-
 	if (KEYMANAGER->isOnceKeyDown('E') && m_vecCharacter[0]->GetDetect())
 	{
 		// 캐릭터의 인벤이 비워져 있으면
@@ -539,16 +605,55 @@ void cCharacterControl::Control1P()
 				{
 					if (m_vecCharacter[0]->GetDetect()->GetInven()->GetInven() == NULL)
 					{
-						if (m_vecCharacter[0]->GetCHEF_STATE() != CHEF_STATE::CHEF_STATE_CHOP &&
-							m_vecCharacter[0]->GetDetect()->GetInven()->GetObjectType() != OBJECTTYPE::AOBJ_CHOPPIGNBOARD)
+						if (m_vecCharacter[0]->GetCHEF_STATE() != CHEF_STATE::CHEF_STATE_CHOP)
 						{
-							m_vecCharacter[0]->SetInven(m_vecCharacter[0]->GetDetect()->GetInven());
-							m_vecCharacter[0]->GetDetect()->SetInven(NULL);
+							switch (m_vecCharacter[0]->GetDetect()->GetObjectType())
+							{
+							case OBJECTTYPE::AOBJ_POT: case OBJECTTYPE::AOBJ_PLATE:
+							case OBJECTTYPE::FOBJ_TOMATO: case OBJECTTYPE::FOBJ_ONION:
+							{
+								m_vecCharacter[0]->SetInven(m_vecCharacter[0]->GetDetect());
+							}
+							break;
+							case OBJECTTYPE::AOBJ_SINK:
+							case OBJECTTYPE::CRATE_ONION: case OBJECTTYPE::CRATE_TOMATO:
+							{
+								m_vecCharacter[0]->SetInven(m_vecCharacter[0]->GetDetect()->GetInven());
+								m_vecCharacter[0]->GetDetect()->SetInven(NULL);
+							}
+							break;
+							case OBJECTTYPE::AOBJ_TABLE:
+							{
+								if (m_vecCharacter[0]->GetDetect()->GetInven()->GetObjectType() != OBJECTTYPE::AOBJ_CHOPPIGNBOARD)
+								{
+									m_vecCharacter[0]->SetInven(m_vecCharacter[0]->GetDetect()->GetInven());
+									m_vecCharacter[0]->GetDetect()->SetInven(NULL);
+								}
+							}
+							break;
+							case OBJECTTYPE::AOBJ_COOKER:
+							{
+								if (m_vecCharacter[0]->GetDetect()->GetInven()->GetObjectType() == OBJECTTYPE::AOBJ_POT)
+								{
+									m_vecCharacter[0]->SetInven(m_vecCharacter[m_Bswitch]->GetDetect()->GetInven());
+									m_vecCharacter[0]->GetDetect()->SetInven(NULL);
+								}
+							}
+							break;
+							case OBJECTTYPE::AOBJ_PLATERETURNBOX:
+							{
+								if (m_vecCharacter[0]->GetDetect()->GetInven()->GetObjectType() == OBJECTTYPE::AOBJ_PLATE)
+								{
+									m_vecCharacter[0]->SetInven(m_vecCharacter[0]->GetDetect()->GetInven());
+									m_vecCharacter[0]->GetDetect()->SetInven(NULL);
+								}
+							}
+							}
 						}
 					}
 					else
 					{
-						if (m_vecCharacter[0]->GetCHEF_STATE() != CHEF_STATE::CHEF_STATE_CHOP)
+						if (m_vecCharacter[m_Bswitch]->GetCHEF_STATE() != CHEF_STATE::CHEF_STATE_CHOP)
 						{
 							switch (m_vecCharacter[0]->GetDetect()->GetInven()->GetObjectType())
 							{
@@ -561,10 +666,32 @@ void cCharacterControl::Control1P()
 								}
 							}
 							break;
+							case OBJECTTYPE::AOBJ_POT:
+							{
+								if (m_vecCharacter[0]->GetDetect()->GetObjectType() != OBJECTTYPE::AOBJ_COOKER &&
+									m_vecCharacter[0]->GetDetect()->GetObjectType() != OBJECTTYPE::AOBJ_TABLE)
+								{
+									m_vecCharacter[0]->SetInven(m_vecCharacter[m_Bswitch]->GetDetect()->GetInven()->GetInven());
+									m_vecCharacter[0]->GetDetect()->GetInven()->SetInven(NULL);
+								}
+								else
+								{
+									m_vecCharacter[0]->SetInven(m_vecCharacter[0]->GetDetect()->GetInven());
+									m_vecCharacter[0]->GetDetect()->SetInven(NULL);
+								}
+							}
+							break;
 							default:
 							{
-								m_vecCharacter[0]->SetInven(m_vecCharacter[0]->GetDetect()->GetInven());
-								m_vecCharacter[0]->GetDetect()->SetInven(NULL);
+								if (m_vecCharacter[0]->GetDetect()->GetObjectType() != OBJECTTYPE::AOBJ_POT)
+								{
+									m_vecCharacter[0]->SetInven(m_vecCharacter[0]->GetDetect()->GetInven());
+									m_vecCharacter[0]->GetDetect()->SetInven(NULL);
+								}
+								else
+								{
+									m_vecCharacter[0]->SetInven(m_vecCharacter[0]->GetDetect());
+								}
 							}
 							break;
 							}
@@ -574,17 +701,31 @@ void cCharacterControl::Control1P()
 			}
 			else
 			{
-				if (m_vecCharacter[0]->GetDetect()->GetObjectType() == OBJECTTYPE::CRATE_ONION ||
-					m_vecCharacter[0]->GetDetect()->GetObjectType() == OBJECTTYPE::CRATE_TOMATO)
+				if (m_vecCharacter[0]->GetCHEF_STATE() != CHEF_STATE::CHEF_STATE_CHOP)
 				{
-					m_vecCharacter[0]->SetChefAnimation(CHEF_STATE_ACTION);
+					switch (m_vecCharacter[0]->GetDetect()->GetObjectType())
+					{
+					case OBJECTTYPE::AOBJ_CHOPPIGNBOARD: case OBJECTTYPE::AOBJ_PLATE:case OBJECTTYPE::AOBJ_POT:
+					{
+						m_vecCharacter[0]->SetInven(m_vecCharacter[0]->GetDetect());
+						m_vecCharacter[0]->GetDetect()->SetInven(NULL);
+					}
+					break;
+					case OBJECTTYPE::FOBJ_ONION: case OBJECTTYPE::FOBJ_TOMATO:
+					{
+						m_vecCharacter[0]->SetInven(m_vecCharacter[0]->GetDetect());
+
+					}
+					case OBJECTTYPE::CRATE_ONION: case OBJECTTYPE::CRATE_TOMATO:
+					{
+						m_vecCharacter[0]->SetChefAnimation(CHEF_STATE_ACTION);
+
+					}
+					break;
+
+					}
 				}
-				else if (m_vecCharacter[0]->GetCHEF_STATE() != CHEF_STATE::CHEF_STATE_CHOP &&
-					m_vecCharacter[0]->GetDetect()->GetObjectType() == OBJECTTYPE::AOBJ_PLATE)
-				{
-					m_vecCharacter[0]->SetInven(m_vecCharacter[0]->GetDetect());
-					m_vecCharacter[0]->GetDetect()->SetInven(NULL);
-				}
+
 			}
 		}
 		//놓을때
@@ -593,85 +734,60 @@ void cCharacterControl::Control1P()
 			switch (m_vecCharacter[0]->GetDetect()->GetObjectType())
 			{
 				//쓰레기통일 경우
-				case OBJECTTYPE::AOBJ_BIN:
+			case OBJECTTYPE::AOBJ_BIN:
+			{
+				if (m_vecCharacter[0]->GetDetect()->GetInven() == NULL)
 				{
-					if (m_vecCharacter[0]->GetDetect()->GetInven() == NULL)
+					switch (m_vecCharacter[0]->GetInven()->GetObjectType())
 					{
-						switch (m_vecCharacter[0]->GetInven()->GetObjectType())
-						{
-							case OBJECTTYPE::AOBJ_PLATE:
-							{
-								if (m_vecCharacter[0]->GetInven()->GetInven())
-								{
-									m_vecCharacter[0]->GetDetect()->SetInven(m_vecCharacter[0]->GetInven()->GetInven());
-									m_vecCharacter[0]->GetInven()->SetInven(NULL);
-									m_vecCharacter[0]->SetChefAnimation(CHEF_STATE_IDLE);
-								}
-							}
-							break;
-							case OBJECTTYPE::AOBJ_POT:
-							{
-								if (m_vecCharacter[0]->GetInven()->GetInven())
-								{
-									m_vecCharacter[0]->GetDetect()->SetInven(m_vecCharacter[0]->GetInven()->GetInven());
-									m_vecCharacter[0]->GetInven()->SetInven(NULL);
-									m_vecCharacter[0]->SetChefAnimation(CHEF_STATE_IDLE);
-								}
-							}
-							break;
-							default:
-							{
-								m_vecCharacter[0]->GetDetect()->SetInven(m_vecCharacter[0]->GetInven());
-								m_vecCharacter[0]->SetInven(NULL);
-								m_vecCharacter[0]->SetChefAnimation(CHEF_STATE_IDLE);
-							}
-							break;
-						}
-					}
-				}
-				break;
-				case OBJECTTYPE::AOBJ_COOKER:
-				{
-					//팟일 경우만 노아라
-					if (m_vecCharacter[0]->GetInven()->GetObjectType() == OBJECTTYPE::AOBJ_POT ||
-						m_vecCharacter[0]->GetInven()->GetObjectType() == OBJECTTYPE::FOBJ_ONION ||
-						m_vecCharacter[0]->GetInven()->GetObjectType() == OBJECTTYPE::FOBJ_TOMATO)
+					case OBJECTTYPE::AOBJ_PLATE:
 					{
-						if (!m_vecCharacter[0]->GetDetect()->GetInven())
+						if (m_vecCharacter[0]->GetInven()->GetInven())
 						{
-							m_vecCharacter[0]->GetDetect()->SetInven(m_vecCharacter[0]->GetInven());
-							m_vecCharacter[0]->SetInven(NULL);
+							m_vecCharacter[0]->GetDetect()->SetInven(m_vecCharacter[0]->GetInven()->GetInven());
+							m_vecCharacter[0]->GetInven()->SetInven(NULL);
 							m_vecCharacter[0]->SetChefAnimation(CHEF_STATE_IDLE);
 						}
-						//										쿸커		팟			재료의 인벤
-						else if (!m_vecCharacter[0]->GetDetect()->GetInven()->GetInven())
+					}
+					break;
+					case OBJECTTYPE::AOBJ_POT:
+					{
+						if (m_vecCharacter[0]->GetInven()->GetInven())
 						{
-							if (m_vecCharacter[0]->GetInven()->Getchopped())
-							{
-								m_vecCharacter[0]->GetDetect()->GetInven()->SetInven(m_vecCharacter[0]->GetInven());
-								m_vecCharacter[0]->SetInven(NULL);
-								m_vecCharacter[0]->SetChefAnimation(CHEF_STATE_IDLE);
-							}
+							//m_vecCharacter[m_Bswitch]->GetDetect()->SetInven(m_vecCharacter[m_Bswitch]->GetInven());
+							m_vecCharacter[0]->GetInven()->SetInven(NULL);
+							m_vecCharacter[0]->SetChefAnimation(CHEF_STATE_IDLE);
 						}
 					}
-				}
-				break;
-				default:
-				{
-					if (m_vecCharacter[0]->GetDetect()->GetInven() == NULL)
+					break;
+					case OBJECTTYPE::FOBJ_ONION:case OBJECTTYPE::FOBJ_TOMATO:
 					{
-						if (m_vecCharacter[0]->GetDetect()->GetObjectType() != OBJECTTYPE::AOBJ_PLATE)
-							m_vecCharacter[0]->GetDetect()->SetInven(m_vecCharacter[0]->GetInven());
-						//팟이면
-						if (m_vecCharacter[0]->GetInven()->GetObjectType() == OBJECTTYPE::AOBJ_POT)
-							m_vecCharacter[0]->GetInven()->SetIsAction(false);
-						//놓았을때
+						m_vecCharacter[0]->GetDetect()->SetInven(m_vecCharacter[0]->GetInven());
 						m_vecCharacter[0]->SetInven(NULL);
 						m_vecCharacter[0]->SetChefAnimation(CHEF_STATE_IDLE);
 					}
+					break;
+					}
+				}
+			}
+			break;
+			case OBJECTTYPE::AOBJ_COOKER:
+			{
+				//팟일 경우만 노아라
+				if (m_vecCharacter[0]->GetInven()->GetObjectType() == OBJECTTYPE::AOBJ_POT ||
+					m_vecCharacter[0]->GetInven()->GetObjectType() == OBJECTTYPE::FOBJ_ONION ||
+					m_vecCharacter[0]->GetInven()->GetObjectType() == OBJECTTYPE::FOBJ_TOMATO)
+				{
+					if (m_vecCharacter[0]->GetDetect()->GetInven() == NULL)
+					{
+						m_vecCharacter[0]->GetDetect()->SetInven(m_vecCharacter[0]->GetInven());
+						m_vecCharacter[0]->SetInven(NULL);
+						m_vecCharacter[0]->SetChefAnimation(CHEF_STATE_IDLE);
+					}
+					//										쿸커		팟			재료의 인벤
 					else if (m_vecCharacter[0]->GetDetect()->GetInven()->GetInven() == NULL)
 					{
-						if (m_vecCharacter[0]->GetInven()->GetObjectType() != OBJECTTYPE::AOBJ_PLATE)
+						if (m_vecCharacter[0]->GetInven()->Getchopped())
 						{
 							m_vecCharacter[0]->GetDetect()->GetInven()->SetInven(m_vecCharacter[0]->GetInven());
 							m_vecCharacter[0]->SetInven(NULL);
@@ -679,9 +795,127 @@ void cCharacterControl::Control1P()
 						}
 					}
 				}
-				break;
+
+			}
+			break;
+			case OBJECTTYPE::AOBJ_PLATERETURNBOX:
+			{
+				if (m_vecCharacter[0]->GetInven()->GetObjectType() == OBJECTTYPE::AOBJ_PLATE)
+				{
+					if (m_vecCharacter[0]->GetDetect()->GetInven() == NULL)
+					{
+						m_vecCharacter[0]->GetDetect()->SetInven(m_vecCharacter[0]->GetInven());
+						m_vecCharacter[0]->SetInven(NULL);
+						m_vecCharacter[0]->SetChefAnimation(CHEF_STATE_IDLE);
+					}
+				}
+			}
+			break;
+			default:
+			{
+				if (m_vecCharacter[0]->GetDetect()->GetInven() == NULL)
+				{
+					if (m_vecCharacter[0]->GetDetect()->GetObjectType() == m_vecCharacter[0]->GetInven()->GetObjectType())
+					{
+						m_vecCharacter[0]->GetInven()->SetIsAction(false);
+						m_vecCharacter[0]->GetDetect()->SetInven(NULL);
+					}
+					switch (m_vecCharacter[0]->GetDetect()->GetObjectType())
+					{
+					case  OBJECTTYPE::AOBJ_POT:
+					{
+						m_vecCharacter[0]->GetInven()->SetIsAction(false);
+					}
+					break;
+					case OBJECTTYPE::AOBJ_TABLE:
+					{
+						if (m_vecCharacter[0]->GetDetect()->GetInven())
+						{
+							if (m_vecCharacter[0]->GetDetect()->GetInven()->GetObjectType() == OBJECTTYPE::AOBJ_CHOPPIGNBOARD)
+							{
+								switch (m_vecCharacter[0]->GetInven()->GetObjectType())
+								{
+								case OBJECTTYPE::FOBJ_ONION: case OBJECTTYPE::FOBJ_TOMATO:
+								{
+									m_vecCharacter[0]->GetDetect()->SetInven(m_vecCharacter[0]->GetInven());
+								}
+								break;
+								}
+							}
+							else
+							{
+								m_vecCharacter[0]->GetDetect()->SetInven(m_vecCharacter[0]->GetInven());
+							}
+						}
+					}
+					default:
+					{
+						m_vecCharacter[0]->GetDetect()->SetInven(m_vecCharacter[0]->GetInven());
+					}
+					break;
+					}
+
+					//놓았을때
+					m_vecCharacter[0]->SetInven(NULL);
+					m_vecCharacter[0]->SetChefAnimation(CHEF_STATE_IDLE);
+				}
+				else if (m_vecCharacter[0]->GetDetect()->GetInven()->GetInven() == NULL)
+				{
+					if (m_vecCharacter[0]->GetInven()->GetObjectType() != OBJECTTYPE::AOBJ_PLATE)
+					{
+						if (m_vecCharacter[0]->GetInven()->GetObjectType() != m_vecCharacter[0]->GetDetect()->GetInven()->GetObjectType())
+						{
+							switch (m_vecCharacter[0]->GetDetect()->GetInven()->GetObjectType())
+							{
+							case OBJECTTYPE::FOBJ_ONION:case OBJECTTYPE::FOBJ_TOMATO:
+							{
+								m_vecCharacter[0]->SetChefAnimation(CHEF_STATE_TRANCEPORT_IDLE);
+							}
+							break;
+							case OBJECTTYPE::AOBJ_PLATE:
+							{
+								m_vecCharacter[0]->m_pStageOBJ->ObjAction(m_vecCharacter[0]);
+							}
+							break;
+							default:
+							{
+								m_vecCharacter[0]->GetDetect()->GetInven()->SetInven(m_vecCharacter[0]->GetInven());
+								m_vecCharacter[0]->SetInven(NULL);
+								m_vecCharacter[0]->SetChefAnimation(CHEF_STATE_IDLE);
+							}
+							break;
+							}
+						}
+					}
+					else
+					{
+						m_vecCharacter[0]->SetInven(NULL);
+						m_vecCharacter[0]->SetChefAnimation(CHEF_STATE_IDLE);
+					}
+				}
+				else
+				{
+					if (m_vecCharacter[0]->GetDetect()->GetObjectType() == m_vecCharacter[0]->GetInven()->GetObjectType())
+					{
+
+						m_vecCharacter[0]->GetInven()->SetIsAction(false);
+						m_vecCharacter[0]->GetDetect()->GetInven()->SetInven(NULL);
+						m_vecCharacter[0]->SetInven(NULL);
+						m_vecCharacter[0]->SetChefAnimation(CHEF_STATE_IDLE);
+					}
+					else
+					{
+						m_vecCharacter[0]->GetDetect()->GetInven()->SetInven(m_vecCharacter[0]->GetInven());
+						m_vecCharacter[0]->SetInven(NULL);
+						m_vecCharacter[0]->SetChefAnimation(CHEF_STATE_IDLE);
+					}
+				}
+
+			}
+			break;
 			}
 		}
+
 	}
 	if (KEYMANAGER->isStayKeyDown('F'))
 	{
@@ -792,16 +1026,18 @@ void cCharacterControl::Control2P()
 	}
 	if (KEYMANAGER->isOnceKeyDown('O') && m_vecCharacter[1]->GetDetect())
 	{
-		if (m_vecCharacter[1]->GetDetect()->GetObjectType() == OBJECTTYPE::AOBJ_SINK)
+		if (m_vecCharacter[1]->GetDetect()->GetObjectType() == OBJECTTYPE::AOBJ_SINK &&
+			m_vecCharacter[1]->GetDetect()->GetInven())
 		{
 			m_vecCharacter[1]->SetChefAnimation(CHEF_STATE::CHEF_STATE_DISHWASHING);
+			m_vecCharacter[1]->GetDetect()->GetInven()->SetIsAction(true);
 		}
 		else if (m_vecCharacter[1]->GetDetect()->GetObjectType() == OBJECTTYPE::AOBJ_TABLE &&
-				 m_vecCharacter[1]->GetDetect()->GetInven())
+			m_vecCharacter[1]->GetDetect()->GetInven())
 		{
 			if (m_vecCharacter[1]->GetDetect()->GetInven()->GetObjectType() == OBJECTTYPE::AOBJ_CHOPPIGNBOARD &&
 				m_vecCharacter[1]->GetDetect()->GetInven()->GetInven())
-			{				   
+			{
 				m_vecCharacter[1]->SetChefAnimation(CHEF_STATE_CHOP);
 				m_vecCharacter[1]->GetDetect()->GetInven()->SetIsAction(true);
 			}
@@ -813,67 +1049,140 @@ void cCharacterControl::Control2P()
 
 	if (KEYMANAGER->isOnceKeyDown('P') && m_vecCharacter[1]->GetDetect())
 	{
-		// 캐릭터의 인벤이 비워져 있으면
-		//잡을때
 		if (m_vecCharacter[1]->GetInven() == NULL)
 		{
 			//디텍트의 인벤이 있으면
 			if (m_vecCharacter[1]->GetDetect()->GetInven())
 			{
-				//캐릭터와 캐릭터가 디텍트를 공유하고 있지않으면
-				if (m_vecCharacter[1]->GetDetect() != m_vecCharacter[0]->GetDetect())
+			//캐릭터와 캐릭터가 디텍트를 공유하고 있지않으면
+			if (m_vecCharacter[0]->GetDetect() != m_vecCharacter[1]->GetDetect())
+			{
+				if (m_vecCharacter[1]->GetDetect()->GetInven()->GetInven() == NULL)
 				{
-					if (m_vecCharacter[1]->GetDetect()->GetInven()->GetInven() == NULL)
+					if (m_vecCharacter[1]->GetCHEF_STATE() != CHEF_STATE::CHEF_STATE_CHOP)
 					{
-						if (m_vecCharacter[1]->GetCHEF_STATE() != CHEF_STATE::CHEF_STATE_CHOP &&
-							m_vecCharacter[1]->GetDetect()->GetInven()->GetObjectType() != OBJECTTYPE::AOBJ_CHOPPIGNBOARD)
+						switch (m_vecCharacter[1]->GetDetect()->GetObjectType())
+						{
+						case OBJECTTYPE::AOBJ_POT: case OBJECTTYPE::AOBJ_PLATE:
+						case OBJECTTYPE::FOBJ_TOMATO: case OBJECTTYPE::FOBJ_ONION:
+						{
+							m_vecCharacter[1]->SetInven(m_vecCharacter[1]->GetDetect());
+						}
+						break;
+						case OBJECTTYPE::AOBJ_SINK:
+						case OBJECTTYPE::CRATE_ONION: case OBJECTTYPE::CRATE_TOMATO:
 						{
 							m_vecCharacter[1]->SetInven(m_vecCharacter[1]->GetDetect()->GetInven());
 							m_vecCharacter[1]->GetDetect()->SetInven(NULL);
 						}
-					}
-					else
-					{
-						if (m_vecCharacter[1]->GetCHEF_STATE() != CHEF_STATE::CHEF_STATE_CHOP)
+						break;
+						case OBJECTTYPE::AOBJ_TABLE:
 						{
-							switch (m_vecCharacter[1]->GetDetect()->GetInven()->GetObjectType())
-							{
-							case OBJECTTYPE::AOBJ_CHOPPIGNBOARD:
-							{
-								if (m_vecCharacter[1]->GetDetect()->GetInven()->GetInven()->Getchopped())
-								{
-									m_vecCharacter[1]->SetInven(m_vecCharacter[1]->GetDetect()->GetInven()->GetInven());
-									m_vecCharacter[1]->GetDetect()->GetInven()->SetInven(NULL);
-								}
-							}
-							break;
-							default:
-							{
+							if (m_vecCharacter[1]->GetDetect()->GetInven()->GetObjectType() != OBJECTTYPE::AOBJ_CHOPPIGNBOARD)
+							{				   
 								m_vecCharacter[1]->SetInven(m_vecCharacter[1]->GetDetect()->GetInven());
 								m_vecCharacter[1]->GetDetect()->SetInven(NULL);
 							}
-							break;
+						}
+						break;
+						case OBJECTTYPE::AOBJ_COOKER:
+						{
+							if (m_vecCharacter[1]->GetDetect()->GetInven()->GetObjectType() == OBJECTTYPE::AOBJ_POT)
+							{				   
+								m_vecCharacter[1]->SetInven(m_vecCharacter[1]->GetDetect()->GetInven());
+								m_vecCharacter[1]->GetDetect()->SetInven(NULL);
 							}
+						}
+						break;
+						case OBJECTTYPE::AOBJ_PLATERETURNBOX:
+						{
+							if (m_vecCharacter[1]->GetDetect()->GetInven()->GetObjectType() == OBJECTTYPE::AOBJ_PLATE)
+							{				   
+								m_vecCharacter[1]->SetInven(m_vecCharacter[1]->GetDetect()->GetInven());
+								m_vecCharacter[1]->GetDetect()->SetInven(NULL);
+							}
+						}
+						}
+					}
+				}
+				else
+				{
+					if (m_vecCharacter[1]->GetCHEF_STATE() != CHEF_STATE::CHEF_STATE_CHOP)
+					{
+						switch (m_vecCharacter[1]->GetDetect()->GetInven()->GetObjectType())
+						{
+						case OBJECTTYPE::AOBJ_CHOPPIGNBOARD:
+						{
+							if (m_vecCharacter[1]->GetDetect()->GetInven()->GetInven()->Getchopped())
+							{				   
+								m_vecCharacter[1]->SetInven(m_vecCharacter[1]->GetDetect()->GetInven()->GetInven());
+								m_vecCharacter[1]->GetDetect()->GetInven()->SetInven(NULL);
+							}
+						}
+						break;
+						case OBJECTTYPE::AOBJ_POT:
+						{
+							if (m_vecCharacter[1]->GetDetect()->GetObjectType() != OBJECTTYPE::AOBJ_COOKER &&
+								m_vecCharacter[1]->GetDetect()->GetObjectType() != OBJECTTYPE::AOBJ_TABLE)
+							{				   
+								m_vecCharacter[1]->SetInven(m_vecCharacter[1]->GetDetect()->GetInven()->GetInven());
+								m_vecCharacter[1]->GetDetect()->GetInven()->SetInven(NULL);
+							}				   
+							else			   
+							{				   
+								m_vecCharacter[1]->SetInven(m_vecCharacter[1]->GetDetect()->GetInven());
+								m_vecCharacter[1]->GetDetect()->SetInven(NULL);
+							}
+						}
+						break;
+						default:
+						{
+							if (m_vecCharacter[1]->GetDetect()->GetObjectType() != OBJECTTYPE::AOBJ_POT)
+							{				   
+								m_vecCharacter[1]->SetInven(m_vecCharacter[1]->GetDetect()->GetInven());
+								m_vecCharacter[1]->GetDetect()->SetInven(NULL);
+							}				   
+							else			   
+							{				   
+								m_vecCharacter[1]->SetInven(m_vecCharacter[1]->GetDetect());
+							}
+						}
+						break;
 						}
 					}
 				}
 			}
-			else
+		}
+		else
+		{
+			if (m_vecCharacter[1]->GetCHEF_STATE() != CHEF_STATE::CHEF_STATE_CHOP)
 			{
-				if (m_vecCharacter[1]->GetDetect()->GetObjectType() == OBJECTTYPE::CRATE_ONION ||
-					m_vecCharacter[1]->GetDetect()->GetObjectType() == OBJECTTYPE::CRATE_TOMATO)
+				switch (m_vecCharacter[1]->GetDetect()->GetObjectType())
 				{
-					m_vecCharacter[1]->SetChefAnimation(CHEF_STATE_ACTION);
-				}
-				else if (m_vecCharacter[1]->GetCHEF_STATE() != CHEF_STATE::CHEF_STATE_CHOP &&
-					m_vecCharacter[1]->GetDetect()->GetObjectType() == OBJECTTYPE::AOBJ_PLATE)
-				{
-					m_vecCharacter[1]->SetInven(m_vecCharacter[1]->GetDetect());
-					m_vecCharacter[1]->GetDetect()->SetInven(NULL);
+					case OBJECTTYPE::AOBJ_CHOPPIGNBOARD: case OBJECTTYPE::AOBJ_PLATE:case OBJECTTYPE::AOBJ_POT:
+					{
+						m_vecCharacter[1]->SetInven(m_vecCharacter[1]->GetDetect());
+						m_vecCharacter[1]->GetDetect()->SetInven(NULL);
+					}
+					break;
+					case OBJECTTYPE::FOBJ_ONION: case OBJECTTYPE::FOBJ_TOMATO:
+					{
+						m_vecCharacter[1]->SetInven(m_vecCharacter[1]->GetDetect());
+
+					}
+					case OBJECTTYPE::CRATE_ONION: case OBJECTTYPE::CRATE_TOMATO:
+					{
+						m_vecCharacter[1]->SetChefAnimation(CHEF_STATE_ACTION);
+
+					}
+					break;
+
 				}
 			}
+
 		}
-		//놓을때
+	}
+	//놓을때
 		else
 		{
 			switch (m_vecCharacter[1]->GetDetect()->GetObjectType())
@@ -885,33 +1194,32 @@ void cCharacterControl::Control2P()
 				{
 					switch (m_vecCharacter[1]->GetInven()->GetObjectType())
 					{
-					case OBJECTTYPE::AOBJ_PLATE:
-					{
-						if (m_vecCharacter[1]->GetInven()->GetInven())
+						case OBJECTTYPE::AOBJ_PLATE:
 						{
-							m_vecCharacter[1]->GetDetect()->SetInven(m_vecCharacter[1]->GetInven()->GetInven());
-							m_vecCharacter[1]->GetInven()->SetInven(NULL);
+							if (m_vecCharacter[1]->GetInven()->GetInven())
+							{
+								m_vecCharacter[1]->GetDetect()->SetInven(m_vecCharacter[1]->GetInven()->GetInven());
+								m_vecCharacter[1]->GetInven()->SetInven(NULL);
+								m_vecCharacter[1]->SetChefAnimation(CHEF_STATE_IDLE);
+							}
+						}
+						break;
+						case OBJECTTYPE::AOBJ_POT:
+						{
+							if (m_vecCharacter[1]->GetInven()->GetInven())
+							{
+								m_vecCharacter[1]->GetInven()->SetInven(NULL);
+								m_vecCharacter[1]->SetChefAnimation(CHEF_STATE_IDLE);
+							}
+						}
+						break;
+						case OBJECTTYPE::FOBJ_ONION:case OBJECTTYPE::FOBJ_TOMATO:
+						{
+							m_vecCharacter[1]->GetDetect()->SetInven(m_vecCharacter[1]->GetInven());
+							m_vecCharacter[1]->SetInven(NULL);
 							m_vecCharacter[1]->SetChefAnimation(CHEF_STATE_IDLE);
 						}
-					}
-					break;
-					case OBJECTTYPE::AOBJ_POT:
-					{
-						if (m_vecCharacter[1]->GetInven()->GetInven())
-						{
-							m_vecCharacter[1]->GetDetect()->SetInven(m_vecCharacter[1]->GetInven()->GetInven());
-							m_vecCharacter[1]->GetInven()->SetInven(NULL);
-							m_vecCharacter[1]->SetChefAnimation(CHEF_STATE_IDLE);
-						}
-					}
-					break;
-					default:
-					{
-						m_vecCharacter[1]->GetDetect()->SetInven(m_vecCharacter[1]->GetInven());
-						m_vecCharacter[1]->SetInven(NULL);
-						m_vecCharacter[1]->SetChefAnimation(CHEF_STATE_IDLE);
-					}
-					break;
+						break;
 					}
 				}
 			}
@@ -923,14 +1231,14 @@ void cCharacterControl::Control2P()
 					m_vecCharacter[1]->GetInven()->GetObjectType() == OBJECTTYPE::FOBJ_ONION ||
 					m_vecCharacter[1]->GetInven()->GetObjectType() == OBJECTTYPE::FOBJ_TOMATO)
 				{
-					if (!m_vecCharacter[1]->GetDetect()->GetInven())
+					if (m_vecCharacter[1]->GetDetect()->GetInven() == NULL)
 					{
 						m_vecCharacter[1]->GetDetect()->SetInven(m_vecCharacter[1]->GetInven());
 						m_vecCharacter[1]->SetInven(NULL);
 						m_vecCharacter[1]->SetChefAnimation(CHEF_STATE_IDLE);
 					}
 					//										쿸커		팟			재료의 인벤
-					else if (!m_vecCharacter[1]->GetDetect()->GetInven()->GetInven())
+					else if (m_vecCharacter[1]->GetDetect()->GetInven()->GetInven() == NULL)
 					{
 						if (m_vecCharacter[1]->GetInven()->Getchopped())
 						{
@@ -940,17 +1248,66 @@ void cCharacterControl::Control2P()
 						}
 					}
 				}
+
+			}
+			break;
+			case OBJECTTYPE::AOBJ_PLATERETURNBOX:
+			{
+				if (m_vecCharacter[1]->GetInven()->GetObjectType() == OBJECTTYPE::AOBJ_PLATE)
+				{
+					if (m_vecCharacter[1]->GetDetect()->GetInven() == NULL)
+					{
+						m_vecCharacter[1]->GetDetect()->SetInven(m_vecCharacter[1]->GetInven());
+						m_vecCharacter[1]->SetInven(NULL);
+						m_vecCharacter[1]->SetChefAnimation(CHEF_STATE_IDLE);
+					}
+				}
 			}
 			break;
 			default:
 			{
 				if (m_vecCharacter[1]->GetDetect()->GetInven() == NULL)
 				{
-					if (m_vecCharacter[1]->GetDetect()->GetObjectType() != OBJECTTYPE::AOBJ_PLATE)
-						m_vecCharacter[1]->GetDetect()->SetInven(m_vecCharacter[1]->GetInven());
-					//팟이면
-					if (m_vecCharacter[1]->GetInven()->GetObjectType() == OBJECTTYPE::AOBJ_POT)
+					if (m_vecCharacter[1]->GetDetect()->GetObjectType() == m_vecCharacter[1]->GetInven()->GetObjectType())
+					{
 						m_vecCharacter[1]->GetInven()->SetIsAction(false);
+						m_vecCharacter[1]->GetDetect()->SetInven(NULL);
+					}
+					switch (m_vecCharacter[1]->GetDetect()->GetObjectType())
+					{
+						case  OBJECTTYPE::AOBJ_POT:
+						{
+							m_vecCharacter[1]->GetInven()->SetIsAction(false);
+						}
+						break;
+						case OBJECTTYPE::AOBJ_TABLE:
+						{
+							if (m_vecCharacter[1]->GetDetect()->GetInven())
+							{
+								if (m_vecCharacter[1]->GetDetect()->GetInven()->GetObjectType() == OBJECTTYPE::AOBJ_CHOPPIGNBOARD)
+								{
+									switch (m_vecCharacter[1]->GetInven()->GetObjectType())
+									{
+									case OBJECTTYPE::FOBJ_ONION: case OBJECTTYPE::FOBJ_TOMATO:
+									{
+										m_vecCharacter[1]->GetDetect()->SetInven(m_vecCharacter[1]->GetInven());
+									}
+									break;
+									}
+								}
+								else
+								{
+									m_vecCharacter[1]->GetDetect()->SetInven(m_vecCharacter[1]->GetInven());
+								}
+							}
+						}
+						default:
+						{
+							m_vecCharacter[1]->GetDetect()->SetInven(m_vecCharacter[1]->GetInven());
+						}
+						break;
+					}
+
 					//놓았을때
 					m_vecCharacter[1]->SetInven(NULL);
 					m_vecCharacter[1]->SetChefAnimation(CHEF_STATE_IDLE);
@@ -958,6 +1315,48 @@ void cCharacterControl::Control2P()
 				else if (m_vecCharacter[1]->GetDetect()->GetInven()->GetInven() == NULL)
 				{
 					if (m_vecCharacter[1]->GetInven()->GetObjectType() != OBJECTTYPE::AOBJ_PLATE)
+					{
+						if (m_vecCharacter[1]->GetInven()->GetObjectType() != m_vecCharacter[1]->GetDetect()->GetInven()->GetObjectType())
+						{
+							switch (m_vecCharacter[1]->GetDetect()->GetInven()->GetObjectType())
+							{
+								case OBJECTTYPE::FOBJ_ONION:case OBJECTTYPE::FOBJ_TOMATO:
+								{
+									m_vecCharacter[1]->SetChefAnimation(CHEF_STATE_TRANCEPORT_IDLE);
+								}
+								break;
+								case OBJECTTYPE::AOBJ_PLATE:
+								{
+									m_vecCharacter[1]->m_pStageOBJ->ObjAction(m_vecCharacter[1]);
+								}
+								break;
+								default:
+								{
+									m_vecCharacter[1]->GetDetect()->GetInven()->SetInven(m_vecCharacter[1]->GetInven());
+									m_vecCharacter[1]->SetInven(NULL);
+									m_vecCharacter[1]->SetChefAnimation(CHEF_STATE_IDLE);
+								}
+								break;
+							}
+						}
+					}
+					else
+					{
+						m_vecCharacter[1]->SetInven(NULL);
+						m_vecCharacter[1]->SetChefAnimation(CHEF_STATE_IDLE);
+					}
+				}
+				else
+				{
+					if (m_vecCharacter[1]->GetDetect()->GetObjectType() == m_vecCharacter[1]->GetInven()->GetObjectType())
+					{
+
+						m_vecCharacter[1]->GetInven()->SetIsAction(false);
+						m_vecCharacter[1]->GetDetect()->GetInven()->SetInven(NULL);
+						m_vecCharacter[1]->SetInven(NULL);
+						m_vecCharacter[1]->SetChefAnimation(CHEF_STATE_IDLE);
+					}
+					else
 					{
 						m_vecCharacter[1]->GetDetect()->GetInven()->SetInven(m_vecCharacter[1]->GetInven());
 						m_vecCharacter[1]->SetInven(NULL);
@@ -968,7 +1367,6 @@ void cCharacterControl::Control2P()
 			break;
 			}
 		}
-
 	}
 	if (KEYMANAGER->isStayKeyDown(VK_NUMPAD6))
 	{
