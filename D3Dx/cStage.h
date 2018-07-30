@@ -5,6 +5,7 @@ class cStage
 private:
 	vector<LPD3DXMESH>				m_vecMesh;
 	vector<wstring>					m_vecTex;
+	int								m_nSoundNum;
 public:
 	cStage();
 	~cStage();

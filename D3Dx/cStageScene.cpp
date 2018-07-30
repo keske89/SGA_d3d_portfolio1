@@ -150,6 +150,9 @@ void cStageScene::Update()
 
 		if (m_pStageUI)
 			m_pStageUI->Update();
+
+		if (m_pStage)
+			m_pStage->Update();
 	}
 }
 
