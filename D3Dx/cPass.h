@@ -3,6 +3,7 @@
 class cPassScroll;
 class cStageObjManager;
 class cOrder;
+class cPot;
 
 class cPass : public cActionObj
 {
@@ -10,7 +11,7 @@ public:
 
 	cPassScroll*		m_PassScroll;
 	cStageObjManager*	m_SOM;
-
+	cPot*				m_Pot;
 	std::vector<cOrder*> m_vec;
 
 public:

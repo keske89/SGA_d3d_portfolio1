@@ -146,8 +146,6 @@ void cStageObjManager::Update()
 		{
 			if (p->GetInven())
 			{
-				p->Destroy(p->GetInven()->GetInven());
-				OnAction(p);
 				OnAction(p);
 				p->SetInven(NULL);
 			}
@@ -282,7 +280,6 @@ void cStageObjManager::OnAction(cIGObj* pSender) //신호를 주는 객체에서 신호가 �
 		break;
 	case AOBJ_PASS:
 		m_PlateReturnBox->SetInven(pSender->GetInven());
-		//m_Pot->DestroyRecipe();
 		break;
 	case AOBJ_PLATE:
 		break;

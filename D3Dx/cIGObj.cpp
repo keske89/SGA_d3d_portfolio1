@@ -14,7 +14,9 @@ cIGObj::cIGObj()
 	, m_bIsEquipped(false)
 	, m_IsSet(false)
 	, m_vecRoll(0, 0, 0)
+	
 {	
+	m_parent = NULL;
 	D3DXMatrixIdentity(&m_matLocal);
 	D3DXMatrixIdentity(&m_matWorld);
 	D3DXMatrixIdentity(&m_matRoll);
@@ -44,6 +46,6 @@ void cIGObj::SetWorldMatrix(D3DXMATRIX matWorld)
 
 void cIGObj::Destroy(cIGObj * pSender)
 {
-	delete(pSender);
+	SAFE_DELETE(pSender);
 }
 

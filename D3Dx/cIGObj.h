@@ -50,6 +50,7 @@ public:
 	SYNTHESIZE(D3DXMATRIX, m_matRoll, matRoll);
 	SYNTHESIZE(D3DXVECTOR3, m_vecRoll, vecRoll);
 	SYNTHESIZE(bool, m_bIsUse, IsUse);
+	SYNTHESIZE(cIGObj*, m_parent, Parent);
 
 
 	int GetCost() { return m_Cost; }

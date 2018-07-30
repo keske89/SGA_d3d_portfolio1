@@ -54,6 +54,8 @@ enum OBJECTTYPE
 	FOBJ_MUSHROOM = 32,
 	FOBJ_ONION = 33,
 
+	//Recipe
+
 
 	// food 
 	ONION_SOUP = 300,

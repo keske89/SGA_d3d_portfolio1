@@ -5,6 +5,9 @@ class cRecipe : public cIGObj
 {
 public:
 	int	m_Type;
+		
+
+	
 
 public:
 

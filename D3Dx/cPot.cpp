@@ -41,8 +41,6 @@ void cPot::Setup()
 
 void cPot::Update()
 {
-	if (m_recipe)
-		m_recipe->Update();
 
 	D3DXVECTOR3 temp = m_vPos;
 	temp.y = m_vPos.y - 0.05f;
@@ -60,9 +58,10 @@ void cPot::Update()
 
 		if (m_pPgbar->Complete() && m_InvenCount == 3)
 		{
-				
+			
 			m_recipe = new cRecipe;
 			m_recipe->Setup(m_matWorld, m_RecipeCost);
+			m_recipe->SetParent(this);
 			m_Inven = m_recipe;
 			m_InvenCount = 0;
 			m_RecipeCost = 0;
@@ -74,6 +73,7 @@ void cPot::Update()
 		}
 		
 	}
+
 	
 	if (m_RecipeCost !=0 && m_InvenCount == 3)
 	{
@@ -157,8 +157,11 @@ void cPot::Render()
 	}
 	
 	if (m_recipe)
+	{
 		m_recipe->Render();
+	}
 }
+		
 
 void cPot::InvenToVector()
 {
@@ -168,6 +171,22 @@ void cPot::InvenToVector()
 			m_Inven->GetObjectType() == OBJECTTYPE::FOBJ_TOMATO)
 		{
 			m_RecipeCost += m_Inven->GetCost();
+			switch (m_Inven->GetCost())
+			{
+			case 100:
+			{
+				m_pIcon[m_InvenCount]->SetTexture((g_pTextureManager->GetTexture(_T("./Resources/ui/Onion_Icon.png"))));
+			}
+				break;
+
+			case 1000:
+			{
+				m_pIcon[m_InvenCount]->SetTexture((g_pTextureManager->GetTexture(_T("./Resources/ui/Tomato_Icon.png"))));
+			}
+				break;
+			default:
+				break;
+			}
 			m_InvenCount += 1;
 		}
 	
@@ -370,22 +389,52 @@ void cPot::setIconPosition() //Icon Texture 위치 변경하는 함수
 
 void cPot::setIconTexture() //Icon Texture 변경하는 함수
 {
-	for (auto p : m_pIcon)
+	if (m_InvenCount == 0)
 	{
-		if (m_nPotStatus == 0)
+		for (auto p : m_pIcon)
 		{
 			p->SetTexture(g_pTextureManager->GetTexture(_T("./Resources/ui/MissingIngredient_Icon.png")));
 		}
-		else if (m_nPotStatus == 2)
-		{
-			p->SetTexture(g_pTextureManager->GetTexture(_T("./Resources/ui/Tomato_Icon.png")));
-		}
-		else if (m_nPotStatus ==1)
-		{
-			p->SetTexture(g_pTextureManager->GetTexture(_T("./Resources/ui/Onion_Icon.png")));
-		}
 	}
+	//else if (m_InvenCount == 1) // 첫번째 인벤
+	//{
+	//	if (m_RecipeCost / 100 == 1) //양파한개
+	//	{
+	//		m_pIcon[0]->SetTexture(g_pTextureManager->GetTexture(_T("./Resources/ui/Onion_Icon.png")));
+	//	}
+	//	else if (m_RecipeCost / 1000 == 1)
+	//	{
+	//		m_pIcon[0]->SetTexture(g_pTextureManager->GetTexture(_T("./Resources/ui/Tomato_Icon.png")));
+	//	}
+	//}
+	//for (auto p : m_pIcon)
+	//{
+	//	
+	//	if (m_nPotStatus == 0)
+	//	{
+	//		p->SetTexture(g_pTextureManager->GetTexture(_T("./Resources/ui/MissingIngredient_Icon.png")));
+	//	}
+	//	else if (m_nPotStatus == 2)
+	//	{
+	//		p->SetTexture(g_pTextureManager->GetTexture(_T("./Resources/ui/Tomato_Icon.png")));
+	//	}
+	//	else if (m_nPotStatus ==1)
+	//	{
+	//		p->SetTexture(g_pTextureManager->GetTexture(_T("./Resources/ui/Onion_Icon.png")));
+	//	}
+	//}
 	
+}
+
+void cPot::DestroyRecipe()
+{
+	if (m_recipe)
+	{
+		
+		SAFE_DELETE(m_recipe);
+		//m_recipe = NULL;
+	}
+
 }
 
 D3DXVECTOR2 cPot::Convert3DTo2D(D3DXVECTOR3 v)

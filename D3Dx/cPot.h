@@ -56,7 +56,7 @@ public:
 	void Effect();
 	void setIconPosition();
 	void setIconTexture();
-	//void DestroyRecipe()
+	void DestroyRecipe();
 
 	D3DXVECTOR2 Convert3DTo2D(D3DXVECTOR3 v);
 

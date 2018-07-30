@@ -3,10 +3,12 @@
 #include "cPassScroll.h"
 #include "cStageObjManager.h"
 #include "cOrder.h"
+#include "cPot.h"
 
 class cPlate;
 
 cPass::cPass()
+	:m_Pot(NULL)
 {
 	m_vec.clear();
 }
@@ -96,6 +98,11 @@ void cPass::Inventory()
 {
 	if (m_Inven)
 	{
+		m_Pot = (cPot*)m_Inven->GetInven()->GetParent();
+		m_Pot->DestroyRecipe();
+		m_Pot = NULL;
+		m_Inven->SetInven(NULL);
+		//m_Inven->GetInven()->GetParent()->Destroy();
 		Present();
 	}
 
@@ -107,6 +114,7 @@ void cPass::Present()
 	{
 		if (m_Inven->GetCost() == m_vec[i]->GetCost())
 		{
+			//m_SOM->OnAction(this);
 			m_SOM->EraseOrder(i);
 			break;
 		}
