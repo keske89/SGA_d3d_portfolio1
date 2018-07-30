@@ -46,6 +46,8 @@ void cStageScene::Setup()
 	m_pStage = new cStage;
 	m_pStage->Setup(DATABASE->GetstageNum(), m_vNewObjData, m_vSetObjData, m_mapIsBlockedData, m_vecChefPos[0], m_vecChefPos[1]);
 
+	DATABASE->SetTip(0);
+
 	m_pStageUI = new cStageUI;
 	m_pStageUI->Setup();
 
@@ -97,11 +99,19 @@ void cStageScene::Setup()
 
 void cStageScene::Update()
 {
-	
 	if (m_pCamera)
 	{
 		m_pCamera->Update();
-		m_pCamera->setVLookAt(m_pControl->GetControlPlayer()->GetPos());
+		if (m_pControl->GetPlayerMod() == PLAYERMOD_PLAY2P)
+		{
+			D3DXVECTOR3 cameraPos = (m_pChef[0]->GetPos() + m_pChef[1]->GetPos()) / 2;
+			m_pCamera->setDistance(10.0f + GetDistance(m_pChef[0]->GetPos(), m_pChef[1]->GetPos()));
+			m_pCamera->setVLookAt(cameraPos);
+		}
+		else if (m_pControl->GetPlayerMod() == PLAYERMOD_PLAY1P)
+		{
+			m_pCamera->setVLookAt(m_pControl->GetControlPlayer()->GetPos());
+		}
 		if (m_bCameraSetting == false)
 		{
 			m_pCamera->setRotY(m_fCameraAngle * 0.03f);
@@ -119,25 +129,28 @@ void cStageScene::Update()
 		Control();
 	}
 
-	if (m_pSOM)
-		m_pSOM->Update();
-
-	if (m_pControl)
+	if (m_bCameraSetting)
 	{
-		m_pControl->Control();
+		if (m_pSOM)
+			m_pSOM->Update();
+
+		if (m_pControl)
+		{
+			m_pControl->Control();
+		}
+
+
+		for (int i = 0; i < 2; i++)
+		{
+			m_pChef[i]->Update();
+		}
+
+		if (m_pCollision)
+			m_pCollision->Update();
+
+		if (m_pStageUI)
+			m_pStageUI->Update();
 	}
-
-
-	for (int i = 0; i < 2; i++)
-	{
-		m_pChef[i]->Update();
-	}
-
-	if (m_pCollision)
-		m_pCollision->Update();
-
-	if (m_pStageUI)
-		m_pStageUI->Update();
 }
 
 void cStageScene::Render()
