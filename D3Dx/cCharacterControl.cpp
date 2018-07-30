@@ -5,6 +5,7 @@
 #include "cStageObjManager.h"
 cCharacterControl::cCharacterControl()
 	: m_Bswitch(false)
+	, m_BBoom(false)
 {
 	if (DATABASE->GetchageChefNum2P() != -1)
 		m_enmPlayerMod =PLAYERMOD_PLAY2P;
@@ -109,9 +110,18 @@ void cCharacterControl::ControlAction()
 				}
 			}
 		}
-		if (m_vecCharacter[m_Bswitch]->GetInven())
-			m_vecCharacter[m_Bswitch]->SetChefAnimation(CHEF_STATE_TRANCEPORT_IDLE);
-
+		if (KEYMANAGER->isOnceKeyDown('U'))
+		{
+			if (!m_BBoom)
+				m_BBoom = true;
+			else
+				m_BBoom = false;
+		}
+		if (!m_BBoom)
+		{
+			if (m_vecCharacter[m_Bswitch]->GetInven())
+				m_vecCharacter[m_Bswitch]->SetChefAnimation(CHEF_STATE_TRANCEPORT_IDLE);
+		}
 		if (KEYMANAGER->isOnceKeyDown('X'))
 		{
 			if (!m_StPlayerAtrribute[m_Bswitch].st_BisBooster)
@@ -482,9 +492,12 @@ void cCharacterControl::ControlAction()
 							}
 							else
 							{
-								m_vecCharacter[m_Bswitch]->GetDetect()->GetInven()->SetInven(m_vecCharacter[m_Bswitch]->GetInven());
-								m_vecCharacter[m_Bswitch]->SetInven(NULL);
-								m_vecCharacter[m_Bswitch]->SetChefAnimation(CHEF_STATE_IDLE);
+								if (m_vecCharacter[m_Bswitch]->GetInven()->GetObjectType() != OBJECTTYPE::AOBJ_POT)
+								{
+									m_vecCharacter[m_Bswitch]->GetDetect()->GetInven()->SetInven(m_vecCharacter[m_Bswitch]->GetInven());
+									m_vecCharacter[m_Bswitch]->SetInven(NULL);
+									m_vecCharacter[m_Bswitch]->SetChefAnimation(CHEF_STATE_IDLE);
+								}
 							}
 						}
 						

@@ -41,6 +41,7 @@ private:
 
 	PLAYERMOD					m_enmPlayerMod;				//임시 모드
 	BOOL						m_Bswitch;					//싱글모드일시 사용
+	BOOL						m_BBoom;
 	ST_PLAYER_ATTRIBUTE			m_StPlayerAtrribute[2];		//각각의 캐릭터 움직임에 필요한 변수들의 모임
 	std::map<pair<int, int>, bool> m_mapSatgeIndex;			//맵 인데스 정보
 public:
