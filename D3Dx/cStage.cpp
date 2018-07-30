@@ -133,8 +133,9 @@ void cStage::Setup(int stageNum, vector<pair<int, D3DXMATRIX>>& vecNewObj, vecto
 
 	CloseHandle(file);
 
-	SOUNDMANAGER->addSound("testBGM", "./sound/testBGM.mp3", false, false);
+	SOUNDMANAGER->addSound("testBGM", "./sound/GRANZO-CIRCLE.mp3", false, false);
 	SOUNDMANAGER->play("testBGM", CH_BGM, 1.0f);
+	//SOUNDMANAGER->isPlaySound(CH_BGM);
 }
 
 void cStage::Update()
