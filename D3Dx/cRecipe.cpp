@@ -34,6 +34,8 @@ void cRecipe::Setup(D3DXMATRIX matWorld, int type)
 		m_pTexture = g_pTextureManager->GetTexture(L"Resources/Texture2D/Tomato_Soup.png");
 		break; // 토마토
 	default:
+		m_pTexture = g_pTextureManager->GetTexture(L"Resources/Texture2D/Garbage.png");
+		// 쓰레기
 		break;
 	}
 
@@ -59,6 +61,7 @@ void cRecipe::Render()
 
 void cRecipe::Destroy()
 {
+	delete(this);
 }
 
 

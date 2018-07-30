@@ -42,3 +42,8 @@ void cIGObj::SetWorldMatrix(D3DXMATRIX matWorld)
 		m_pChild->SetWorldMatrix(matWorld);
 }
 
+void cIGObj::Destroy(cIGObj * pSender)
+{
+	delete(pSender);
+}
+
