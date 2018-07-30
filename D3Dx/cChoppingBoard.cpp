@@ -47,10 +47,7 @@ void cChoppingBoard::Update()
 		}
 
 	}
-	if (m_bIsAction)
-	{
-		int a = 0;
-	}
+
 	
 	m_vPos.x = m_matWorld._41;
 	m_vPos.y = m_matWorld._42;

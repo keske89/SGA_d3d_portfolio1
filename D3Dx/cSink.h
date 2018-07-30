@@ -1,11 +1,17 @@
 #pragma once
 #include "cActionObj.h"
+class cProgressbar;
+
 
 class cSink : public cActionObj
 {
 private:
 	LPD3DXMESH m_pMesh2;
 	LPDIRECT3DTEXTURE9 m_pTexture2;
+
+public:
+	cProgressbar* m_pPgbar;
+	int				m_size;
 public:
 	cSink();
 	~cSink();

@@ -60,6 +60,7 @@ void cPot::Update()
 
 		if (m_pPgbar->Complete() && m_InvenCount == 3)
 		{
+				
 			m_recipe = new cRecipe;
 			m_recipe->Setup(m_matWorld, m_RecipeCost);
 			m_Inven = m_recipe;
