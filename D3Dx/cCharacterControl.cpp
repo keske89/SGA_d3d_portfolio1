@@ -398,7 +398,7 @@ void cCharacterControl::ControlAction()
 										{
 											switch (m_vecCharacter[m_Bswitch]->GetInven()->GetObjectType())
 											{
-												case OBJECTTYPE::FOBJ_ONION: case OBJECTTYPE::FOBJ_TOMATO:
+												case OBJECTTYPE::FOBJ_ONION: case OBJECTTYPE::FOBJ_TOMATO:case OBJECTTYPE::AOBJ_PLATE:
 												{
 													m_vecCharacter[m_Bswitch]->GetDetect()->SetInven(m_vecCharacter[m_Bswitch]->GetInven());
 												}
@@ -410,7 +410,16 @@ void cCharacterControl::ControlAction()
 											m_vecCharacter[m_Bswitch]->GetDetect()->SetInven(m_vecCharacter[m_Bswitch]->GetInven());
 										}
 									}
+									else
+									{
+										m_vecCharacter[m_Bswitch]->GetDetect()->SetInven(m_vecCharacter[m_Bswitch]->GetInven());
+									}
 								}
+								break;
+								case OBJECTTYPE::AOBJ_PLATE:
+									m_vecCharacter[m_Bswitch]->GetInven()->SetIsAction(false);
+									m_vecCharacter[m_Bswitch]->GetDetect()->SetInven(NULL);
+								break;
 								default:
 								{
 									m_vecCharacter[m_Bswitch]->GetDetect()->SetInven(m_vecCharacter[m_Bswitch]->GetInven());
