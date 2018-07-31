@@ -22,6 +22,7 @@ cStageScene::cStageScene()
 	, m_pBG(NULL)
 	, m_pStageUI(NULL)
 	, m_nTimer(0)
+	, m_bPause(false)
 {
 	m_pChef[0] = NULL;
 	m_pChef[1] = NULL;
@@ -130,7 +131,7 @@ void cStageScene::Update()
 		Control();
 	}
 
-	if (m_bCameraSetting)
+	if (m_bCameraSetting == true && m_bPause == false)
 	{
 		if (m_pSOM)
 			m_pSOM->Update();
@@ -161,6 +162,15 @@ void cStageScene::Update()
 
 void cStageScene::Render()
 {
+	if (m_pStageUI->getTimeUp() == true)
+	{
+		m_bPause = true;
+		if (m_pStageUI->StageOutro() == false)
+		{
+			SCENEMANAGER->ChangeScene("WMScene");
+		}
+	}
+
 	if (m_pStage)
 		m_pStage->Render();
 

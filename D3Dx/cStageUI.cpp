@@ -7,6 +7,7 @@ cStageUI::cStageUI()
 	, m_pTimerTexture(NULL)
 	, m_pNumberTexture(NULL)
 	, m_pCoinTexture(NULL)
+	, m_nOutroTimer(0)
 {
 }
 
@@ -35,8 +36,12 @@ void cStageUI::Setup()
 	D3DXMatrixTransformation2D(&m_matMinus, NULL, 0.0f, &D3DXVECTOR2(0.25f, 0.25f), NULL, 0.0f, &D3DXVECTOR2(0, m_VP.Height - 150));
 	m_pReadyTexture = g_pTextureManager->GetTexture(L"./Resources/Texture2D/LevelIntro_Ready.png", &m_STReadyImageInfo);
 	m_pGoTexture = g_pTextureManager->GetTexture(L"./Resources/Texture2D/LevelIntro_Go.png", &m_STGoImageInfo);
-	m_pStarTexture = g_pTextureManager->GetTexture(L"./Resources/Texture2D/Level_Star_Available.png", &m_STStarImageInfo);
-	m_nTimer = 300 * 60;
+	m_pStarTexture = g_pTextureManager->GetTexture(L"./Resources/Texture2D/ScoreSummary_Star.png", &m_STStarImageInfo);
+	m_pTimeUpTexture = g_pTextureManager->GetTexture(L"./Resources/Texture2D/ScoreSummary_TimesUp.png", &m_STTimeUpImageInfo);
+	m_nTimer = 10 * 60;
+	D3DXMatrixTransformation2D(&m_matOutro, NULL, 0.0f, &D3DXVECTOR2(1.0f, 1.0f), NULL, 0.0f, &D3DXVECTOR2(m_VP.Width / 2.0f - 447, m_VP.Height / 2.0f - 100));
+
+	SOUNDMANAGER->addSound("1UpSound", "./Sound/smb_1-up.wav", false, false);
 }
 
 void cStageUI::Update()
@@ -197,7 +202,82 @@ bool cStageUI::StageIntro(int timer)
 	else return true;
 }
 
-bool cStageUI::StageOuttro()
+bool cStageUI::StageOutro()
 {
-	return false;
+	m_nOutroTimer++;
+	int stage = 0;
+	if (m_nOutroTimer < 120) stage = 0;
+	else if (m_nOutroTimer == 120) stage = 1;
+	else if (m_nOutroTimer < 240) stage = 2;
+	else if (m_nOutroTimer == 240) stage = 3;
+	else if (m_nOutroTimer < 360) stage = 4;
+	else if (m_nOutroTimer == 360) stage = 5;
+	else if (m_nOutroTimer < 480) stage = 6;
+	else stage = 6;
+
+	if (m_nOutroTimer == 480) return false;
+
+	if (stage == 0)
+	{
+		m_pSprite->Begin(D3DXSPRITE_ALPHABLEND);
+		m_pSprite->SetTransform(&m_matOutro);
+		m_pSprite->Draw(
+			m_pTimeUpTexture,
+			NULL,
+			NULL,
+			NULL,
+			D3DCOLOR_ARGB(255, 255, 255, 255));
+		m_pSprite->End();
+		return true;
+	}
+	else if (stage == 1 || stage == 3 || stage == 5)
+	{
+		SOUNDMANAGER->play("1UpSound", CH_STAGE_EFFECT, 1.0f);
+		return true;
+	}
+	float angle = ((m_nOutroTimer % 101) - 50) / 50.0f * D3DX_PI / 6.0f;
+	if (stage > 1)
+	{
+		D3DXMatrixTransformation2D(&m_matStar1, NULL, 0.0f, &D3DXVECTOR2(0.25f, 0.25f), NULL, angle, &D3DXVECTOR2(m_VP.Width / 2.0f - 64, m_VP.Height / 2.0f - 64));
+		m_pSprite->Begin(D3DXSPRITE_ALPHABLEND);
+		m_pSprite->SetTransform(&m_matStar1);
+		m_pSprite->Draw(
+			m_pStarTexture,
+			NULL,
+			NULL,
+			NULL,
+			D3DCOLOR_ARGB(255, 255, 255, 255));
+		m_pSprite->End();
+	}
+	if (stage > 3)
+	{
+		D3DXMatrixTransformation2D(&m_matStar2, NULL, 0.0f, &D3DXVECTOR2(0.25f, 0.25f), NULL, angle, &D3DXVECTOR2(m_VP.Width / 2.0f - 64 - 128, m_VP.Height / 2.0f - 64));
+		m_pSprite->Begin(D3DXSPRITE_ALPHABLEND);
+		m_pSprite->SetTransform(&m_matStar2);
+		m_pSprite->Draw(
+			m_pStarTexture,
+			NULL,
+			NULL,
+			NULL,
+			D3DCOLOR_ARGB(255, 255, 255, 255));
+		m_pSprite->End();
+	}
+	if (stage > 5)
+	{
+		D3DXMatrixTransformation2D(&m_matStar3, NULL, 0.0f, &D3DXVECTOR2(0.25f, 0.25f), NULL, angle, &D3DXVECTOR2(m_VP.Width / 2.0f - 64 + 128, m_VP.Height / 2.0f - 64));
+		m_pSprite->Begin(D3DXSPRITE_ALPHABLEND);
+		m_pSprite->SetTransform(&m_matStar3);
+		m_pSprite->Draw(
+			m_pStarTexture,
+			NULL,
+			NULL,
+			NULL,
+			D3DCOLOR_ARGB(255, 255, 255, 255));
+		m_pSprite->End();
+		return true;
+	}
+	else
+	{
+		return true;
+	}
 }
