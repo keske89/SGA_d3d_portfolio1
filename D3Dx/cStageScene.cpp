@@ -131,6 +131,12 @@ void cStageScene::Update()
 		Control();
 	}
 
+	if (KEYMANAGER->isOnceKeyDown(VK_RETURN))
+	{
+		if (m_bPause == false) m_bPause = true;
+		else if (m_bPause == true) m_bPause = false;
+	}
+
 	if (m_bCameraSetting == true && m_bPause == false)
 	{
 		if (m_pSOM)
@@ -167,6 +173,7 @@ void cStageScene::Render()
 		m_bPause = true;
 		if (m_pStageUI->StageOutro() == false)
 		{
+			SOUNDMANAGER->stop(CH_BGM);
 			SCENEMANAGER->ChangeScene("WMScene");
 		}
 	}

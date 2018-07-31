@@ -38,7 +38,7 @@ void cStageUI::Setup()
 	m_pGoTexture = g_pTextureManager->GetTexture(L"./Resources/Texture2D/LevelIntro_Go.png", &m_STGoImageInfo);
 	m_pStarTexture = g_pTextureManager->GetTexture(L"./Resources/Texture2D/ScoreSummary_Star.png", &m_STStarImageInfo);
 	m_pTimeUpTexture = g_pTextureManager->GetTexture(L"./Resources/Texture2D/ScoreSummary_TimesUp.png", &m_STTimeUpImageInfo);
-	m_nTimer = 10 * 60;
+	m_nTimer = 300 * 60;
 	D3DXMatrixTransformation2D(&m_matOutro, NULL, 0.0f, &D3DXVECTOR2(1.0f, 1.0f), NULL, 0.0f, &D3DXVECTOR2(m_VP.Width / 2.0f - 447, m_VP.Height / 2.0f - 100));
 
 	SOUNDMANAGER->addSound("1UpSound", "./Sound/smb_1-up.wav", false, false);
@@ -235,10 +235,10 @@ bool cStageUI::StageOutro()
 		SOUNDMANAGER->play("1UpSound", CH_STAGE_EFFECT, 1.0f);
 		return true;
 	}
-	float angle = ((m_nOutroTimer % 101) - 50) / 50.0f * D3DX_PI / 6.0f;
-	if (stage > 1)
+	float angle = ((m_nOutroTimer % 360) / 360.f) * D3DX_PI * 2.0f;
+	if (stage > 1 && DATABASE->GetTip() >= 40)
 	{
-		D3DXMatrixTransformation2D(&m_matStar1, NULL, 0.0f, &D3DXVECTOR2(0.25f, 0.25f), NULL, angle, &D3DXVECTOR2(m_VP.Width / 2.0f - 64, m_VP.Height / 2.0f - 64));
+		D3DXMatrixTransformation2D(&m_matStar1, NULL, 0.0f, &D3DXVECTOR2(0.25f, 0.25f), &D3DXVECTOR2(64, 64), angle, &D3DXVECTOR2(m_VP.Width / 2.0f - 64, m_VP.Height / 2.0f - 64));
 		m_pSprite->Begin(D3DXSPRITE_ALPHABLEND);
 		m_pSprite->SetTransform(&m_matStar1);
 		m_pSprite->Draw(
@@ -249,9 +249,9 @@ bool cStageUI::StageOutro()
 			D3DCOLOR_ARGB(255, 255, 255, 255));
 		m_pSprite->End();
 	}
-	if (stage > 3)
+	if (stage > 3 && DATABASE->GetTip() >= 80)
 	{
-		D3DXMatrixTransformation2D(&m_matStar2, NULL, 0.0f, &D3DXVECTOR2(0.25f, 0.25f), NULL, angle, &D3DXVECTOR2(m_VP.Width / 2.0f - 64 - 128, m_VP.Height / 2.0f - 64));
+		D3DXMatrixTransformation2D(&m_matStar2, NULL, 0.0f, &D3DXVECTOR2(0.25f, 0.25f), &D3DXVECTOR2(64, 64), angle, &D3DXVECTOR2(m_VP.Width / 2.0f - 64 - 128, m_VP.Height / 2.0f - 64));
 		m_pSprite->Begin(D3DXSPRITE_ALPHABLEND);
 		m_pSprite->SetTransform(&m_matStar2);
 		m_pSprite->Draw(
@@ -262,9 +262,9 @@ bool cStageUI::StageOutro()
 			D3DCOLOR_ARGB(255, 255, 255, 255));
 		m_pSprite->End();
 	}
-	if (stage > 5)
+	if (stage > 5 && DATABASE->GetTip() >= 160)
 	{
-		D3DXMatrixTransformation2D(&m_matStar3, NULL, 0.0f, &D3DXVECTOR2(0.25f, 0.25f), NULL, angle, &D3DXVECTOR2(m_VP.Width / 2.0f - 64 + 128, m_VP.Height / 2.0f - 64));
+		D3DXMatrixTransformation2D(&m_matStar3, NULL, 0.0f, &D3DXVECTOR2(0.25f, 0.25f), &D3DXVECTOR2(64, 64), angle, &D3DXVECTOR2(m_VP.Width / 2.0f - 64 + 128, m_VP.Height / 2.0f - 64));
 		m_pSprite->Begin(D3DXSPRITE_ALPHABLEND);
 		m_pSprite->SetTransform(&m_matStar3);
 		m_pSprite->Draw(
