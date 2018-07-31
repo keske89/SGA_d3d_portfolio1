@@ -75,13 +75,18 @@ void cCharacterControl::ControlAction()
 							m_vecCharacter[i]->GetCHEF_STATE() == CHEF_STATE::CHEF_STATE_CHOP)
 					{
 						if (m_vecCharacter[i]->GetDetect()->GetInven()->GetInven()->Getchopped())
+						{
 							m_vecCharacter[i]->SetChefAnimation(CHEF_STATE_IDLE);
+							SOUNDMANAGER->stop(CH_EFFECT07);
+						}
 					}
 					if (m_vecCharacter[i]->GetDetect()->GetObjectType() == OBJECTTYPE::AOBJ_SINK &&
 						m_vecCharacter[i]->GetCHEF_STATE() == CHEF_STATE::CHEF_STATE_DISHWASHING)
 					{
 						if (m_vecCharacter[i]->GetDetect()->GetInven()->GetIsUse() == false)
+						{
 							m_vecCharacter[i]->SetChefAnimation(CHEF_STATE_IDLE);
+						}
 					}
 				}
 			}
@@ -106,6 +111,8 @@ void cCharacterControl::ControlAction()
 					m_vecCharacter[m_Bswitch]->GetDetect()->GetInven()->GetInven())
 				{
 						m_vecCharacter[m_Bswitch]->SetChefAnimation(CHEF_STATE_CHOP);
+						SOUNDMANAGER->addSound("档付家府", "./Sound/档付家府.mp3", false, true);
+						SOUNDMANAGER->play("档付家府", CH_EFFECT07 , 0.8f);
 						m_vecCharacter[m_Bswitch]->GetDetect()->GetInven()->SetIsAction(true);
 				}
 			}
