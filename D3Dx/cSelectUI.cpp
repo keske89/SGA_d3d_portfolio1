@@ -32,13 +32,6 @@ void cSelectUI::SelectControl()
 			else
 				m_buttonSelect[0]--;
 		}
-		else
-		{
-			if (m_buttonSelect[_isMod] <= 0)
-				m_buttonSelect[_isMod] = 6;
-			else
-				m_buttonSelect[_isMod]--;
-		}
 	}
 	if (KEYMANAGER->isOnceKeyDown(VK_RIGHT))
 	{
@@ -49,14 +42,49 @@ void cSelectUI::SelectControl()
 			else
 				m_buttonSelect[0]++;
 		}
-		else
+	}
+
+	if (KEYMANAGER->isOnceKeyDown('F'))
+	{
+		if (_isMod)
 		{
-			if (m_buttonSelect[_isMod] >= 6)
-				m_buttonSelect[_isMod] = 0;
+			if (m_buttonSelect[0] <= 0)
+				m_buttonSelect[0] = 6;
 			else
-				m_buttonSelect[_isMod]++;
+				m_buttonSelect[0]--;
 		}
 	}
+	if (KEYMANAGER->isOnceKeyDown('H'))
+	{
+		if (_isMod)
+		{
+			if (m_buttonSelect[0] >= 6)
+				m_buttonSelect[0] = 0;
+			else
+				m_buttonSelect[0]++;
+		}
+	}
+	if (KEYMANAGER->isOnceKeyDown(VK_NUMPAD4))
+	{
+		if (_isMod)
+		{
+			if (m_buttonSelect[1] <= 0)
+				m_buttonSelect[1] = 6;
+			else
+				m_buttonSelect[1]--;
+		}
+	}
+	if (KEYMANAGER->isOnceKeyDown(VK_NUMPAD6))
+	{
+		if (_isMod)
+		{
+			if (m_buttonSelect[1] >= 6)
+				m_buttonSelect[1] = 0;
+			else			   
+				m_buttonSelect[1]++;
+		}
+	}
+
 	if (KEYMANAGER->isOnceKeyDown(VK_SPACE))
 	{
 		_nextScene = "StageScene";
@@ -139,8 +167,11 @@ void cSelectUI::Setup()
 	
 	//¹è°æ
 	UIImage* pImage = new UIImage(m_pSprite);
-	pImage->SetTexture(_T("./Resources/Texture2D/Level_Select_Background.png"));
 	m_pRootUI = pImage;
+	pImage = new UIImage(m_pSprite);
+	m_pRootUI->AddChild(pImage);
+	pImage->SetTexture(_T("./Resources/Texture2D/Level_Select_Background.png"));
+	pImage->SetName(_T("SelectBack"));
 	m_pSelectCharater[0] = new UIObject; 
 	m_pSelectCharater[0]->SetPosition(D3DXVECTOR3(22, 62, 0));
 	m_pSelectCharater[0]->SetScale(D3DXVECTOR3(0.38f, 0.38f, 0.38f));
@@ -253,6 +284,20 @@ void cSelectUI::Setup()
 	pButtonR->setPosition(&D3DXVECTOR3(336, 265, 0));
 	pButtonR->SetTexture(_T("./Resources/ui/arrow-btn-r-up.png.png"), _T("./Resources/ui/arrow-btn-r-over.png.png"), _T("./Resources/ui/arrow-btn-r-down.png.png"));
 	pButtonR->SetName(_T("ArrowsR"));
+
+
+	UIButton* pButtonL2 = new UIButton(this, m_pSprite, 3);
+	m_pRootUI->AddChild(pButtonL2);
+	pButtonL2->setPosition(&D3DXVECTOR3(860, 265, 0));
+	pButtonL2->SetTexture(_T("./Resources/ui/arrow-btn-l-up.png.png"), _T("./Resources/ui/arrow-btn-l-over.png.png"), _T("./Resources/ui/arrow-btn-l-down.png.png"));
+	pButtonL2->SetName(_T("ArrowsL1"));
+
+	UIButton* pButtonR2 = new UIButton(this, m_pSprite, 4);
+	m_pRootUI->AddChild(pButtonR2);
+	pButtonR2->setPosition(&D3DXVECTOR3(1184, 265, 0));
+	pButtonR2->SetTexture(_T("./Resources/ui/arrow-btn-r-up.png.png"), _T("./Resources/ui/arrow-btn-r-over.png.png"), _T("./Resources/ui/arrow-btn-r-down.png.png"));
+	pButtonR2->SetName(_T("ArrowsR1"));
+	
 }
 
 void cSelectUI::Update()
@@ -275,8 +320,9 @@ void cSelectUI::Update()
 		{
 			m_pSelectCharater[0]->Update();
 			DATABASE->SetchageChefNum1P(m_buttonSelect[0]);
-			m_pRootUI->GetVecChild()[m_pRootUI->GetVecChild().size() - 2]->setPosition(&D3DXVECTOR3(12, 265, 0));
-			m_pRootUI->GetVecChild()[m_pRootUI->GetVecChild().size() - 1]->setPosition(&D3DXVECTOR3(336, 265, 0));
+			DATABASE->SetchageChefNum2P(-1);
+			m_pRootUI->GetVecChild()[m_pRootUI->GetVecChild().size() - 4]->setPosition(&D3DXVECTOR3(12, 265, 0));
+			m_pRootUI->GetVecChild()[m_pRootUI->GetVecChild().size() - 3]->setPosition(&D3DXVECTOR3(336, 265, 0));
 		}
 		else
 		{
@@ -298,13 +344,26 @@ void cSelectUI::Render()
 	m_pSprite->Begin(D3DXSPRITE_ALPHABLEND);
 	m_pSprite->SetTransform(&m_matWorld);
 
-	m_pRootUI->Render();
+	for (int i = 0; i < m_pRootUI->GetVecChild().size(); i++)
+	{
+		
+		if (!_isMod)
+		{
+			if (i<m_pRootUI->GetVecChild().size()-2)
+				m_pRootUI->GetVecChild()[i]->Render();
+		}
+		else
+			m_pRootUI->GetVecChild()[i]->Render();
+	}
 	m_pSprite->End();
 	
-	
-	m_pSelectCharater[0]->Render();
-	m_pSelectCharater[1]->Render();
-
+	if (!_isMod)
+		m_pSelectCharater[0]->Render();
+	else
+	{
+		m_pSelectCharater[0]->Render();
+		m_pSelectCharater[1]->Render();
+	}
 	if (_isChange)
 		IMAGEMANAGER->alphaRender(_T("blackMask"), _alpha);
 }
