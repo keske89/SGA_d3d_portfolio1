@@ -49,6 +49,7 @@ cStageObjManager::~cStageObjManager()
 	}
 	
 	SAFE_RELEASE(m_pSprite);
+	
 }
 
 void cStageObjManager::Setup()
@@ -59,21 +60,21 @@ void cStageObjManager::Setup()
 
 	ZeroMemory(&m_stImageInfo, sizeof(D3DXIMAGE_INFO));
 	D3DXCreateSprite(g_pD3DDevice, &m_pSprite);
-	count = 0;
-	//m_pUITexture = g_pTextureManager->GetTexture(L"Resources/Texture2D/Order_Onion.png", &m_stImageInfo);
+	stagecount = 0;
+	m_StageNum = DATABASE->GetstageNum();
+	
 
 }
 
 void cStageObjManager::Update()
 {
-	count++;
+	stagecount++;
 
 	//if (m_OrderRoot)
 	//	m_OrderRoot->Update();
 
 	OrderSystem();
 	TimeUpOrder();
-
 
 
 	if (m_vecOrder.size() != NULL)
@@ -220,7 +221,7 @@ void cStageObjManager::EraseOrder(int index)
 
 	if (Temp >= 60)
 	{
-		DATABASE->ChangeTip(40);
+		DATABASE->ChangeTip(30);
 	}
 	else if (Temp >= 40)
 	{
@@ -242,7 +243,7 @@ void cStageObjManager::TimeUpOrder()
 		if(m_vecOrder[i]->GetCount() <=0)
 		{
 			m_vecOrder.erase(m_vecOrder.begin() + i);
-			DATABASE->ChangeTip(-30);
+			DATABASE->ChangeTip(-10);
 		}
 	}
 
@@ -251,23 +252,41 @@ void cStageObjManager::TimeUpOrder()
 
 void cStageObjManager::OrderSystem()
 {
-	if (count % 500 == 0 && m_vecOrder.size() < 5)
+	if (stagecount % 500 == 0 && m_vecOrder.size() < 5)
 	{
 		cOrderImage* pOrderImage = new cOrderImage;
 		pOrderImage->SetPosition(D3DXVECTOR3(10 + (250 * m_vecOrder.size()), 10, 0));
 		
 		int temp = TIMEMANAGER->getWorldTime();
-		if (temp % 2 == 0)
+
+		switch (m_StageNum)
 		{
-			pOrderImage->SetTexture(L"Resources/Texture2D/Order_Onion.png");
-			m_vecOrder.push_back(pOrderImage);
+		case 1:
+			{
+				pOrderImage->SetTexture(L"Resources/Texture2D/Order_Onion.png");
+				m_vecOrder.push_back(pOrderImage);
+			}
+				
+			break;
+
+		case 2:
+			if (temp % 2 == 0)
+			{
+				pOrderImage->SetTexture(L"Resources/Texture2D/Order_Onion.png");
+				m_vecOrder.push_back(pOrderImage);
+			}
+			else if (temp % 2 == 1)
+			{
+				pOrderImage->SetTexture(L"Resources/Texture2D/Order_Tomato.png");
+				m_vecOrder.push_back(pOrderImage);
+			}
+			break;
+
+
+		default:
+			break;
 		}
-		else if (temp % 2 == 1)
-		{
-			pOrderImage->SetTexture(L"Resources/Texture2D/Order_Tomato.png");
-			m_vecOrder.push_back(pOrderImage);
-		}
-		
+			
 	}
 
 	for (int i = 0; i <m_vecOrder.size(); i++)

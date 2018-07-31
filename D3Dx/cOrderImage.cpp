@@ -12,6 +12,8 @@ cOrderImage::cOrderImage()
 
 cOrderImage::~cOrderImage()
 {
+	//SAFE_RELEASE(m_pTexture);
+	SAFE_RELEASE(m_pSprite);
 	SAFE_RELEASE(m_pgBar);
 	//SAFE_RELEASE(m_pBarTexture);
 }
@@ -42,7 +44,6 @@ void cOrderImage::SetTexture(const WCHAR* szFullPath)
 
 void cOrderImage::Render(LPD3DXSPRITE pSprite)
 {
-	count -= 0.1f;
 	pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
 
 	pSprite->SetTransform(&m_matWorld);
@@ -68,7 +69,13 @@ void cOrderImage::Render(LPD3DXSPRITE pSprite)
 	//cOrder::Render(pSprite);
 }
 
+
+
 void cOrderImage::Shaking()
 {
-	
+	D3DXMATRIX rotY;
+	D3DXVECTOR3 v(0, 1, 0);
+	D3DXMatrixIdentity(&rotY);
+	D3DXMatrixRotationAxis(&rotY, &v, D3DX_PI / 6);
+	mat_Shake = rotY;
 }

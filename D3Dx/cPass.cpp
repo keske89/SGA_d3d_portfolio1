@@ -98,12 +98,15 @@ void cPass::Inventory()
 {
 	if (m_Inven)
 	{
-		m_Pot = (cPot*)m_Inven->GetInven()->GetParent();
-		m_Pot->DestroyRecipe();
-		m_Pot = NULL;
-		m_Inven->SetInven(NULL);
-		//m_Inven->GetInven()->GetParent()->Destroy();
-		Present();
+		if (m_Inven->GetInven())
+		{
+			m_Pot = (cPot*)m_Inven->GetInven()->GetParent();
+			m_Pot->DestroyRecipe();
+			m_Pot = NULL;
+			m_Inven->SetInven(NULL);
+			Present();
+		}
+		
 	}
 
 }

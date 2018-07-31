@@ -90,15 +90,14 @@ private:
 	cKnife*					m_Knife;
 
 	LPD3DXSPRITE			m_pSprite;
-	LPDIRECT3DTEXTURE9		m_pUITexture;
 	D3DXIMAGE_INFO			m_stImageInfo;
 
 	cOrder*					m_OrderRoot;
-
+	
 	//std::vector<cOrder*>	m_vecOrder;
 
-	int						count; 
-
+	int						stagecount; 
+	int						m_StageNum;
 	int						m_buttonSelect;
 	SYNTHESIZE(std::list<cIGObj*>, m_listObj, ListObj);
 	SYNTHESIZE(std::list<cIGObj*>, m_listFoodObj, ListFoodObj);

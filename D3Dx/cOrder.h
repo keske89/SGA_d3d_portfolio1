@@ -24,5 +24,6 @@ public:
 	virtual void Render(LPD3DXSPRITE pSprite);
 	virtual int GetCost() { return m_cost; }
 	virtual float GetCount() { return count; }
+	
 };
 

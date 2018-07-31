@@ -12,13 +12,12 @@ protected :
 	
 public:
 	cOrderImage();
-	virtual ~cOrderImage();
+	~cOrderImage();
 
 	virtual void SetTexture(const WCHAR* szFullPath);
 	virtual void Render(LPD3DXSPRITE pSprite);
 	virtual int GetCost() { return m_cost; }
 	virtual float GetCount() { return count; }
-	
 	void Shaking();
 };
 
