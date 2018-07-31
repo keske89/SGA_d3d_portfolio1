@@ -217,9 +217,12 @@ bool cStageUI::StageOutro()
 	else if (m_nOutroTimer < 480) stage = 6;
 	else stage = 6;
 
+	if (m_nOutroTimer == 120 && DATABASE->GetTip() < 40) return false;
+	if (m_nOutroTimer == 240 && DATABASE->GetTip() < 80) return false;
+	if (m_nOutroTimer == 360 && DATABASE->GetTip() < 160) return false;
 	if (m_nOutroTimer == 480) return false;
 
-	if (stage == 0)
+	if (stage == 0 || DATABASE->GetTip() < 40)
 	{
 		m_pSprite->Begin(D3DXSPRITE_ALPHABLEND);
 		m_pSprite->SetTransform(&m_matOutro);
