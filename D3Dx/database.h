@@ -24,6 +24,6 @@ public:
 
 	inline bool getIsStageClear(int num) { return m_bIsStageclear[num]; }
 	inline int getStageStar(int num) { return m_nStageStar[num]; }
+	inline void setStageStar(int stageNum, int starNum) { m_nStageStar[stageNum] = starNum; }
 	inline void ChangeTip(int num) { m_nTip += num; }
 };
-

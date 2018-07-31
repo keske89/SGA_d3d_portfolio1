@@ -19,7 +19,7 @@ cBackground::~cBackground()
 void cBackground::Setup(int num)
 {
 	m_strBackgroundName[0] = L"BG_1";
-	TEXTUREMANAGER->addTexture(m_strBackgroundName[0], L"./Resources/StageTexture/BG_1.png");
+	TEXTUREMANAGER->addTexture(m_strBackgroundName[0], L"./Resources/StageTexture/BG_1.jpg");
 	m_strBackgroundName[1] = L"BG_2";
 	TEXTUREMANAGER->addTexture(m_strBackgroundName[1], L"./Resources/Texture2D/Map_PirateShip.png");
 	m_strBackgroundName[2] = L"BG_3";
@@ -124,9 +124,9 @@ void cBackground::Setup(int num)
 			0,
 			0);
 
-		D3DXMatrixRotationYawPitchRoll(&matRotation, D3DX_PI / 2.0f, 0, D3DX_PI / 2.0f);
-		D3DXMatrixTranslation(&matTrans1, -0.75f, -1.0f, -0.65f);
-		D3DXMatrixScaling(&matScale, 500.0f, 500.0f, 500.0f);
+		D3DXMatrixRotationYawPitchRoll(&matRotation, 0, 0, 0);
+		D3DXMatrixTranslation(&matTrans1, 0, -1.0f, 0);
+		D3DXMatrixScaling(&matScale, 50.0f, 50.0f, 50.0f);
 		D3DXMatrixTranslation(&matTrans2, 0, -0.01f, 0);
 
 		m_matWorld[0] = matRotation * matTrans1 * matScale * matTrans2;
@@ -173,7 +173,7 @@ void cBackground::Setup(int num)
 		0,
 		0);
 
-	D3DXMatrixScaling(&m_matSky, 1000.0f, 1000.0f, 1000.0f);
+	D3DXMatrixScaling(&m_matSky, 10000.0f, 10000.0f, 10000.0f);
 }
 
 void cBackground::Render(int num)

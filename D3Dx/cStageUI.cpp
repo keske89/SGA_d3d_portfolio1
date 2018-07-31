@@ -230,9 +230,22 @@ bool cStageUI::StageOutro()
 		m_pSprite->End();
 		return true;
 	}
-	else if (stage == 1 || stage == 3 || stage == 5)
+	else if (stage == 1 && DATABASE->GetTip() >= 40)
 	{
 		SOUNDMANAGER->play("1UpSound", CH_STAGE_EFFECT, 1.0f);
+		DATABASE->setStageStar(DATABASE->GetstageNum() - 1, 1);
+		return true;
+	}
+	else if (stage == 3 && DATABASE->GetTip() >= 80)
+	{
+		SOUNDMANAGER->play("1UpSound", CH_STAGE_EFFECT, 1.0f);
+		DATABASE->setStageStar(DATABASE->GetstageNum() - 1, 2);
+		return true;
+	}
+	else if (stage == 5 && DATABASE->GetTip() >= 160)
+	{
+		SOUNDMANAGER->play("1UpSound", CH_STAGE_EFFECT, 1.0f);
+		DATABASE->setStageStar(DATABASE->GetstageNum() - 1, 3);
 		return true;
 	}
 	float angle = ((m_nOutroTimer % 360) / 360.f) * D3DX_PI * 2.0f;
