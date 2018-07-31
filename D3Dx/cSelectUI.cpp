@@ -161,6 +161,8 @@ void cSelectUI::ChangeCharater()
 
 void cSelectUI::Setup()
 {
+	SOUNDMANAGER->addSound("¼¿·º¾Àbgm", "./Sound/¾ÆÄÉÀÌµå 2016 - ·Î±×ÀÎ È­¸é.mp3", true, true);
+	SOUNDMANAGER->play("¼¿·º¾Àbgm", CH_SELECTSENCEBGM, 1.0f);
 	_isChange = false;
 	_alpha = 0;
 	D3DXCreateSprite(g_pD3DDevice, &m_pSprite);
@@ -310,6 +312,7 @@ void cSelectUI::Update()
 			if (_nextScene == "StageScene")
 			{
 				SCENEMANAGER->ChangeScene("StageScene");
+				SOUNDMANAGER->stop(CH_SELECTSENCEBGM);
 			}
 		}
 	}

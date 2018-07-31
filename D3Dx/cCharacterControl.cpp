@@ -11,6 +11,8 @@ cCharacterControl::cCharacterControl()
 		m_enmPlayerMod =PLAYERMOD_PLAY2P;
 	else
 		m_enmPlayerMod =PLAYERMOD_PLAY1P;
+	SOUNDMANAGER->addSound("档付家府", "./Sound/档付家府.mp3", false, true);
+	SOUNDMANAGER->addSound("档付家府2", "./Sound/档付家府.mp3", false, true);
 }
 cCharacterControl::~cCharacterControl()
 {
@@ -111,7 +113,6 @@ void cCharacterControl::ControlAction()
 					m_vecCharacter[m_Bswitch]->GetDetect()->GetInven()->GetInven())
 				{
 						m_vecCharacter[m_Bswitch]->SetChefAnimation(CHEF_STATE_CHOP);
-						SOUNDMANAGER->addSound("档付家府", "./Sound/档付家府.mp3", false, true);
 						SOUNDMANAGER->play("档付家府", CH_EFFECT07 , 0.8f);
 						m_vecCharacter[m_Bswitch]->GetDetect()->GetInven()->SetIsAction(true);
 				}
@@ -640,7 +641,10 @@ void cCharacterControl::Control1P()
 				m_vecCharacter[0]->GetCHEF_STATE() == CHEF_STATE::CHEF_STATE_CHOP)
 			{
 				if (m_vecCharacter[0]->GetDetect()->GetInven()->GetInven()->Getchopped())
+				{
 					m_vecCharacter[0]->SetChefAnimation(CHEF_STATE_IDLE);
+					SOUNDMANAGER->stop(CH_EFFECT07);
+				}
 			}
 			if (m_vecCharacter[0]->GetDetect()->GetObjectType() == OBJECTTYPE::AOBJ_SINK &&
 				m_vecCharacter[0]->GetCHEF_STATE() == CHEF_STATE::CHEF_STATE_DISHWASHING)
@@ -671,6 +675,7 @@ void cCharacterControl::Control1P()
 				m_vecCharacter[0]->GetDetect()->GetInven()->GetInven())
 			{
 				m_vecCharacter[0]->SetChefAnimation(CHEF_STATE_CHOP);
+				SOUNDMANAGER->play("档付家府", CH_EFFECT07, 0.8f);
 				m_vecCharacter[0]->GetDetect()->GetInven()->SetIsAction(true);
 			}
 		}
@@ -1116,7 +1121,11 @@ void cCharacterControl::Control2P()
 				m_vecCharacter[1]->GetCHEF_STATE() == CHEF_STATE::CHEF_STATE_CHOP)
 			{
 				if (m_vecCharacter[1]->GetDetect()->GetInven()->GetInven()->Getchopped())
+				{
 					m_vecCharacter[1]->SetChefAnimation(CHEF_STATE_IDLE);
+					SOUNDMANAGER->stop(CH_EFFECT08);
+
+				}
 			}
 			if (m_vecCharacter[1]->GetDetect()->GetObjectType() == OBJECTTYPE::AOBJ_SINK &&
 				m_vecCharacter[1]->GetCHEF_STATE() == CHEF_STATE::CHEF_STATE_DISHWASHING)
@@ -1145,6 +1154,7 @@ void cCharacterControl::Control2P()
 				m_vecCharacter[1]->GetDetect()->GetInven()->GetInven())
 			{
 				m_vecCharacter[1]->SetChefAnimation(CHEF_STATE_CHOP);
+				SOUNDMANAGER->play("档付家府2", CH_EFFECT08,0.8f);
 				m_vecCharacter[1]->GetDetect()->GetInven()->SetIsAction(true);
 			}
 		}
