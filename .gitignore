@@ -6,3 +6,5 @@ Lib/*
 D3Dx/Debug/*
 D3Dx/x64/*
 D3Dx/cTestScene1.cpp
+Release/*
+D3Dx/Release/*
