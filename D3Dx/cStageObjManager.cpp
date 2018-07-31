@@ -332,10 +332,10 @@ void cStageObjManager::OnAction(cIGObj* pSender) //신호를 주는 객체에서 신호가 �
 		
 		break;
 	case AOBJ_COOKER:
-		m_Pot = new cPot;
-		m_Pot->Setup(pSender->GetWorldMat(), pSender->Getplayer()->GetPos(), AOBJ_COOKER);
-		m_listObj.push_back(m_Pot);
-		pSender->SetInven(m_Pot);
+		//m_Pot = new cPot;
+		//m_Pot->Setup(pSender->GetWorldMat(), pSender->Getplayer()->GetPos(), AOBJ_COOKER);
+		//m_listObj.push_back(m_Pot);
+		//pSender->SetInven(m_Pot);
 		break;
 	case AOBJ_PASS:
 		m_PlateReturnBox->SetInven(pSender->GetInven());
