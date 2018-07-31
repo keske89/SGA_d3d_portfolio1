@@ -7,9 +7,11 @@ private:
 	LPDIRECT3DTEXTURE9	m_pTimerTexture;
 	LPDIRECT3DTEXTURE9	m_pCoinTexture;
 	LPDIRECT3DTEXTURE9	m_pNumberTexture;
+	LPDIRECT3DTEXTURE9	m_pMinusTexture;
 	D3DXIMAGE_INFO		m_STTimerImageInfo;
 	D3DXIMAGE_INFO		m_STCoinImageInfo;
 	D3DXIMAGE_INFO		m_STNumberImageInfo;
+	D3DXIMAGE_INFO		m_STMinusImageInfo;
 	D3DXMATRIX			m_matTimer;
 	D3DXMATRIX			m_matCoin;
 	D3DXMATRIX			m_matNumberSecond0;
@@ -18,6 +20,7 @@ private:
 	D3DXMATRIX			m_matCoinNumber0;
 	D3DXMATRIX			m_matCoinNumber1;
 	D3DXMATRIX			m_matCoinNumber2;
+	D3DXMATRIX			m_matMinus;
 public:
 	cStageUI();
 	~cStageUI();
@@ -25,6 +28,8 @@ public:
 	void Setup();
 	void Update();
 	void Render();
+
+	void ViewScore();
 
 	inline bool getTimer() { 
 		if (m_nTimer <= 0) return false; 

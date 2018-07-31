@@ -29,9 +29,12 @@ void cStageUI::Setup()
 	D3DXMatrixTransformation2D(&m_matNumberSecond0, NULL, 0.0f, &D3DXVECTOR2(0.25f, 0.25f), NULL, 0.0f, &D3DXVECTOR2(m_VP.Width - 70, m_VP.Height - 150));
 	D3DXMatrixTransformation2D(&m_matNumberSecond1, NULL, 0.0f, &D3DXVECTOR2(0.25f, 0.25f), NULL, 0.0f, &D3DXVECTOR2(m_VP.Width - 140, m_VP.Height - 150));
 	D3DXMatrixTransformation2D(&m_matNumberSecond2, NULL, 0.0f, &D3DXVECTOR2(0.25f, 0.25f), NULL, 0.0f, &D3DXVECTOR2(m_VP.Width - 210, m_VP.Height - 150));
-	D3DXMatrixTransformation2D(&m_matCoinNumber0, NULL, 0.0f, &D3DXVECTOR2(0.25f, 0.25f), NULL, 0.0f, &D3DXVECTOR2(140, m_VP.Height - 150));
-	D3DXMatrixTransformation2D(&m_matCoinNumber1, NULL, 0.0f, &D3DXVECTOR2(0.25f, 0.25f), NULL, 0.0f, &D3DXVECTOR2(70, m_VP.Height - 150));
-	D3DXMatrixTransformation2D(&m_matCoinNumber2, NULL, 0.0f, &D3DXVECTOR2(0.25f, 0.25f), NULL, 0.0f, &D3DXVECTOR2(0, m_VP.Height - 150));
+	D3DXMatrixTransformation2D(&m_matCoinNumber0, NULL, 0.0f, &D3DXVECTOR2(0.25f, 0.25f), NULL, 0.0f, &D3DXVECTOR2(180, m_VP.Height - 150));
+	D3DXMatrixTransformation2D(&m_matCoinNumber1, NULL, 0.0f, &D3DXVECTOR2(0.25f, 0.25f), NULL, 0.0f, &D3DXVECTOR2(120, m_VP.Height - 150));
+	D3DXMatrixTransformation2D(&m_matCoinNumber2, NULL, 0.0f, &D3DXVECTOR2(0.25f, 0.25f), NULL, 0.0f, &D3DXVECTOR2(60, m_VP.Height - 150));
+	m_pMinusTexture = g_pTextureManager->GetTexture(L"./Resources/StageTexture/Minus.png", &m_STMinusImageInfo);
+	D3DXMatrixTransformation2D(&m_matMinus, NULL, 0.0f, &D3DXVECTOR2(0.25f, 0.25f), NULL, 0.0f, &D3DXVECTOR2(0, m_VP.Height - 150));
+
 	m_nTimer = 300 * 60;
 }
 
@@ -53,6 +56,14 @@ void cStageUI::Render()
 	int CS0 = DATABASE->GetTip();
 	int CS1 = DATABASE->GetTip();
 	int CS2 = DATABASE->GetTip();
+	bool isNegative = false;
+	if (DATABASE->GetTip() < 0)
+	{
+		CS0 *= -1;
+		CS1 *= -1;
+		CS2 *= -1;
+		isNegative = true;
+	}
 	CS0 = CS0 % 10;
 	CS1 /= 10;
 	CS1 = CS1 % 10;
@@ -135,7 +146,22 @@ void cStageUI::Render()
 			NULL,
 			NULL,
 			D3DCOLOR_ARGB(255, 255, 255, 255));
+		if (isNegative == true)
+		{
+			m_pSprite->SetTransform(&m_matMinus);
+			m_pSprite->Draw(
+				m_pMinusTexture,
+				NULL,
+				NULL,
+				NULL,
+				D3DCOLOR_ARGB(255, 255, 255, 255));
+		}
 
 		m_pSprite->End();
 	}
+}
+
+void cStageUI::ViewScore()
+{
+
 }

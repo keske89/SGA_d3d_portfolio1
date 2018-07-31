@@ -134,12 +134,12 @@ void cStage::Setup(int stageNum, vector<pair<int, D3DXMATRIX>>& vecNewObj, vecto
 
 	CloseHandle(file);
 
-	SOUNDMANAGER->addSound("BGM00", "./sound/GRANZO-CIRCLE.mp3", true, true);
-	SOUNDMANAGER->addSound("BGM01", "./sound/Biryong.mp3", true, true);
-	SOUNDMANAGER->addSound("BGM02", "./sound/Undertale Megalovania - Metal Cover  RichaadEB.mp3", true, true);
-	SOUNDMANAGER->addSound("BGM03", "./sound/Mega Man 2 - Intro - Metal Cover.mp3", true, true);
-	SOUNDMANAGER->addSound("BGM04", "./sound/F-Zero - Big Blue  Mute City.mp3", true, true);
-	SOUNDMANAGER->addSound("BGM05", "./sound/Pokemon Title Theme Guitar Cover.mp3", true, true);
+	SOUNDMANAGER->addSound("BGM00", "./sound/GRANZO-CIRCLE.mp3", true, false);
+	SOUNDMANAGER->addSound("BGM01", "./sound/Biryong.mp3", true, false);
+	SOUNDMANAGER->addSound("BGM02", "./sound/Undertale Megalovania - Metal Cover  RichaadEB.mp3", true, false);
+	SOUNDMANAGER->addSound("BGM03", "./sound/Mega Man 2 - Intro - Metal Cover.mp3", true, false);
+	SOUNDMANAGER->addSound("BGM04", "./sound/F-Zero - Big Blue  Mute City.mp3", true, false);
+	SOUNDMANAGER->addSound("BGM05", "./sound/Pokemon Title Theme Guitar Cover.mp3", true, false);
 	SOUNDMANAGER->play("BGM00", CH_BGM, 1.0f);
 }
 
@@ -151,26 +151,22 @@ void cStage::Update()
 	}
 	if (SOUNDMANAGER->isPlaySound(CH_BGM) == false)
 	{
+		m_nSoundNum = rand() % 5;
 		switch (m_nSoundNum)
 		{
 		case(0):
-			m_nSoundNum++;
 			SOUNDMANAGER->play("BGM01", CH_BGM, 1.0f);
 			break;
 		case(1):
-			m_nSoundNum++;
 			SOUNDMANAGER->play("BGM02", CH_BGM, 1.0f);
 			break;
 		case(2):
-			m_nSoundNum++;
 			SOUNDMANAGER->play("BGM03", CH_BGM, 1.0f);
 			break;
 		case(3):
-			m_nSoundNum++;
 			SOUNDMANAGER->play("BGM04", CH_BGM, 1.0f);
 			break;
 		case(4):
-			m_nSoundNum++;
 			SOUNDMANAGER->play("BGM05", CH_BGM, 1.0f);
 			break;
 		default:
