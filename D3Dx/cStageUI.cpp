@@ -40,6 +40,7 @@ void cStageUI::Setup()
 	m_pTimeUpTexture = g_pTextureManager->GetTexture(L"./Resources/Texture2D/ScoreSummary_TimesUp.png", &m_STTimeUpImageInfo);
 	D3DXMatrixTransformation2D(&m_matOutro, NULL, 0.0f, &D3DXVECTOR2(1.0f, 1.0f), NULL, 0.0f, &D3DXVECTOR2(m_VP.Width / 2.0f - 447, m_VP.Height / 2.0f - 100));
 	m_pPauseTexture = g_pTextureManager->GetTexture(L"./Resources/StageTexture/Pause.png", &m_STPauseImageInfo);
+	D3DXMatrixTransformation2D(&m_matPause, NULL, 0.0f, &D3DXVECTOR2(2.0f, 2.0f), NULL, 0.0f, &D3DXVECTOR2(m_VP.Width / 2.0f - 300, m_VP.Height / 2.0f - 165));
 
 	SOUNDMANAGER->addSound("1UpSound", "./Sound/smb_1-up.wav", false, false);
 	m_nTimer = 300 * 60;
@@ -298,4 +299,13 @@ bool cStageUI::StageOutro()
 
 void cStageUI::RenderPause()
 {
+	m_pSprite->Begin(D3DXSPRITE_ALPHABLEND);
+	m_pSprite->SetTransform(&m_matPause);
+	m_pSprite->Draw(
+		m_pPauseTexture,
+		NULL,
+		NULL,
+		NULL,
+		D3DCOLOR_ARGB(255, 255, 255, 255));
+	m_pSprite->End();
 }

@@ -133,8 +133,16 @@ void cStageScene::Update()
 
 	if (KEYMANAGER->isOnceKeyDown(VK_RETURN))
 	{
-		if (m_bPause == false) m_bPause = true;
-		else if (m_bPause == true) m_bPause = false;
+		if (m_bPause == false)
+		{
+			m_bPause = true;
+			SOUNDMANAGER->pause(CH_BGM);
+		}
+		else if (m_bPause == true)
+		{
+			m_bPause = false;
+			SOUNDMANAGER->resume(CH_BGM);
+		}
 	}
 
 	if (m_bCameraSetting == true && m_bPause == false)
@@ -179,7 +187,7 @@ void cStageScene::Render()
 	}
 	else if (m_bPause == true)
 	{
-
+		m_pStageUI->RenderPause();
 	}
 
 	if (m_pStage)
