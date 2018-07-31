@@ -14,6 +14,7 @@ private:
 	LPDIRECT3DTEXTURE9	m_pGoTexture;
 	LPDIRECT3DTEXTURE9	m_pStarTexture;
 	LPDIRECT3DTEXTURE9	m_pTimeUpTexture;
+	LPDIRECT3DTEXTURE9	m_pPauseTexture;
 	D3DXIMAGE_INFO		m_STTimerImageInfo;
 	D3DXIMAGE_INFO		m_STCoinImageInfo;
 	D3DXIMAGE_INFO		m_STNumberImageInfo;
@@ -22,6 +23,7 @@ private:
 	D3DXIMAGE_INFO		m_STGoImageInfo;
 	D3DXIMAGE_INFO		m_STStarImageInfo;
 	D3DXIMAGE_INFO		m_STTimeUpImageInfo;
+	D3DXIMAGE_INFO		m_STPauseImageInfo;
 	D3DXMATRIX			m_matTimer;
 	D3DXMATRIX			m_matCoin;
 	D3DXMATRIX			m_matNumberSecond0;
@@ -36,6 +38,7 @@ private:
 	D3DXMATRIX			m_matStar1;
 	D3DXMATRIX			m_matStar2;
 	D3DXMATRIX			m_matStar3;
+	D3DXMATRIX			m_matPause;
 public:
 	cStageUI();
 	~cStageUI();
@@ -46,6 +49,7 @@ public:
 
 	bool StageIntro(int timer);
 	bool StageOutro();
+	void RenderPause();
 
 	inline bool getTimeUp() { 
 		if (m_nTimer <= 0) return true; 

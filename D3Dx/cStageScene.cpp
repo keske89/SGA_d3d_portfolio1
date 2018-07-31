@@ -177,6 +177,10 @@ void cStageScene::Render()
 			SCENEMANAGER->ChangeScene("WMScene");
 		}
 	}
+	else if (m_bPause == true)
+	{
+
+	}
 
 	if (m_pStage)
 		m_pStage->Render();

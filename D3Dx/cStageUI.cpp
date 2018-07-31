@@ -38,10 +38,11 @@ void cStageUI::Setup()
 	m_pGoTexture = g_pTextureManager->GetTexture(L"./Resources/Texture2D/LevelIntro_Go.png", &m_STGoImageInfo);
 	m_pStarTexture = g_pTextureManager->GetTexture(L"./Resources/Texture2D/ScoreSummary_Star.png", &m_STStarImageInfo);
 	m_pTimeUpTexture = g_pTextureManager->GetTexture(L"./Resources/Texture2D/ScoreSummary_TimesUp.png", &m_STTimeUpImageInfo);
-	m_nTimer = 300 * 60;
 	D3DXMatrixTransformation2D(&m_matOutro, NULL, 0.0f, &D3DXVECTOR2(1.0f, 1.0f), NULL, 0.0f, &D3DXVECTOR2(m_VP.Width / 2.0f - 447, m_VP.Height / 2.0f - 100));
+	m_pPauseTexture = g_pTextureManager->GetTexture(L"./Resources/StageTexture/Pause.png", &m_STPauseImageInfo);
 
 	SOUNDMANAGER->addSound("1UpSound", "./Sound/smb_1-up.wav", false, false);
+	m_nTimer = 300 * 60;
 }
 
 void cStageUI::Update()
@@ -293,4 +294,8 @@ bool cStageUI::StageOutro()
 	{
 		return true;
 	}
+}
+
+void cStageUI::RenderPause()
+{
 }
