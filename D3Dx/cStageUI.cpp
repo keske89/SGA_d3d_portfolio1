@@ -18,7 +18,6 @@ cStageUI::~cStageUI()
 
 void cStageUI::Setup()
 {
-	D3DVIEWPORT9 m_VP;
 	g_pD3DDevice->GetViewport(&m_VP);
 	D3DXCreateSprite(g_pD3DDevice, &m_pSprite);
 	m_pTimerTexture = g_pTextureManager->GetTexture(L"./Resources/Texture2D/Timer_Background.png", &m_STTimerImageInfo);
@@ -34,7 +33,9 @@ void cStageUI::Setup()
 	D3DXMatrixTransformation2D(&m_matCoinNumber2, NULL, 0.0f, &D3DXVECTOR2(0.25f, 0.25f), NULL, 0.0f, &D3DXVECTOR2(60, m_VP.Height - 150));
 	m_pMinusTexture = g_pTextureManager->GetTexture(L"./Resources/StageTexture/Minus.png", &m_STMinusImageInfo);
 	D3DXMatrixTransformation2D(&m_matMinus, NULL, 0.0f, &D3DXVECTOR2(0.25f, 0.25f), NULL, 0.0f, &D3DXVECTOR2(0, m_VP.Height - 150));
-
+	m_pReadyTexture = g_pTextureManager->GetTexture(L"./Resources/Texture2D/LevelIntro_Ready.png", &m_STReadyImageInfo);
+	m_pGoTexture = g_pTextureManager->GetTexture(L"./Resources/Texture2D/LevelIntro_Go.png", &m_STGoImageInfo);
+	m_pStarTexture = g_pTextureManager->GetTexture(L"./Resources/Texture2D/Level_Star_Available.png", &m_STStarImageInfo);
 	m_nTimer = 300 * 60;
 }
 
@@ -161,7 +162,42 @@ void cStageUI::Render()
 	}
 }
 
-void cStageUI::ViewScore()
+bool cStageUI::StageIntro(int timer)
 {
+	if (timer < 240)
+	{
+		float fScale = timer / 240.0f;
+		D3DXMatrixTransformation2D(&m_matIntro, NULL, 0.0f, &D3DXVECTOR2(0.2f * fScale, 0.2f * fScale), NULL, 0.0f, &D3DXVECTOR2(m_VP.Width / 2.0f - 150.0f * fScale, m_VP.Height / 2.0f - 50.0f * fScale));
+		m_pSprite->Begin(D3DXSPRITE_ALPHABLEND);
+		m_pSprite->SetTransform(&m_matIntro);
+		m_pSprite->Draw(
+			m_pReadyTexture,
+			NULL,
+			NULL,
+			NULL,
+			D3DCOLOR_ARGB(255, 255, 255, 255));
+		m_pSprite->End();
+		return false;
+	}
+	else if (timer < 360)
+	{
+		float fScale = (timer - 240.0f) / 120.0f;
+		D3DXMatrixTransformation2D(&m_matIntro, NULL, 0.0f, &D3DXVECTOR2(0.2f * fScale, 0.2f * fScale), NULL, 0.0f, &D3DXVECTOR2(m_VP.Width / 2.0f - 150.0f * fScale, m_VP.Height / 2.0f - 50.0f * fScale));
+		m_pSprite->Begin(D3DXSPRITE_ALPHABLEND);
+		m_pSprite->SetTransform(&m_matIntro);
+		m_pSprite->Draw(
+			m_pGoTexture,
+			NULL,
+			NULL,
+			NULL,
+			D3DCOLOR_ARGB(255, 255, 255, 255));
+		m_pSprite->End();
+		return false;
+	}
+	else return true;
+}
 
+bool cStageUI::StageOuttro()
+{
+	return false;
 }

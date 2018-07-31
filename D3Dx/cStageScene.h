@@ -32,7 +32,7 @@ private:
 
 	bool							m_bCameraSetting;
 	float							m_fCameraAngle;
-
+	int								m_nTimer;
 public:
 	cStageScene();
 	~cStageScene();

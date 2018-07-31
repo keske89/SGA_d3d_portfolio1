@@ -21,6 +21,7 @@ cStageScene::cStageScene()
 	, m_pCollision(NULL)
 	, m_pBG(NULL)
 	, m_pStageUI(NULL)
+	, m_nTimer(0)
 {
 	m_pChef[0] = NULL;
 	m_pChef[1] = NULL;
@@ -154,6 +155,8 @@ void cStageScene::Update()
 		if (m_pStage)
 			m_pStage->Update();
 	}
+
+	m_nTimer++;
 }
 
 void cStageScene::Render()
@@ -162,7 +165,10 @@ void cStageScene::Render()
 		m_pStage->Render();
 
 	if (m_pStageUI)
+	{
+		m_pStageUI->StageIntro(m_nTimer);
 		m_pStageUI->Render();
+	}
 
 	//if (m_pGrid)
 	//	m_pGrid->Render();
