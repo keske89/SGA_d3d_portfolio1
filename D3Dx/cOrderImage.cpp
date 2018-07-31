@@ -71,6 +71,12 @@ void cOrderImage::Render(LPD3DXSPRITE pSprite)
 
 
 
+void cOrderImage::Destroy()
+{
+	SAFE_RELEASE(m_pSprite);
+	SAFE_RELEASE(m_pgBar);
+}
+
 void cOrderImage::Shaking()
 {
 	D3DXMATRIX rotY;

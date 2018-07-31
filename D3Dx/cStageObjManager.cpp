@@ -49,6 +49,12 @@ cStageObjManager::~cStageObjManager()
 	}
 	
 	SAFE_RELEASE(m_pSprite);
+
+	for (auto p : m_vecOrder)
+	{
+		p->Destroy();
+	}
+	
 	
 }
 
@@ -231,7 +237,7 @@ void cStageObjManager::EraseOrder(int index)
 	{
 		DATABASE->ChangeTip(10);
 	}
-	
+	m_vecOrder[index]->Destroy();
 	m_vecOrder.erase(m_vecOrder.begin() + index);
 
 }
@@ -252,7 +258,7 @@ void cStageObjManager::TimeUpOrder()
 
 void cStageObjManager::OrderSystem()
 {
-	if (stagecount % 500 == 0 && m_vecOrder.size() < 5)
+	if (stagecount % 300 == 0 && m_vecOrder.size() < 5)
 	{
 		cOrderImage* pOrderImage = new cOrderImage;
 		pOrderImage->SetPosition(D3DXVECTOR3(10 + (250 * m_vecOrder.size()), 10, 0));

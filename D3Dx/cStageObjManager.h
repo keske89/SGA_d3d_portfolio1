@@ -22,6 +22,7 @@ class cOnion;
 class cKnife;
 // ui
 class cOrder;
+class cOrderImage;
 
 enum OBJECTTYPE
 {
