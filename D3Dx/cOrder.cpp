@@ -48,7 +48,7 @@ void cOrder::Update()
 		child->Update();
 	}
 
-	count -= 0.01f;
+	count -= 0.1f;
 }
 
 void cOrder::Render(LPD3DXSPRITE pSprite)

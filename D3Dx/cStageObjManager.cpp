@@ -248,6 +248,7 @@ void cStageObjManager::TimeUpOrder()
 	{
 		if(m_vecOrder[i]->GetCount() <=0)
 		{
+			m_vecOrder[i]->Destroy();
 			m_vecOrder.erase(m_vecOrder.begin() + i);
 			DATABASE->ChangeTip(-10);
 		}
